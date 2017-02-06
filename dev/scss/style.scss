@@ -1,0 +1,158 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+/* CSS - Ctool*/
+
+body {
+  background: #C0C0C0; }
+
+.page-heading {
+  color: #363636; }
+
+.content {
+  background: #ffffff;
+ }
+
+.sap-btn {
+  height: 36px; }
+
+.data-block {
+  background: #ffffff; }
+
+.sap-btn-primary {
+  border: solid 1px #0076cb;
+  color: #0076cb;
+  background: #ffffff;
+  min-width: 120px; }
+
+.sap-btn-primary:hover {
+  background: #0076cb;
+  color: #ffffff; }
+
+.sap-form {
+  color: #767676; }
+  .sap-form .form-control {
+    border-radius: 0;
+    height: 32px; }
+  .sap-form .table {
+    width: 100%;
+    font-family: ArialMT;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    color: #363636; }
+  .sap-form tr:hover {
+    background-color: #f5f5f5; }
+  .sap-form table > tbody > tr > td {
+    vertical-align: middle; }
+  .sap-form label {
+    font-weight: normal;
+    color: #767676; }
+  .sap-form input, .sap-form select {
+    color: #767676; }
+
+span.error {
+  color: #c11616;
+  font-size: 12px;
+  width: 100%;
+  display: block;
+  text-align: right; }
+
+.footer {
+  height: 15px;
+  position: fixed;
+  font-size: 10px;
+  bottom: 0;
+  background: #767676;
+  color: #ffffff;
+  width: 100%; }
+
+.login-container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 25vh;
+  text-align: center; }
+
+  .login-container button {
+    margin-top: 10px; }
+
+.login-container h2{
+  margin-top: 5px; 
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto; }
+
+.form-signin label{
+  text-align: left;
+}
+
+.text-block{
+  display: block;
+}
+
+.top-margin{
+  margin-top: 10px;
+}
+
+.form-signin .form-signin-heading, .form-signin .checkbox {
+  margin-bottom: 10px; }
+
+.required {
+  color: #c11616; }
+
+.breadcrumbs {
+  color: #00679e; }
+
+.showTable {
+  display: block; }
+
+.hideTable {
+  display: none; }
+
+.hr-extended {
+  width: 100%;
+  border-bottom: 1px solid #d7d7d7;
+  margin: 10px 0 20px 0; }
+
+li > button{
+  margin-top: 7px;
+}
+
+.other-than-main{
+  background: #FFFFFF;
+  height: 100vh;
+}
+
+.custom-anchor:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
