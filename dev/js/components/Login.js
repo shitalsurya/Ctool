@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import UserList from '../containers/user-list';
 import UserDetails from '../containers/user-detail';
 import { LinkContainer } from 'react-router-bootstrap';
-import Navbar from 'react-bootstrap/lib/Navbar';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {login} from '../actions/index'
