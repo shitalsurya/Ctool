@@ -2,15 +2,22 @@
  * Created by Sachin on 2/5/2017.
  */
 import React from 'react';
+import {connect} from 'react-redux';
+
+import { bindActionCreators } from 'redux';
 require('../../scss/style.scss');
 
+
+	
 export default class Dashboard extends React.Component {
     constructor(props, context) {
         super(props, context);
     }
 
     render() {
+    	
         return (
+        		
             <div className="other-than-main">
                 <nav className="navbar navbar-default navbar-static-top navbar-inverse">
                     <div className="container-fluid">
