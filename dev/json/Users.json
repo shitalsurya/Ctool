@@ -1,0 +1,21 @@
+{
+"data":  [
+            {
+                "name": "Adam Gilli",
+                "id": 1
+            },
+            {
+                "name": "Ricky Punter",
+                "id": 2
+            },
+            {
+                "name": "Optimus Prime",
+                "id": 3
+            },
+            {
+                "name": "Peter Parker",
+                "id": 4
+            }
+        ]
+ }
+

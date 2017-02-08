@@ -1,50 +1,29 @@
-/**
- * Created by Sachin on 2/5/2017.
- */
 import React from 'react';
 import {connect} from 'react-redux';
 
 import { bindActionCreators } from 'redux';
+import Users from '../../json/Users.json';
+console.log("Users==",Users);
 require('../../scss/style.scss');
 
 
 	
-export default class Dashboard extends React.Component {
+export default class Account extends React.Component {
     constructor(props, context) {
         super(props, context);
     }
-
-    render() {
+    handleAccMgrChange(){
     	
+    }
+    render() {
+    	var listUsers = Users.data.map(function (user) {
+            return (
+                <option key={user.name} value={user.name}>{user.name}</option>
+            );
+        });
         return (
         		
             <div className="other-than-main">
-                <nav className="navbar navbar-default navbar-static-top navbar-inverse">
-                    <div className="container-fluid">
-                        <div className="navbar-header">
-                            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            </button>
-                            <a className="navbar-brand" href="#">CTOOL</a>
-                        </div>
-                        <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul className="nav navbar-nav">
-                                <li className="active"><a href="#">Accounts <span className="sr-only">(current)</span></a></li>
-                                <li><a href="#">Connections</a></li>
-                                <li><a href="#">Operators</a></li>
-                                <li><a href="#">Miscelleneous</a></li>
-                                <li><a href="#">Toolbox</a></li>
-                                <li>
-                                    <button className="sap-btn sap-btn-primary" onClick={this.showAbout.bind(this)}>About Us</button>
-                                </li>
-                            </ul>
-                            <ul className="nav navbar-nav navbar-right">
-                                <li><a href="/">Logout</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-
-
                 <div className='sap-form'>
                     <section>
                         <form className="ctoolControllerForm">
@@ -68,9 +47,10 @@ export default class Dashboard extends React.Component {
                                                     <td className="col-md-9 col-sm-9 col-lg-9 col-xs-9">
                                                         <div className="row">
                                                             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                                <select className="form-control" id="sel1"
-                                                                    ng-options="opt.name for opt in commercial.users"
-                                                                    ng-model="json.acctMgr"></select>
+                                                            <select className="form-control"
+                                                            onChange={this.handleAccMgrChange.bind(this)} ref="accMgr">
+                                                            {listUsers}
+                                                            </select>
 
                                                             </div>
                                                         </div>
@@ -326,24 +306,7 @@ export default class Dashboard extends React.Component {
                     </section>
                 </div>
 
-
-                <footer className="footer">
-                    <div className="col-xs-0 col-sm-0 col-md-1 col-lg-1"></div>
-                    <div className="col-xs-12 col-sm-12 col-md-10 col-lg-10 ">
-                        <label>v6.6.6 &copy; CTOOL</label>
-                    </div>
-                    <div className="col-xs-0 col-sm-0 col-md-1 col-lg-1"></div>
-
-                </footer>
-
             </div>
         )
     }
-    showAbout() {
-        this.context.router.push('about');
-    }
 }
-
-Dashboard.contextTypes = {
-    router: React.PropTypes.object.isRequired
-};

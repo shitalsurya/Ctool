@@ -1,6 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import UserList from '../containers/user-list';
-import UserDetails from '../containers/user-detail';
 import { LinkContainer } from 'react-router-bootstrap';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -23,6 +21,10 @@ class Login extends Component {
 	  constructor(props, context) {
 	      super(props, context);
 	    }
+	  componentDidUpdate ()
+		{
+		       
+		}
 	  render() {
 		  const {token} = this.props;
 		    return (
@@ -43,11 +45,11 @@ class Login extends Component {
 		            <h2 className="form-signin-heading">Login</h2>
 		            <p>Hint: abc@test.com / abc</p>
 		            <label className="text-block top-margin">User Name</label>
-		            <input type="text" ref="userEmail" className="form-control" 
+		            <input type="text" ref="userEmail" value="abc@test.com" className="form-control" 
 		              placeholder="User Name" required=""  />
 
 		            <label className="text-block top-margin">Password</label>
-		            <input type="password" ref="userPassword"
+		            <input type="password" ref="userPassword" value="abc" 
 		              className="form-control" placeholder="Password" required="" />
 
 		            <button className="sap-btn sap-btn-primary btn-block" onClick={this.handleLogin.bind(this)}>Sign in</button>
@@ -68,6 +70,8 @@ class Login extends Component {
 		    );
 		  }
 	  componentWillMount () {
+		//  this.refs.userEmail.value = "abc";
+		  
           this.checkAuth(this.props.token);
       }
 
