@@ -13,6 +13,8 @@ export default function (state = {
 			return Object.assign({}, state, {isLoading: false,  token: action.payload.token, error: false });
 		case types.LOGIN_FAILURE:
 			return Object.assign({}, state, {isLoading: true, error: false });
+		case types.TOOLBOX_SEARCH:
+			return Object.assign({}, state, {isLoading: true,menu:action.payload, error: false });
 		default:
 			return state;
 	}

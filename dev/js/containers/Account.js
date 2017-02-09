@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 
 import { bindActionCreators } from 'redux';
 import Users from '../../json/Users.json';
-console.log("Users==",Users);
 require('../../scss/style.scss');
 
 

@@ -8,16 +8,6 @@ require('../../scss/style.scss');
 
 
 class Login extends Component {
-	
-//	  handleSubmit (event){
-//	    event.preventDefault();
-//	    console.log("this.refs.username==",this.refs.username.value);
-//	    const input = this.refs.username;
-//	    //this.props.pushState('/dashboard');
-//	    var result = this.props.login(input.value);
-//	    console.log("resulte==",result);
-//	    input.value = '';
-//	  }
 	  constructor(props, context) {
 	      super(props, context);
 	    }
@@ -70,8 +60,6 @@ class Login extends Component {
 		    );
 		  }
 	  componentWillMount () {
-		//  this.refs.userEmail.value = "abc";
-		  
           this.checkAuth(this.props.token);
       }
 
@@ -103,15 +91,3 @@ function mapStateToProps(state) {
 	}
 
 	export default connect(mapStateToProps, mapDispatchToProps)(Login);
-/*function mapStateToProps(state) {
-    return {
-        //users: state.users
-    };
-}
-function matchDispatchToProps(dispatch){
-    return bindActionCreators({loginUser: loginUser}, dispatch);
-}
-
-// We don't want to return the plain UserList (component) anymore, we want to return the smart Container
-//      > UserList is now aware of state and actions
-export default connect(mapStateToProps, matchDispatchToProps)(Login);*/

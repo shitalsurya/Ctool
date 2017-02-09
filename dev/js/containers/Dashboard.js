@@ -1,12 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Account from '../containers/Account';
+import Search from '../containers/Search';
 import { bindActionCreators } from 'redux';
+import {navigateMenus} from '../actions/actions';
+import * as types from '../actions/actionTypes';
 require('../../scss/style.scss');
 
 
 	
-export default class Dashboard extends React.Component {
+class Dashboard extends React.Component {
     constructor(props, context) {
         super(props, context);
     }
@@ -29,7 +32,7 @@ export default class Dashboard extends React.Component {
                                 <li><a href="#">Connections</a></li>
                                 <li><a href="#">Operators</a></li>
                                 <li><a href="#">Miscelleneous</a></li>
-                                <li><a href="#">Toolbox</a></li>
+                                <li><a href="#" onClick={this.navigateMenus.bind(this,types.TOOLBOX_SEARCH)}>Toolbox</a></li>
                                 <li>
                                     <button className="sap-btn sap-btn-primary" onClick={this.showAbout.bind(this)}>About Us</button>
                                 </li>
@@ -40,7 +43,8 @@ export default class Dashboard extends React.Component {
                         </div>
                     </div>
                 </nav>
-                <Account></Account>
+                { this.showAccount && <Account /> }
+                { this.showSearch && <Search /> }
                 <footer className="footer">
                     <div className="col-xs-0 col-sm-0 col-md-1 col-lg-1"></div>
                     <div className="col-xs-12 col-sm-12 col-md-10 col-lg-10 ">
@@ -56,8 +60,35 @@ export default class Dashboard extends React.Component {
     showAbout() {
         this.context.router.push('about');
     }
+    componentWillReceiveProps (nextProps) {
+        this.checkCurrentMenu(nextProps.currentMenu);
+    }
+    checkCurrentMenu(currentMenu) {
+    	 console.log("checkCurrentMenu==",currentMenu);
+    	 switch(currentMenu){
+    	 case types.TOOLBOX_SEARCH:
+    		 this.showSearch=true;
+    		 break;
+    	default:
+    		 this.showAccount=true;
+    		 break;
+    	 }
+    }
+    navigateMenus(_menu){
+    	 this.props.navigateMenus(_menu);
+    }
 }
 
 Dashboard.contextTypes = {
     router: React.PropTypes.object.isRequired
 };
+
+function mapStateToProps(state) {
+	  return { currentMenu: state.Auth.menu };
+	}
+
+	function mapDispatchToProps(dispatch) {
+		return bindActionCreators({navigateMenus: navigateMenus}, dispatch);
+	}
+
+	export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
