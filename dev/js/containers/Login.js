@@ -11,10 +11,6 @@ class Login extends Component {
 	  constructor(props, context) {
 	      super(props, context);
 	    }
-	  componentDidUpdate ()
-		{
-		       
-		}
 	  render() {
 		  const {token} = this.props;
 		    return (

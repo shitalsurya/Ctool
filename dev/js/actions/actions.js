@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { pushState } from 'redux-react-router';
 import * as types from '../actions/actionTypes';
+import Products from '../../json/Products.json';
 //axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
 export function loginUserRequest() {
@@ -58,6 +59,37 @@ export function navigateMenus(menu) {
 			dispatch(menuToolbox());
 			break;
 		}
+	
+	}
+}
+export function requestSearch(searchTerm) {
+	var response={};
+	response.data=Products.data;
+	return function(dispatch) {
+	dispatch(searchSuccess(response.data));
+	}
+}
+//return function(dispatch) {
+//	dispatch(loginUserRequest());
+//	return axios.post('http://10.19.2.28:3000/auth/getToken', {
+//		email:email,password:password
+//		//email: "abc@test.com", password: "abc"
+//	  })
+//		.then(function(response) {
+//			console.log("loginSuccess response==",response);
+//			dispatch(loginSuccess(response.data));
+//		})
+//		.catch(function(response){
+//			console.log("loginFailure response==",response);
+//			dispatch(loginFailure(response.data));
+//			//dispatch(pushState(null,'/error'));
+//		})
+//}
+export function searchSuccess(data){
+	console.log("searchSuccess==",data);
+	return{
+		 type: types.SEARCH_REQUEST,
+		 payload:data
 	
 	}
 }

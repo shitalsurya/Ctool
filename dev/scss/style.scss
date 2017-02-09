@@ -149,10 +149,32 @@ li > button{
 
 .other-than-main{
   background: #FFFFFF;
-  height: 100vh;
+	min-height: 100vh;
 }
 
 .custom-anchor:hover {
   text-decoration: none;
   cursor: pointer;
 }
+.data-container{
+margin: 10 auto;
+padding: 10px;
+}
+
+//SEARCH PAGE CSS
+.SearchGrid div{
+  // border: 1px solid #C0C0C0;
+ // padding: 5 -10;
+
+}
+
+.search-section{
+  padding: 0px;
+}
+
+.checkbox-grp{ 
+   span{
+    margin-right: 20px;
+  // padding-left: 10px;
+ }    
+}  

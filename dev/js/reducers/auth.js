@@ -15,6 +15,8 @@ export default function (state = {
 			return Object.assign({}, state, {isLoading: true, error: false });
 		case types.TOOLBOX_SEARCH:
 			return Object.assign({}, state, {isLoading: true,menu:action.payload, error: false });
+		case types.SEARCH_REQUEST:
+			return Object.assign({}, state, {isLoading: true,data:action.payload, error: false });
 		default:
 			return state;
 	}

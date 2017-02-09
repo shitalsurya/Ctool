@@ -1,9 +1,17 @@
 {
 "data":  [
             {
-                "name": "Adam Gilli",
+                "name": "10GRAD_89998_MIG_RS_HTTP",
                 "id": 1,
-		      "price": 2100 
+		      "price": 2100,
+		      "Company":"TESTFINALLIST",
+					     "Status":"Live",
+					     "TPOA":"",
+					     "RS":"",
+					     "Type":"",
+					     "Interface":"",
+					     "Restr.":"",
+					     "Billing Location":""
             },
             {
                 "name": "Ricky Punter",
