@@ -88,3 +88,18 @@ export function searchSuccess(data){
 	
 	}
 }
+
+export function requestAccountNext(data){
+	console.log("searchSuccess==",data);
+	return{
+		 type: types.SEARCH_REQUEST,
+		 payload:data
+	
+	}
+}
+export function handleAccountNext(value){
+	return function(dispatch) {
+		dispatch(requestAccountNext(value));
+		}
+	
+}
