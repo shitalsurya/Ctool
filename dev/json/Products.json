@@ -16,27 +16,67 @@
             {
                 "name": "Ricky Punter",
                 "id": 2,
-                  "price": 2100 
+                  "price": 2100 ,
+                  "Company":"TESTFINALLIST",
+					     "Status":"Live",
+					     "TPOA":"123",
+					     "RS":"123",
+					     "Type":"adsd",
+					     "Interface":"asd",
+					     "Restr.":"asd",
+					     "Billing Location":"123"
             },
             {
                 "name": "Optimus Prime",
                 "id": 3,
-                  "price": 2100 
+                  "price": 2100  ,
+                  "Company":"TESTFINALLIST",
+					     "Status":"Live",
+					     "TPOA":"123",
+					     "RS":"123",
+					     "Type":"adsd",
+					     "Interface":"asd",
+					     "Restr.":"asd",
+					     "Billing Location":"123"
             },
             {
                 "name": "Peter Parker",
                 "id": 4,
-                  "price": 2100 
+                  "price": 2100  ,
+                  "Company":"TESTFINALLIST",
+					     "Status":"Live",
+					     "TPOA":"123",
+					     "RS":"123",
+					     "Type":"adsd",
+					     "Interface":"asd",
+					     "Restr.":"asd",
+					     "Billing Location":"123"
             },
              {
                 "name": "Adam Gilli",
                 "id": 1,
-		      "price": 2100 
+		      "price": 2100  ,
+                  "Company":"TESTFINALLIST",
+					     "Status":"Live",
+					     "TPOA":"123",
+					     "RS":"123",
+					     "Type":"adsd",
+					     "Interface":"asd",
+					     "Restr.":"asd",
+					     "Billing Location":"123"
             },
             {
                 "name": "Ricky Punter",
                 "id": 2,
-                  "price": 2100 
+                  "price": 2100  ,
+                  "Company":"TESTFINALLIST",
+					     "Status":"Live",
+					     "TPOA":"123",
+					     "RS":"123",
+					     "Type":"adsd",
+					     "Interface":"asd",
+					     "Restr.":"asd",
+					     "Billing Location":"123"
             },
             {
                 "name": "Optimus Prime",

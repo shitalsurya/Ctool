@@ -22,12 +22,7 @@ export function loginFailure(data) {
 	    payload: data
 	  }
 	}
-export function menuToolbox(){
-	return {
-	    type:types.TOOLBOX_SEARCH,
-	    payload: types.TOOLBOX_SEARCH
-	  }
-}
+
 export function loginUser(email, password) {
 	var response={};
 		response.data = {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlRlc3QgVXNlciJ9.J6n4-v0I85zk9MkxBHroZ9ZPZEES-IKeul9ozxYnoZ8"};
@@ -54,12 +49,25 @@ export function loginUser(email, password) {
 
 export function navigateMenus(menu) {
 	return function(dispatch) {
-		switch(menu){
-		case types.TOOLBOX_SEARCH:
-			dispatch(menuToolbox());
-			break;
-		}
+		dispatch(navigateMenusRequest(menu));
 	
+	}
+}
+export function navigateMenusRequest(menu){
+	switch(menu){
+	case types.TOOLBOX_SEARCH:
+			return {
+			    type:types.TOOLBOX_SEARCH,
+			    payload: types.TOOLBOX_SEARCH
+			  }
+		break;
+	case types.ACCOUNT_CREATE:
+		return {
+		    type:types.ACCOUNT_CREATE,
+		    payload: types.ACCOUNT_CREATE
+		  }
+		break;
+		
 	}
 }
 export function requestSearch(searchTerm) {
@@ -69,22 +77,6 @@ export function requestSearch(searchTerm) {
 	dispatch(searchSuccess(response.data));
 	}
 }
-//return function(dispatch) {
-//	dispatch(loginUserRequest());
-//	return axios.post('http://10.19.2.28:3000/auth/getToken', {
-//		email:email,password:password
-//		//email: "abc@test.com", password: "abc"
-//	  })
-//		.then(function(response) {
-//			console.log("loginSuccess response==",response);
-//			dispatch(loginSuccess(response.data));
-//		})
-//		.catch(function(response){
-//			console.log("loginFailure response==",response);
-//			dispatch(loginFailure(response.data));
-//			//dispatch(pushState(null,'/error'));
-//		})
-//}
 export function searchSuccess(data){
 	console.log("searchSuccess==",data);
 	return{

@@ -8,7 +8,6 @@ export default function (state = {
 		case types.LOGIN_USER_REQUEST:
 			return Object.assign({}, state, {isLoading: false,  error: true});
 		case types.LOGIN_SUCCESS:
-			
 			console.log("action.data",  action.payload);
 			return Object.assign({}, state, {isLoading: false,  token: action.payload.token, error: false });
 		case types.LOGIN_FAILURE:
@@ -17,6 +16,8 @@ export default function (state = {
 			return Object.assign({}, state, {isLoading: true,menu:action.payload, error: false });
 		case types.SEARCH_REQUEST:
 			return Object.assign({}, state, {isLoading: true,data:action.payload, error: false });
+		case types.ACCOUNT_CREATE:
+			return Object.assign({}, state, {isLoading: true,menu:action.payload, error: false });
 		default:
 			return state;
 	}

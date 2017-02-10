@@ -5,6 +5,8 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
 //menus
 export const TOOLBOX_SEARCH = 'TOOLBOX_SEARCH';
+export const ACCOUNT_CREATE = 'ACCOUNT_CREATE';
+
 
 //Search
 export const SEARCH_REQUEST = 'SEARCH_REQUEST';

@@ -28,7 +28,7 @@ class Dashboard extends React.Component {
                         </div>
                         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul className="nav navbar-nav">
-                                <li className="active"><a href="#">Accounts <span className="sr-only">(current)</span></a></li>
+                                <li className="active"><a href="#" onClick={this.navigateMenus.bind(this,types.ACCOUNT_CREATE)} >Accounts <span className="sr-only">(current)</span></a></li>
                                 <li><a href="#">Connections</a></li>
                                 <li><a href="#">Operators</a></li>
                                 <li><a href="#">Miscelleneous</a></li>
@@ -64,12 +64,14 @@ class Dashboard extends React.Component {
         this.checkCurrentMenu(nextProps.currentMenu);
     }
     checkCurrentMenu(currentMenu) {
-    	 console.log("checkCurrentMenu==",currentMenu);
     	 switch(currentMenu){
     	 case types.TOOLBOX_SEARCH:
     		 this.showSearch=true;
     		 break;
-    	default:
+    	 case types.ACCOUNT_CREATE:
+    		 this.showAccount=true;
+    		 break;
+    	 default:
     		 this.showAccount=true;
     		 break;
     	 }

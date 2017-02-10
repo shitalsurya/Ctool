@@ -84,38 +84,6 @@ class Search extends React.Component {
                          </tbody>        
                      </table>
                  </div>
-                 <div className="top-margin container checkbox-grp col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                     <label>Display :</label>
-                     <form>
-                         <span class="checkbox-inline">
-                         <input type="checkbox" value="" />Name
-                         </span>
-                         <span class="checkbox-inline">
-                         <input type="checkbox" value="" />Company
-                         </span>
-                         <span class="checkbox-inline">
-                         <input type="checkbox" value="" />Status
-                         </span>
-                         <span class="checkbox-inline">
-                         <input type="checkbox" value="" />TPOA
-                         </span>
-                         <span class="checkbox-inline">
-                         <input type="checkbox" value="" />RS
-                         </span>
-                         <span class="checkbox-inline">
-                         <input type="checkbox" value="" />Type
-                         </span>
-                         <span class="checkbox-inline">
-                         <input type="checkbox" value="" />Interface
-                         </span>
-                         <span class="checkbox-inline">
-                         <input type="checkbox" value="" />Restr.
-                         </span>
-                         <span class="checkbox-inline">
-                         <input type="checkbox" value="" />Billing Location
-                         </span>
-                     </form>
-                 </div>
                  <div className="top-margin col-lg-12 col-md-12 col-sm-12 col-xs-12">
                  <SearchResults Products={this.props.data}/>
                  </div>
