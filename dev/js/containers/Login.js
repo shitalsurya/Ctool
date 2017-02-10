@@ -1,5 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
+import TextField from 'material-ui/TextField';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {loginUser} from '../actions/actions';
@@ -11,9 +14,13 @@ class Login extends Component {
 	  constructor(props, context) {
 	      super(props, context);
 	    }
+	  
 	  render() {
-		  const {token} = this.props;
+		  const style = {
+				  margin: 12
+				};
 		    return (
+		    		 <MuiThemeProvider>
 		      <div className="App">
 		        <nav className="navbar navbar-default navbar-static-top navbar-inverse">
 		          <div className="container-fluid">
@@ -30,15 +37,20 @@ class Login extends Component {
 		          <form className="form-signin content" name="loginForm">
 		            <h2 className="form-signin-heading">Login</h2>
 		            <p>Hint: abc@test.com / abc</p>
-		            <label className="text-block top-margin">User Name</label>
-		            <input type="text" ref="userEmail" value="abc@test.com" className="form-control" 
-		              placeholder="User Name" required=""  />
-
-		            <label className="text-block top-margin">Password</label>
-		            <input type="password" ref="userPassword" value="abc" 
-		              className="form-control" placeholder="Password" required="" />
-
-		            <button className="sap-btn sap-btn-primary btn-block" onClick={this.handleLogin.bind(this)}>Sign in</button>
+		            <TextField
+		            	id="text-field-default"
+		            	floatingLabelText="Username"
+		            	hintText="Username"
+		            	ref="userEmail"
+		          />
+		           <br />
+		          <TextField 
+		          	  ref='userPassword'
+			          hintText="Password"
+			          floatingLabelText="Password"
+		          type="password">
+		          </TextField>
+		          <RaisedButton label="Sign in" onClick={this.handleLogin.bind(this)} style={style} backgroundColor="#767676" />
 		          </form>
 		        </div>
 
@@ -53,6 +65,7 @@ class Login extends Component {
 		        </footer>
 
 		      </div>
+		      </MuiThemeProvider>
 		    );
 		  }
 	  componentWillMount () {
@@ -69,8 +82,8 @@ class Login extends Component {
           }
       }
 	  handleLogin(){
-		  const userEmail = this.refs.userEmail.value;
-		  const userPassword = this.refs.userPassword.value;
+		  const userEmail = this.refs.userEmail.getValue();
+		  const userPassword = this.refs.userPassword.getValue();
 		  this.props.loginUser(userEmail,userPassword);
 	  }
 }	

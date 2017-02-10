@@ -15,7 +15,7 @@ class Search extends React.Component {
     		 <div className="col-lg-1 col-md-1 col-sm-0 col-xs-0"></div>
              <div className="data-container col-lg-10 col-md-10 col-sm-12 col-xs-12">
                  <div className="input-group">
-                     <div className="input-group-btn search-panel open">
+                     <div className="input-group-btn search-panel">
                          <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown">
                              <span id="search_concept">Search</span> <span className="caret"></span>
                          </button>
@@ -36,53 +36,53 @@ class Search extends React.Component {
                      <h3>Search for Account</h3>
 
                      <table className="SearchGrid table table-hover table-stripped hr-extended col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                         <tbody>
-                             <tr>
-                                 <td>Name</td>
-                                 <td>
-                                     <input type="text" className="form-control" ref="name"/>
-                                 </td>
+                     <tbody>
+                         <tr>
+                             <td>Name</td>
+                             <td>
+                                 <input type="text" className="form-control" ref="name"/>
+                             </td>
 
-                                 <td>Status</td>
-                                 <td>
-                                     <input type="text" className="form-control" ref="status"/>                                
-                                 </td>
-                             </tr>
-                             <tr>
-                                 <td>Company Name</td>
-                                 <td>
-                                 <input type="text" className="form-control" ref="company"/>                                
-                                 </td>
+                             <td>Status</td>
+                             <td>
+                                 <input type="text" className="form-control" ref="status"/>                                
+                             </td>
+                         </tr>
+                         <tr>
+                             <td>Company Name</td>
+                             <td>
+                             <input type="text" className="form-control" ref="company"/>                                
+                             </td>
 
-                                 <td>Revenue Sharing</td>
-                                 <td>
-                                     <input type="text" className="form-control" ref="revenue"/>                                
-                                 </td>
-                             </tr>
-                             <tr>
-                                 <td>Default TPDA</td>
-                                 <td>
-                                     <input type="text" className="form-control" ref="TPDA"/>
-                                 </td>
+                             <td>Revenue Sharing</td>
+                             <td>
+                                 <input type="text" className="form-control" ref="revenue"/>                                
+                             </td>
+                         </tr>
+                         <tr>
+                             <td>Default TPDA</td>
+                             <td>
+                                 <input type="text" className="form-control" ref="TPDA"/>
+                             </td>
 
-                                 <td>Billing Location</td>
-                                 <td>
-                                     <input type="text" className="form-control" ref="location"/>                                
-                                 </td>
-                             </tr>
-                             <tr>
-                                 <td>Customer ID</td>
-                                 <td>
-                                     <input type="text" className="form-control" ref="custId"/>                                
-                                 </td>
+                             <td>Billing Location</td>
+                             <td>
+                                 <input type="text" className="form-control" ref="location"/>                                
+                             </td>
+                         </tr>
+                         <tr>
+                             <td>Customer ID</td>
+                             <td>
+                                 <input type="text" className="form-control" ref="custId"/>                                
+                             </td>
 
-                                 <td>MT Customer Login</td>
-                                 <td>
-                                     <input type="text" className="form-control" ref="custLogin"/>                                
-                                 </td>
-                             </tr>
-                         </tbody>        
-                     </table>
+                             <td>MT Customer Login</td>
+                             <td>
+                                 <input type="text" className="form-control" ref="custLogin"/>                                
+                             </td>
+                         </tr>
+                     </tbody>        
+                 </table>
                  </div>
                  <div className="top-margin col-lg-12 col-md-12 col-sm-12 col-xs-12">
                  <SearchResults Products={this.props.data}/>
@@ -97,13 +97,6 @@ class Search extends React.Component {
   requestSearch(){
 	console.log("name==",this.refs.name.value);
   	this.props.requestSearch(this.refs.name.value);
-  }
-  componentWillReceiveProps (nextProps) {
-      this.handleSearchResults(nextProps.data);
-  }
-
-  handleSearchResults(data) {
-	  console.log("data==",data);
   }
 }
   function mapStateToProps(state) {
