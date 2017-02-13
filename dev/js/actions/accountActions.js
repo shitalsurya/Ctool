@@ -17,7 +17,7 @@ export function requestAccountNext(data,target){
 	}
 	
 }
-export function handleAccountNext(value,target){
+export function handleSelectFieldsChange(value,target){
 	return function(dispatch) {
 		dispatch(requestAccountNext(value,target));
 		}

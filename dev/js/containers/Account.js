@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 
-import {handleAccountNext} from '../actions/accountActions';
+import {handleAccountNext,handleSelectFieldsChange} from '../actions/accountActions';
 import * as types from '../actions/actionTypes';
 injectTapEventPlugin();  /*This is needed for SelectField popup */
 
@@ -27,7 +27,7 @@ class Account extends React.Component {
     }
    
     handleSelectFieldsChange(target,event,key,value){
-    	this.props.handleAccountNext(value,target);
+    	this.props.handleSelectFieldsChange(value,target);
     }
     handleNext(){
     	console.log("Account Info=", this.accountObj);
@@ -132,7 +132,7 @@ function mapStateToProps(state) {
 	}
 
 	function mapDispatchToProps(dispatch) {
-		return bindActionCreators({handleAccountNext: handleAccountNext}, dispatch);
+		return bindActionCreators({handleSelectFieldsChange:handleSelectFieldsChange,handleAccountNext: handleAccountNext}, dispatch);
 	}
 
 	export default connect(mapStateToProps, mapDispatchToProps)(Account);
