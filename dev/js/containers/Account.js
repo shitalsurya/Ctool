@@ -4,16 +4,13 @@ import { bindActionCreators } from 'redux';
 import SelectField from 'material-ui/SelectField';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import {handleAccountNext} from '../actions/actions';
-injectTapEventPlugin();
 
-const styles = {
-  customWidth: {
-    width: 150,
-  },
-};
+import {handleAccountNext} from '../actions/accountActions';
+import * as types from '../actions/actionTypes';
+injectTapEventPlugin();  /*This is needed for SelectField popup */
 
 import Users from '../../json/Users.json';
 require('../../scss/style.scss');
@@ -23,25 +20,30 @@ require('../../scss/style.scss');
 class Account extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.myState = {
-    		    value: null,
+        this.accountObj = {
+        		AcctMgr: null,
+        		Company:null
     		  };
     }
    
-    handleAccMgrChange(event,key,value){
-    	//this.setState({value});
-    	this.props.handleAccountNext(value);
-    //	this.mystate.value=value;
-    	//console.log(this.mystate.value);
+    handleSelectFieldsChange(target,event,key,value){
+    	this.props.handleAccountNext(value,target);
+    }
+    handleNext(){
+    	console.log("Account Info=", this.accountObj);
+    }
+    initializeData(_data){
+    	var list = _data.map(function (field) {
+            return (
+            		 <MenuItem value={field.name} primaryText={field.name} />
+            );
+        });
+    	return list;
     }
     render() {
     	
-    	this.accountObj={};
-    	var listUsers = Users.data.map(function (user) {
-            return (
-            		 <MenuItem value={user.name} primaryText={user.name} />
-            );
-        });
+    	var listUsers = this.initializeData(Users.data);
+    	
         return (
         		 <MuiThemeProvider>
             <div className="other-than-main">
@@ -68,8 +70,10 @@ class Account extends React.Component {
                                                     <td className="col-md-9 col-sm-9 col-lg-9 col-xs-9">
                                                         <div className="row">
                                                         <SelectField
-                                                        value={this.myState.value}  
-                                                        onChange={this.handleAccMgrChange.bind(this)}
+                                                        floatingLabelText="Select Account Manager"
+                                                        value={this.accountObj.AcctMgr}  
+                                                        
+                                                        onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_MGR_CHANAGE)}
                                                       >
                                                         {listUsers}
                                                       </SelectField>
@@ -81,51 +85,14 @@ class Account extends React.Component {
                                                     <td className="col-md-3 col-sm-3 col-lg-3 col-xs-3"><label> Company</label></td>
                                                     <td className="col-md-9 col-sm-9 col-lg-9 col-xs-9">
                                                         <div className="row">
-                                                            <div className=" col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                                                                <select className="form-control" id="sel2"
-                                                                    ng-model="json.company">
-                                                                    <option ng-repeat="option in commercial.company">option</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="col-md-3 col-sm-3 col-lg-3 col-xs-3"><label> Billing Location</label></td>
-                                                    <td className="col-md-9 col-sm-9 col-lg-9 col-xs-9">
-                                                        <div className="row">
-                                                            <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                                                <select className="form-control" id="sel3"
-                                                                    ng-model="json.billingLocation">
-                                                                    <option ng-repeat="option in commercial.billingLocation">option</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="col-md-3 col-sm-3 col-lg-3 col-xs-3"><label>Service Level</label></td>
-                                                    <td className="col-md-9 col-sm-9 col-lg-9 col-xs-9">
-                                                        <div className="row">
-                                                            <div className="col-lg-2 col-md-2 col-sm-4 col-xs-12">
-                                                                <select className="form-control" id="sel4"
-                                                                    ng-model="json.serviceLevel">
-                                                                    <option ng-repeat="option in commercial.serviceLevel">option</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="col-md-3 col-sm-3 col-lg-3 col-xs-3"><label>Traffic Type</label></td>
-                                                    <td className="col-md-9 col-sm-9 col-lg-9 col-xs-9">
-                                                        <div className="row">
-                                                            <div className="col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                                                                <select className="form-control" id="sel5"
-                                                                    ng-model="json.trafficType">
-                                                                    <option ng-repeat="option in commercial.trafficType">option</option>
-                                                                </select>
-                                                            </div>
+                                                            <SelectField
+                                                            floatingLabelText="Select Company"
+                                                            value={this.accountObj.Company}  
+                                                            
+                                                            onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_COMPANY_CHANAGE)}
+                                                          >
+                                                            {listUsers}
+                                                          </SelectField>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -136,7 +103,7 @@ class Account extends React.Component {
 
                                             </tbody>
                                         </table>
-                                        <button className="sap-btn sap-btn-primary" ng-click="showNextTables(!showNextFlag)">Next</button>
+                                        <RaisedButton label="Next" onClick={this.handleNext.bind(this)} className="sap-btn btn-block btn-login" />
                             </div>
                             </div>
                             </div>
@@ -149,12 +116,19 @@ class Account extends React.Component {
         )
     }
     componentWillReceiveProps (nextProps) {
-        console.log("test",nextProps.data);
-        this.myState.value=nextProps.data;
+        switch(nextProps.target){
+        case types.ACCOUNT_MGR_CHANAGE:
+        	this.accountObj.AcctMgr=nextProps.data;
+        	break;
+    	case types.ACCOUNT_COMPANY_CHANAGE:
+            this.accountObj.Company=nextProps.data;
+            break;
+        }
+    
     }
 }
 function mapStateToProps(state) {
-	  return { data: state.Auth.data };
+	  return { data: state.Account.data,target: state.Account.target };
 	}
 
 	function mapDispatchToProps(dispatch) {
