@@ -6,7 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-
+import AccountTechnicalDetails from '../components/AccountTechnicalDetails';
 
 import {handleAccountNext,handleSelectFieldsChange} from '../actions/accountActions';
 import * as types from '../actions/actionTypes';
@@ -20,6 +20,7 @@ require('../../scss/style.scss');
 class Account extends React.Component {
     constructor(props, context) {
         super(props, context);
+        this.showTechnicalDetails=false;
         this.accountObj = {
         		AcctMgr: null,
         		Company:null
@@ -29,20 +30,20 @@ class Account extends React.Component {
     handleSelectFieldsChange(target,event,key,value){
     	this.props.handleSelectFieldsChange(value,target);
     }
-    handleNext(){
-    	console.log("Account Info=", this.accountObj);
+    handleAccountNext(){
+    	this.props.handleAccountNext();
     }
-    initializeData(_data){
+    initializeData(_data,valueCol){
     	var list = _data.map(function (field) {
             return (
-            		 <MenuItem value={field.name} primaryText={field.name} />
+            		 <MenuItem key={field[valueCol]} value={field.name} primaryText={field.name} />
             );
         });
     	return list;
     }
     render() {
     	
-    	var listUsers = this.initializeData(Users.data);
+    	var listUsers = this.initializeData(Users.data,'id');
     	
         return (
         		 <MuiThemeProvider>
@@ -103,7 +104,8 @@ class Account extends React.Component {
 
                                             </tbody>
                                         </table>
-                                        <RaisedButton label="Next" onClick={this.handleNext.bind(this)} className="sap-btn btn-block btn-login" />
+                                        <RaisedButton label="Next" onClick={this.handleAccountNext.bind(this)} className="sap-btn btn-block btn-login" />
+                                        {this.showTechnicalDetails && <AccountTechnicalDetails accountObj={this.accountObj}/>}
                             </div>
                             </div>
                             </div>
@@ -122,6 +124,9 @@ class Account extends React.Component {
         	break;
     	case types.ACCOUNT_COMPANY_CHANAGE:
             this.accountObj.Company=nextProps.data;
+            break;
+    	case types.ACCOUNT_NEXT:
+            this.showTechnicalDetails=true;
             break;
         }
     
