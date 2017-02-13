@@ -20,49 +20,48 @@ class Login extends Component {
 				  margin: 12
 				};
 		    return (
-		    		 <MuiThemeProvider>
-		      <div className="App">
-		        <nav className="navbar navbar-default navbar-static-top navbar-inverse">
-		          <div className="container-fluid">
-		            <div className="navbar-header">
-		              <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" 
-		                      data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-		              </button>
-		              <a className="navbar-brand" href="#/ctool">CTOOL</a>
-		            </div>
-		          </div>
-		        </nav>
+		    		<MuiThemeProvider>
+		    						<div className="App Login-Page">
+		    							<nav className="navbar navbar-default navbar-static-top navbar-inverse">
+		    								<div className="container-fluid">
+		    									<div className="navbar-header">
+		    										<button type="button" className="navbar-toggle collapsed" data-toggle="collapse"
+		    											data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+		    										</button>
+		    										<a className="navbar-brand" href="#/ctool">CTOOL</a>
+		    									</div>
+		    								</div>
+		    							</nav>
+		    		 
+		    							<div className="login-container sap-form">
+		    								<form className="form-signin content" name="loginForm">
+		    									<h2 className="form-signin-heading">Login</h2>
+		    									<p>Hint: abc@test.com / abc</p>
+		    									<TextField
+		    										id="text-field-default"
+		    										floatingLabelText="Username"
+		    										hintText="Username"
+		    										ref="userEmail"
+		    									/>
+		    									<br />
+		    									<TextField
+		    										ref='userPassword'
+		    										hintText="Password"
+		    										floatingLabelText="Password"
+		    										type="password">
+		    									</TextField>
+		    									<RaisedButton label="Sign in" onClick={this.handleLogin.bind(this)} style={style} className="sap-btn btn-block btn-login" />
+		    								</form>
+		    							</div>
 
-		        <div className="login-container sap-form">
-		          <form className="form-signin content" name="loginForm">
-		            <h2 className="form-signin-heading">Login</h2>
-		            <p>Hint: abc@test.com / abc</p>
-		            <TextField
-		            	id="text-field-default"
-		            	floatingLabelText="Username"
-		            	hintText="Username"
-		            	ref="userEmail"
-		          />
-		           <br />
-		          <TextField 
-		          	  ref='userPassword'
-			          hintText="Password"
-			          floatingLabelText="Password"
-		          type="password">
-		          </TextField>
-		          <RaisedButton label="Sign in" onClick={this.handleLogin.bind(this)} style={style} backgroundColor="#767676" />
-		          </form>
-		        </div>
 
-
-		        <footer className="footer">
-		          <div className="col-xs-0 col-sm-0 col-md-1 col-lg-1"></div>
-		          <div className="col-xs-12 col-sm-12 col-md-10 col-lg-10 ">
-		            <label>v6.6.6 &copy; CTOOL</label>
-		          </div>
-		          <div className="col-xs-0 col-sm-0 col-md-1 col-lg-1"></div>
-
-		        </footer>
+		    		<footer className="footer">
+		    								<div className="col-xs-0 col-sm-0 col-md-1 col-lg-1"></div>
+		    								<div className="col-xs-12 col-sm-12 col-md-10 col-lg-10 ">
+		    									<label>v6.6.6 &copy; CTOOL</label>
+		    								</div>
+		    								<div className="col-xs-0 col-sm-0 col-md-1 col-lg-1"></div>
+		    		</footer>
 
 		      </div>
 		      </MuiThemeProvider>
