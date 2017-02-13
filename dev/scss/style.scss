@@ -13,222 +13,282 @@ $color_lochmara_70_approx: rgba(0,118,203,0.7);
 $color_gunsmoke_approx: #858585;
 $color_bahama_blue_approx: #00679e;
 $color_silver: 	#C0C0C0;
+$material_blue: #00BCD4;
+
 .App {
-  text-align: center;
+	text-align: center;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+	animation: App-logo-spin infinite 20s linear;
+	height: 80px;
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+	background-color: #222;
+	height: 150px;
+	padding: 20px;
+	color: white;
 }
 
 .App-intro {
-  font-size: large;
+	font-size: large;
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 
 /* CSS - Ctool*/
 
 body {
-  background: #ffffff; }
+	background: $white;
+}
 
 .page-heading {
-  color: #363636; }
+	color: $color_tuatara_approx;
+}
 
 .content {
-  background: #ffffff;
- }
+	background: $white;
+}
 
 .sap-btn {
-  height: 36px; }
+	height: 36px;
+}
 
 .data-block {
-  background: #ffffff; }
+	background: $white;
+}
 
 .sap-btn-primary {
-  border: solid 1px #0076cb;
-  color: #0076cb;
-  background: #ffffff;
-  min-width: 120px; }
+	border: solid 1px $color_lochmara_approx;
+	color: $color_lochmara_approx;
+	background: $white;
+	min-width: 120px;
+}
 
 .sap-btn-primary:hover {
-  background: #0076cb;
-  color: #ffffff; }
+	background: $color_lochmara_approx;
+	color: $white;
+}
 
 .sap-form {
-  color: #767676; }
-  .sap-form .form-control {
-    border-radius: 0;
-    height: 32px; }
-  .sap-form .table {
-    width: 100%;
-    font-family: ArialMT;
-    font-size: 14px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    color: #363636; }
-  .sap-form tr:hover {
-    background-color: #f5f5f5; }
-  .sap-form table > tbody > tr > td {
-    vertical-align: middle; }
-  .sap-form label {
-    font-weight: normal;
-    color: #767676; }
-  .sap-form input, .sap-form select {
-    color: #767676; }
+	color: $color_tapa_approx;
+}
+
+.sap-form .form-control {
+	border-radius: 0;
+	height: 32px;
+}
+
+.sap-form .table {
+	width: 100%;
+	font-family: ArialMT;
+	font-size: 14px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	color: $color_tuatara_approx;
+}
+
+.sap-form tr:hover {
+	background-color: $offwhite2;
+}
+
+.sap-form table > tbody > tr > td {
+	vertical-align: middle;
+}
+
+.sap-form label {
+	font-weight: normal;
+	color: $color_tapa_approx;
+}
+
+.sap-form input, .sap-form select {
+	color: $color_tapa_approx;
+}
 
 span.error {
-  color: #c11616;
-  font-size: 12px;
-  width: 100%;
-  display: block;
-  text-align: right; }
+	color: $color_milano_red_approx;
+	font-size: 12px;
+	width: 100%;
+	display: block;
+	text-align: right;
+}
 
 .footer {
-  height: 15px;
-  position: fixed;
-  font-size: 10px;
-  bottom: 0;
-  background: #767676;
-  color: #ffffff;
-  width: 100%; }
+	height: 15px;
+	position: fixed;
+	font-size: 10px;
+	bottom: 0;
+	background: $color_tapa_approx;
+	color: $white;
+	width: 100%;
+}
 
 .login-container {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-  margin-top: 25vh;
-  text-align: center; }
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 25vh;
+	text-align: center;
+}
 
-  .login-container button {
-    margin-top: 10px; }
+.login-container button {
+	margin-top: 10px;
+}
 
-.login-container h2{
-  margin-top: 5px; 
+.login-container h2 {
+	margin-top: 5px;
 }
 
 .form-signin {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto; }
-
-.form-signin label{
-  text-align: left;
+	max-width: 330px;
+	padding: 15px;
+	// border: 1px solid #000;
+	background: $color_alabaster_approx;
+	margin: 0 auto;
 }
 
-.text-block{
-  display: block;
+.form-signin label {
+	text-align: left;
 }
 
-.top-margin{
-  margin-top: 10px;
+.text-block {
+	display: block;
+}
+
+.top-margin {
+	margin-top: 10px;
 }
 
 .form-signin .form-signin-heading, .form-signin .checkbox {
-  margin-bottom: 10px; }
-
-.required {
-  color: #c11616; }
-
-.breadcrumbs {
-  color: #00679e; }
-
-.showTable {
-  display: block; }
-
-.hideTable {
-  display: none; }
-
-.hr-extended {
-  width: 100%;
-  border-bottom: 1px solid #d7d7d7;
-  margin: 10px 0 20px 0; }
-
-li > button{
-  margin-top: 7px;
+	margin-bottom: 10px;
 }
 
-.other-than-main{
-  background: #FFFFFF;
+.required {
+	color: $color_milano_red_approx;
+}
+
+.breadcrumbs {
+	color: $color_bahama_blue_approx;
+}
+
+.showTable {
+	display: block;
+}
+
+.hideTable {
+	display: none;
+}
+
+.hr-extended {
+	width: 100%;
+	border-bottom: 1px solid $color_iron_approx;
+	margin: 10px 0 20px 0;
+}
+
+li > button {
+	margin-top: 7px;
+}
+
+.other-than-main {
+	background: $white;
 	min-height: 100vh;
 }
 
 .custom-anchor:hover {
-  text-decoration: none;
-  cursor: pointer;
+	text-decoration: none;
+	cursor: pointer;
 }
-.data-container{
-	 margin: 10px auto;
-	  padding: 10px;
-	  background: #f9f9f9;
-	  height: 100%;
+
+.data-container {
+	margin: 10px auto;
+	padding: 10px;
+	background: $color_alabaster_approx;
+	height: 100%;
 }
 
 //SEARCH PAGE CSS
-.SearchGrid div{
-  // border: 1px solid #C0C0C0;
- // padding: 5 -10;
-
+.SearchGrid div {
+	// border: 1px solid $color_silver;
+	// padding: 5 -10;
 }
 
-.search-section{
-  padding: 0px;
+.search-section {
+	padding: 0px;
 }
 
-.checkbox-grp{ 
-   span{
+.checkbox-grp {
+	span{
     margin-right: 20px;
-  // padding-left: 10px;
- }    
-   .Login-Page{
-	     min-height: 90vh;
-	     height: 100vh;
-	     background: #C0C0C0;
-	   }
-	   
-	   .search-results{
-	     display: block;
-	     margin: 20px 0px;
-	     
-	     .react-bs-table{
+	// padding-left: 10px;
+}
+
+.Login-Page {
+	min-height: 90vh;
+	height: 100vh;
+	background: $color_silver;
+}
+
+.search-results {
+	display: block;
+	margin: 20px 0px;
+	.react-bs-table{
 	       margin: 0;
-	     }
+}
 	   }
-	   
-	   .btn-login{
-	     margin: 12px 0px !important;
-	     border-radius: 0px !important; 
-	     color: #00BCD4 !important;
-	   
-	     button{
-	       border: solid 1px #00BCD4 !important;
-	     }
-	   
-	     button:hover{
-	       background-color: #00BCD4 !important;    
-	     }
-	   
-	     label{
-	       color: #00BCD4 !important;    
-	     }
-	   
-	     label:hover{
-	       color: #ffffff !important;
-	     }
+
+.btn-login {
+	margin: 12px 0px !important;
+	border-radius: 0px !important;
+	color: $material_blue !important;
+	button{
+	       border: solid 1px $material_blue !important;
+}
+
+button:hover {
+	background-color: $material_blue !important;
+}
+
+label {
+	color: $material_blue !important;
+}
+
+label:hover {
+	color: $white !important;
+}
 	   } 
 
-}  
+}
+
+.login-button-container {
+	button{
+      background: $white;
+	border: 1px solid $material_blue !important;
+}
+
+div:first-child {
+	margin-left: 0px !important;
+}
+
+span {
+	color: $material_blue !important;
+}
+
+button:hover {
+	background: $material_blue !important;
+	span{
+        color: $white !important;
+}
+   }
+}
