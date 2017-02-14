@@ -69,57 +69,63 @@ class AccountTechnicalDetails extends React.Component {
 
                         <div>
                             <div className="Account-details-container">
-                                <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <SelectField
-                                        floatingLabelText="Select Company Contacts"
-                                        value={this.accountTechDetailsInfo.ExstContacts}
+                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <SelectField
+                                            floatingLabelText="Select Company Contacts"
+                                            value={this.accountTechDetailsInfo.ExstContacts}
 
-                                        onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_COMPANY_CONTACT)}
-                                    >
-                                        {listUsers}
-                                    </SelectField>
+                                            onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_COMPANY_CONTACT)}
+                                        >
+                                            {listUsers}
+                                        </SelectField>
+                                    </div>
+                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <TextField
+                                            id="text-field-default"
+                                            floatingLabelText="Name"
+                                            hintText="Name"
+                                            ref="name"
+                                        />
+                                    </div>
                                 </div>
-                                <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <TextField
-                                        id="text-field-default"
-                                        floatingLabelText="Name"
-                                        hintText="Name"
-                                        ref="name"
-                                    />
-                                </div>
-                                <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <TextField
-                                        id="text-field-default"
-                                        floatingLabelText="Email"
-                                        hintText="Email"
-                                        ref="email"
-                                    />
-                                </div>
-                                <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <SelectField
-                                        floatingLabelText="Select Country"
-                                        value={this.accountTechDetailsInfo.Country}
+                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <TextField
+                                            id="text-field-default"
+                                            floatingLabelText="Email"
+                                            hintText="Email"
+                                            ref="email"
+                                        />
+                                    </div>
+                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <SelectField
+                                            floatingLabelText="Select Country"
+                                            value={this.accountTechDetailsInfo.Country}
 
-                                        onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_COUNTRY_CHANGE)}
-                                    >
-                                        {listCountries}
-                                    </SelectField>
+                                            onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_COUNTRY_CHANGE)}
+                                        >
+                                            {listCountries}
+                                        </SelectField>
+                                    </div>
                                 </div>
-                                <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <TextField
-                                        id="text-field-default"
-                                        floatingLabelText="Mobile Phone Number"
-                                        hintText="Mobile Phone Number"
-                                        ref="MobNo"
-                                    />
-                                </div>
-                                <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <TextField
-                                        id="text-field-default"
-                                        floatingLabelText="Direct Phone Number"
-                                        hintText="Direct Phone Number"
-                                        ref="DirectNo"
-                                    />
+                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 bottom-margin-large">
+                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <TextField
+                                            id="text-field-default"
+                                            floatingLabelText="Mobile Phone Number"
+                                            hintText="Mobile Phone Number"
+                                            ref="MobNo"
+                                        />
+                                    </div>
+                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <TextField
+                                            id="text-field-default"
+                                            floatingLabelText="Direct Phone Number"
+                                            hintText="Direct Phone Number"
+                                            ref="DirectNo"
+                                        />
+                                    </div>
                                 </div>
                             </div>
 
@@ -130,54 +136,69 @@ class AccountTechnicalDetails extends React.Component {
                         <div className="underline-h4">
                             <h4 className="breadcrumbs">Account Name and Interfaces</h4>
                         </div>
-                        <div className="Account-details-container">
-                            <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <TextField
-                                    id="text-field-default"
-                                    floatingLabelText="Technical Name"
-                                    hintText="Technical Name"
-                                    ref="techName"
-                                />
+                        <div>
+                            <div className="Account-details-container">
 
-                            </div>
-                            <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <TextField
-                                    id="text-field-default"
-                                    floatingLabelText="Commercial Name"
-                                    hintText="Commercial Name"
-                                    ref="commName"
-                                />
+                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <TextField
+                                            id="text-field-default"
+                                            floatingLabelText="Technical Name"
+                                            hintText="Technical Name"
+                                            ref="techName"
+                                        />
 
-                            </div>
-                            <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <SelectField
-                                    floatingLabelText="Existing accounts"
-                                    value={this.accountTechDetailsInfo.ExstAccts}
+                                    </div>
+                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <TextField
+                                            id="text-field-default"
+                                            floatingLabelText="Commercial Name"
+                                            hintText="Commercial Name"
+                                            ref="commName"
+                                        />
 
-                                    onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_EXSTACCTS_CHANGE)}
-                                >
-                                    <MenuItem value="act1" primaryText=" 10 GRAD(37669)" />
-                                    <MenuItem value="act2" primaryText="100 BEST(39551)" />
-                                    <MenuItem value="act3" primaryText="10DUKE (38660)" />
-                                    <MenuItem value="act4" primaryText="118811 (39258)" />
-                                </SelectField>
-                            </div>
-                            <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <SelectField
-                                    floatingLabelText="Interface"
-                                    value={this.accountTechDetailsInfo.Interface}
+                                    </div>
 
-                                    onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_INTERFACE_CHANGE)}
-                                >
-                                    <MenuItem value="http" primaryText="HTTP" />
-                                    <MenuItem value="smtp" primaryText="SMTP" />
-                                    <MenuItem value="smtp" primaryText="SMPP" />
-                                </SelectField>
+                                </div>
+                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <SelectField
+                                            floatingLabelText="Existing accounts"
+                                            value={this.accountTechDetailsInfo.ExstAccts}
+
+                                            onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_EXSTACCTS_CHANGE)}
+                                        >
+                                            <MenuItem value="act1" primaryText=" 10 GRAD(37669)" />
+                                            <MenuItem value="act2" primaryText="100 BEST(39551)" />
+                                            <MenuItem value="act3" primaryText="10DUKE (38660)" />
+                                            <MenuItem value="act4" primaryText="118811 (39258)" />
+                                        </SelectField>
+                                    </div>
+                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <SelectField
+                                            floatingLabelText="Interface"
+                                            value={this.accountTechDetailsInfo.Interface}
+
+                                            onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_INTERFACE_CHANGE)}
+                                        >
+                                            <MenuItem value="http" primaryText="HTTP" />
+                                            <MenuItem value="smtp" primaryText="SMTP" />
+                                            <MenuItem value="smtp" primaryText="SMPP" />
+                                        </SelectField>
+                                    </div>
+
+                                </div>
+                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 bottom-margin">
+                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+                                    </div>
+                                    <div className="detail-content acc-nav-buttons col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        <RaisedButton label="Back" className="RaisedButton sap-btn pull-left" />
+                                        <RaisedButton label="Next" onClick={this.handleTechDetailsNext.bind(this)} className="RaisedButton sap-btn pull-right" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-
-                        <RaisedButton label="Next" onClick={this.handleTechDetailsNext.bind(this)} className="RaisedButton sap-btn" />
                     </div>
                 </div>
             </MuiThemeProvider>

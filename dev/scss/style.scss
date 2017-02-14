@@ -66,7 +66,7 @@ body {
 
 .underline-h4{
 	width: 100%;
-	border-bottom: 1px solid $color_iron_approx;	
+	border-bottom: 1px solid $material_blue;	
 }
 
 .sap-btn {
@@ -202,7 +202,7 @@ span.error {
 
 .hr-extended {
 	width: 100%;
-	border-bottom: 1px solid $color_iron_approx;
+	border-bottom: 1px solid $material_blue;
 	margin: 10px 0 20px 0;
 }
 
@@ -315,5 +315,21 @@ li > button {
 		div{
 			width: 100% !important;
 		}
+
+		.RaisedButton{
+			width: 48% !important;
+		}
 	}
+}
+
+.bottom-margin{
+	margin-bottom: 10px;
+}
+
+.bottom-margin-large{
+	margin-bottom: 20px;
+}
+
+.acc-nav-buttons{
+	padding-top: 15px;
 }

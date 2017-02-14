@@ -42,14 +42,14 @@ class Dashboard extends React.Component {
                 </nav>
                 { this.showAccount && <Account /> }
                 { this.showSearch && <Search /> }
-                <footer className="footer">
+                {/*<footer className="footer">
                     <div className="col-xs-0 col-sm-0 col-md-1 col-lg-1"></div>
                     <div className="col-xs-12 col-sm-12 col-md-10 col-lg-10 ">
                         <label>v6.6.6 &copy; CTOOL</label>
                     </div>
                     <div className="col-xs-0 col-sm-0 col-md-1 col-lg-1"></div>
 
-                </footer>
+                </footer>*/}
 
             </div>
         )
