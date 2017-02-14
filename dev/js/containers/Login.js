@@ -37,14 +37,14 @@ class Login extends Component {
 		    								<form className="form-signin content" name="loginForm">
 		    									<h2 className="form-signin-heading">Login</h2>
 		    									<p>Hint: abc@test.com / abc</p>
-		    									<TextField
+		    									<TextField className="TextField"
 		    										id="text-field-default"
 		    										floatingLabelText="Username"
 		    										hintText="Username"
 		    										ref="userEmail"
 		    									/>
 		    									<br />
-		    									<TextField
+		    									<TextField className="TextField"
 		    										ref='userPassword'
 		    										hintText="Password"
 		    										floatingLabelText="Password"

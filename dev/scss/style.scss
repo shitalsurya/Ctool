@@ -69,14 +69,14 @@ body {
 }
 
 .sap-btn-primary {
-	border: solid 1px $color_lochmara_approx;
-	color: $color_lochmara_approx;
+	border: solid 1px $material_blue;
+	color: $material_blue;
 	background: $white;
 	min-width: 120px;
 }
 
 .sap-btn-primary:hover {
-	background: $color_lochmara_approx;
+	background: $material_blue;
 	color: $white;
 }
 
@@ -245,50 +245,64 @@ li > button {
 	margin: 20px 0px;
 	.react-bs-table{
 	       margin: 0;
-}
-	   }
-
-.btn-login {
-	margin: 12px 0px !important;
-	border-radius: 0px !important;
-	color: $material_blue !important;
-	button{
-	       border: solid 1px $material_blue !important;
+	}
 }
 
-button:hover {
-	background-color: $material_blue !important;
-}
+// .btn-login {
+// 	margin: 12px 0px !important;
+// 	border-radius: 0px !important;
+// 	color: $material_blue !important;
+// 	button{
+// 	       border: solid 1px $material_blue !important;
+// 	}
 
-label {
-	color: $material_blue !important;
-}
+// 	button:hover {
+// 		background-color: $material_blue !important;
+// 	}
 
-label:hover {
-	color: $white !important;
-}
-	   } 
+// 	label {
+// 		color: $material_blue !important;
+// 	}
+
+// 	label:hover {
+// 		color: $white !important;
+// 	}
+//   } 
 
 }
 
 .login-button-container {
 	button{
       background: $white;
-	border: 1px solid $material_blue !important;
+	  border: 1px solid $material_blue !important;
+	  border-radius: 0px !important; 
+	}
+
+	div:first-child {
+		margin-left: 0px !important;
+	}
+
+	span {
+		color: $material_blue !important;
+	}
+
+	button:hover {
+		background: $material_blue !important;
+		span{
+			color: $white !important;
+		}
+    }
 }
 
-div:first-child {
-	margin-left: 0px !important;
+.login-container .TextField{
+	width: 100% !important;
 }
 
-span {
-	color: $material_blue !important;
-}
+.Account-details-container{
+	.detail-content{		
 
-button:hover {
-	background: $material_blue !important;
-	span{
-        color: $white !important;
-}
-   }
+		div{
+			width: 100% !important;
+		}
+	}
 }
