@@ -8,6 +8,9 @@ export default function (state = {
 		case types.ACCOUNT_COMPANY_CHANGE:
 		case types.ACCOUNT_COMPANY_CONTACT:
 		case types.ACCOUNT_COUNTRY_CHANGE:
+		case types.ACCOUNT_BILLING_LOCATION:
+		case types.SERVICE_LEVEL:
+		case types.TRAFFIC_TYPE:		
 		case types.ACCOUNT_EXSTACCTS_CHANGE:
 		case types.ACCOUNT_INTERFACE_CHANGE:
         case types.ACCOUNT_CREATE_NEW:

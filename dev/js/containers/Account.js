@@ -14,6 +14,12 @@ import * as types from '../actions/actionTypes';
 injectTapEventPlugin();  /*This is needed for SelectField popup */
 
 import Users from '../../json/Users.json';
+import Company from '../../json/Company.json';
+import BillingLocation from '../../json/BillingLocation.json';
+import ServiceLevel from '../../json/ServiceLevel.json';
+import TrafficType from '../../json/TrafficType.json';
+
+
 require('../../scss/style.scss');
 
 
@@ -36,15 +42,27 @@ class Account extends React.Component {
     }
     initializeData(_data, valueCol) {
         var list = _data.map(function (field) {
-            return (
-                <MenuItem key={field[valueCol]} value={field.name} primaryText={field.name} />
-            );
+            if(typeof(field) == 'object'){
+                return (
+                    <MenuItem key={field[valueCol]} value={field.name} primaryText={field.name} />
+                );
+            // }else if (typeof(field) == 'string'){
+            }else {
+                  return(
+                    <MenuItem key={field} value={field} primaryText={field} />
+                  );
+            }
+                
         });
         return list;
     }
     render() {
 
         var listUsers = this.initializeData(Users.data, 'id');
+        var listBillingLocation = this.initializeData(BillingLocation.data, 'id');
+        var listServiceLevel = this.initializeData(ServiceLevel.data, 'id');
+        var listTrafficType = this.initializeData(TrafficType.data, 'id');
+        var listCompany = this.initializeData(Company.data, 'id');
 
         return (
             <MuiThemeProvider>
@@ -84,31 +102,31 @@ class Account extends React.Component {
                                                         floatingLabelText="Select Company"
                                                         value={this.accountObj.Company}
                                                         onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_COMPANY_CHANGE)}>
-                                                        {listUsers}
+                                                        {listCompany}
                                                     </SelectField>
                                                 </div>
                                                 <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <SelectField
                                                         floatingLabelText="Billing Location"
-                                                        onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_BILLING_LOCATION)}
-                                                        value={this.accountObj.BillingLocation}>
-                                                        {listUsers}
+                                                        value={this.accountObj.BillingLocation}
+                                                        onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_BILLING_LOCATION)}>
+                                                        {listBillingLocation}
                                                     </SelectField>
                                                 </div>
                                                 <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <SelectField
                                                         floatingLabelText="Service Level"
-                                                        onChange={this.handleSelectFieldsChange.bind(this, types.SERVICE_LEVEL)}
-                                                        value={this.accountObj.ServiceLevel}>
-                                                        {listUsers}
+                                                        value={this.accountObj.ServiceLevel}
+                                                        onChange={this.handleSelectFieldsChange.bind(this, types.SERVICE_LEVEL)}>
+                                                        {listServiceLevel}
                                                     </SelectField>
                                                 </div>
                                                 <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <SelectField
                                                         floatingLabelText="Traffic Type"
-                                                        onChange={this.handleSelectFieldsChange.bind(this, types.TRAFFIC_TYPE)}
-                                                        value={this.accountObj.TrafficType}>
-                                                        {listUsers}
+                                                        value={this.accountObj.TrafficType}                                                        
+                                                        onChange={this.handleSelectFieldsChange.bind(this, types.TRAFFIC_TYPE)}>
+                                                        {listTrafficType}
                                                     </SelectField>
                                                 </div>
                                                 
@@ -138,6 +156,15 @@ class Account extends React.Component {
                 break;
             case types.ACCOUNT_NEXT:
                 this.showTechnicalDetails = true;
+                break;
+            case types.ACCOUNT_BILLING_LOCATION:
+                this.accountObj.BillingLocation = nextProps.data;
+                break;
+            case types.SERVICE_LEVEL:
+                this.accountObj.ServiceLevel = nextProps.data;
+                break;
+            case types.TRAFFIC_TYPE:
+                this.accountObj.TrafficType = nextProps.data;
                 break;
         }
 

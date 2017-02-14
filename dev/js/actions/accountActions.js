@@ -41,6 +41,24 @@ export function requestSelectFieldsChange(data,target){
 				payload:data
 			}
 			break;
+		case types.ACCOUNT_BILLING_LOCATION:
+			return{
+				type: types.ACCOUNT_BILLING_LOCATION,
+				payload:data
+			}
+			break;
+		case types.SERVICE_LEVEL:
+			return{
+				type: types.SERVICE_LEVEL,
+				payload:data
+			}
+			break;
+		case types.TRAFFIC_TYPE:
+			return{
+				type: types.TRAFFIC_TYPE,
+				payload:data
+			}
+			break;			
 	}
 	
 }
