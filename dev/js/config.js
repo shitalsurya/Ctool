@@ -10,7 +10,8 @@ function getServerUrl(){
 
 export function getUrl(APIName){
 	var APIUrls={
-	             'UserAuth':'/auth/getToken'
+	             'UserAuth':'/auth/getToken',
+				'CreateAccount':'/account/createAccount'
 				};
 	return getServerUrl() + APIUrls[APIName];
 }

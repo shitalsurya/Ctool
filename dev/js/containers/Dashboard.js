@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import Account from '../containers/Account';
 import Search from '../containers/Search';
 import { bindActionCreators } from 'redux';
-import {navigateMenus} from '../actions/actions';
+import {navigateMenus} from '../actions/authActions';
 import * as types from '../actions/actionTypes';
 require('../../scss/style.scss');
 
@@ -33,9 +33,6 @@ class Dashboard extends React.Component {
                                 <li><a href="#">Operators</a></li>
                                 <li><a href="#">Miscelleneous</a></li>
                                 <li><a href="#" onClick={this.navigateMenus.bind(this,types.TOOLBOX_SEARCH)}>Toolbox</a></li>
-                                <li>
-                                    <button className="sap-btn sap-btn-primary" onClick={this.showAbout.bind(this)}>About Us</button>
-                                </li>
                             </ul>
                             <ul className="nav navbar-nav navbar-right">
                                 <li><a href="/">Logout</a></li>

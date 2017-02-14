@@ -5,7 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {loginUser} from '../actions/actions';
+import {loginUser} from '../actions/authActions';
 require('../../scss/style.scss');
 
 

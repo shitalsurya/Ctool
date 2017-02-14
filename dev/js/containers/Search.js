@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {requestSearch} from '../actions/actions';
+import {requestSearch} from '../actions/authActions';
 import SearchResults from '../components/SearchResults';
 require('../../scss/style.scss');
 

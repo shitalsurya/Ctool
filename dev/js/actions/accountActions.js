@@ -1,5 +1,8 @@
 import * as types from '../actions/actionTypes';
+import axios from 'axios';
+import * as config from '../config.js';
 export function requestSelectFieldsChange(data,target){
+	console.log("requestSelectFieldsChange target==",target);
 	switch(target){
 		case types.ACCOUNT_MGR_CHANAGE:
 			return{
@@ -26,7 +29,18 @@ export function requestSelectFieldsChange(data,target){
 				 payload:data
 			}
 			break;
-			
+		case types.ACCOUNT_EXSTACCTS_CHANGE:
+			return{
+				type: types.ACCOUNT_EXSTACCTS_CHANGE,
+				payload:data
+			}
+			break;
+		case types.ACCOUNT_INTERFACE_CHANGE:
+			return{
+				type: types.ACCOUNT_INTERFACE_CHANGE,
+				payload:data
+			}
+			break;
 	}
 	
 }
@@ -37,15 +51,51 @@ export function handleSelectFieldsChange(value,target){
 	
 }
 
-export function handleAccountNext(){
+export function handleAccountNext(_accountInfo){
 	return function(dispatch) {
-		dispatch(requestAccountNext());
+		dispatch(requestAccountNext(_accountInfo));
 		}
 	
 }
-export function requestAccountNext(){
-			return{
-				 type: types.ACCOUNT_NEXT,
-			
-			}
+export function requestAccountNext() {
+
+    return {
+        type: types.ACCOUNT_NEXT
+    }
 }
+export function createNewAccount(_accountInfo) {
+	return function (dispatch) {
+		dispatch(CreateNewAccountRequest());
+		return axios.post(config.getUrl('CreateAccount'), {
+			data: _accountInfo
+			//email: "abc@test.com", password: "abc"
+		})
+			.then(function (response) {
+				console.log("loginSuccess response==", response);
+				dispatch(CreateNewAccountSuccess(response.data));
+			})
+			.catch(function (response) {
+				console.log("loginFailure response==", response);
+				dispatch(CreateNewAccountFailure(response.data));
+				//dispatch(pushState(null,'/error'));
+			})
+	}
+}
+	export function CreateNewAccountRequest() {
+		return{
+			type: types.ACCOUNT_CREATE_NEW,
+		}
+	}
+	export function CreateNewAccountSuccess(data) {
+	//	localStorage.setItem("token",data.token);
+		return {
+			type: types.ACCOUNT_CREATE_NEW_SUCCESS,
+			payload: data
+		}
+	}
+	export function CreateNewAccountFailure(data) {
+		return {
+			type: types.ACCOUNT_CREATE_NEW_FAILURE,
+			payload: data
+		}
+	}
