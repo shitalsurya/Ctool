@@ -75,11 +75,9 @@ class Account extends React.Component {
                                     <div className='content'>
                                         <h3 className="page-heading">Create Account</h3>
                                         <div className="hr-extended"></div>
-
-                                        <h4 className="breadcrumbs">Commercial Information</h4>
-
-                                        <div>
-
+                                      
+                                        <div className="section-content">
+                                            <h4 className="breadcrumbs">Commercial Information</h4>
                                             <div className="Account-details-container">
                                                 <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <TextField className="TextField"
@@ -133,7 +131,7 @@ class Account extends React.Component {
                                             </div>
 
 
-                                            <RaisedButton label="Next" onClick={this.handleAccountNext.bind(this)} className="sap-btn btn-block btn-login" />
+                                            <RaisedButton label="Next" onClick={this.handleAccountNext.bind(this)} className="RaisedButton sap-btn" />
                                             {this.showTechnicalDetails && <AccountTechnicalDetails accountObj={this.accountObj} />}
                                         </div>
                                     </div>

@@ -51,7 +51,7 @@ class Login extends Component {
 		    										type="password">
 		    									</TextField>
 												<div className="login-button-container">
-		    										<RaisedButton label="Sign in" onClick={this.handleLogin.bind(this)} style={style} className="sap-btn btn-block btn-login" />
+		    										<RaisedButton label="Sign in" onClick={this.handleLogin.bind(this)} style={style} className="RaisedButton sap-btn btn-block btn-login" />
 												</div>
 		    								</form>
 		    							</div>

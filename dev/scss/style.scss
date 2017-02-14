@@ -57,7 +57,16 @@ body {
 }
 
 .content {
-	background: $white;
+	background: $white;	
+}
+
+.section-content{
+	margin: 20px auto;	
+}
+
+.underline-h4{
+	width: 100%;
+	border-bottom: 1px solid $color_iron_approx;	
 }
 
 .sap-btn {
@@ -203,7 +212,7 @@ li > button {
 
 .other-than-main {
 	background: $white;
-	min-height: 100vh;
+	min-height: 98vh;
 }
 
 .custom-anchor:hover {
@@ -271,15 +280,17 @@ li > button {
 
 }
 
-.login-button-container {
+.login-button-container{
+	div:first-child {
+		margin-left: 0px !important;
+	}
+}
+
+.RaisedButton {
 	button{
       background: $white;
 	  border: 1px solid $material_blue !important;
 	  border-radius: 0px !important; 
-	}
-
-	div:first-child {
-		margin-left: 0px !important;
 	}
 
 	span {
