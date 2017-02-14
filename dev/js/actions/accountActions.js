@@ -4,16 +4,16 @@ import * as config from '../config.js';
 export function requestSelectFieldsChange(data,target){
 	console.log("requestSelectFieldsChange target==",target);
 	switch(target){
-		case types.ACCOUNT_MGR_CHANAGE:
+		case types.ACCOUNT_MGR_CHANGE:
 			return{
-				 type: types.ACCOUNT_MGR_CHANAGE,
+				 type: types.ACCOUNT_MGR_CHANGE,
 				 payload:data
 			
 			}
 			break;
-		case types.ACCOUNT_COMPANY_CHANAGE:
+		case types.ACCOUNT_COMPANY_CHANGE:
 			return{
-				 type: types.ACCOUNT_COMPANY_CHANAGE,
+				 type: types.ACCOUNT_COMPANY_CHANGE,
 				 payload:data
 			}
 			break;
@@ -41,6 +41,24 @@ export function requestSelectFieldsChange(data,target){
 				payload:data
 			}
 			break;
+		case types.ACCOUNT_BILLING_LOCATION:
+			return{
+				type: types.ACCOUNT_BILLING_LOCATION,
+				payload:data
+			}
+			break;
+		case types.SERVICE_LEVEL:
+			return{
+				type: types.SERVICE_LEVEL,
+				payload:data
+			}
+			break;
+		case types.TRAFFIC_TYPE:
+			return{
+				type: types.TRAFFIC_TYPE,
+				payload:data
+			}
+			break;			
 	}
 	
 }
