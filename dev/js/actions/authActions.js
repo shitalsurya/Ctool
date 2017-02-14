@@ -25,8 +25,8 @@ export function loginFailure(data) {
 	  }
 	}
 
-export function loginUser(email, password) {
-	var response={};
+export function loginUser(username, password) {
+var response={};
 		response.data = {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlRlc3QgVXNlciJ9.J6n4-v0I85zk9MkxBHroZ9ZPZEES-IKeul9ozxYnoZ8"};
 	return function(dispatch) {
 	dispatch(loginSuccess(response.data));
@@ -34,9 +34,10 @@ export function loginUser(email, password) {
 	//Uncomment below code for http request
 	/*return function(dispatch) {
 		dispatch(loginUserRequest());
+		console.log("getUrl ==",config.getUrl('UserAuth'));
 		return axios.post(config.getUrl('UserAuth'), {
-			email:email,password:password
-			//email: "abc@test.com", password: "abc"
+		//	username:username,password:password
+			username: "user", password: "password"
 		  })
 			.then(function(response) {
 				console.log("loginSuccess response==",response);

@@ -117,3 +117,24 @@ export function createNewAccount(_accountInfo) {
 			payload: data
 		}
 	}
+export function getMetadata(){
+	return function (dispatch) {
+		dispatch(getMetadataRequest());
+		return axios.get(config.getUrl('GetCountryList'))
+			.then(function (response) {
+				console.log("loginSuccess response==", response);
+				//dispatch(CreateNewAccountSuccess(response.data));
+			})
+			.catch(function (response) {
+				console.log("loginFailure response==", response);
+				//dispatch(CreateNewAccountFailure(response.data));
+				//dispatch(pushState(null,'/error'));
+			})
+
+	}
+}
+export function getMetadataRequest() {
+	return{
+		type: types.ACCOUNT_GET_COUNTRY_LIST
+	}
+}

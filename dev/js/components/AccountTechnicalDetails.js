@@ -8,7 +8,7 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 
 
-import {createNewAccount,handleSelectFieldsChange} from '../actions/accountActions';
+import {createNewAccount,handleSelectFieldsChange,getMetadata} from '../actions/accountActions';
 import * as types from '../actions/actionTypes';
 
 import Users from '../../json/Users.json';
@@ -21,12 +21,7 @@ require('../../scss/style.scss');
 class AccountTechnicalDetails extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.accountTechDetailsInfo = {
-        		/*ExstContacts: null,
-        		name:null,
-        		email:null,
-        		Country:null*/
-    		  };
+        this.accountTechDetailsInfo = {};
         
     }
    
@@ -60,6 +55,8 @@ class AccountTechnicalDetails extends React.Component {
     render() {
     	
     	var listUsers = this.initializeData(Users.data,'id');
+
+        this.props.getMetadata();
     	var listCountries = this.initializeData(Countries.data,'code');
     	
         return (
@@ -197,7 +194,10 @@ class AccountTechnicalDetails extends React.Component {
 
                                                         onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_EXSTACCTS_CHANGE)}
                                                     >
-                                                        {listUsers}
+                                                        <MenuItem value="act1" primaryText=" 10 GRAD(37669)" />
+                                                        <MenuItem value="act2" primaryText="100 BEST(39551)" />
+                                                        <MenuItem value="act3" primaryText="10DUKE (38660)" />
+                                                        <MenuItem value="act4" primaryText="118811 (39258)" />
                                                     </SelectField>
                                                 </div>
                                             </td>
@@ -213,7 +213,10 @@ class AccountTechnicalDetails extends React.Component {
 
                                                         onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_INTERFACE_CHANGE)}
                                                     >
-                                                        {listCountries}
+                                                        <MenuItem value="http" primaryText="HTTP" />
+                                                        <MenuItem value="smtp" primaryText="SMTP" />
+                                                        <MenuItem value="smtp" primaryText="SMPP" />
+
                                                     </SelectField>
                                                 </div>
                                             </td>
@@ -251,7 +254,9 @@ function mapStateToProps(state) {
 	}
 
 	function mapDispatchToProps(dispatch) {
-		return bindActionCreators({handleSelectFieldsChange:handleSelectFieldsChange,createNewAccount: createNewAccount}, dispatch);
+		return bindActionCreators({handleSelectFieldsChange:handleSelectFieldsChange,
+            createNewAccount: createNewAccount,
+            getMetadata:getMetadata}, dispatch);
 	}
 
 	export default connect(mapStateToProps, mapDispatchToProps)(AccountTechnicalDetails);

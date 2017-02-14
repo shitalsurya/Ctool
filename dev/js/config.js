@@ -1,8 +1,8 @@
 //Auth
 
-export const serverIP ='10.19.4.109';
+export const serverIP ='localhost';
 export const protocol ='http';
-export const portNo ='3000';
+export const portNo ='8080';
 function getServerUrl(){
 	return protocol+'://'+serverIP+':'+portNo;
 	// /auth/getToken';
@@ -10,10 +10,11 @@ function getServerUrl(){
 
 export function getUrl(APIName){
 	var APIUrls={
-	             'UserAuth':'/auth/getToken',
-				'CreateAccount':'/account/createAccount'
+	             'UserAuth':'/auth/token',
+				'CreateAccount':'/account/createAccount',
+				'GetCountryList':'/account/getCountryList'
 				};
-	return getServerUrl() + APIUrls[APIName];
+	return getServerUrl() +'/ctool'+ APIUrls[APIName];
 }
 
 
