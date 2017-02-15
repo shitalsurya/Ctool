@@ -85,9 +85,7 @@ export function createNewAccount(_accountInfo) {
 	return function (dispatch) {
 		dispatch(CreateNewAccountRequest());
 		var token = localStorage.getItem("token");
-		return axios.post(config.getUrl('CreateAccount'), {
-			data: _accountInfo
-		}, { headers: { Authorization: token }})
+		return axios.post(config.getUrl('CreateAccount'), _accountInfo, { headers: { Authorization: token }})
 			.then(function (response) {
 				console.log("loginSuccess response==", response);
 				dispatch(CreateNewAccountSuccess(response.data));

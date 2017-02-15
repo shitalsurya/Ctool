@@ -28,10 +28,7 @@ class Account extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.showTechnicalDetails = false;
-        this.accountObj = {
-            AcctMgr: null,
-            Company: null
-        };
+        this.accountObj = {};
     }
 
     handleSelectFieldsChange(target, event, key, value) {
@@ -93,7 +90,7 @@ class Account extends React.Component {
                                                     <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                         <SelectField
                                                             floatingLabelText="Select Account Manager"
-                                                            value={this.accountObj.AcctMgr}
+                                                            value={this.accountObj.acctManager}
                                                             onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_MGR_CHANGE)}>
                                                             {listUsers}
                                                         </SelectField>
@@ -104,7 +101,7 @@ class Account extends React.Component {
                                                     <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                         <SelectField
                                                             floatingLabelText="Select Company"
-                                                            value={this.accountObj.Company}
+                                                            value={this.accountObj.company}
                                                             onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_COMPANY_CHANGE)}>
                                                             {listCompany}
                                                         </SelectField>
@@ -112,7 +109,7 @@ class Account extends React.Component {
                                                     <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                         <SelectField
                                                             floatingLabelText="Billing Location"
-                                                            value={this.accountObj.BillingLocation}
+                                                            value={this.accountObj.billingLocation}
                                                             onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_BILLING_LOCATION)}>
                                                             {listBillingLocation}
                                                         </SelectField>
@@ -123,7 +120,7 @@ class Account extends React.Component {
                                                     <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                         <SelectField
                                                             floatingLabelText="Service Level"
-                                                            value={this.accountObj.ServiceLevel}
+                                                            value={this.accountObj.serviceLevel}
                                                             onChange={this.handleSelectFieldsChange.bind(this, types.SERVICE_LEVEL)}>
                                                             {listServiceLevel}
                                                         </SelectField>
@@ -131,7 +128,7 @@ class Account extends React.Component {
                                                     <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                         <SelectField
                                                             floatingLabelText="Traffic Type"
-                                                            value={this.accountObj.TrafficType}
+                                                            value={this.accountObj.trafficType}
                                                             onChange={this.handleSelectFieldsChange.bind(this, types.TRAFFIC_TYPE)}>
                                                             {listTrafficType}
                                                         </SelectField>
@@ -165,23 +162,23 @@ class Account extends React.Component {
     componentWillReceiveProps(nextProps) {
         switch (nextProps.target) {
             case types.ACCOUNT_MGR_CHANGE:
-                this.accountObj.AcctMgr = nextProps.data;
+                this.accountObj.acctManager = nextProps.data;
                 break;
             case types.ACCOUNT_COMPANY_CHANGE:
-                this.accountObj.Company = nextProps.data;
+                this.accountObj.company = nextProps.data;
                 break;
             case types.ACCOUNT_NEXT:
                 console.log("componentWillReceiveProps accountObj Info=", this.accountObj);
                 this.showTechnicalDetails = true;
                 break;
             case types.ACCOUNT_BILLING_LOCATION:
-                this.accountObj.BillingLocation = nextProps.data;
+                this.accountObj.billingLocation = nextProps.data;
                 break;
             case types.SERVICE_LEVEL:
-                this.accountObj.ServiceLevel = nextProps.data;
+                this.accountObj.serviceLevel = nextProps.data;
                 break;
             case types.TRAFFIC_TYPE:
-                this.accountObj.TrafficType = nextProps.data;
+                this.accountObj.trafficType = nextProps.data;
                 break;
         }
 

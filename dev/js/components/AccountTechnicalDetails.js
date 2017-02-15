@@ -176,7 +176,7 @@ class AccountTechnicalDetails extends React.Component {
                                     <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <SelectField
                                             floatingLabelText="Interface"
-                                            value={this.accountTechDetailsInfo.Interface}
+                                            value={this.accountTechDetailsInfo.accInterface}
 
                                             onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_INTERFACE_CHANGE)}
                                         >
@@ -226,7 +226,7 @@ class AccountTechnicalDetails extends React.Component {
                 this.accountTechDetailsInfo.ExstAccts = nextProps.data;
                 break;
             case types.ACCOUNT_INTERFACE_CHANGE:
-                this.accountTechDetailsInfo.Interface = nextProps.data;
+                this.accountTechDetailsInfo.accInterface = nextProps.data;
                 break;
             case types.ACCOUNT_GET_COUNTRY_LIST_SUCCESS:
                 localStorage.setItem("countryList",JSON.stringify(nextProps.data));
