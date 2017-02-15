@@ -42,17 +42,17 @@ class Account extends React.Component {
     }
     initializeData(_data, valueCol) {
         var list = _data.map(function (field) {
-            if(typeof(field) == 'object'){
+            if (typeof (field) == 'object') {
                 return (
                     <MenuItem key={field[valueCol]} value={field.name} primaryText={field.name} />
                 );
-            // }else if (typeof(field) == 'string'){
-            }else {
-                  return(
+                // }else if (typeof(field) == 'string'){
+            } else {
+                return (
                     <MenuItem key={field} value={field} primaryText={field} />
-                  );
+                );
             }
-                
+
         });
         return list;
     }
@@ -76,64 +76,78 @@ class Account extends React.Component {
                                         <h3 className="page-heading">Create Account</h3>
                                         <div className="hr-extended"></div>
 
-                                        <h4 className="breadcrumbs">Commercial Information</h4>
-
-                                        <div>
-
+                                        <div className="section-content">
+                                            <h4 className="breadcrumbs">Commercial Information</h4>
                                             <div className="Account-details-container">
-                                                <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                    <TextField className="TextField"
-                                                        id="text-requester-name"
-                                                        floatingLabelText="Requester Name"
-                                                        hintText="Requester Name"
-                                                        ref="requesterName"
-                                                    />
+                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                        <TextField className="TextField"
+                                                            id="text-requester-name"
+                                                            floatingLabelText="Requester Name"
+                                                            hintText="Requester Name"
+                                                            ref="requesterName"
+                                                        />
+                                                    </div>
+                                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                        <SelectField
+                                                            floatingLabelText="Select Account Manager"
+                                                            value={this.accountObj.AcctMgr}
+                                                            onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_MGR_CHANGE)}>
+                                                            {listUsers}
+                                                        </SelectField>
+                                                    </div>
+
                                                 </div>
-                                                <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                    <SelectField
-                                                        floatingLabelText="Select Account Manager"
-                                                        value={this.accountObj.AcctMgr}
-                                                        onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_MGR_CHANGE)}>
-                                                        {listUsers}
-                                                    </SelectField>
+                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                        <SelectField
+                                                            floatingLabelText="Select Company"
+                                                            value={this.accountObj.Company}
+                                                            onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_COMPANY_CHANGE)}>
+                                                            {listCompany}
+                                                        </SelectField>
+                                                    </div>
+                                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                        <SelectField
+                                                            floatingLabelText="Billing Location"
+                                                            value={this.accountObj.BillingLocation}
+                                                            onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_BILLING_LOCATION)}>
+                                                            {listBillingLocation}
+                                                        </SelectField>
+                                                    </div>
+
                                                 </div>
-                                                <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                    <SelectField
-                                                        floatingLabelText="Select Company"
-                                                        value={this.accountObj.Company}
-                                                        onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_COMPANY_CHANGE)}>
-                                                        {listCompany}
-                                                    </SelectField>
+                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                        <SelectField
+                                                            floatingLabelText="Service Level"
+                                                            value={this.accountObj.ServiceLevel}
+                                                            onChange={this.handleSelectFieldsChange.bind(this, types.SERVICE_LEVEL)}>
+                                                            {listServiceLevel}
+                                                        </SelectField>
+                                                    </div>
+                                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                        <SelectField
+                                                            floatingLabelText="Traffic Type"
+                                                            value={this.accountObj.TrafficType}
+                                                            onChange={this.handleSelectFieldsChange.bind(this, types.TRAFFIC_TYPE)}>
+                                                            {listTrafficType}
+                                                        </SelectField>
+                                                    </div>
+
                                                 </div>
-                                                <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                    <SelectField
-                                                        floatingLabelText="Billing Location"
-                                                        value={this.accountObj.BillingLocation}
-                                                        onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_BILLING_LOCATION)}>
-                                                        {listBillingLocation}
-                                                    </SelectField>
+                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 bottom-margin-large">
+                                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+                                                    </div>
+                                                    <div className="detail-content acc-nav-buttons col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                        <RaisedButton label="Back" className="RaisedButton sap-btn pull-left" />
+                                                        <RaisedButton label="Next" onClick={this.handleAccountNext.bind(this)} className="RaisedButton sap-btn pull-right" />
+                                                    </div>
                                                 </div>
-                                                <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                    <SelectField
-                                                        floatingLabelText="Service Level"
-                                                        value={this.accountObj.ServiceLevel}
-                                                        onChange={this.handleSelectFieldsChange.bind(this, types.SERVICE_LEVEL)}>
-                                                        {listServiceLevel}
-                                                    </SelectField>
-                                                </div>
-                                                <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                    <SelectField
-                                                        floatingLabelText="Traffic Type"
-                                                        value={this.accountObj.TrafficType}                                                        
-                                                        onChange={this.handleSelectFieldsChange.bind(this, types.TRAFFIC_TYPE)}>
-                                                        {listTrafficType}
-                                                    </SelectField>
-                                                </div>
-                                                
                                             </div>
 
-
-                                            <RaisedButton label="Next" onClick={this.handleAccountNext.bind(this)} className="sap-btn btn-block btn-login" />
+                                            {/*<RaisedButton label="Next" onClick={this.handleAccountNext.bind(this)} className="RaisedButton sap-btn" />*/}
                                             {this.showTechnicalDetails && <AccountTechnicalDetails accountObj={this.accountObj} />}
                                         </div>
                                     </div>
