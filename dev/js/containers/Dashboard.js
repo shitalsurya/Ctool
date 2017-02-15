@@ -35,6 +35,7 @@ class Dashboard extends React.Component {
                                 <li><a href="#" onClick={this.navigateMenus.bind(this,types.TOOLBOX_SEARCH)}>Toolbox</a></li>
                             </ul>
                             <ul className="nav navbar-nav navbar-right">
+                                <li><a>{this.user}</a></li>
                                 <li><a href="/">Logout</a></li>
                             </ul>
                         </div>
@@ -59,6 +60,13 @@ class Dashboard extends React.Component {
     }
     componentWillReceiveProps (nextProps) {
         this.checkCurrentMenu(nextProps.currentMenu);
+    }
+    componentWillMount(){
+        var token = localStorage.getItem("token");
+        var authInfo = token.split(".");
+        console.log(authInfo[1]);
+        var authInfo = JSON.parse(window.atob(authInfo[1])) ;
+        this.user = authInfo.sub;
     }
     checkCurrentMenu(currentMenu) {
     	 switch(currentMenu){

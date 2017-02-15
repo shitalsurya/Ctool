@@ -6,7 +6,10 @@ import TextField from 'material-ui/TextField';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
-
+import {
+    ToastContainer,
+    ToastMessage,
+} from "react-toastr";
 
 import { createNewAccount, handleSelectFieldsChange, getMetadata } from '../actions/accountActions';
 import * as types from '../actions/actionTypes';
@@ -16,7 +19,7 @@ import Users from '../../json/Users.json';
 
 require('../../scss/style.scss');
 
-
+const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
 class AccountTechnicalDetails extends React.Component {
     constructor(props, context) {
@@ -199,6 +202,11 @@ class AccountTechnicalDetails extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <ToastContainer
+                        toastMessageFactory={ToastMessageFactory}
+                        ref="container"
+                        className="toast-top-right"
+                    />
                 </div>
             </MuiThemeProvider>
         )
@@ -236,7 +244,10 @@ class AccountTechnicalDetails extends React.Component {
                 alert("Failed to get countries");
                 break;
             case types.ACCOUNT_CREATE_NEW_SUCCESS:
-                alert("Account created successfully.");
+               //alert("Account created successfully.");
+                this.refs.container.success(`Account created successfully.`, ``, {
+                    closeButton: true,
+                });
                 break;
             case types.ACCOUNT_CREATE_NEW_FAILURE:
                 alert("Failed to create new account.");

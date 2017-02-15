@@ -159,6 +159,7 @@ class Account extends React.Component {
             </MuiThemeProvider>
         )
     }
+
     componentWillReceiveProps(nextProps) {
         switch (nextProps.target) {
             case types.ACCOUNT_MGR_CHANGE:

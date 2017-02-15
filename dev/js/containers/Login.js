@@ -41,6 +41,7 @@ class Login extends Component {
 		    										floatingLabelText="Username"
 		    										hintText="Username"
 		    										ref="userEmail"
+														  autoFocus={true}
 		    									/>
 		    									<br />
 		    									<TextField className="TextField"
@@ -74,6 +75,10 @@ class Login extends Component {
 
       componentWillReceiveProps (nextProps) {
           this.checkAuth(nextProps.token);
+
+			//   this.refs.container.success(`Welcome ${authInfo.sub}`, ``, {
+			// 	  closeButton: true,
+			//   });
       }
 
       checkAuth (token) {
