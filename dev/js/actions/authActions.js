@@ -26,13 +26,13 @@ export function loginFailure(data) {
 	}
 
 export function loginUser(username, password) {
-var response={};
+/*var response={};
 		response.data = {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlRlc3QgVXNlciJ9.J6n4-v0I85zk9MkxBHroZ9ZPZEES-IKeul9ozxYnoZ8"};
 	return function(dispatch) {
 	dispatch(loginSuccess(response.data));
-	}
+	}*/
 	//Uncomment below code for http request
-	/*return function(dispatch) {
+	return function(dispatch) {
 		dispatch(loginUserRequest());
 		console.log("getUrl ==",config.getUrl('UserAuth'));
 		return axios.post(config.getUrl('UserAuth'), {
@@ -48,7 +48,7 @@ var response={};
 				dispatch(loginFailure(response.data));
 				//dispatch(pushState(null,'/error'));
 			})
-	}*/
+	}
 }
 
 export function navigateMenus(menu) {

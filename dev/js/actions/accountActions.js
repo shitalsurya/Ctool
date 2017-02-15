@@ -120,14 +120,17 @@ export function createNewAccount(_accountInfo) {
 export function getMetadata(){
 	return function (dispatch) {
 		dispatch(getMetadataRequest());
-		return axios.get(config.getUrl('GetCountryList'))
+		var token = localStorage.getItem("token");
+		console.log("token=",token);
+		return axios.get(config.getUrl('GetCountryList'),{ headers: { Authorization: token } })
+		//return axios.get(config.getUrl('GetCountryList'))
 			.then(function (response) {
 				console.log("loginSuccess response==", response);
-				//dispatch(CreateNewAccountSuccess(response.data));
+				dispatch(getMetadataRequestSuccess(response.data));
 			})
 			.catch(function (response) {
 				console.log("loginFailure response==", response);
-				//dispatch(CreateNewAccountFailure(response.data));
+				dispatch(getMetadataRequestFailure(response.data));
 				//dispatch(pushState(null,'/error'));
 			})
 
@@ -136,5 +139,19 @@ export function getMetadata(){
 export function getMetadataRequest() {
 	return{
 		type: types.ACCOUNT_GET_COUNTRY_LIST
+	}
+}
+
+export function getMetadataRequestSuccess(data) {
+	//	localStorage.setItem("token",data.token);
+	return {
+		type: types.ACCOUNT_GET_COUNTRY_LIST_SUCCESS,
+		payload: data
+	}
+}
+export function getMetadataRequestFailure(data) {
+	return {
+		type: types.ACCOUNT_GET_COUNTRY_LIST_FAILURE,
+		payload: data
 	}
 }

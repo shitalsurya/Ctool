@@ -15,6 +15,7 @@ export default function (state = {
 		case types.ACCOUNT_INTERFACE_CHANGE:
         case types.ACCOUNT_CREATE_NEW:
 		case types.ACCOUNT_GET_COUNTRY_LIST_SUCCESS:
+		case types.ACCOUNT_GET_COUNTRY_LIST_FAILURE:
 			return Object.assign({}, state, {target:action.type,data:action.payload });
 		case types.ACCOUNT_NEXT:
 		case types.ACCOUNT_GET_COUNTRY_LIST:
