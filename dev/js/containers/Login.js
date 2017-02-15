@@ -36,7 +36,6 @@ class Login extends Component {
 		    							<div className="login-container sap-form">
 		    								<form className="form-signin content" name="loginForm">
 		    									<h2 className="form-signin-heading">Login</h2>
-		    									<p>Hint: abc@test.com / abc</p>
 		    									<TextField className="TextField"
 		    										id="text-field-default"
 		    										floatingLabelText="Username"

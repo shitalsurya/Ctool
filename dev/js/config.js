@@ -11,7 +11,7 @@ function getServerUrl(){
 export function getUrl(APIName){
 	var APIUrls={
 	             'UserAuth':'/auth/token',
-				'CreateAccount':'/account/createAccount',
+				'CreateAccount':'/account',
 				'GetCountryList':'/country/countries'
 				};
 	return getServerUrl() +'/ctool'+ APIUrls[APIName];

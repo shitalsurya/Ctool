@@ -36,8 +36,8 @@ export function loginUser(username, password) {
 		dispatch(loginUserRequest());
 		console.log("getUrl ==",config.getUrl('UserAuth'));
 		return axios.post(config.getUrl('UserAuth'), {
-		//	username:username,password:password
-			username: "user", password: "password"
+			username:username,password:password
+		//	username: "user", password: "password"
 		  })
 			.then(function(response) {
 				console.log("loginSuccess response==",response);

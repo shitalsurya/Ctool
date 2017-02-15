@@ -84,10 +84,10 @@ export function requestAccountNext() {
 export function createNewAccount(_accountInfo) {
 	return function (dispatch) {
 		dispatch(CreateNewAccountRequest());
+		var token = localStorage.getItem("token");
 		return axios.post(config.getUrl('CreateAccount'), {
 			data: _accountInfo
-			//email: "abc@test.com", password: "abc"
-		})
+		}, { headers: { Authorization: token }})
 			.then(function (response) {
 				console.log("loginSuccess response==", response);
 				dispatch(CreateNewAccountSuccess(response.data));
@@ -95,7 +95,6 @@ export function createNewAccount(_accountInfo) {
 			.catch(function (response) {
 				console.log("loginFailure response==", response);
 				dispatch(CreateNewAccountFailure(response.data));
-				//dispatch(pushState(null,'/error'));
 			})
 	}
 }

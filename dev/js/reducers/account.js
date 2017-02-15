@@ -19,6 +19,8 @@ export default function (state = {
 			return Object.assign({}, state, {target:action.type,data:action.payload });
 		case types.ACCOUNT_NEXT:
 		case types.ACCOUNT_GET_COUNTRY_LIST:
+		case types.ACCOUNT_CREATE_NEW_SUCCESS:
+		case types.ACCOUNT_CREATE_NEW_FAILURE:
 			return Object.assign({}, state, {target:action.type });
 		default:
 			return state;

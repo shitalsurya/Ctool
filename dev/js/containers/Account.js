@@ -38,6 +38,8 @@ class Account extends React.Component {
         this.props.handleSelectFieldsChange(value, target);
     }
     handleAccountNext() {
+        this.accountObj.requesterName = this.refs.requesterName.getValue();
+        console.log("accountObj Info=", this.accountObj);
         this.props.handleAccountNext();
     }
     initializeData(_data, valueCol) {
@@ -169,6 +171,7 @@ class Account extends React.Component {
                 this.accountObj.Company = nextProps.data;
                 break;
             case types.ACCOUNT_NEXT:
+                console.log("componentWillReceiveProps accountObj Info=", this.accountObj);
                 this.showTechnicalDetails = true;
                 break;
             case types.ACCOUNT_BILLING_LOCATION:

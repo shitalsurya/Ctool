@@ -29,6 +29,7 @@ class AccountTechnicalDetails extends React.Component {
         this.props.handleSelectFieldsChange(value, target);
     }
     handleTechDetailsNext(){
+        console.log("accountCommInfo Info=", this.accountCommInfo);
      this.accountCommInfo=this.props.accountObj || [];
         this.Countries=[];
    	 this.accountTechDetailsInfo.name = this.refs.name.getValue();
@@ -46,21 +47,17 @@ class AccountTechnicalDetails extends React.Component {
     }
     initializeData(_data,valueCol){
         console.log("initializeData",_data);
-
-        var list = _data.map(function (field) {
-            return (
-            		 <MenuItem key={field[valueCol]} value={field.name} primaryText={field.name} />
-            );
-        });
-        return list;
+        if(_data!=='undefined'){
+            var list = _data.map(function (field) {
+                return (
+                    <MenuItem key={field[valueCol]} value={field.name} primaryText={field.name} />
+                );
+            });
+            return list;
+        }
     }
     render() {
-
         var listUsers = this.initializeData(Users.data, 'id');
-
-
-
-
         return (
             <MuiThemeProvider>
                 <div>
@@ -107,7 +104,7 @@ class AccountTechnicalDetails extends React.Component {
 
                                             onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_COUNTRY_CHANGE)}
                                         >
-                                            {listCountries}
+                                            {this.Countries}
                                         </SelectField>
                                     </div>
                                 </div>
@@ -209,13 +206,12 @@ class AccountTechnicalDetails extends React.Component {
     componentWillMount(){
         var countryList = localStorage.getItem("countryList");
         if(countryList){
-            this.Countries = this.initializeData(countryList,'code');
+            this.Countries = this.initializeData(JSON.parse(countryList),'code');
+            console.log("this.Countries==",this.Countries);
         }
         else{
             this.props.getMetadata();
         }
-
-
     }
 
     componentWillReceiveProps (nextProps) {
@@ -238,6 +234,12 @@ class AccountTechnicalDetails extends React.Component {
                 break;
             case types.ACCOUNT_GET_COUNTRY_LIST_FAILURE:
                 alert("Failed to get countries");
+                break;
+            case types.ACCOUNT_CREATE_NEW_SUCCESS:
+                alert("Account created successfully.");
+                break;
+            case types.ACCOUNT_CREATE_NEW_FAILURE:
+                alert("Failed to create new account.");
                 break;
         }
 
