@@ -12,7 +12,7 @@ import { createNewAccount, handleSelectFieldsChange, getMetadata } from '../acti
 import * as types from '../actions/actionTypes';
 
 import Users from '../../json/Users.json';
-import Countries from '../../json/Countries.json';
+//import Countries from '../../json/Countries.json';
 
 require('../../scss/style.scss');
 
@@ -28,12 +28,12 @@ class AccountTechnicalDetails extends React.Component {
     handleSelectFieldsChange(target, event, key, value) {
         this.props.handleSelectFieldsChange(value, target);
     }
-    handleTechDetailsNext() {
-        this.accountCommInfo = this.props.accountObj || [];
-
-        this.accountTechDetailsInfo.name = this.refs.name.getValue();
-        this.accountTechDetailsInfo.email = this.refs.email.getValue();
-        this.accountTechDetailsInfo.MobNo = this.refs.MobNo.getValue();
+    handleTechDetailsNext(){
+     this.accountCommInfo=this.props.accountObj || [];
+        this.Countries=[];
+   	 this.accountTechDetailsInfo.name = this.refs.name.getValue();
+   	 this.accountTechDetailsInfo.email = this.refs.email.getValue();
+   	 this.accountTechDetailsInfo.MobNo = this.refs.MobNo.getValue();
         this.accountTechDetailsInfo.DirectNo = this.refs.DirectNo.getValue();
 
         this.accountTechDetailsInfo.techName = this.refs.techName.getValue();
@@ -44,10 +44,12 @@ class AccountTechnicalDetails extends React.Component {
         console.log("Account Info=", this.accountInfo);
         this.props.createNewAccount(this.accountInfo);
     }
-    initializeData(_data, valueCol) {
+    initializeData(_data,valueCol){
+        console.log("initializeData",_data);
+
         var list = _data.map(function (field) {
             return (
-                <MenuItem key={field[valueCol]} value={field.name} primaryText={field.name} />
+            		 <MenuItem key={field[valueCol]} value={field.name} primaryText={field.name} />
             );
         });
         return list;
@@ -56,8 +58,8 @@ class AccountTechnicalDetails extends React.Component {
 
         var listUsers = this.initializeData(Users.data, 'id');
 
-        this.props.getMetadata();
-        var listCountries = this.initializeData(Countries.data, 'code');
+
+
 
         return (
             <MuiThemeProvider>
@@ -204,21 +206,39 @@ class AccountTechnicalDetails extends React.Component {
             </MuiThemeProvider>
         )
     }
-    componentWillReceiveProps(nextProps) {
-        switch (nextProps.target) {
-            case types.ACCOUNT_COMPANY_CONTACT:
-                this.accountTechDetailsInfo.ExstContacts = nextProps.data;
-                break;
-            case types.ACCOUNT_COUNTRY_CHANGE:
-                this.accountTechDetailsInfo.Country = nextProps.data;
-                break;
+    componentWillMount(){
+        var countryList = localStorage.getItem("countryList");
+        if(countryList){
+            this.Countries = this.initializeData(countryList,'code');
+        }
+        else{
+            this.props.getMetadata();
+        }
+
+
+    }
+
+    componentWillReceiveProps (nextProps) {
+        switch(nextProps.target){
+        case types.ACCOUNT_COMPANY_CONTACT:
+        	this.accountTechDetailsInfo.ExstContacts=nextProps.data;
+        	break;
+        case types.ACCOUNT_COUNTRY_CHANGE:
+        	this.accountTechDetailsInfo.Country=nextProps.data;
+        	break;
             case types.ACCOUNT_EXSTACCTS_CHANGE:
                 this.accountTechDetailsInfo.ExstAccts = nextProps.data;
                 break;
             case types.ACCOUNT_INTERFACE_CHANGE:
                 this.accountTechDetailsInfo.Interface = nextProps.data;
                 break;
-
+            case types.ACCOUNT_GET_COUNTRY_LIST_SUCCESS:
+                localStorage.setItem("countryList",JSON.stringify(nextProps.data));
+                this.Countries = this.initializeData(nextProps.data,'code');
+                break;
+            case types.ACCOUNT_GET_COUNTRY_LIST_FAILURE:
+                alert("Failed to get countries");
+                break;
         }
 
     }
@@ -227,12 +247,10 @@ function mapStateToProps(state) {
     return { data: state.Account.data, target: state.Account.target };
 }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        handleSelectFieldsChange: handleSelectFieldsChange,
-        createNewAccount: createNewAccount,
-        getMetadata: getMetadata
-    }, dispatch);
-}
+	function mapDispatchToProps(dispatch) {
+		return bindActionCreators({handleSelectFieldsChange:handleSelectFieldsChange,
+            createNewAccount: createNewAccount,
+            getMetadata:getMetadata}, dispatch);
+	}
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountTechnicalDetails);
