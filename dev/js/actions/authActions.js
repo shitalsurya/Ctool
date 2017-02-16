@@ -4,6 +4,8 @@ import { pushState } from 'redux-react-router';
 import * as types from '../actions/actionTypes';
 import Products from '../../json/Products.json';
 import * as config from '../config.js';
+import {httpRequest} from '../actions/httpActions'
+
 //axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
 export function loginUserRequest() {
@@ -26,35 +28,23 @@ export function loginFailure(data) {
 	}
 
 export function loginUser(username, password) {
-/*var response={};
-		response.data = {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlRlc3QgVXNlciJ9.J6n4-v0I85zk9MkxBHroZ9ZPZEES-IKeul9ozxYnoZ8"};
-	return function(dispatch) {
-	dispatch(loginSuccess(response.data));
-	}*/
-	//Uncomment below code for http request
-	return function(dispatch) {
+	return function (dispatch) {
 		dispatch(loginUserRequest());
-		console.log("getUrl ==",config.getUrl('UserAuth'));
-		return axios.post(config.getUrl('UserAuth'), {
-			username:username,password:password
-		//	username: "user", password: "password"
-		  })
-			.then(function(response) {
-				console.log("loginSuccess response==",response);
-				dispatch(loginSuccess(response.data));
-			})
-			.catch(function(response){
-				console.log("loginFailure response==",response);
-				dispatch(loginFailure(response.data));
-				//dispatch(pushState(null,'/error'));
-			})
+		var request = {
+								url:config.getUrl('UserAuth'),
+									method:'POST',
+								data:{username, password},
+								successCallback:loginSuccess,
+								failureCallback:loginFailure
+							};
+		return httpRequest(dispatch,request);
 	}
 }
 
 export function navigateMenus(menu) {
 	return function(dispatch) {
 		dispatch(navigateMenusRequest(menu));
-	
+
 	}
 }
 export function navigateMenusRequest(menu){
@@ -71,7 +61,7 @@ export function navigateMenusRequest(menu){
 		    payload: types.ACCOUNT_CREATE
 		  }
 		break;
-		
+
 	}
 }
 export function requestSearch(searchTerm) {
@@ -86,7 +76,6 @@ export function searchSuccess(data){
 	return{
 		 type: types.SEARCH_REQUEST,
 		 payload:data
-	
+
 	}
 }
-

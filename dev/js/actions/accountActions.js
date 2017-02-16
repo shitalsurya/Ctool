@@ -1,79 +1,24 @@
 import * as types from '../actions/actionTypes';
 import axios from 'axios';
 import * as config from '../config.js';
+import {httpRequest} from '../actions/httpActions'
 export function requestSelectFieldsChange(data,target){
-	console.log("requestSelectFieldsChange target==",target);
-	switch(target){
-		case types.ACCOUNT_MGR_CHANGE:
-			return{
-				 type: types.ACCOUNT_MGR_CHANGE,
-				 payload:data
-			
-			}
-			break;
-		case types.ACCOUNT_COMPANY_CHANGE:
-			return{
-				 type: types.ACCOUNT_COMPANY_CHANGE,
-				 payload:data
-			}
-			break;
-		case types.ACCOUNT_COMPANY_CONTACT:
-			return{
-				 type: types.ACCOUNT_COMPANY_CONTACT,
-				 payload:data
-			}
-			break;
-		case types.ACCOUNT_COUNTRY_CHANGE:
-			return{
-				 type: types.ACCOUNT_COUNTRY_CHANGE,
-				 payload:data
-			}
-			break;
-		case types.ACCOUNT_EXSTACCTS_CHANGE:
-			return{
-				type: types.ACCOUNT_EXSTACCTS_CHANGE,
-				payload:data
-			}
-			break;
-		case types.ACCOUNT_INTERFACE_CHANGE:
-			return{
-				type: types.ACCOUNT_INTERFACE_CHANGE,
-				payload:data
-			}
-			break;
-		case types.ACCOUNT_BILLING_LOCATION:
-			return{
-				type: types.ACCOUNT_BILLING_LOCATION,
-				payload:data
-			}
-			break;
-		case types.SERVICE_LEVEL:
-			return{
-				type: types.SERVICE_LEVEL,
-				payload:data
-			}
-			break;
-		case types.TRAFFIC_TYPE:
-			return{
-				type: types.TRAFFIC_TYPE,
-				payload:data
-			}
-			break;			
+	return{
+		type: target,
+		payload:data
 	}
-	
 }
 export function handleSelectFieldsChange(value,target){
 	return function(dispatch) {
 		dispatch(requestSelectFieldsChange(value,target));
 		}
-	
 }
 
-export function handleAccountNext(_accountInfo){
+export function handleAccountNext(){
 	return function(dispatch) {
-		dispatch(requestAccountNext(_accountInfo));
+		dispatch(requestAccountNext());
 		}
-	
+
 }
 export function requestAccountNext() {
 
@@ -84,18 +29,17 @@ export function requestAccountNext() {
 export function createNewAccount(_accountInfo) {
 	return function (dispatch) {
 		dispatch(CreateNewAccountRequest());
-		var token = localStorage.getItem("token");
-		return axios.post(config.getUrl('CreateAccount'), _accountInfo, { headers: { Authorization: token }})
-			.then(function (response) {
-				console.log("loginSuccess response==", response);
-				dispatch(CreateNewAccountSuccess(response.data));
-			})
-			.catch(function (response) {
-				console.log("loginFailure response==", response);
-				dispatch(CreateNewAccountFailure(response.data));
-			})
+		var request = {
+								url:config.getUrl('CreateAccount'),
+									method:'POST',
+								data:_accountInfo,
+								successCallback:CreateNewAccountSuccess,
+								failureCallback:CreateNewAccountFailure
+							};
+		return httpRequest(dispatch,request);
 	}
 }
+
 	export function CreateNewAccountRequest() {
 		return{
 			type: types.ACCOUNT_CREATE_NEW,
@@ -117,19 +61,14 @@ export function createNewAccount(_accountInfo) {
 export function getMetadata(){
 	return function (dispatch) {
 		dispatch(getMetadataRequest());
-		var token = localStorage.getItem("token");
-		console.log("token=",token);
-		return axios.get(config.getUrl('GetCountryList'),{ headers: { Authorization: token } })
-		//return axios.get(config.getUrl('GetCountryList'))
-			.then(function (response) {
-				console.log("loginSuccess response==", response);
-				dispatch(getMetadataRequestSuccess(response.data));
-			})
-			.catch(function (response) {
-				console.log("loginFailure response==", response);
-				dispatch(getMetadataRequestFailure(response.data));
-				//dispatch(pushState(null,'/error'));
-			})
+
+		var request = {
+								url:config.getUrl('GetCountryList'),
+								method:'GET',
+								successCallback:getMetadataRequestSuccess,
+								failureCallback:getMetadataRequestFailure
+							};
+		return httpRequest(dispatch,request);
 
 	}
 }

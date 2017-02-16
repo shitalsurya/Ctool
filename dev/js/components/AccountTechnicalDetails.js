@@ -214,10 +214,12 @@ class AccountTechnicalDetails extends React.Component {
     componentWillMount(){
         var countryList = localStorage.getItem("countryList");
         if(countryList){
+          console.log("get from cache");
             this.Countries = this.initializeData(JSON.parse(countryList),'code');
             console.log("this.Countries==",this.Countries);
         }
         else{
+            console.log("get from backend");
             this.props.getMetadata();
         }
     }

@@ -13,8 +13,9 @@ require('../../scss/style.scss');
 class Login extends Component {
 	  constructor(props, context) {
 	      super(props, context);
+
 	    }
-	  
+
 	  render() {
 		  const style = {
 				  margin: 12
@@ -32,7 +33,7 @@ class Login extends Component {
 		    									</div>
 		    								</div>
 		    							</nav>
-		    		 
+
 		    							<div className="login-container sap-form">
 		    								<form className="form-signin content" name="loginForm">
 		    									<h2 className="form-signin-heading">Login</h2>
@@ -41,7 +42,6 @@ class Login extends Component {
 		    										floatingLabelText="Username"
 		    										hintText="Username"
 		    										ref="userEmail"
-														  autoFocus={true}
 		    									/>
 		    									<br />
 		    									<TextField className="TextField"
@@ -72,13 +72,12 @@ class Login extends Component {
 	  componentWillMount () {
           this.checkAuth(this.props.token);
       }
-
+			componentDidMount () {
+					this.refs.userEmail.getInputNode().value = 'user';
+					this.refs.userPassword.getInputNode().value = 'password';
+			}
       componentWillReceiveProps (nextProps) {
           this.checkAuth(nextProps.token);
-
-			//   this.refs.container.success(`Welcome ${authInfo.sub}`, ``, {
-			// 	  closeButton: true,
-			//   });
       }
 
       checkAuth (token) {
@@ -91,7 +90,7 @@ class Login extends Component {
 		  const userPassword = this.refs.userPassword.getValue();
 		  this.props.loginUser(userEmail,userPassword);
 	  }
-}	
+}
 
 Login.contextTypes = {
 		  router: React.PropTypes.object.isRequired
