@@ -90,9 +90,9 @@ this.state={
       }
 
       checkAuth (token) {
-          if (token) {
+          // if (token) {
         	  this.context.router.push('dashboard');
-          }
+          // }
       }
 	  handleLogin(){
 		  const userEmail = this.refs.userEmail.getValue();
