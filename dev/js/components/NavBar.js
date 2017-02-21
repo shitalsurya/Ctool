@@ -7,11 +7,11 @@ import MenuItem from 'material-ui/MenuItem';
 import Drawer from 'material-ui/Drawer';
 // import MobileTearSheet from '../../../MobileTearSheet';
 import {List, ListItem} from 'material-ui/List';
-import ActionGrade from 'material-ui/svg-icons/action/grade';
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
-import ContentDrafts from 'material-ui/svg-icons/content/drafts';
-import ContentSend from 'material-ui/svg-icons/content/send';
-import Subheader from 'material-ui/Subheader';
+// import ActionGrade from 'material-ui/svg-icons/action/grade';
+// import ContentInbox from 'material-ui/svg-icons/content/inbox';
+// import ContentDrafts from 'material-ui/svg-icons/content/drafts';
+// import ContentSend from 'material-ui/svg-icons/content/send';
+// import Subheader from 'material-ui/Subheader';
 
 class DrawerMenu extends React.Component {
   render() {
