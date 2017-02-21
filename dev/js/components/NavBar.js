@@ -25,13 +25,75 @@ class DrawerMenu extends React.Component {
           onRequestChange={this.props.onRequestChange}
         >
           <MenuItem className="menuHeader" onTouchTap={this.props.handleClose}>CTOOL Menu</MenuItem>
-          <MenuItem onTouchTap={this.props.handleClose}>Menu Item 2</MenuItem>
-          <MenuItem onTouchTap={this.props.handleClose}>Menu Item 3</MenuItem>
-          <MenuItem onTouchTap={this.props.handleClose}>Menu Item 4</MenuItem>
-          <MenuItem onTouchTap={this.props.handleClose}>Menu Item 5</MenuItem>
+            <ListItem
+              primaryText="Accounts"
+              initiallyOpen={false}
+              primaryTogglesNestedList={true}
+              nestedItems={[
+                <MenuItem onTouchTap={this.props.handleClose}>Create</MenuItem>,
+                <MenuItem onTouchTap={this.props.handleClose}>Update</MenuItem>,
+                <MenuItem onTouchTap={this.props.handleClose}>Delete</MenuItem>
+              ]}
+            ></ListItem>
 
+            <ListItem
+              primaryText="Connections"
+              initiallyOpen={false}
+              primaryTogglesNestedList={true}
+              nestedItems={[
+                <MenuItem onTouchTap={this.props.handleClose}>Create</MenuItem>,
+                <MenuItem onTouchTap={this.props.handleClose}>Update</MenuItem>,
+                <MenuItem onTouchTap={this.props.handleClose}>Delete</MenuItem>
+              ]}
+            ></ListItem>
+
+            <ListItem
+              primaryText="Operations"
+              initiallyOpen={false}
+              primaryTogglesNestedList={true}
+              nestedItems={[
+                <MenuItem onTouchTap={this.props.handleClose}>Create</MenuItem>,
+                <MenuItem onTouchTap={this.props.handleClose}>Update</MenuItem>,
+                <MenuItem onTouchTap={this.props.handleClose}>Delete</MenuItem>
+              ]}
+            ></ListItem>
+
+            <ListItem
+              primaryText="Miscelleneous"
+              initiallyOpen={false}
+              primaryTogglesNestedList={true}
+              nestedItems={[
+                <MenuItem onTouchTap={this.props.handleClose}>Create</MenuItem>,
+                <MenuItem onTouchTap={this.props.handleClose}>Update</MenuItem>,
+                <MenuItem onTouchTap={this.props.handleClose}>Delete</MenuItem>
+              ]}
+            ></ListItem>
+
+            <ListItem
+              primaryText="Toolbox"
+              initiallyOpen={false}
+              primaryTogglesNestedList={true}
+              nestedItems={[
+                <MenuItem onTouchTap={this.props.handleClose}>Create</MenuItem>,
+                <MenuItem onTouchTap={this.props.handleClose}>Update</MenuItem>,
+                <MenuItem onTouchTap={this.props.handleClose}>Delete</MenuItem>
+              ]}
+            ></ListItem>
         
-          <List>
+        </Drawer>
+      </div>
+    );
+  }
+}
+
+const styles = {
+  title: {
+    cursor: 'pointer',
+  },
+};
+
+/**
+ *           <List>
             <Subheader>Nested List Items</Subheader>
             <ListItem primaryText="Sent mail" leftIcon={<ContentSend />} />
             <ListItem primaryText="Drafts" leftIcon={<ContentDrafts />} />
@@ -58,20 +120,9 @@ class DrawerMenu extends React.Component {
               ]}
             />
           </List>
-        
-        </Drawer>
-      </div>
-    );
-  }
-}
 
-const styles = {
-  title: {
-    cursor: 'pointer',
-  },
-};
-
-/**
+ * 
+ * 
  * This example uses an [IconButton](/#/components/icon-button) on the left, has a clickable `title`
  * through the `onTouchTap` property, and a [FlatButton](/#/components/flat-button) on the right.
  */
