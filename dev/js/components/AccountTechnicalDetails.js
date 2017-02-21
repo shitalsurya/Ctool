@@ -252,7 +252,9 @@ class AccountTechnicalDetails extends React.Component {
                 });
                 break;
             case types.ACCOUNT_CREATE_NEW_FAILURE:
-                alert("Failed to create new account.");
+                this.refs.container.error(`Failed to create new account.`, ``, {
+                    closeButton: true,
+                });
                 break;
         }
 
