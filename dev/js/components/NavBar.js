@@ -5,18 +5,60 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
 import Drawer from 'material-ui/Drawer';
+// import MobileTearSheet from '../../../MobileTearSheet';
+import {List, ListItem} from 'material-ui/List';
+import ActionGrade from 'material-ui/svg-icons/action/grade';
+import ContentInbox from 'material-ui/svg-icons/content/inbox';
+import ContentDrafts from 'material-ui/svg-icons/content/drafts';
+import ContentSend from 'material-ui/svg-icons/content/send';
+import Subheader from 'material-ui/Subheader';
 
 class DrawerMenu extends React.Component {
   render() {
     return (
       <div>
         <Drawer
+          className="drawerMenu"
           docked={false}
           width={200}
           open={this.props.open}
+          onRequestChange={this.props.onRequestChange}
         >
-          <MenuItem onTouchTap={this.props.handleClose}>Menu Item</MenuItem>
+          <MenuItem className="menuHeader" onTouchTap={this.props.handleClose}>CTOOL Menu</MenuItem>
           <MenuItem onTouchTap={this.props.handleClose}>Menu Item 2</MenuItem>
+          <MenuItem onTouchTap={this.props.handleClose}>Menu Item 3</MenuItem>
+          <MenuItem onTouchTap={this.props.handleClose}>Menu Item 4</MenuItem>
+          <MenuItem onTouchTap={this.props.handleClose}>Menu Item 5</MenuItem>
+
+        
+          <List>
+            <Subheader>Nested List Items</Subheader>
+            <ListItem primaryText="Sent mail" leftIcon={<ContentSend />} />
+            <ListItem primaryText="Drafts" leftIcon={<ContentDrafts />} />
+            <ListItem
+              primaryText="Inbox"
+              leftIcon={<ContentInbox />}
+              initiallyOpen={true}
+              primaryTogglesNestedList={true}
+              nestedItems={[
+                <ListItem
+                  key={1}
+                  primaryText="Starred"
+                  leftIcon={<ActionGrade />}
+                />,
+                <ListItem
+                  key={2}
+                  primaryText="Sent Mail"
+                  leftIcon={<ContentSend />}
+                  disabled={true}
+                  nestedItems={[
+                    <ListItem key={1} primaryText="Drafts" leftIcon={<ContentDrafts />} />,
+                  ]}
+                />,
+              ]}
+            />
+          </List>
+        
         </Drawer>
       </div>
     );
@@ -71,7 +113,11 @@ class  NavBar extends React.Component{
           onLeftIconButtonTouchTap={this.showMenuOnTap}
           iconElementRight={<FlatButton label="Logout" />}
         >
-          <DrawerMenu open={this.state.open} handleClose={this.handleClose}></DrawerMenu>
+          <DrawerMenu 
+              open={this.state.open} 
+              handleClose={this.handleClose}
+              onRequestChange={(open) => this.setState({open})}
+           ></DrawerMenu>
         </AppBar>
     );
   }
