@@ -13,7 +13,12 @@ require('../../scss/style.scss');
 class Login extends Component {
 	  constructor(props, context) {
 	      super(props, context);
-
+this.state={
+	errors:{
+		userEmail:"",
+		userPassword:""
+	}
+}
 	    }
 
 	  render() {
@@ -38,16 +43,20 @@ class Login extends Component {
 		    								<form className="form-signin content" name="loginForm">
 		    									<h2 className="form-signin-heading">Login</h2>
 		    									<TextField className="TextField"
+													floatingLabelText="Username"
 		    										id="text-field-default"
-		    										floatingLabelText="Username"
 		    										hintText="Username"
 		    										ref="userEmail"
+														onBlur={this.validate.bind(this,'userEmail')}
+														errorText={this.state.errors.userEmail}
 		    									/>
 		    									<br />
 		    									<TextField className="TextField"
 		    										ref='userPassword'
 		    										hintText="Password"
 		    										floatingLabelText="Password"
+														onBlur={this.validate.bind(this,'userPassword')}
+														errorText={this.state.errors.userPassword}
 		    										type="password">
 		    									</TextField>
 												<div className="login-button-container">
@@ -90,6 +99,16 @@ class Login extends Component {
 		  const userPassword = this.refs.userPassword.getValue();
 		  this.props.loginUser(userEmail,userPassword);
 	  }
+		validate(field){
+			var errors={};
+					this.refs[field].getValue()==""?	errors[field]="Required":	errors[field]="";
+					if(this.refs.userEmail.getValue()=="" && this.refs.userPassword.getValue()==""){
+					 errors["userEmail"]="Required";
+					 errors["userPassword"]="Required";
+					}
+
+				this.setState({errors:errors});
+		}
 }
 
 Login.contextTypes = {
