@@ -2,7 +2,7 @@ import * as types from '../actions/actionTypes';
 import axios from 'axios';
 import * as config from '../config.js';
 import {httpRequest} from '../actions/httpActions'
-export function requestSelectFieldsChange(data,target){
+export function handleSelectFieldsChangeRequest(data,target){
 	return{
 		type: target,
 		payload:data
@@ -10,20 +10,31 @@ export function requestSelectFieldsChange(data,target){
 }
 export function handleSelectFieldsChange(value,target){
 	return function(dispatch) {
-		dispatch(requestSelectFieldsChange(value,target));
+		dispatch(handleSelectFieldsChangeRequest(value,target));
 		}
 }
-
-export function handleAccountNext(){
+export function handleTechDetailsBack(_accountCommInfo){
+	return function(dispatch){
+		dispatch(handleTechDetailsBackRequest(_accountCommInfo))
+	}
+}
+export function handleTechDetailsBackRequest(_accountCommInfo){
+	return{
+		  type: types.ACCOUNT_TECHDETAILS_BACK,
+			payload:_accountCommInfo
+	}
+}
+export function goToTechnicalDetails(_accountCommInfo){
 	return function(dispatch) {
-		dispatch(requestAccountNext());
+		dispatch(goToTechnicalDetailsRequest(_accountCommInfo));
 		}
 
 }
-export function requestAccountNext() {
+export function goToTechnicalDetailsRequest(_accountCommInfo) {
 
     return {
-        type: types.ACCOUNT_NEXT
+        type: types.ACCOUNT_COMMINFO_NEXT,
+				payload:_accountCommInfo
     }
 }
 export function createNewAccount(_accountInfo) {

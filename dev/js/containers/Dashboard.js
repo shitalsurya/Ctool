@@ -8,16 +8,17 @@ import * as types from '../actions/actionTypes';
 require('../../scss/style.scss');
 
 
-	
+
 class Dashboard extends React.Component {
     constructor(props, context) {
         super(props, context);
+				 this.showAccount=true;
     }
 
     render() {
-    	
+
         return (
-        		
+
             <div className="other-than-main">
                 <nav className="navbar navbar-default navbar-static-top navbar-inverse">
                     <div className="container-fluid">

@@ -11,7 +11,7 @@ import {
     ToastMessage,
 } from "react-toastr";
 
-import { createNewAccount, handleSelectFieldsChange, getMetadata } from '../actions/accountActions';
+import { createNewAccount, handleSelectFieldsChange, getMetadata,handleTechDetailsBack } from '../actions/accountActions';
 import * as types from '../actions/actionTypes';
 
 import Users from '../../json/Users.json';
@@ -24,33 +24,39 @@ const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 class AccountTechnicalDetails extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.accountTechDetailsInfo = {};
-
+        this.Countries=[];
+        this.accountTechDetailsInfo=this.props.accountObj || [];
+        console.log("this.accountTechDetailsInfo==",this.accountTechDetailsInfo);
     }
 
     handleSelectFieldsChange(target, event, key, value) {
         this.props.handleSelectFieldsChange(value, target);
     }
-    handleTechDetailsNext(){
-        console.log("accountCommInfo Info=", this.accountCommInfo);
-     this.accountCommInfo=this.props.accountObj || [];
-        this.Countries=[];
-   	 this.accountTechDetailsInfo.name = this.refs.name.getValue();
-   	 this.accountTechDetailsInfo.email = this.refs.email.getValue();
-   	 this.accountTechDetailsInfo.MobNo = this.refs.MobNo.getValue();
+    handleTechDetailsBack(){
+       this.StoreTextFieldsData();
+        this.props.handleTechDetailsBack(this.accountInfo);
+    }
+    StoreTextFieldsData(){
+       this.accountCommInfo=this.props.accountObj || [];
+      this.accountTechDetailsInfo.name = this.refs.name.getValue();
+      this.accountTechDetailsInfo.email = this.refs.email.getValue();
+      this.accountTechDetailsInfo.MobNo = this.refs.MobNo.getValue();
         this.accountTechDetailsInfo.DirectNo = this.refs.DirectNo.getValue();
 
         this.accountTechDetailsInfo.techName = this.refs.techName.getValue();
         this.accountTechDetailsInfo.commName = this.refs.commName.getValue();
-
         this.accountInfo = Object.assign(this.accountCommInfo, this.accountTechDetailsInfo);
-
         console.log("Account Info=", this.accountInfo);
+    }
+    handleTechDetailsNext(){
+
+
+     this.StoreTextFieldsData();
         this.props.createNewAccount(this.accountInfo);
     }
     initializeData(_data,valueCol){
         console.log("initializeData",_data);
-        if(_data!=='undefined'){
+        if(_data!=='undefined' && _data!==''){
             var list = _data.map(function (field) {
                 return (
                     <MenuItem key={field[valueCol]} value={field.name} primaryText={field.name} />
@@ -88,6 +94,7 @@ class AccountTechnicalDetails extends React.Component {
                                             floatingLabelText="Name"
                                             hintText="Name"
                                             ref="name"
+
                                         />
                                     </div>
                                 </div>
@@ -195,7 +202,7 @@ class AccountTechnicalDetails extends React.Component {
 
                                     </div>
                                     <div className="detail-content acc-nav-buttons col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <RaisedButton label="Back" className="RaisedButton sap-btn pull-left" />
+                                        <RaisedButton label="Back" onClick={this.handleTechDetailsBack.bind(this)} className="RaisedButton sap-btn pull-left" />
                                         <RaisedButton label="Next" onClick={this.handleTechDetailsNext.bind(this)} className="RaisedButton sap-btn pull-right" />
                                     </div>
                                 </div>
@@ -223,7 +230,15 @@ class AccountTechnicalDetails extends React.Component {
             this.props.getMetadata();
         }
     }
+componentDidMount(){
+  this.refs.name.getInputNode().value = this.props.accountObj.name||"";
+    this.refs.email.getInputNode().value = this.props.accountObj.email||"";
+      this.refs.MobNo.getInputNode().value = this.props.accountObj.MobNo||"";
+        this.refs.DirectNo.getInputNode().value = this.props.accountObj.DirectNo||"";
+          this.refs.techName.getInputNode().value = this.props.accountObj.techName||"";
+            this.refs.commName.getInputNode().value = this.props.accountObj.commName||"";
 
+}
     componentWillReceiveProps (nextProps) {
         switch(nextProps.target){
         case types.ACCOUNT_COMPANY_CONTACT:
@@ -239,8 +254,10 @@ class AccountTechnicalDetails extends React.Component {
                 this.accountTechDetailsInfo.accInterface = nextProps.data;
                 break;
             case types.ACCOUNT_GET_COUNTRY_LIST_SUCCESS:
+              if(JSON.stringify(nextProps.data)!=""){
                 localStorage.setItem("countryList",JSON.stringify(nextProps.data));
                 this.Countries = this.initializeData(nextProps.data,'code');
+              }
                 break;
             case types.ACCOUNT_GET_COUNTRY_LIST_FAILURE:
                 alert("Failed to get countries");
@@ -267,6 +284,7 @@ function mapStateToProps(state) {
 	function mapDispatchToProps(dispatch) {
 		return bindActionCreators({handleSelectFieldsChange:handleSelectFieldsChange,
             createNewAccount: createNewAccount,
+            handleTechDetailsBack:handleTechDetailsBack,
             getMetadata:getMetadata}, dispatch);
 	}
 

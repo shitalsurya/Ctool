@@ -1,6 +1,6 @@
 //Auth
 
-export const serverIP ='10.19.4.89';
+export const serverIP ='localhost';
 export const protocol ='http';
 export const portNo ='8080';
 function getServerUrl(){
@@ -16,7 +16,3 @@ export function getUrl(APIName){
 				};
 	return getServerUrl() +'/ctool'+ APIUrls[APIName];
 }
-
-
-
-
