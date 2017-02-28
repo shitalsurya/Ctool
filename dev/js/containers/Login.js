@@ -97,6 +97,7 @@ this.state={
 	  handleLogin(){
 		  const userEmail = this.refs.userEmail.getValue();
 		  const userPassword = this.refs.userPassword.getValue();
+			sessionStorage.setItem("Username",userEmail);
 		  this.props.loginUser(userEmail,userPassword);
 	  }
 		validate(field){
