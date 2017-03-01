@@ -80,7 +80,7 @@ class AccountCommDetails extends React.Component {
             <h4 className="breadcrumbs">Commercial Information</h4>
           </div>
           <div className="Account-details-container">
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            {/*<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <TextField
                            className="TextField"
@@ -88,7 +88,7 @@ class AccountCommDetails extends React.Component {
                            ref="requesterName"
                            disabled={ true } />
               </div>
-            </div>
+            </div>*/}
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <SelectField
@@ -134,30 +134,31 @@ class AccountCommDetails extends React.Component {
                   { listTrafficType }
                 </SelectField>
               </div>
+                <div className="rev-sharing-container col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                  <label>
+                    Revenue sharing:
+                  </label>
+                </div>
+                <div className="col-lg-1 col-md-1 col-sm-12 col-xs-12">
+                  <RadioButtonGroup
+                                    name="revSharing"
+                                    defaultSelected={ this.accountCommInfo.revSharing }
+                                    valueSelected={ this.accountCommInfo.revSharing }
+                                    onChange={ this.handleRevSharingChanged.bind( this ) }
+                                    style={ styles.radioButtonGrp }>
+                    <RadioButton
+                                 value="No"
+                                 label="No"
+                                 style={ styles.radioButton } />
+                    <RadioButton
+                                 value="Yes"
+                                 label="Yes"
+                                 style={ styles.radioButton } />
+                  </RadioButtonGroup>
+                </div>
             </div>
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <div className=" col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                <label>
-                  Revenue sharing:
-                </label>
-              </div>
-              <div className="col-lg-1 col-md-1 col-sm-12 col-xs-12">
-                <RadioButtonGroup
-                                  name="revSharing"
-                                  defaultSelected={ this.accountCommInfo.revSharing }
-                                  valueSelected={ this.accountCommInfo.revSharing }
-                                  onChange={ this.handleRevSharingChanged.bind( this ) }
-                                  style={ styles.radioButtonGrp }>
-                  <RadioButton
-                               value="No"
-                               label="No"
-                               style={ styles.radioButton } />
-                  <RadioButton
-                               value="Yes"
-                               label="Yes"
-                               style={ styles.radioButton } />
-                </RadioButtonGroup>
-              </div>
+
             </div>
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 bottom-margin-large">
               <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -188,7 +189,7 @@ class AccountCommDetails extends React.Component {
 
   }
   componentDidMount() {
-    this.refs.requesterName.getInputNode().value = sessionStorage.getItem( "Username" ) || "";
+    //this.refs.requesterName.getInputNode().value = sessionStorage.getItem( "Username" ) || "";
   }
 
   componentWillReceiveProps( nextProps ) {

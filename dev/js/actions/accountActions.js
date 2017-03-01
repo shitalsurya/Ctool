@@ -38,7 +38,7 @@ export function goToTechnicalDetailsRequest(_accountCommInfo) {
     }
 }
 export function createNewAccount(_accountInfo) {
-	return function (dispatch) {
+	return function (dispatch,getState) {
 		dispatch(CreateNewAccountRequest());
 		var request = {
 								url:config.getUrl('CreateAccount'),
@@ -47,7 +47,7 @@ export function createNewAccount(_accountInfo) {
 								successCallback:CreateNewAccountSuccess,
 								failureCallback:CreateNewAccountFailure
 							};
-		return httpRequest(dispatch,request);
+		return httpRequest(dispatch,getState,request);
 	}
 }
 
@@ -70,7 +70,7 @@ export function createNewAccount(_accountInfo) {
 		}
 	}
 export function getMetadata(){
-	return function (dispatch) {
+	return function (dispatch,getState) {
 		dispatch(getMetadataRequest());
 
 		var request = {
@@ -79,7 +79,7 @@ export function getMetadata(){
 								successCallback:getMetadataRequestSuccess,
 								failureCallback:getMetadataRequestFailure
 							};
-		return httpRequest(dispatch,request);
+		return httpRequest(dispatch,getState,request);
 
 	}
 }

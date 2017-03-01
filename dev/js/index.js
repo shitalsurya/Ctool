@@ -35,9 +35,9 @@ ReactDOM.render(
     	 { /* Routes */ }
          <Route path="about" component={About}/>
          <Route path="dashboard" component={Dashboard}/>
-         
+
     </Router>
-    
+
     </Provider>,
     document.getElementById('root')
 );
