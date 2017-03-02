@@ -5,15 +5,28 @@ import * as types from '../actions/actionTypes';
 import Products from '../../json/Products.json';
 import * as config from '../config.js';
 import {httpRequest} from '../actions/httpActions'
-
+import {db} from '../index.js';
 //axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
+function storeToken(_token){
+	//In-memory only datastore (no need to load the database)
+
+		var userInfo = { token: _token
+	               };
+
+	db.insert(userInfo, function (err, newDoc) {   // Callback is optional
+			console.log("Token is stored into nedb,",newDoc);
+	});
+
+
+}
 export function loginUserRequest() {
 	  return {
 	    type: types.LOGIN_USER_REQUEST
 	  }
 	}
 export function loginSuccess(data) {
+	storeToken(data.token);
 	//localStorage.setItem("token",data.token);
 	  return {
 	    type: types.LOGIN_SUCCESS,

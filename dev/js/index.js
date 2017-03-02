@@ -13,20 +13,27 @@ import { routerStateReducer, reduxReactRouter } from 'redux-react-router';
 import { Router, Route, hashHistory } from 'react-router'
 import createHistory from 'history/lib/createBrowserHistory';
 
+/* Configure Store for Redux */
 const logger = createLogger();
 const createAppStore = compose(
 	applyMiddleware(thunkMiddleware),
 	applyMiddleware(logger)
-	//reduxReactRouter({createHistory})
 )(createStore);
 
-export default function configureStore(initialState){
+export function configureStore(initialState){
 	const store = createAppStore(allReducers, initialState);
 
 	return store;
 };
 const store = configureStore();
-//
+
+
+/* Configure nedb for browser storage */
+
+export const Datastore = require('nedb')
+  , db = new Datastore();
+
+/* Configure application routing */
 ReactDOM.render(
     <Provider store={store}>
     <Router history={hashHistory}>
