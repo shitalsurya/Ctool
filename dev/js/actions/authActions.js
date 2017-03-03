@@ -25,20 +25,12 @@ export function loginUserRequest() {
 	    type: types.LOGIN_USER_REQUEST
 	  }
 	}
-export function loginSuccess(data) {
-	storeToken(data.token);
-	//localStorage.setItem("token",data.token);
-	  return {
-	    type: types.LOGIN_SUCCESS,
-	    payload: data
-	  }
-}
-export function loginFailure(data) {
-	  return {
-	    type: types.LOGIN_FAILURE,
-	    payload: data
-	  }
-	}
+	export function loginUserResponse(data) {
+		  return {
+		    type: types.LOGIN_USER_RESPONSE,
+				 payload: data
+		  }
+		}
 
 export function loginUser(username, password) {
 	return function (dispatch,getState) {
@@ -47,8 +39,8 @@ export function loginUser(username, password) {
 								url:config.getUrl('UserAuth'),
 									method:'POST',
 								data:{username, password},
-								successCallback:loginSuccess,
-								failureCallback:loginFailure
+								successCallback:loginUserResponse,
+								failureCallback:loginUserResponse
 							};
 		return httpRequest(dispatch,getState,request);
 	}

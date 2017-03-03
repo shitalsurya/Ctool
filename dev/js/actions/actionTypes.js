@@ -1,7 +1,6 @@
 //Auth
 export const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGIN_USER_RESPONSE = 'LOGIN_USER_RESPONSE';
 
 //menus
 export const TOOLBOX_SEARCH = 'TOOLBOX_SEARCH';
