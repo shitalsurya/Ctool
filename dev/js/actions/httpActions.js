@@ -20,14 +20,14 @@ export function httpRequest(dispatch,getState,request){
 		url:request.url,
 			data:request.data,
 	 headers: {
-		 Authorization:getToken(getState()) 
+		 Authorization:getToken(getState())
 	 }
  }).then(function (response) {
 			console.log("httpRequest then response==", response);
-			dispatch(request.successCallback(response.data));
+			dispatch(request.successCallback(response));
 		})
-		.catch(function (response) {
-			console.log("httpRequest catch response==", response);
-			dispatch(request.failureCallback(response.data));
+		.catch(function (error) {
+			console.log("httpRequest catch error==", error);
+			dispatch(request.failureCallback(error));
 		})
 }
