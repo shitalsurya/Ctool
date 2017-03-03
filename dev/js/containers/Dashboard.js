@@ -6,78 +6,76 @@ import { bindActionCreators } from 'redux';
 import { navigateMenus } from '../actions/authActions';
 import * as types from '../actions/actionTypes';
 require( '../../scss/style.scss' );
+var logoImg=require("../../images/sybase365logo.gif");
 
 class Dashboard extends React.Component {
   constructor( props, context ) {
     super( props, context );
-    this.showAccount = true;
+    this.state={
+        currentMenus:{
+          showSearch :false,
+        showAccount :true
+      }
+    }
   }
 
   render() {
     return (
-    <div className="other-than-main">
-      <nav className="navbar navbar-default navbar-static-top navbar-inverse">
-        <div className="container-fluid">
-          <div className="navbar-header">
-            <button
-                    type="button"
-                    className="navbar-toggle collapsed"
-                    data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1"
-                    aria-expanded="false">
-            </button>
-            <a
-               className="navbar-brand"
-               href="#">CTOOL</a>
-          </div>
-          <div
-               className="collapse navbar-collapse"
-               id="bs-example-navbar-collapse-1">
-            <ul className="nav navbar-nav">
+      <div>
+        <nav className="navbar navbar-inverse">
+          <div className="container-fluid">
+            <div className="navbar-header">
+              <button
+                      type="button"
+                      className="navbar-toggle"
+                      data-toggle="collapse"
+                      data-target="#myNavbar">
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+              </button>
+  							 <img src={logoImg} />
+            </div>
+            <div
+                 className="collapse navbar-collapse"
+                 id="myNavbar">
+              <ul className="nav navbar-nav">
               <li className="active">
-                <a
-                   href="#"
-                   onClick={ this.navigateMenus.bind( this, types.ACCOUNT_CREATE ) }>Accounts <span className="sr-only">(current)</span></a>
-              </li>
-              <li>
-                <a href="#">Connections</a>
-              </li>
-              <li>
-                <a href="#">Operators</a>
-              </li>
-              <li>
-                <a href="#">Miscelleneous</a>
-              </li>
-              <li>
-                <a
-                   href="#"
-                   onClick={ this.navigateMenus.bind( this, types.TOOLBOX_SEARCH ) }>Toolbox</a>
-              </li>
-            </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li>
-                <a>
-                  { this.user }
-                </a>
-              </li>
-              <li>
-                <a href="/">Logout</a>
-              </li>
-            </ul>
+               <a
+                  onClick={ this.navigateMenus.bind( this, types.ACCOUNT_CREATE ) }>Accounts <span className="sr-only">(current)</span></a>
+             </li>
+             <li>
+               <a href="#">Connections</a>
+             </li>
+             <li>
+               <a href="#">Operators</a>
+             </li>
+             <li>
+               <a href="#">Miscelleneous</a>
+             </li>
+             <li>
+               <a
+                  onClick={ this.navigateMenus.bind( this, types.TOOLBOX_SEARCH ) }>Toolbox</a>
+             </li>
+              </ul>
+              <ul className="nav navbar-nav navbar-right">
+                  <li className="active">
+                  <a href="#"><span className="glyphicon glyphicon-log-in"></span> Logout</a>
+                </li>
+              </ul>
+            </div>
           </div>
+        </nav>
+        <div className="container-fluid text-center">
+            { this.state.currentMenus.showAccount && <Account /> }
+             { this.state.currentMenus.showSearch && <Search /> }
         </div>
-      </nav>
-      { this.showAccount && <Account /> }
-      { this.showSearch && <Search /> }
-      { /*<footer className="footer">
-                                    <div className="col-xs-0 col-sm-0 col-md-1 col-lg-1"></div>
-                                    <div className="col-xs-12 col-sm-12 col-md-10 col-lg-10 ">
-                                        <label>v6.6.6 &copy; CTOOL</label>
-                                    </div>
-                                    <div className="col-xs-0 col-sm-0 col-md-1 col-lg-1"></div>
-
-                                </footer>*/ }
-    </div>
+        <footer className="container-fluid text-center">
+          <p>
+            Sybase 365 Inc. All rights reserved
+          </p>
+        </footer>
+      </div>
     )
   }
   showAbout() {
@@ -99,19 +97,29 @@ class Dashboard extends React.Component {
 
   checkCurrentMenu( currentMenu ) {
     console.log( "currentMenu ==", currentMenu );
+    var menus={};
     switch (currentMenu) {
       case types.TOOLBOX_SEARCH:
-        this.showSearch = true;
-        this.showAccount = false;
+        menus={
+          showSearch :true,
+        showAccount :false
+      };
         break;
       case types.ACCOUNT_CREATE:
-        this.showAccount = true;
-        this.showSearch = false;
+      menus={
+        showSearch :false,
+      showAccount :true
+    };
         break;
       default:
-        this.showAccount = true;
+      menus={
+        showSearch :false,
+      showAccount :true
+    };
         break;
     }
+    this.setState({currentMenus:menus});
+
   }
   navigateMenus( _menu ) {
     this.props.navigateMenus( _menu );
