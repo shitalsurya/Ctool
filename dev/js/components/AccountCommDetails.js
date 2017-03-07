@@ -1,26 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import SelectField from 'material-ui/SelectField';
-import TextField from 'material-ui/TextField';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
+import Select from 'react-select';
 import { ToastContainer, ToastMessage,
 } from "react-toastr";
 
 import { handleSelectFieldsChange, goToTechnicalDetails } from '../actions/accountActions';
 import * as types from '../actions/actionTypes';
 
-/* */
-import Users from '../../json/Users.json';
-import Company from '../../json/Company.json';
-import BillingLocation from '../../json/BillingLocation.json';
-import ServiceLevel from '../../json/ServiceLevel.json';
-import TrafficType from '../../json/TrafficType.json';
-//import Countries from '../../json/Countries.json';
-import Select from 'react-select';
+
 require( '../../scss/style.scss' );
 
 const ToastMessageFactory = React.createFactory( ToastMessage.animation );
@@ -35,28 +24,6 @@ class AccountCommDetails extends React.Component {
     this.props.handleSelectFieldsChange( value, target );
   }
 
-  initializeData( _data, valueCol ) {
-
-    var list = _data.map( function ( field ) {
-      if ( typeof (field) == 'object' ) {
-        return (
-        <MenuItem
-                  key={ field[ valueCol ] }
-                  value={ field.name }
-                  primaryText={ field.name } />
-        );
-      } else {
-        return (
-        <MenuItem
-                  key={ field }
-                  value={ field }
-                  primaryText={ field } />
-        );
-      }
-
-    } );
-    return list;
-  }
 
 getOptions(input, callback) {
         setTimeout(function () {
@@ -80,25 +47,24 @@ getOptions(input, callback) {
         float: "left"
       }
     };
-    var listUsers = this.initializeData( Users.data, 'id' );
-    var listBillingLocation = this.initializeData( BillingLocation.data, 'id' );
-    var listServiceLevel = this.initializeData( ServiceLevel.data, 'id' );
-    var listTrafficType = this.initializeData( TrafficType.data, 'id' );
-    var listCompany = this.initializeData( Company.data, 'id' );
+
     var options = [
   { value: 'one', label: 'One' },
   { value: 'two', label: 'Two' }
   ];
     return (
-    <div>
-      <div className="underline-h4">
-        {/*<h4 className="breadcrumbs">Commercial Information</h4>*/}
-        <ul className="breadcrumb">
-       <li className="active">Commercial Information</li>
-       <li><a href="#">Technical Details</a></li>
-       <li><a href="#">Create Account</a></li>
-   </ul>
+      <div>
+      <div className="breadcrumb-container">
+      <ul className="breadcrumb">
+     <li className="active">Commercial Information</li>
+     <li><a href="#">Technical Details</a></li>
+     <li><a href="#">Create Account</a></li>
+     </ul>
       </div>
+    <div className="controls-container">
+    <div className="rec">
+    <span>Commercial Information</span>
+    </div>
        <Grid fluid={true}>
        <Row className="show-grid">
          <Col
@@ -195,10 +161,11 @@ getOptions(input, callback) {
 
               </Row>
  </Grid>
-      <ToastContainer
-                      toastMessageFactory={ ToastMessageFactory }
-                      ref="container"
-                      className="toast-top-right" />
+    </div>
+    <ToastContainer
+                    toastMessageFactory={ ToastMessageFactory }
+                    ref="container"
+                    className="toast-top-right" />
     </div>
     )
   }

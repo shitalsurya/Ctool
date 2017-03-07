@@ -35,9 +35,8 @@ class Account extends React.Component {
         return (
                <div className="content">
                 <div className="col-md-1"></div>
-                                <div className="col-md-10 controls-container">
+                                <div className="col-md-10 section-content">
                                         <span className="page-heading">Create Account</span>
-                                        <div className="hr-extended"></div>
                                         {this.showCommDetails && <AccountCommDetails accountObj={this.accountObj} />}
                                         {this.showTechnicalDetails && <AccountTechnicalDetails accountObj={this.accountObj} />}
                                 </div>

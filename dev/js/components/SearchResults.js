@@ -1,11 +1,11 @@
 import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 require('../../scss/style.scss');
-
+import Products from '../../json/Products.json';
 
 export default class SearchResults extends React.Component {
   render() {
-	  this.data=this.props.Products || [];
+	  this.data=Products.data;//this.props.Products || [];
 	  var fields = [
 	               'Company',
 	               'Status',
@@ -17,16 +17,19 @@ export default class SearchResults extends React.Component {
         		  <TableHeaderColumn
                   dataField={field}
                   dataSort={true}>
-                
+
                   {field}
               </TableHeaderColumn>
           );
       });
     return (
-			      		<BootstrapTable data={this.data } pagination striped hover condensed  >
+        <div className="controls-container">
+			      		<BootstrapTable   tableStyle={ { border: '#ffffff 0px ' } }
+                bodyStyle={ {border: '#ffffff 0px ' }} data={this.data } striped bordered="false" >
 			      		 <TableHeaderColumn dataField='name' isKey dataSort={true} isKey>Name</TableHeaderColumn>
 					      {listUsers}
 			      		</BootstrapTable>
+                </div>
     		);
   }
 }

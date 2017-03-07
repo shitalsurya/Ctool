@@ -1,11 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import SelectField from 'material-ui/SelectField';
-import TextField from 'material-ui/TextField';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
+import Select from 'react-select';
 import {
     ToastContainer,
     ToastMessage,
@@ -14,8 +11,6 @@ import {
 import { createNewAccount, handleSelectFieldsChange, getMetadata,handleTechDetailsBack } from '../actions/accountActions';
 import * as types from '../actions/actionTypes';
 
-import Users from '../../json/Users.json';
-//import Countries from '../../json/Countries.json';
 
 require('../../scss/style.scss');
 
@@ -54,189 +49,241 @@ class AccountTechnicalDetails extends React.Component {
      this.StoreTextFieldsData();
         this.props.createNewAccount(this.accountInfo);
     }
-    initializeData(_data,valueCol){
-        console.log("initializeData",_data);
-        if(_data!=='undefined' && _data!==''){
-            var list = _data.map(function (field) {
-                return (
-                    <MenuItem key={field[valueCol]} value={field.name} primaryText={field.name} />
-                );
-            });
-            return list;
+    getOptions(input, callback) {
+            setTimeout(function () {
+                callback(null, {
+                    options: [
+                        { value: 'one', label: 'One' },
+                        { value: 'two', label: 'Two' }
+                    ],
+                    // CAREFUL! Only set this to true when there are no more options,
+                    // or more specific queries will not be sent to the server.
+                    complete: true
+                });
+            }, 500);
         }
-    }
     render() {
-        var listUsers = this.initializeData(Users.data, 'id');
         return (
-            <MuiThemeProvider>
-                <div>
-                    <div className="section-content">
-                        <div className="underline-h4">
-                            <h4 className="breadcrumbs">Technical Details</h4>
-                        </div>
+          <div>
+          <div className="breadcrumb-container">
+            {/*<h4 className="breadcrumbs">Commercial Information</h4>*/}
+            <ul className="breadcrumb">
+           <li><a>Commercial Information</a></li>
+           <li className="active">Technical Details</li>
+           <li><a>Create Account</a></li>
+           </ul>
+          </div>
+        <div className="controls-container">
+        <div className="rec">
+        <span>Technical Contact</span>
+        </div>
+           <Grid fluid={true}>
+           <Row className="show-grid">
+             <Col
+                  componentClass={ ControlLabel }
+                  md={ 3 }> Existing company contacts:
+             </Col>
+             <Col md={ 6 }>
+             <Select.Async
+                   name="form-field-name"
+                   placeholder="Select contacts.."
+                   loadOptions={this.getOptions.bind(this)}
+               />
+             </Col>
+             <Col
+                  mdHidden
+                  md={ 3 } />
+           </Row>
 
-                        <div>
-                            <div className="Account-details-container">
-                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <SelectField
-                                            floatingLabelText="Select Company Contacts"
-                                            value={this.accountTechDetailsInfo.ExstContacts}
+                  <Row className="show-grid">
+                    <Col
+                         componentClass={ ControlLabel }
+                         md={ 3 }> Name:
+                    </Col>
+                    <Col md={ 6 }>
+                    <FormControl
+                                 type="text"
+                                 ref="userEmail"
+                                 placeholder="Enter your name" />
+                    </Col>
+                    <Col
+                         mdHidden
+                         md={ 3 } />
+                  </Row>
+                  <Row className="show-grid">
+                    <Col
+                         componentClass={ ControlLabel }
+                         md={ 3 }> Email:
+                    </Col>
+                    <Col md={ 6 }>
+                    <FormControl
+                                 type="email"
+                                 ref="userEmail"
+                                 placeholder="Enter your email" />
+                    </Col>
+                    <Col
+                         mdHidden
+                         md={ 3 } />
+                  </Row>
+                  <Row className="show-grid">
+                    <Col
+                         componentClass={ ControlLabel }
+                         md={ 3 }> Country:
+                    </Col>
+                    <Col md={ 6 }>
+                    <Select.Async
+                          name="form-field-name"
+                          placeholder="Select country.."
+                          loadOptions={this.getOptions.bind(this)}
+                      />
+                    </Col>
+                    <Col
+                         mdHidden
+                         md={ 3 } />
+                  </Row>
+                  <Row className="show-grid">
+                    <Col
+                         componentClass={ ControlLabel }
+                         md={ 3 }> Mobile phone number:
+                    </Col>
+                    <Col md={ 6 }>
+                    <FormControl
+                                 type="text"
+                                 ref="userEmail"
+                                 placeholder="Enter your mobile phone number"/>
+                    </Col>
+                    <Col
+                         mdHidden
+                         md={ 3 } />
+                  </Row>
+                  <Row className="show-grid">
+                    <Col
+                         componentClass={ ControlLabel }
+                         md={ 3 }> Direct phone number:
+                    </Col>
+                    <Col md={ 6 }>
+                    <FormControl
+                                 type="text"
+                                 ref="userEmail"
+                                 placeholder="Enter your direct phone number"/>
+                    </Col>
+                    <Col
+                         mdHidden
+                         md={ 3 } />
+                  </Row>
 
-                                            onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_COMPANY_CONTACT)}
-                                        >
-                                            {listUsers}
-                                        </SelectField>
-                                    </div>
-                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <TextField
-                                            id="text-field-default"
-                                            floatingLabelText="Name"
-                                            hintText="Name"
-                                            ref="name"
+     </Grid>
 
-                                        />
-                                    </div>
-                                </div>
-                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <TextField
-                                            id="text-field-default"
-                                            floatingLabelText="Email"
-                                            hintText="Email"
-                                            ref="email"
-                                        />
-                                    </div>
-                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <SelectField
-                                            floatingLabelText="Select Country"
-                                            value={this.accountTechDetailsInfo.Country}
+        </div>
+        <div className="controls-container">
+        <div className="rec">
+        <span>Account Name and Interfaces</span>
+        </div>
+      <Grid fluid={true}>
+      <Row className="show-grid">
+        <Col
+             componentClass={ ControlLabel }
+             md={ 3 }> Technical name:
+        </Col>
+        <Col md={ 6 }>
+        <FormControl
+                     type="text"
+                     ref="userEmail"
+                     placeholder="Enter technical name"/>
+        </Col>
+        <Col
+             mdHidden
+             md={ 3 } />
+      </Row>
+      <Row className="show-grid">
+        <Col
+             componentClass={ ControlLabel }
+             md={ 3 }> Commercial name:
+        </Col>
+        <Col md={ 6 }>
+        <FormControl
+                     type="text"
+                     ref="userEmail"
+                     placeholder="Enter commercial name"/>
+        </Col>
+        <Col
+             mdHidden
+             md={ 3 } />
+      </Row>
+      <Row className="show-grid">
+        <Col
+             componentClass={ ControlLabel }
+             md={ 3 }> Existing accounts :
+        </Col>
+        <Col md={ 6 }>
+        <Select.Async
+              name="form-field-name"
+              placeholder="Select account.."
+              loadOptions={this.getOptions.bind(this)}
+          />
+        </Col>
+        <Col
+             mdHidden
+             md={ 3 } />
+      </Row>
+      <Row className="show-grid">
+        <Col
+             componentClass={ ControlLabel }
+             md={ 3 }> Interface:
+        </Col>
+        <Col md={ 6 }>
+        <Select.Async
+              name="form-field-name"
+              placeholder="Select interface.."
+              loadOptions={this.getOptions.bind(this)}
+          />
+        </Col>
+        <Col
+             mdHidden
+             md={ 3 } />
+      </Row>
+      <Row className="show-grid">
+      <Col
+           mdHidden
+           md={ 3 } />
 
-                                            onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_COUNTRY_CHANGE)}
-                                        >
-                                            {this.Countries}
-                                        </SelectField>
-                                    </div>
-                                </div>
-                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 bottom-margin-large">
-                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <TextField
-                                            id="text-field-default"
-                                            floatingLabelText="Mobile Phone Number"
-                                            hintText="Mobile Phone Number"
-                                            ref="MobNo"
-                                        />
-                                    </div>
-                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <TextField
-                                            id="text-field-default"
-                                            floatingLabelText="Direct Phone Number"
-                                            hintText="Direct Phone Number"
-                                            ref="DirectNo"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+      <Col md={ 6 }>
+       <Button className="sap-btn btn-wizard pull-right"   onClick={ this.handleTechDetailsNext.bind( this ) }>Next</Button>
+     <Button className="sap-btn btn-wizard pull-right"   onClick={ this.handleTechDetailsBack.bind( this ) }>Back</Button>
+      </Col>
+      <Col
+           mdHidden
+           md={ 3 } />
 
-                        </div>
-                    </div>
-
-                    <div className="section-content">
-                        <div className="underline-h4">
-                            <h4 className="breadcrumbs">Account Name and Interfaces</h4>
-                        </div>
-                        <div>
-                            <div className="Account-details-container">
-
-                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <TextField
-                                            id="text-field-default"
-                                            floatingLabelText="Technical Name"
-                                            hintText="Technical Name"
-                                            ref="techName"
-                                        />
-
-                                    </div>
-                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <TextField
-                                            id="text-field-default"
-                                            floatingLabelText="Commercial Name"
-                                            hintText="Commercial Name"
-                                            ref="commName"
-                                        />
-
-                                    </div>
-
-                                </div>
-                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <SelectField
-                                            floatingLabelText="Existing accounts"
-                                            value={this.accountTechDetailsInfo.ExstAccts}
-
-                                            onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_EXSTACCTS_CHANGE)}
-                                        >
-                                            <MenuItem value="act1" primaryText=" 10 GRAD(37669)" />
-                                            <MenuItem value="act2" primaryText="100 BEST(39551)" />
-                                            <MenuItem value="act3" primaryText="10DUKE (38660)" />
-                                            <MenuItem value="act4" primaryText="118811 (39258)" />
-                                        </SelectField>
-                                    </div>
-                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <SelectField
-                                            floatingLabelText="Interface"
-                                            value={this.accountTechDetailsInfo.accInterface}
-
-                                            onChange={this.handleSelectFieldsChange.bind(this, types.ACCOUNT_INTERFACE_CHANGE)}
-                                        >
-                                            <MenuItem value="http" primaryText="HTTP" />
-                                            <MenuItem value="smtp" primaryText="SMTP" />
-                                            <MenuItem value="smtp" primaryText="SMPP" />
-                                        </SelectField>
-                                    </div>
-
-                                </div>
-                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 bottom-margin">
-                                    <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-
-                                    </div>
-                                    <div className="detail-content acc-nav-buttons col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <RaisedButton label="Back" onClick={this.handleTechDetailsBack.bind(this)} className="RaisedButton sap-btn pull-left" />
-                                        <RaisedButton label="Next" onClick={this.handleTechDetailsNext.bind(this)} className="RaisedButton sap-btn pull-right" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <ToastContainer
-                        toastMessageFactory={ToastMessageFactory}
-                        ref="container"
-                        className="toast-top-right"
-                    />
-                </div>
-            </MuiThemeProvider>
+      </Row>
+      </Grid>
+      </div>
+      <ToastContainer
+                      toastMessageFactory={ ToastMessageFactory }
+                      ref="container"
+                      className="toast-top-right" />
+      </div>
         )
     }
     componentWillMount(){
-        var countryList = localStorage.getItem("countryList");
-        if(countryList){
-          console.log("get from cache");
-            this.Countries = this.initializeData(JSON.parse(countryList),'code');
-            console.log("this.Countries==",this.Countries);
-        }
-        else{
-            console.log("get from backend");
-            this.props.getMetadata();
-        }
+        // var countryList = localStorage.getItem("countryList");
+        // if(countryList){
+        //   console.log("get from cache");
+        //     this.Countries = this.initializeData(JSON.parse(countryList),'code');
+        //     console.log("this.Countries==",this.Countries);
+        // }
+        // else{
+        //     console.log("get from backend");
+        //     this.props.getMetadata();
+        // }
     }
 componentDidMount(){
-  this.refs.name.getInputNode().value = this.props.accountObj.name||"";
-    this.refs.email.getInputNode().value = this.props.accountObj.email||"";
-      this.refs.MobNo.getInputNode().value = this.props.accountObj.MobNo||"";
-        this.refs.DirectNo.getInputNode().value = this.props.accountObj.DirectNo||"";
-          this.refs.techName.getInputNode().value = this.props.accountObj.techName||"";
-            this.refs.commName.getInputNode().value = this.props.accountObj.commName||"";
+  // this.refs.name.getInputNode().value = this.props.accountObj.name||"";
+  //   this.refs.email.getInputNode().value = this.props.accountObj.email||"";
+  //     this.refs.MobNo.getInputNode().value = this.props.accountObj.MobNo||"";
+  //       this.refs.DirectNo.getInputNode().value = this.props.accountObj.DirectNo||"";
+  //         this.refs.techName.getInputNode().value = this.props.accountObj.techName||"";
+  //           this.refs.commName.getInputNode().value = this.props.accountObj.commName||"";
 
 }
     componentWillReceiveProps (nextProps) {
