@@ -4,7 +4,7 @@ $offwhite1: #F6F6F6;
 $offwhite2: #f5f5f5;
 $color_alabaster_approx: #ededed;
 $color_storm_dust_approx: #636363;
-$color_tapa_approx: #767676;
+$color_tapa_approx: #363636;
 $color_lochmara_approx: #0076cb;
 $color_iron_approx: #d7d7d7;
 $color_milano_red_approx: #c11616;
@@ -13,7 +13,7 @@ $color_lochmara_70_approx: rgba(0,118,203,0.7);
 $color_gunsmoke_approx: #858585;
 $color_bahama_blue_approx: #00679e;
 $color_silver: 	#C0C0C0;
-$material_blue: #00BCD4;
+$material_blue: #0076cb;
 
 .App {
 	text-align: center;
@@ -47,29 +47,57 @@ $material_blue: #00BCD4;
 
 
 /* CSS - Ctool*/
-
+body{
+	background-color: #f2f2f2;
+}
     /* Remove the navbar's default margin-bottom and rounded borders */
     .navbar {
       margin-bottom: 0;
       border-radius: 0;
     }
-.nav{
+.navbar.navbar-inverse{
 	font-family: Arial !important;
- font-size: 16px !important;
+ font-size: 14px !important;
+  color: #f5f5f5 !important;
+ background-color: #363636 !important;
+ box-shadow: 7px 0 20px 0 rgba(84, 84, 84, 0.5), inset 0 2px 8px 0 rgba(0, 0, 0, 0.35);
+ font-weight: normal;
+ font-style: normal;
+ font-stretch: normal;
+ line-height: normal;
+ letter-spacing: normal;
+
+}
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>li>a:hover{
+	color:#f5f5f5 !important;
+}
+.navbar-inverse .navbar-nav>li>a{
+	color: #969696 !important;
 }
 .navbar-header{
 	img{
-		height: 50px;
+		margin-top: 7px;
 	}
 }
     /* Set black background color, white text and some padding */
     footer {
-      background-color: #555;
-      color: white;
+      background-color: #ffffff;
+			border-top:1px solid #ddd;
+      color: #363636;
 			position: fixed;
 			bottom: 0px;
       padding: 15px;
 			width:100%;
+			p{
+				font-family: Arial;
+ font-size: 11px;
+ font-weight: normal;
+ font-style: normal;
+ font-stretch: normal;
+ line-height: normal;
+ letter-spacing: normal;
+ color: #969696;
+			}
     }
 
     /* On small screens, set height to 'auto' for sidenav and grid */
@@ -78,7 +106,7 @@ $material_blue: #00BCD4;
         height: auto;
         padding: 15px;
       }
-      .row.content {height:auto;}
+
     }
 .section-content{
 	margin: 20px auto;
@@ -88,14 +116,9 @@ $material_blue: #00BCD4;
 	width: 100%;
 	border-bottom: 1px solid $material_blue;
 }
-
-
-.data-block {
-	background: $white;
+.show-grid{
+	margin-top: 20px;
 }
-
-
-
 .sap-form {
 	color: $color_tapa_approx;
 }
@@ -122,17 +145,25 @@ $material_blue: #00BCD4;
 .sap-form table > tbody > tr > td {
 	vertical-align: middle;
 }
-
-.sap-form label {
-	font-weight: normal;
+.content{
+		background-color: #f2f2f2;
+}
+.content label {
 	color: $color_tapa_approx;
+	font-family: Arial;
+	font-size: 14px;
+ font-weight: normal;
+ font-style: normal;
+ font-stretch: normal;
+ line-height: normal;
+ letter-spacing: normal;
 }
 
 .sap-form input, .sap-form select {
 	color: $color_tapa_approx;
 }
 .login-form{
-	margin-top: 150px;
+	//margin-top: 150px;
 	font-family: Arial;
  font-size: 16px !important;
  font-weight: normal;
@@ -162,29 +193,21 @@ span.error {
 	display: block;
 	text-align: right;
 }
-
-.footer {
-	height: 15px;
-	position: fixed;
-	font-size: 10px;
-	bottom: 0;
-	background: $color_tapa_approx;
-	color: $white;
-	width: 100%;
+.controls-container{
+	background-color: #ffffff;
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+	padding: 20px;
+  margin-top: 50px;
+	margin-bottom: 50px;
 }
 
 .login-container {
-	padding-right: 15px;
-	padding-left: 15px;
-	margin-right: -15px;
-	margin-left: -15px;
+
 	text-align: center;
-	background-color: #f2f2f2;
-	height: 600px;
-	.input-group-addon{
-		background-color: black;
-    color: white;
-	}
+	// .input-group-addon{
+	// 	background-color: black;
+  //   color: white;
+	// }
 }
 
 .login-container button {
@@ -194,7 +217,16 @@ span.error {
 .login-container h2 {
 	margin-top: 5px;
 }
-
+.page-heading{
+	font-family: Arial;
+font-size: 18px;
+font-weight: normal;
+font-style: normal;
+font-stretch: normal;
+line-height: 1.17;
+letter-spacing: normal;
+color: #363636;
+}
 .form-signin {
 	max-width: 330px;
 	padding: 15px;
@@ -334,6 +366,10 @@ li > button {
 		background: $material_blue !important;
 			color: $white !important;
     }
+		.btn-wizard{
+			width: 155px;
+			height: 36px;
+		}
 		// .sap-btn-primary {
 		// 	border: solid 1px $material_blue;
 		// 	color: $material_blue;

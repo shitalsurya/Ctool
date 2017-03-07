@@ -60,21 +60,21 @@ class Dashboard extends React.Component {
               </ul>
               <ul className="nav navbar-nav navbar-right">
                   <li className="active">
-                  <a href="#"><span className="glyphicon glyphicon-log-in"></span> Logout</a>
+                  <a href="#"><span className="glyphicon glyphicon-log-out"></span> Logout</a>
                 </li>
               </ul>
             </div>
           </div>
         </nav>
-        <div className="container-fluid text-center">
+        <div>
             { this.state.currentMenus.showAccount && <Account /> }
              { this.state.currentMenus.showSearch && <Search /> }
         </div>
-        <footer className="container-fluid text-center">
+        {/*<footer className="container-fluid text-left">
           <p>
-            Sybase 365 Inc. All rights reserved
+              v1.0 © 2017 Sybase 365 Inc. All rights reserved
           </p>
-        </footer>
+        </footer>*/}
       </div>
     )
   }

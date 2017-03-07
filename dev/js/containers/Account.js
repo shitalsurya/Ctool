@@ -33,26 +33,16 @@ class Account extends React.Component {
 
 
         return (
-            <MuiThemeProvider>
-                <div className="other-than-main">
-                    <div className='sap-form'>
-                        <section>
-                            <form className="ctoolControllerForm">
-                                <div className="col-xs-0 col-sm-0 col-md-1 col-lg-1"></div>
-                                <div className="col-xs-12 col-sm-12 col-md-10 col-lg-10 ">
-                                    <div className='content'>
-                                        <h3 className="page-heading">Create Account</h3>
+               <div className="content">
+                <div className="col-md-1"></div>
+                                <div className="col-md-10 controls-container">
+                                        <span className="page-heading">Create Account</span>
                                         <div className="hr-extended"></div>
                                         {this.showCommDetails && <AccountCommDetails accountObj={this.accountObj} />}
                                         {this.showTechnicalDetails && <AccountTechnicalDetails accountObj={this.accountObj} />}
-                                    </div>
                                 </div>
-                                <div className="col-xs-0 col-sm-0 col-md-1 col-lg-1"></div>
-                            </form>
-                        </section>
-                    </div>
+                                  <div className="col-md-1"></div>
                 </div>
-            </MuiThemeProvider>
         )
     }
 

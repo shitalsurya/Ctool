@@ -51,76 +51,77 @@ class Login extends Component {
           </div>
         </div>
       </nav>
-      <div className="container-fluid text-center">
-        <div className="login-container">
-          <div className="col-sm-12 login-form">
-            <Grid fluid={ true }>
-              <Row className="show-grid">
-                <Col
-                     mdHidden
-                     md={ 4 } />
-                <Col md={ 4 }>
-                <FormGroup>
-                  <InputGroup>
-                    <InputGroup.Addon>
-                      <Glyphicon glyph="user" />
-                    </InputGroup.Addon>
-                    <FormControl
-                                 type="text"
-																 ref="userEmail"
-                                 placeholder="Enter your Username" />
-                  </InputGroup>
-                </FormGroup>
-                </Col>
-                <Col
-                     mdHidden
-                     md={ 4 } />
-              </Row>
-              <Row className="show-grid">
-                <Col
-                     mdHidden
-                     md={ 4 } />
-                <Col md={ 4 }>
-                <FormGroup>
-                  <InputGroup>
-                    <InputGroup.Addon>
-                      <Glyphicon glyph="lock" />
-                    </InputGroup.Addon>
-                    <FormControl
-                                 type="password"
-																  ref="userPassword"
-                                 placeholder="Enter your Password" />
-                  </InputGroup>
-                </FormGroup>
-                </Col>
-                <Col
-                     mdHidden
-                     md={ 4 } />
-              </Row>
-              <Row className="show-grid">
-                <Col
-                     mdHidden
-                     md={ 4 } />
-                <Col md={ 4 }>
-                <Button
-                        className="sap-btn"
-                        type="submit"
-												onClick={this.handleLogin.bind(this)} >
-                  Login
-                </Button>
-                </Col>
-                <Col
-                     mdHidden
-                     md={ 4 } />
-              </Row>
-            </Grid>
-            <hr/>
+ <div className="content">
+				  <div className="col-sm-4"></div>
+          <div className="col-sm-4 login-form">
+					  <div className="login-container controls-container">
+						<Grid fluid={ true }>
+						  <Row className="show-grid">
+						    <Col
+						         mdHidden
+						         md={ 1 } />
+						    <Col md={ 10 }>
+						    <FormGroup>
+						      <InputGroup>
+						        <InputGroup.Addon>
+						          <Glyphicon glyph="user" />
+						        </InputGroup.Addon>
+						        <FormControl
+						                     type="text"
+						                     ref="userEmail"
+						                     placeholder="Enter your Username" />
+						      </InputGroup>
+						    </FormGroup>
+						    </Col>
+						    <Col
+						         mdHidden
+						         md={ 1 } />
+						  </Row>
+						  <Row className="show-grid">
+						    <Col
+						         mdHidden
+						         md={ 1 } />
+						    <Col md={ 10 }>
+						    <FormGroup>
+						      <InputGroup>
+						        <InputGroup.Addon>
+						          <Glyphicon glyph="lock" />
+						        </InputGroup.Addon>
+						        <FormControl
+						                     type="password"
+						                      ref="userPassword"
+						                     placeholder="Enter your Password" />
+						      </InputGroup>
+						    </FormGroup>
+						    </Col>
+						    <Col
+						         mdHidden
+						         md={ 1 } />
+						  </Row>
+						  <Row className="show-grid">
+						    <Col
+						         mdHidden
+						         md={ 1 } />
+						    <Col md={ 10 }>
+						    <Button
+						            className="sap-btn"
+						            type="submit"
+						            onClick={this.handleLogin.bind(this)} >
+						      Login
+						    </Button>
+						    </Col>
+						    <Col
+						         mdHidden
+						         md={ 1 } />
+						  </Row>
+						</Grid>
+						  </div>
           </div>
+						  <div className="col-sm-4"></div>
         </div>
-      </div>
-      <footer className="container-fluid text-center">
+      <footer className="container-fluid text-left">
         <p>
-          Sybase 365 Inc. All rights reserved
+            v1.0 © 2017 Sybase 365 Inc. All rights reserved
         </p>
       </footer>
     </div>

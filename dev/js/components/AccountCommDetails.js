@@ -6,7 +6,7 @@ import TextField from 'material-ui/TextField';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 import { ToastContainer, ToastMessage,
 } from "react-toastr";
 
@@ -20,7 +20,7 @@ import BillingLocation from '../../json/BillingLocation.json';
 import ServiceLevel from '../../json/ServiceLevel.json';
 import TrafficType from '../../json/TrafficType.json';
 //import Countries from '../../json/Countries.json';
-
+import Select from 'react-select';
 require( '../../scss/style.scss' );
 
 const ToastMessageFactory = React.createFactory( ToastMessage.animation );
@@ -31,7 +31,7 @@ class AccountCommDetails extends React.Component {
     this.accountCommInfo = this.props.accountObj || [];
     this.accountCommInfo.revSharing = this.props.accountObj.revSharing || "No";
   }
-  handleSelectFieldsChange( target, event, key, value ) {
+  handleSelectFieldsChange( target, value ) {
     this.props.handleSelectFieldsChange( value, target );
   }
 
@@ -57,6 +57,20 @@ class AccountCommDetails extends React.Component {
     } );
     return list;
   }
+
+getOptions(input, callback) {
+        setTimeout(function () {
+            callback(null, {
+                options: [
+                    { value: 'one', label: 'One' },
+                    { value: 'two', label: 'Two' }
+                ],
+                // CAREFUL! Only set this to true when there are no more options,
+                // or more specific queries will not be sent to the server.
+                complete: true
+            });
+        }, 500);
+    }
   render() {
     const styles = {
       radioButton: {
@@ -71,113 +85,121 @@ class AccountCommDetails extends React.Component {
     var listServiceLevel = this.initializeData( ServiceLevel.data, 'id' );
     var listTrafficType = this.initializeData( TrafficType.data, 'id' );
     var listCompany = this.initializeData( Company.data, 'id' );
-
+    var options = [
+  { value: 'one', label: 'One' },
+  { value: 'two', label: 'Two' }
+  ];
     return (
-    <MuiThemeProvider>
-      <div>
-        <div className="section-content">
-          <div className="underline-h4">
-            <h4 className="breadcrumbs">Commercial Information</h4>
-          </div>
-          <div className="Account-details-container">
-            {/*<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <TextField
-                           className="TextField"
-                           id="text-requester-name"
-                           ref="requesterName"
-                           disabled={ true } />
-              </div>
-            </div>*/}
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <SelectField
-                             floatingLabelText="Select Account Manager"
-                             value={ this.accountCommInfo.acctManager }
-                             onChange={ this.handleSelectFieldsChange.bind( this, types.ACCOUNT_MGR_CHANGE ) }>
-                  { listUsers }
-                </SelectField>
-              </div>
-              <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <SelectField
-                             floatingLabelText="Select Company"
-                             value={ this.accountCommInfo.company }
-                             onChange={ this.handleSelectFieldsChange.bind( this, types.ACCOUNT_COMPANY_CHANGE ) }>
-                  { listCompany }
-                </SelectField>
-              </div>
-            </div>
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <SelectField
-                             floatingLabelText="Billing Location"
-                             value={ this.accountCommInfo.billingLocation }
-                             onChange={ this.handleSelectFieldsChange.bind( this, types.ACCOUNT_BILLING_LOCATION ) }>
-                  { listBillingLocation }
-                </SelectField>
-              </div>
-              <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <SelectField
-                             floatingLabelText="Service Level"
-                             value={ this.accountCommInfo.serviceLevel }
-                             onChange={ this.handleSelectFieldsChange.bind( this, types.SERVICE_LEVEL ) }>
-                  { listServiceLevel }
-                </SelectField>
-              </div>
-            </div>
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <SelectField
-                             floatingLabelText="Traffic Type"
-                             value={ this.accountCommInfo.trafficType }
-                             onChange={ this.handleSelectFieldsChange.bind( this, types.TRAFFIC_TYPE ) }>
-                  { listTrafficType }
-                </SelectField>
-              </div>
-                <div className="rev-sharing-container col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                  <label>
-                    Revenue sharing:
-                  </label>
-                </div>
-                <div className="col-lg-1 col-md-1 col-sm-12 col-xs-12">
-                  <RadioButtonGroup
-                                    name="revSharing"
-                                    defaultSelected={ this.accountCommInfo.revSharing }
-                                    valueSelected={ this.accountCommInfo.revSharing }
-                                    onChange={ this.handleRevSharingChanged.bind( this ) }
-                                    style={ styles.radioButtonGrp }>
-                    <RadioButton
-                                 value="No"
-                                 label="No"
-                                 style={ styles.radioButton } />
-                    <RadioButton
-                                 value="Yes"
-                                 label="Yes"
-                                 style={ styles.radioButton } />
-                  </RadioButtonGroup>
-                </div>
-            </div>
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-            </div>
-            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 bottom-margin-large">
-              <div className="detail-content col-lg-6 col-md-6 col-sm-12 col-xs-12">
-              </div>
-              <div className="detail-content acc-nav-buttons col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <RaisedButton
-                              label="Next"
-                              onClick={ this.goToTechnicalDetails.bind( this ) }
-                              className="RaisedButton sap-btn pull-right" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <ToastContainer
-                        toastMessageFactory={ ToastMessageFactory }
-                        ref="container"
-                        className="toast-top-right" />
+    <div>
+      <div className="underline-h4">
+        {/*<h4 className="breadcrumbs">Commercial Information</h4>*/}
+        <ul className="breadcrumb">
+       <li className="active">Commercial Information</li>
+       <li><a href="#">Technical Details</a></li>
+       <li><a href="#">Create Account</a></li>
+   </ul>
       </div>
-    </MuiThemeProvider>
+       <Grid fluid={true}>
+       <Row className="show-grid">
+         <Col
+              componentClass={ ControlLabel }
+              md={ 2 }> Account Manager:
+         </Col>
+         <Col md={ 6 }>
+         <Select.Async
+               name="form-field-name"
+               placeholder="Select.."
+               loadOptions={this.getOptions.bind(this)}
+           />
+         </Col>
+         <Col
+              mdHidden
+              md={ 4 } />
+       </Row>
+
+              <Row className="show-grid">
+                <Col
+                     componentClass={ ControlLabel }
+                     md={ 2 }> Company:
+                </Col>
+                <Col md={ 6 }>
+                <Select.Async
+                      name="form-field-name"
+                      placeholder="Select.."
+                      loadOptions={this.getOptions.bind(this)}
+                  />
+                </Col>
+                <Col
+                     mdHidden
+                     md={ 4 } />
+              </Row>
+              <Row className="show-grid">
+                <Col
+                     componentClass={ ControlLabel }
+                     md={ 2 }> Billing Location:
+                </Col>
+                <Col md={ 6 }>
+                <Select.Async
+                      name="form-field-name"
+                      placeholder="Select.."
+                      loadOptions={this.getOptions.bind(this)}
+                  />
+                </Col>
+                <Col
+                     mdHidden
+                     md={ 4 } />
+              </Row>
+              <Row className="show-grid">
+                <Col
+                     componentClass={ ControlLabel }
+                     md={ 2 }> Service Level:
+                </Col>
+                <Col md={ 6 }>
+                <Select.Async
+                      name="form-field-name"
+                      placeholder="Select.."
+                      loadOptions={this.getOptions.bind(this)}
+                  />
+                </Col>
+                <Col
+                     mdHidden
+                     md={ 4 } />
+              </Row>
+              <Row className="show-grid">
+                <Col
+                     componentClass={ ControlLabel }
+                     md={ 2 }> Traffic Type:
+                </Col>
+                <Col md={ 6 }>
+                <Select.Async
+                      name="form-field-name"
+                      placeholder="Select.."
+                      loadOptions={this.getOptions.bind(this)}
+                  />
+                </Col>
+                <Col
+                     mdHidden
+                     md={ 4 } />
+              </Row>
+              <Row className="show-grid">
+              <Col
+                   mdHidden
+                   md={ 2 } />
+
+              <Col md={ 6 } className="pull-right">
+             <Button className="sap-btn btn-wizard"   onClick={ this.goToTechnicalDetails.bind( this ) }>Next</Button>
+              </Col>
+              <Col
+                   mdHidden
+                   md={ 4 } />
+
+              </Row>
+ </Grid>
+      <ToastContainer
+                      toastMessageFactory={ ToastMessageFactory }
+                      ref="container"
+                      className="toast-top-right" />
+    </div>
     )
   }
   handleRevSharingChanged( event, value ) {
@@ -193,6 +215,7 @@ class AccountCommDetails extends React.Component {
   }
 
   componentWillReceiveProps( nextProps ) {
+    console.log("nextProps",nextProps);
     switch (nextProps.target) {
       case types.ACCOUNT_MGR_CHANGE:
         this.accountCommInfo.acctManager = nextProps.data;
