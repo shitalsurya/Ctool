@@ -53,21 +53,25 @@ export function navigateMenus(menu) {
 	}
 }
 export function navigateMenusRequest(menu){
-	switch(menu){
-	case types.TOOLBOX_SEARCH:
-			return {
-			    type:types.TOOLBOX_SEARCH,
-			    payload: types.TOOLBOX_SEARCH
-			  }
-		break;
-	case types.ACCOUNT_CREATE:
-		return {
-		    type:types.ACCOUNT_CREATE,
-		    payload: types.ACCOUNT_CREATE
-		  }
-		break;
-
-	}
+	return {
+			type: menu,
+			payload: menu
+		}
+	// switch(menu){
+	// case types.TOOLBOX_SEARCH:
+	// 		return {
+	// 		    type:types.TOOLBOX_SEARCH,
+	// 		    payload: types.TOOLBOX_SEARCH
+	// 		  }
+	// 	break;
+	// case types.ACCOUNT_CREATE:
+	// 	return {
+	// 	    type:types.ACCOUNT_CREATE,
+	// 	    payload: types.ACCOUNT_CREATE
+	// 	  }
+	// 	break;
+	//
+	// }
 }
 export function requestSearch(searchTerm) {
 	var response={};

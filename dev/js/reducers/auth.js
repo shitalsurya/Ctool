@@ -17,12 +17,6 @@ export default function (state = {}, action = null) {
 				 _token=action.payload.data.token;
 			}
 			return Object.assign({}, state, {token:_token, error: _error });
-		case types.TOOLBOX_SEARCH:
-			return Object.assign({}, state, {isLoading: true,menu:action.payload, error: false });
-		case types.SEARCH_REQUEST:
-			return Object.assign({}, state, {isLoading: true,data:action.payload, error: false });
-		case types.ACCOUNT_CREATE:
-			return Object.assign({}, state, {isLoading: true,menu:action.payload, error: false });
 		default:
 			return state;
 	}

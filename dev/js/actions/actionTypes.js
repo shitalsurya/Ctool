@@ -5,8 +5,12 @@ export const LOGIN_USER_RESPONSE = 'LOGIN_USER_RESPONSE';
 //menus
 export const TOOLBOX_SEARCH = 'TOOLBOX_SEARCH';
 export const ACCOUNT_CREATE = 'ACCOUNT_CREATE';
+export const MISC_USERS = 'MISC_USERS';
 
+//Miscelleneous
 
+export const MISC_USERLIST_REQUEST = 'MISC_USERLIST_REQUEST';
+export const MISC_USERLIST_RESPONSE = 'MISC_USERLIST_RESPONSE';
 //Search
 export const SEARCH_REQUEST = 'SEARCH_REQUEST';
 

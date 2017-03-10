@@ -5,8 +5,7 @@ import { bindActionCreators } from 'redux';
 import { loginUser } from '../actions/authActions';
 import ReactDOM from 'react-dom';
 require( '../../scss/style.scss' );
-var logoImg=require("../../images/sybase365logo.gif");
-
+var logoImg=require("../../images/sybase-365.jpg");
 
 class Login extends Component {
   constructor( props, context ) {

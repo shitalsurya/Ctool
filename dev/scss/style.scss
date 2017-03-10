@@ -15,37 +15,41 @@ $color_bahama_blue_approx: #00679e;
 $color_silver: 	#C0C0C0;
 $material_blue: #0076cb;
 
-.App {
-	text-align: center;
+.list-row{
+	border-bottom: solid 1.5px #d7d7d7;
+border-top: solid 1.5px #d7d7d7;
+	//height: 92px;
+	font-family: Arial;
+	font-size: 14px;
+	padding: 10px;
+.user-image{
+	height:30px;
+	margin-right:10px;
 }
-
-.App-logo {
-	animation: App-logo-spin infinite 20s linear;
-	height: 80px;
 }
-
-.App-header {
-	background-color: #222;
-	height: 150px;
-	padding: 20px;
-	color: white;
-}
-
-.App-intro {
-	font-size: large;
-}
-
-@keyframes App-logo-spin {
-	from {
-		transform: rotate(0deg);
-	}
-
-	to {
-		transform: rotate(360deg);
+.user-details-row{
+	border-top: solid 5px #d7d7d7;
+	background-color: #f7f8fa;
+	padding: 17px 20px 17px 20px;
+	span{
+		font-family: Arial;
+	font-size: 14px;
+	font-weight: bold;
+	color: #363636;
 	}
 }
+.middle-col{
+	//padding: 20px;
 
-
+}
+.list-col > div:first-child{
+ font-size: 12px;
+ color: #767676;
+}
+.list-col > div:last-child{
+ font-size: 14px;
+ color: #363636;
+}
 /* CSS - Ctool*/
 body{
 	background-color: #f2f2f2;
@@ -74,10 +78,13 @@ body{
 .navbar-inverse .navbar-nav>li>a{
 	color: #969696 !important;
 }
-.navbar-header{
-	img{
-		margin-top: 7px;
-	}
+.dropdown-menu{
+	border: 1px solid #ccc;
+font-size: 13px;
+background-color: #fff;
+zoom: 1;
+border-radius: 3px;
+font-family: Arial;
 }
     /* Set black background color, white text and some padding */
     footer {
@@ -201,15 +208,38 @@ span.error {
 	margin-bottom: 20px;
 }
 
-.login-container {
+.list-container{
+	background-color: #ffffff;
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+	margin-bottom: 20px;
+}
 
+.login-container {
+margin-top: 120px;
 	text-align: center;
 	// .input-group-addon{
 	// 	background-color: black;
   //   color: white;
 	// }
 }
-
+//temp
+.success-alert {
+  width: 1180px;
+  height: 48px;
+  background-color: #e5f3e8;
+  border: solid 1px rgba(2, 135, 25, 0.5);
+	span{
+		font-family: Arial;
+font-size: 14px;
+font-weight: normal;
+font-style: normal;
+font-stretch: normal;
+line-height: normal;
+letter-spacing: normal;
+color: #000000;
+	}
+}
 .login-container button {
 	margin-top: 10px;
 }

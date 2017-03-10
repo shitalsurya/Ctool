@@ -2,20 +2,26 @@
 "data":  [
             {
                 "name": "Adam Gilli",
-                "id": 1
+                "id": 1,
+                "status":"Live",
+                "login":"Adam"
             },
             {
                 "name": "Ricky Punter",
-                "id": 2
+                "id": 2,
+                "status":"Live",
+                "login":"Adam"
             },
             {
                 "name": "Optimus Prime",
-                "id": 3
+                "id": 3,
+                "status":"Live",
+                "login":"Adam"
             },
             {
                 "name": "Peter Parker",
-                "id": 4
+                "id": 4,  "status":"Live",
+                  "login":"Adam"
             }
         ]
  }
-

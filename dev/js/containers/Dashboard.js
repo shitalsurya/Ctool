@@ -2,19 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Account from '../containers/Account';
 import Search from '../containers/Search';
+import MiscUsers from '../containers/MiscUsers';
 import { bindActionCreators } from 'redux';
 import { navigateMenus } from '../actions/authActions';
 import * as types from '../actions/actionTypes';
 require( '../../scss/style.scss' );
-var logoImg=require("../../images/sybase365logo.gif");
+var logoImg=require("../../images/sybase-365.jpg");
 
 class Dashboard extends React.Component {
   constructor( props, context ) {
     super( props, context );
     this.state={
         currentMenus:{
+          showMiscUsers:true,
           showSearch :false,
-        showAccount :true
+        showAccount :false
       }
     }
   }
@@ -50,9 +52,18 @@ class Dashboard extends React.Component {
              <li>
                <a href="#">Operators</a>
              </li>
-             <li>
-               <a href="#">Miscelleneous</a>
-             </li>
+             <li className="dropdown">
+                       <a href="#" data-toggle="dropdown" className="dropdown-toggle">Miscelleneous <b className="caret"></b></a>
+                       <ul className="dropdown-menu">
+                           <li><a onClick={ this.navigateMenus.bind( this, types.MISC_USERS )}>CTool Users</a></li>
+                           <li><a href="#">CTool Rights</a></li>
+                           <li><a href="#">Companies</a></li>
+                           <li><a href="#">Countries</a></li>
+                           <li className="divider"></li>
+                          <li><a href="#">Account Manager</a></li>
+                           <li><a href="#">Country Manager</a></li>
+                       </ul>
+                   </li>
              <li>
                <a
                   onClick={ this.navigateMenus.bind( this, types.TOOLBOX_SEARCH ) }>Toolbox</a>
@@ -68,7 +79,9 @@ class Dashboard extends React.Component {
         </nav>
         <div>
             { this.state.currentMenus.showAccount && <Account /> }
-             { this.state.currentMenus.showSearch && <Search /> }
+            { this.state.currentMenus.showSearch && <Search /> }
+            { this.state.currentMenus.showMiscUsers && <MiscUsers /> }
+
         </div>
         {/*<footer className="container-fluid text-left">
           <p>
@@ -99,6 +112,13 @@ class Dashboard extends React.Component {
     console.log( "currentMenu ==", currentMenu );
     var menus={};
     switch (currentMenu) {
+      case types.MISC_USERS:
+        menus={
+          showMiscUsers :true,
+        showAccount :false,
+        showSearch :false
+      };
+        break;
       case types.TOOLBOX_SEARCH:
         menus={
           showSearch :true,
@@ -114,7 +134,8 @@ class Dashboard extends React.Component {
       default:
       menus={
         showSearch :false,
-      showAccount :true
+      showAccount :false,
+        showMiscUsers :true,
     };
         break;
     }
@@ -132,7 +153,7 @@ Dashboard.contextTypes = {
 
 function mapStateToProps( state ) {
   return {
-    currentMenu: state.Auth.menu,
+    currentMenu: state.Menu.menu,
     token: state.Auth.token
   };
 }

@@ -1,0 +1,13 @@
+import * as types from '../actions/actionTypes';
+export default function (state = {}, action = null) {
+	console.log("in menu");
+	return Object.assign({}, state, {isLoading: true,menu:action.payload, error: false });
+	// switch(action.type) {
+	// 	case types.TOOLBOX_SEARCH:
+	// 		return Object.assign({}, state, {isLoading: true,menu:action.payload, error: false });
+	// 	case types.ACCOUNT_CREATE:
+	// 		return Object.assign({}, state, {isLoading: true,menu:action.payload, error: false });
+	// 	default:
+	// 		return state;
+	// }
+};
