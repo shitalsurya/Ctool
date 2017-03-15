@@ -78,23 +78,26 @@ class MiscUsers extends React.Component {
         <div>
           <Row className="list-row">
             <Col
-                 className="list-col"
-                 md={ 4 }>
-            <div>
-              User Id:
+                md={ 1 }>
+            <span>
               { field.id }
-            </div>
-            <div>
-              Login Name:
+            </span>
+              </Col>
+            <Col
+                 md={ 2 }>
+            <span>
               { field.login }
-            </div>
+            </span>
             </Col>
             <Col md={ 3 }>
             <img
                  className="user-image"
                  src={ userImg } /><span>{ field.name }</span>
             </Col>
-            <Col md={ 3 }>
+            <Col md={ 2 }>
+            <span>{ field.status }</span>
+            </Col>
+            <Col md={ 2 }>
             <span>{ field.status }</span>
             </Col>
             <Col md={ 2 }>
@@ -120,47 +123,181 @@ class MiscUsers extends React.Component {
           </Row>
           { field.showDetails
             &&
-            <Row className="user-details-row">
-              <Row>
-                <Col
-                     className="list-col"
-                     md={ 12 }> User Id:
+            <Grid fluid={ true } className="user-details">
+            <Row>
+              <Col
+                   className="list-col"
+                   md={ 3 }>
+              <div>
+                Name
+              </div>
+              <div>
                 { field.id }
-                </Col>
-              </Row>
-              <Row>
-                <Col
-                     className="list-col"
-                     md={ 12 }> User Id:
-                { field.role }
-                </Col>
-              </Row>
-              <Row>
-                <Col
-                     className="list-col"
-                     md={ 12 }> User Id:
-                { field.status }
-                </Col>
-              </Row>
-            </Row> }
+              </div>
+              </Col>
+              <Col
+                   className="list-col"
+                   md={ 3 }>
+              <div>
+                Email
+              </div>
+              <div>
+                { field.login }
+              </div>
+              </Col>
+              <Col className="list-col"
+              md={ 3 }>
+                <div>
+                  Password
+                </div>
+                <div>
+                  { field.login }
+                </div>
+                  </Col>
+              <Col className="list-col"
+              md={ 3 }>
+                <div>
+                  Locked
+                </div>
+                <div>
+                  { field.login }
+                </div>
+              </Col>
+
+            </Row>
+            <Row>
+              <Col
+                   className="list-col"
+                   md={ 3 }>
+              <div>
+                Live
+              </div>
+              <div>
+                { field.id }
+              </div>
+              </Col>
+              <Col
+                   className="list-col"
+                   md={ 3 }>
+              <div>
+                User Homepage
+              </div>
+              <div>
+                { field.login }
+              </div>
+              </Col>
+              <Col className="list-col"
+              md={ 3 }>
+                <div>
+                  Role
+                </div>
+                <div>
+                  { field.login }
+                </div>
+                  </Col>
+              <Col className="list-col"
+              md={ 3 }>
+                <div>
+                Update Date
+                </div>
+                <div>
+                  { field.login }
+                </div>
+              </Col>
+
+            </Row>
+            </Grid> }
           { field.editDetails
             &&
-            <Row className="user-details-row">
+            <Grid fluid={ true } className="user-details">
+            <Row>
               <Col
-                   componentClass={ ControlLabel }
-                   md={ 2 }> Name:
-              </Col>
-              <Col md={ 4 }>
-              <FormControl
-                           type="text"
-                           value={ this.state.currentUser.role }
-                           onChange={ this.handleChange.bind( this ) }
-                           placeholder="Enter your name" />
+                   className="list-col"
+                   md={ 3 }>
+              <div>
+                Name
+              </div>
+              <div>
+                { field.id }
+              </div>
               </Col>
               <Col
-                   mdHidden
-                   md={ 3 } />
-            </Row> }
+                   className="list-col"
+                   md={ 3 }>
+              <div>
+                Email
+              </div>
+              <div>
+                { field.login }
+              </div>
+              </Col>
+              <Col className="list-col"
+              md={ 3 }>
+                <div>
+                  Password
+                </div>
+                <div>
+                <FormControl
+                             type="text"
+                             value={ this.state.currentUser.role }
+                             onChange={ this.handleChange.bind( this ) }
+                             placeholder="Enter your name" />
+                </div>
+                  </Col>
+              <Col className="list-col"
+              md={ 3 }>
+                <div>
+                  Locked
+                </div>
+                <div>
+                  { field.login }
+                </div>
+              </Col>
+
+            </Row>
+            <Row>
+              <Col
+                   className="list-col"
+                   md={ 3 }>
+              <div>
+              Live
+              </div>
+              <div>
+                { field.id }
+              </div>
+              </Col>
+              <Col
+                   className="list-col"
+                   md={ 3 }>
+              <div>
+                User Homepage
+              </div>
+              <div>
+                { field.login }
+              </div>
+              </Col>
+              <Col className="list-col"
+              md={ 3 }>
+                <div>
+                  User Login
+                </div>
+                <div>
+                  { field.login }
+                </div>
+                  </Col>
+              <Col className="list-col"
+              md={ 3 }>
+                <div>
+                  User Login
+                </div>
+                <div>
+                  { field.login }
+                </div>
+              </Col>
+
+            </Row>
+            </Grid>
+          }
         </div>
         );
       }.bind( this ) );
@@ -172,6 +309,34 @@ class MiscUsers extends React.Component {
       <div className="col-md-10 section-content">
         <span className="page-heading">CTool User Management</span>
         <div className="list-container">
+        <div className="header-row">
+          <Grid fluid={ true }>
+        <Row >
+          <Col
+               className="list-col"
+               md={ 1 }>
+            User ID
+          </Col>
+          <Col
+               className="list-col"
+               md={ 2 }>
+            User Login
+          </Col>
+          <Col md={ 3 }>
+        User Name
+          </Col>
+          <Col md={ 2 }>
+        User Status
+          </Col>
+          <Col md={ 2 }>
+        Created On
+          </Col>
+          <Col md={ 2 }>
+        Action
+          </Col>
+        </Row>
+          </Grid>
+        </div>
           <Grid fluid={ true }>
             { listUsers }
           </Grid>

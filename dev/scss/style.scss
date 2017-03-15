@@ -14,7 +14,15 @@ $color_gunsmoke_approx: #858585;
 $color_bahama_blue_approx: #00679e;
 $color_silver: 	#C0C0C0;
 $material_blue: #0076cb;
-
+.header-row{
+	padding: 10px;
+	height: 50px;
+  background-color: #f7f8fa;
+	font-family: Arial;
+  font-size: 14px;
+  font-weight: bold;
+  color: #363636;
+}
 .list-row{
 	border-bottom: solid 1.5px #d7d7d7;
 border-top: solid 1.5px #d7d7d7;
@@ -27,20 +35,24 @@ border-top: solid 1.5px #d7d7d7;
 	margin-right:10px;
 }
 }
-.user-details-row{
+.user-details{
+	border-top: solid 0.5px #d7d7d7;
 	border-bottom: solid 5px #d7d7d7;
 	background-color: #f7f8fa;
-	padding: 17px 20px 17px 20px;
+
 	span{
 		font-family: Arial;
 	font-size: 14px;
 	font-weight: bold;
 	color: #363636;
 	}
+	.row{
+		padding: 10px;
+		border-top: solid 1px #d7d7d7;
+	}
 }
-.middle-col{
-	//padding: 20px;
-
+.list-col{
+	height: 51px;
 }
 .list-col > div:first-child{
  font-size: 12px;
@@ -260,7 +272,7 @@ color: #363636;
 .rec{
 	height: 50px;
   background-color: #f7f8fa;
-	margin: -20px -20px 0px -20px;
+	//margin: -20px -20px 0px -20px;
 	padding: 17px 20px 17px 20px;
 	span{
 		font-family: Arial;
