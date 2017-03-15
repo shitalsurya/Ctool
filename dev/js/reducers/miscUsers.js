@@ -11,6 +11,12 @@ export default function (state = {}, action = null) {
 			case types.MISC_USERDETAILS_RESPONSE:
 				console.log("MISC_USERDETAILS_RESPONSE==",action.payload);
 				return Object.assign({}, state, {userDetails:action.payload});
+				case types.MISC_UPDATE_USERDETAILS_REQUEST:
+					return Object.assign({}, state, {});
+				case types.MISC_UPDATE_USERDETAILS_RESPONSE:
+					console.log("MISC_UPDATE_USERDETAILS_RESPONSE==",action.payload);
+					return Object.assign({}, state, {userDetails:action.payload});
+
 		default:
 			return state;
 	}
