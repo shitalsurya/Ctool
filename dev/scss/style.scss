@@ -18,10 +18,27 @@ $material_blue: #0076cb;
 	padding: 10px;
 	height: 50px;
   background-color: #f7f8fa;
-	font-family: Arial;
+	font-family: inherit;
   font-size: 14px;
   font-weight: bold;
   color: #363636;
+}
+.footer-row{
+	background-color: #f7f8fa;
+font-family: inherit;
+padding: 10px;
+border: solid 1.5px #d7d7d7;
+box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+text-align: center;
+span{
+	color:#767676;
+}
+}
+.edit-fields{
+	img{
+		height: 32px;
+		margin-left: 10px;
+	}
 }
 .list-row{
 	border-bottom: solid 1.5px #d7d7d7;
@@ -30,7 +47,7 @@ border-top: solid 1.5px #d7d7d7;
 	font-family: Arial;
 	font-size: 14px;
 	padding: 10px;
-.user-image{
+img{
 	height:30px;
 	margin-right:10px;
 }
@@ -42,8 +59,6 @@ border-top: solid 1.5px #d7d7d7;
 
 	span{
 		font-family: Arial;
-	font-size: 14px;
-	font-weight: bold;
 	color: #363636;
 	}
 	.row{
@@ -224,7 +239,7 @@ span.error {
 	background-color: #ffffff;
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
   margin-top: 10px;
-	margin-bottom: 20px;
+	//margin-bottom: 20px;
 }
 
 .login-container {

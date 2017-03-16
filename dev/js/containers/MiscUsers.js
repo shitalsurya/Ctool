@@ -3,10 +3,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid, ButtonGroup, Button, Modal } from 'react-bootstrap';
+import Select from 'react-select';
 import { getUserList, getUserDetails, updateUserDetails } from '../actions/miscUsersActions';
 require( '../../scss/style.scss' );
 var userImg = require( "../../images/user.png" );
-
+var showIcon = require( "../../images/show-icon.png" );
+var editIcon = require( "../../images/edit-icon.png" );
+var updateIcon = require( "../../images/update-icon.png" );
+var refreshIcon = require( "../../images/refresh-icon.png" );
+var lockIcon = require( "../../images/lock.png" );
+var unlockIcon = require( "../../images/unlock.png" );
 class MiscUsers extends React.Component {
   constructor( props, context ) {
     super( props, context );
@@ -42,11 +48,25 @@ class MiscUsers extends React.Component {
     console.log( "updateUserDetails this.currentUser==", this.state.currentUser );
     this.props.updateUserDetails(this.state.currentUser);
   }
+  handleSelectChange (name,newValue) {
+  		console.log('State changed to name' + name);
+    //  return function(newValue) {
+        console.log('State changed to ' , newValue);
+       // perform change on this.state for name and newValue
+       var _currentUser = {};
+       _currentUser = this.state.currentUser;
+       _currentUser[name] = newValue.value;
+       this.setState( {
+         currentUser: _currentUser
+       } );
+  // }.bind(this);
 
-  handleChange( e ) {
+  	}
+  handleInputChange( e ) {
+    console.log("e",e.target.name);
     var _currentUser = {};
     _currentUser = this.state.currentUser;
-    _currentUser.role = e.target.value;
+    _currentUser[e.target.name] = e.target.value;
     this.setState( {
       currentUser: _currentUser
     } );
@@ -70,8 +90,16 @@ class MiscUsers extends React.Component {
     this.setState( {
       currentUser: _item
     } );
-  }
+}
   render() {
+    var  homepageOptions= [
+        { value: 'Account', label: 'Account' },
+        { value: 'Connections', label: 'Connections' }
+    ];
+    var roleOptions= [
+        { value: 'Support', label: 'Support' },
+        { value: 'ServiceDesk', label: 'ServiceDesk' }
+    ];
     if ( this.users != "" ) {
       var listUsers = this.users.map( function ( field, index ) {
         return (
@@ -90,35 +118,23 @@ class MiscUsers extends React.Component {
             </span>
             </Col>
             <Col md={ 3 }>
-            <img
-                 className="user-image"
-                 src={ userImg } /><span>{ field.name }</span>
+            <img src={ userImg } /><span>{ field.name }</span>
             </Col>
             <Col md={ 2 }>
-            <span>{ field.status }</span>
+            <span>{ field.live }</span>
             </Col>
-            <Col md={ 2 }>
-            <span>{ field.status }</span>
+            <Col md={ 3 }>
+            <span>{ field.insertdate }</span>
             </Col>
-            <Col md={ 2 }>
-            { !field.showDetails && !field.editDetails && <Button
-                                                                  className="sap-btn"
-                                                                  onClick={ this.showUserDetails.bind( this, field.id ) }
-                                                                  type="submit">
-                                                            Display
-                                                          </Button> }
-            { field.showDetails && <Button
-                                           className="sap-btn"
-                                           onClick={ this.editUserDetails.bind( this, field.id ) }
-                                           type="submit">
-                                     Edit
-                                   </Button> }
-            { field.editDetails && <Button
-                                           className="sap-btn"
-                                           onClick={ this.updateUserDetails.bind( this, field.id ) }
-                                           type="submit">
-                                     Update
-                                   </Button> }
+            <Col md={ 1 }>
+            { !field.showDetails && !field.editDetails &&
+              <img title="Display" onClick={ this.showUserDetails.bind( this, field.id ) }
+                   src={ showIcon } />
+                 }
+            { field.showDetails &&   <img onClick={ this.editUserDetails.bind( this, field.id ) }
+                   src={ editIcon } /> }
+            { field.editDetails &&   <img onClick={ this.updateUserDetails.bind( this, field.id ) }
+                   src={ updateIcon } /> }
             </Col>
           </Row>
           { field.showDetails
@@ -132,7 +148,7 @@ class MiscUsers extends React.Component {
                 Name
               </div>
               <div>
-                { field.id }
+                { field.name }
               </div>
               </Col>
               <Col
@@ -142,7 +158,7 @@ class MiscUsers extends React.Component {
                 Email
               </div>
               <div>
-                { field.login }
+                { field.email }
               </div>
               </Col>
               <Col className="list-col"
@@ -151,7 +167,7 @@ class MiscUsers extends React.Component {
                   Password
                 </div>
                 <div>
-                  { field.login }
+                  { field.password }
                 </div>
                   </Col>
               <Col className="list-col"
@@ -160,7 +176,14 @@ class MiscUsers extends React.Component {
                   Locked
                 </div>
                 <div>
-                  { field.login }
+                { field.locked &&
+                  <img onClick={ this.showUserDetails.bind( this, field.id ) }
+                       src={ lockIcon } />
+                }
+                { !field.locked &&
+                  <img onClick={ this.showUserDetails.bind( this, field.id ) }
+                       src={ unlockIcon } />
+                }
                 </div>
               </Col>
 
@@ -173,7 +196,7 @@ class MiscUsers extends React.Component {
                 Live
               </div>
               <div>
-                { field.id }
+              {field.live}
               </div>
               </Col>
               <Col
@@ -183,7 +206,7 @@ class MiscUsers extends React.Component {
                 User Homepage
               </div>
               <div>
-                { field.login }
+                { field.homepage }
               </div>
               </Col>
               <Col className="list-col"
@@ -192,7 +215,7 @@ class MiscUsers extends React.Component {
                   Role
                 </div>
                 <div>
-                  { field.login }
+                  { field.role }
                 </div>
                   </Col>
               <Col className="list-col"
@@ -201,7 +224,7 @@ class MiscUsers extends React.Component {
                 Update Date
                 </div>
                 <div>
-                  { field.login }
+                  { field.updatedate }
                 </div>
               </Col>
 
@@ -218,7 +241,11 @@ class MiscUsers extends React.Component {
                 Name
               </div>
               <div>
-                { field.id }
+              <FormControl name="name"
+                           type="text"
+                           value={ this.state.currentUser.name }
+                           onChange={ this.handleInputChange.bind( this ) }
+                           />
               </div>
               </Col>
               <Col
@@ -228,7 +255,11 @@ class MiscUsers extends React.Component {
                 Email
               </div>
               <div>
-                { field.login }
+              <FormControl name="email"
+                           type="email"
+                           value={ this.state.currentUser.email }
+                           onChange={ this.handleInputChange.bind( this ) }
+                           />
               </div>
               </Col>
               <Col className="list-col"
@@ -237,11 +268,11 @@ class MiscUsers extends React.Component {
                   Password
                 </div>
                 <div>
-                <FormControl
-                             type="text"
-                             value={ this.state.currentUser.role }
-                             onChange={ this.handleChange.bind( this ) }
-                             placeholder="Enter your name" />
+                <FormControl name="password"
+                             type="password"
+                             value={ this.state.currentUser.password }
+                             onChange={ this.handleInputChange.bind( this ) }
+                             />
                 </div>
                   </Col>
               <Col className="list-col"
@@ -250,7 +281,14 @@ class MiscUsers extends React.Component {
                   Locked
                 </div>
                 <div>
-                  { field.login }
+                { field.locked &&
+                  <img onClick={ this.showUserDetails.bind( this, field.id ) }
+                       src={ lockIcon } />
+                }
+                { !field.locked &&
+                  <img onClick={ this.showUserDetails.bind( this, field.id ) }
+                       src={ unlockIcon } />
+                }
                 </div>
               </Col>
 
@@ -263,7 +301,8 @@ class MiscUsers extends React.Component {
               Live
               </div>
               <div>
-                { field.id }
+              <img onClick={ this.showUserDetails.bind( this, field.id ) }
+                   src={ refreshIcon } />
               </div>
               </Col>
               <Col
@@ -273,25 +312,37 @@ class MiscUsers extends React.Component {
                 User Homepage
               </div>
               <div>
-                { field.login }
+              <Select
+                    name="homepage"
+                    placeholder="Select User Homepage.."
+                   value={ this.state.currentUser.homepage }
+                    onChange={this.handleSelectChange.bind(this,'homepage')}
+                     options={homepageOptions}
+                />
               </div>
               </Col>
               <Col className="list-col"
               md={ 3 }>
                 <div>
-                  User Login
+                  Role
                 </div>
                 <div>
-                  { field.login }
+                <Select
+                      name="role"
+                      placeholder="Select Role"
+                       value={ this.state.currentUser.role }
+                        onChange={this.handleSelectChange.bind(this,'role')}
+                       options={roleOptions}
+                        />
                 </div>
                   </Col>
               <Col className="list-col"
               md={ 3 }>
                 <div>
-                  User Login
+                  Update Date
                 </div>
                 <div>
-                  { field.login }
+                  { field.updatedate }
                 </div>
               </Col>
 
@@ -313,12 +364,10 @@ class MiscUsers extends React.Component {
           <Grid fluid={ true }>
         <Row >
           <Col
-               className="list-col"
                md={ 1 }>
             User ID
           </Col>
           <Col
-               className="list-col"
                md={ 2 }>
             User Login
           </Col>
@@ -328,10 +377,10 @@ class MiscUsers extends React.Component {
           <Col md={ 2 }>
         User Status
           </Col>
-          <Col md={ 2 }>
+          <Col md={ 3 }>
         Created On
           </Col>
-          <Col md={ 2 }>
+          <Col md={ 1 }>
         Action
           </Col>
         </Row>
@@ -341,6 +390,10 @@ class MiscUsers extends React.Component {
             { listUsers }
           </Grid>
         </div>
+          <div className="footer-row">
+          <div><span>Show More</span></div>
+            <div><span className="glyphicon glyphicon-chevron-down"></span></div>
+          </div>
       </div>
       <div className="col-md-1"></div>
     </div>
