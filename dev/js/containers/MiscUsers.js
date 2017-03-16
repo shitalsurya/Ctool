@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid, ButtonGroup, Button, Modal } from 'react-bootstrap';
+import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid, Button, Image } from 'react-bootstrap';
 import Select from 'react-select';
 import { getUserList, getUserDetails, updateUserDetails } from '../actions/miscUsersActions';
 require( '../../scss/style.scss' );
@@ -10,9 +10,11 @@ var userImg = require( "../../images/user.png" );
 var showIcon = require( "../../images/show-icon.png" );
 var editIcon = require( "../../images/edit-icon.png" );
 var updateIcon = require( "../../images/update-icon.png" );
+var undoIcon = require( "../../images/undo-icon.png" );
 var refreshIcon = require( "../../images/refresh-icon.png" );
 var lockIcon = require( "../../images/lock.png" );
 var unlockIcon = require( "../../images/unlock.png" );
+var errorIcon = require( "../../images/error-icon-32.png" );
 class MiscUsers extends React.Component {
   constructor( props, context ) {
     super( props, context );
@@ -123,10 +125,10 @@ class MiscUsers extends React.Component {
             <Col md={ 2 }>
             <span>{ field.live }</span>
             </Col>
-            <Col md={ 3 }>
+            <Col md={ 2 }>
             <span>{ field.insertdate }</span>
             </Col>
-            <Col md={ 1 }>
+            <Col md={ 2 } className="right-align">
             { !field.showDetails && !field.editDetails &&
               <img title="Display" onClick={ this.showUserDetails.bind( this, field.id ) }
                    src={ showIcon } />
@@ -134,7 +136,9 @@ class MiscUsers extends React.Component {
             { field.showDetails &&   <img onClick={ this.editUserDetails.bind( this, field.id ) }
                    src={ editIcon } /> }
             { field.editDetails &&   <img onClick={ this.updateUserDetails.bind( this, field.id ) }
-                   src={ updateIcon } /> }
+                   src={ updateIcon } />}
+                { field.editDetails &&      <img onClick={ this.updateUserDetails.bind( this, field.id ) }
+                          src={ undoIcon } /> }
             </Col>
           </Row>
           { field.showDetails
@@ -247,6 +251,21 @@ class MiscUsers extends React.Component {
                            onChange={ this.handleInputChange.bind( this ) }
                            />
               </div>
+              {/*
+                <Form inline>
+                <FormGroup controlId="email" validationState={this.state.validation.editUser.email}>
+                <FormControl name="email"
+                            type="email"
+                            value={ this.state.currentUser.email }
+                            onChange={ this.handleInputChange.bind( this ) }
+                            />
+
+                            { field.locked &&
+                 <Image onClick={ this.showUserDetails.bind( this, field.id ) } src={ errorIcon }  />
+                            }
+                             </FormGroup>
+                             </Form>
+                */}
               </Col>
               <Col
                    className="list-col"
@@ -377,10 +396,10 @@ class MiscUsers extends React.Component {
           <Col md={ 2 }>
         User Status
           </Col>
-          <Col md={ 3 }>
+          <Col md={ 2 }>
         Created On
           </Col>
-          <Col md={ 1 }>
+          <Col md={ 2 } className="right-align">
         Action
           </Col>
         </Row>
