@@ -36,13 +36,13 @@ class Dashboard extends React.Component {
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </button>
-  							 <img src={logoImg} />
+  							 <div className="logo">CTOOL</div>
             </div>
             <div
                  className="collapse navbar-collapse"
                  id="myNavbar">
               <ul className="nav navbar-nav">
-              <li className="active">
+              <li >
                <a
                   onClick={ this.navigateMenus.bind( this, types.ACCOUNT_CREATE ) }>Accounts <span className="sr-only">(current)</span></a>
              </li>
@@ -52,7 +52,7 @@ class Dashboard extends React.Component {
              <li>
                <a href="#">Operators</a>
              </li>
-             <li className="dropdown">
+             <li className="dropdown active">
                        <a href="#" data-toggle="dropdown" className="dropdown-toggle">Miscelleneous <b className="caret"></b></a>
                        <ul className="dropdown-menu">
                            <li><a onClick={ this.navigateMenus.bind( this, types.MISC_USERS )}>CTool Users</a></li>

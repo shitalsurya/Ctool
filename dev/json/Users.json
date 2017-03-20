@@ -4,27 +4,15 @@
                 "id": 1,
                 "login":"Adam",
                   "name": "Adam Brito",
-                  "email":"Adam.Brito@mobile365.com",
-                    "password": "ADAMBRITO",
-                  "locked":"Yes",
                   "live":"Suspended",
-                  "homepage":"Account",
-                  "role":"Support",
-                    "insertdate":"10-SEP-07",
-                      "updatedate":"10-SEP-07"
+                    "insertdate":"10-SEP-07"
             },
             {
                 "id": 2,
                 "login":"Adam",
                   "name": "Adam Gilli",
-                  "email":"Adam.Gilli@mobile365.com",
-                    "password": "ADAMGILLI",
-                  "locked":"Yes",
                   "live":"Suspended",
-                  "homepage":"Account",
-                  "role":"Support",
-                    "insertdate":"10-SEP-07",
-                      "updatedate":"10-SEP-07"
+                    "insertdate":"10-SEP-07"
             },
             {
                 "name": "Adrian Choy",
@@ -93,19 +81,6 @@
                     "role":"Support",
                       "insertdate":"10-SEP-07",
                         "updatedate":"10-SEP-07"
-                  },
-                  {
-                      "name": "Akshay Banjan",
-                      "id": 8,
-                      "status":"Live",
-                      "login":"Akshay",
-                      "email":"Adam.Hervas@mobile365.com",
-                        "password": "ADAMHERVAS",
-                      "locked":"Yes",
-                      "live":"Suspended",
-                      "homepage":"Account",
-                      "role":"Support",
-                        "insertdate":"10-SEP-07",
-                          "updatedate":"10-SEP-07"
-                  }       ]
+                  }
+                  ]
  }

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid, Button, Image } from 'react-bootstrap';
+import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid, Button, Image,Glyphicon } from 'react-bootstrap';
 import Select from 'react-select';
 import { getUserList, getUserDetails, updateUserDetails } from '../actions/miscUsersActions';
 require( '../../scss/style.scss' );
@@ -300,14 +300,9 @@ class MiscUsers extends React.Component {
                   Locked
                 </div>
                 <div>
-                { field.locked &&
-                  <img onClick={ this.showUserDetails.bind( this, field.id ) }
-                       src={ lockIcon } />
-                }
-                { !field.locked &&
-                  <img onClick={ this.showUserDetails.bind( this, field.id ) }
-                       src={ unlockIcon } />
-                }
+                { field.locked }
+                <img onClick={ this.showUserDetails.bind( this, field.id ) }
+                     src={ refreshIcon } />
                 </div>
               </Col>
 
@@ -320,6 +315,7 @@ class MiscUsers extends React.Component {
               Live
               </div>
               <div>
+                <span>{ field.live }</span>
               <img onClick={ this.showUserDetails.bind( this, field.id ) }
                    src={ refreshIcon } />
               </div>
@@ -377,7 +373,35 @@ class MiscUsers extends React.Component {
     <div className="content">
       <div className="col-md-1"></div>
       <div className="col-md-10 section-content">
-        <span className="page-heading">CTool User Management</span>
+      <div>
+
+        </div>
+        <Grid fluid={ true }>
+        <Row>
+        <Col className="line page-heading"
+        md={ 12 }>
+        CTool User Management
+            </Col>
+              </Row>
+        <Row>
+        <Col className="sub-heading"
+             md={ 4 } >
+             1-8 of 30 Users
+             </Col>
+            <Col
+                 mdHidden
+                 md={ 4 } />
+          <Col className="pull-right"
+          md={ 4 }>
+            <FormGroup >
+          <FormControl type="text" placeholder="Search Users.." />
+          <FormControl.Feedback>
+            <Glyphicon glyph="search" />
+          </FormControl.Feedback>
+        </FormGroup>
+        </Col>
+          </Row>
+        </Grid>
         <div className="list-container">
         <div className="header-row">
           <Grid fluid={ true }>
