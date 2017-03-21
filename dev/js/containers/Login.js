@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { loginUser } from '../actions/authActions';
 import ReactDOM from 'react-dom';
-require( '../../scss/style.scss' );
+require( '../../scss/login.scss' );
 var logoImg=require("../../images/sybase-365.jpg");
 
 class Login extends Component {
@@ -24,7 +24,7 @@ class Login extends Component {
     };
     return (
     <div>
-      <nav className="navbar navbar-inverse">
+      {/*<nav className="navbar navbar-inverse">
         <div className="container-fluid">
           <div className="navbar-header">
             <button
@@ -49,11 +49,13 @@ class Login extends Component {
 
           </div>
         </div>
-      </nav>
+      </nav>*/}
  <div className="content">
 				  <div className="col-sm-4"></div>
           <div className="col-sm-4 login-form">
-					  <div className="login-container controls-container">
+
+					  <div className="login-container">
+              <span className="logo">Login to CTOOL</span>
 						<Grid fluid={ true }>
 						  <Row className="show-grid">
 						    <Col

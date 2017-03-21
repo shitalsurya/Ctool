@@ -57,7 +57,9 @@ getOptions(input, callback) {
       <div className="breadcrumb-container">
       <ul className="breadcrumb">
      <li className="active">Commercial Information</li>
+     <span className="glyphicon glyphicon-menu-right"/>
      <li><a href="#">Technical Details</a></li>
+      <span className="glyphicon glyphicon-menu-right"/>
      <li><a href="#">Create Account</a></li>
      </ul>
       </div>
