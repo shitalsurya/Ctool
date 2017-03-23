@@ -1,0 +1,55 @@
+$color_tuatara_approx: #363636;
+$white: #ffffff;
+$offwhite1: #F6F6F6;
+$offwhite2: #f5f5f5;
+$color_alabaster_approx: #ededed;
+$color_storm_dust_approx: #636363;
+$color_tapa_approx: #363636;
+$color_lochmara_approx: #0076cb;
+$color_iron_approx: #d7d7d7;
+$color_milano_red_approx: #c11616;
+$color_carrot_orange_approx: #ed8b1d;
+$color_lochmara_70_approx: rgba(0,118,203,0.7);
+$color_gunsmoke_approx: #858585;
+$color_bahama_blue_approx: #00679e;
+$color_silver: 	#C0C0C0;
+$material_blue: #0076cb;
+.login-container {
+margin-top: 120px;
+	text-align: center;
+	background-color: #B4CDE1;
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+	padding: 20px;
+}
+
+.login-container button {
+	margin-top: 10px;
+}
+
+.login-container h2 {
+	margin-top: 5px;
+}
+.login-form{
+	//margin-top: 150px;
+	font-family: Arial;
+ font-size: 16px !important;
+ font-weight: normal;
+ font-style: normal;
+ font-stretch: normal;
+ line-height: normal;
+ letter-spacing: normal;
+ color: #363636;
+}
+.login-form input {
+	color: $color_tapa_approx;
+	height: 42px;
+	border-radius: 0px !important;
+}
+.login-form span {
+	border-radius: 0px !important;
+}
+.login-form label{
+	font-weight: normal;
+	color: $color_tapa_approx;
+	font-size: 20px;
+}

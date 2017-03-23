@@ -359,3 +359,14 @@ font-size: 14px;
 .acc-nav-buttons{
 	padding-top: 15px;
 }
+
+
+/*Account Management*/
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #363636;
+    cursor: default;
+    background-color: #ffffff;
+    border: 1px solid #d7d7d7;
+    border-top: 4px solid #199de0;
+    border-bottom-color: transparent;
+	}

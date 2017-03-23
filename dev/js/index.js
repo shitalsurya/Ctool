@@ -3,10 +3,9 @@ import React from 'react';
 import ReactDOM from "react-dom";
 import {Provider} from 'react-redux';
 import createLogger from 'redux-logger';
-import allReducers from './reducers';
-import Login from './containers/Login';
-import About from './containers/About';
-import Dashboard from './containers/Dashboard';
+import allReducers from './containers/common/allReducers';
+import Login from './containers/Login/Login';
+import Dashboard from './containers/common/Dashboard';
 import thunkMiddleware from 'redux-thunk';
 import {compose, createStore, applyMiddleware } from 'redux';
 import { routerStateReducer, reduxReactRouter } from 'redux-react-router';
@@ -40,7 +39,6 @@ ReactDOM.render(
     	{ /* Default Route */ }
     	<Route path="/" component={Login}/>
     	 { /* Routes */ }
-         <Route path="about" component={About}/>
          <Route path="dashboard" component={Dashboard}/>
 
     </Router>
