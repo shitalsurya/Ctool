@@ -1,7 +1,7 @@
-import * as types from '../../../containers/common/commonActions';
 import axios from 'axios';
 import * as config from '../../../containers/common/config';
 import {httpRequest} from '../../../containers/common/commonActions'
+import * as types from '../../../containers/common/commonActionTypes';
 import Users from '../../../../json/Users.json';
 import UserDetails1 from '../../../../json/UserDetails1.json';
 import UserDetails2 from '../../../../json/UserDetails2.json';

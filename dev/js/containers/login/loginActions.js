@@ -44,32 +44,3 @@ export function loginUser(username, password) {
 		return httpRequest(dispatch,getState,request);
 	}
 }
-
-export function navigateMenus(menu) {
-	return function(dispatch) {
-		dispatch(navigateMenusRequest(menu));
-
-	}
-}
-export function navigateMenusRequest(menu){
-	return {
-			type: menu,
-			payload: menu
-		}
-
-}
-export function requestSearch(searchTerm) {
-	var response={};
-	response.data=Products.data;
-	return function(dispatch) {
-	dispatch(searchSuccess(response.data));
-	}
-}
-export function searchSuccess(data){
-	console.log("searchSuccess==",data);
-	return{
-		 type: types.SEARCH_REQUEST,
-		 payload:data
-
-	}
-}

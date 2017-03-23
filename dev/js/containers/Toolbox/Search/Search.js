@@ -88,7 +88,7 @@ class Search extends React.Component {
 					<Row className="show-grid">
 						<Col
 								 componentClass={ ControlLabel }
-								 md={ 12 }> Search Results
+								 md={ 12 }> List
 						</Col>
 					</Row>
 					<Row>

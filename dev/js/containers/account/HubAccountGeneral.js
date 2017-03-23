@@ -30,11 +30,11 @@ class HubAccountTPOA extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return { data: state.Account.accountCommInfo };
+    return { };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ handleSelectFieldsChange: handleSelectFieldsChange }, dispatch);
+    return bindActionCreators({  }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HubAccountTPOA);

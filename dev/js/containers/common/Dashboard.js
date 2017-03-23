@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CreateAccount from '../../containers/account/CreateAccount';
 import HubAccountMgmt from '../../containers/account/HubAccountMgmt';
+import AccountSetup from '../../containers/account/AccountSetup';
 import Search from '../../containers/Toolbox/Search/Search';
 import MiscUsers from '../../containers/miscellaneous/users/MiscUsers';
 import { bindActionCreators } from 'redux';
@@ -16,8 +17,9 @@ class Dashboard extends React.Component {
     this.state={
         currentMenus:{
           showMiscUsers:false,
-          showSearch :true,
-        showAccount :false
+          showSearch :false,
+        showAccountSetup :true,
+          showAccountMgmt :false
       }
     }
   }
@@ -79,7 +81,8 @@ class Dashboard extends React.Component {
           </div>
         </nav>
         <div>
-            { this.state.currentMenus.showAccount && <HubAccountMgmt /> }
+            { this.state.currentMenus.showAccountSetup && <AccountSetup /> }
+              { this.state.currentMenus.showAccountMgmt && <HubAccountMgmt /> }
             { this.state.currentMenus.showSearch && <Search /> }
             { this.state.currentMenus.showMiscUsers && <MiscUsers /> }
 
@@ -116,27 +119,41 @@ class Dashboard extends React.Component {
       case types.MISC_USERS:
         menus={
           showMiscUsers :true,
-        showAccount :false,
+          showAccountSetup:false,
+           showAccountMgmt :false,
         showSearch :false
       };
         break;
       case types.TOOLBOX_SEARCH:
         menus={
           showSearch :true,
-        showAccount :false
+      showMiscUsers :false,
+        showAccountSetup:false,
+         showAccountMgmt :false
       };
         break;
       case types.ACCOUNT_CREATE:
       menus={
         showSearch :false,
-      showAccount :true
+    showMiscUsers :false,
+      showAccountSetup:true,
+       showAccountMgmt :false
     };
         break;
+        case types.ACCOUNT_MGMT:
+        menus={
+          showSearch :false,
+      showMiscUsers :false,
+        showAccountSetup:false,
+         showAccountMgmt :true
+      };
+          break;
       default:
       menus={
         showSearch :false,
-      showAccount :false,
-        showMiscUsers :true,
+    showMiscUsers :false,
+      showAccountSetup:true,
+       showAccountMgmt :false
     };
         break;
     }
