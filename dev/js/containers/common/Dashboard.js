@@ -18,7 +18,7 @@ class Dashboard extends React.Component {
         currentMenus:{
           showMiscUsers:false,
           showSearch :false,
-        showAccountSetup :true,
+        showAccountSetup :false,
           showAccountMgmt :false
       }
     }
@@ -46,8 +46,18 @@ class Dashboard extends React.Component {
                  id="myNavbar">
               <ul className="nav navbar-nav">
               <li >
-               <a
-                  onClick={ this.navigateMenus.bind( this, types.ACCOUNT_CREATE ) }>Accounts <span className="sr-only">(current)</span></a>
+              <a href="#" data-toggle="dropdown" className="dropdown-toggle">Accounts <b className="caret"></b></a>
+              <ul className="dropdown-menu">
+                  <li> <a
+                      onClick={ this.navigateMenus.bind( this, types.ACCOUNT_CREATE ) }>Create Account<span className="sr-only">(current)</span></a></li>
+                  <li><a href="#">CTool Rights</a></li>
+                  <li><a href="#">Companies</a></li>
+                  <li><a href="#">Countries</a></li>
+                  <li className="divider"></li>
+                 <li><a href="#">Account Manager</a></li>
+                  <li><a href="#">Country Manager</a></li>
+              </ul>
+
              </li>
              <li>
                <a href="#">Connections</a>
@@ -55,7 +65,7 @@ class Dashboard extends React.Component {
              <li>
                <a href="#">Operators</a>
              </li>
-             <li className="dropdown active">
+             <li className="dropdown">
                        <a href="#" data-toggle="dropdown" className="dropdown-toggle">Miscelleneous <b className="caret"></b></a>
                        <ul className="dropdown-menu">
                            <li><a onClick={ this.navigateMenus.bind( this, types.MISC_USERS )}>CTool Users</a></li>
@@ -81,7 +91,7 @@ class Dashboard extends React.Component {
           </div>
         </nav>
         <div>
-            { this.state.currentMenus.showAccountSetup && <AccountSetup /> }
+            { this.state.currentMenus.showAccountSetup && <CreateAccount /> }
               { this.state.currentMenus.showAccountMgmt && <HubAccountMgmt /> }
             { this.state.currentMenus.showSearch && <Search /> }
             { this.state.currentMenus.showMiscUsers && <MiscUsers /> }

@@ -16,7 +16,7 @@ require('../../../scss/style.scss');
 
 const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
-class AccountTechnicalDetails extends React.Component {
+class AccountInterfaces extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.Countries=[];

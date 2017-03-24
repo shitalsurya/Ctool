@@ -1,5 +1,6 @@
 import * as types from '../../../containers/common/commonActionTypes';
 export default function (state = {}, action = null) {
+	console.log("in users reducer");
 	switch(action.type) {
 		case types.MISC_USERLIST_REQUEST:
 			return Object.assign({}, state, {});

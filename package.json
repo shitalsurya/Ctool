@@ -28,6 +28,7 @@
     "react": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",
     "react-bootstrap": "^0.30.7",
+    "react-bootstrap-multiselect": "^2.3.0",
     "react-bootstrap-table": "^2.11.2",
     "react-data-grid": "^2.0.6",
     "react-dom": "^15.1.0",

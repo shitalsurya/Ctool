@@ -25,6 +25,7 @@ class MiscUsers extends React.Component {
   }
   componentWillMount() {
     this.props.getUserList();
+      console.log( "this.props.userList==", this.props.userList );
   }
   componentWillReceiveProps( nextProps ) {
     this.users = nextProps.userList;
@@ -94,6 +95,7 @@ class MiscUsers extends React.Component {
     } );
 }
   render() {
+      console.log( "this.props.userList==", this.props.userList );
     var  homepageOptions= [
         { value: 'Account', label: 'Account' },
         { value: 'Connections', label: 'Connections' }
@@ -102,8 +104,8 @@ class MiscUsers extends React.Component {
         { value: 'Support', label: 'Support' },
         { value: 'ServiceDesk', label: 'ServiceDesk' }
     ];
-    if ( this.users != "" ) {
-      var listUsers = this.users.map( function ( field, index ) {
+    if ( typeof( this.props.userList) != "undefined" ) {
+      var listUsers = this.props.userList.map( function ( field, index ) {
         return (
         <div>
           <Row className="list-row">

@@ -3,26 +3,35 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 import Select from 'react-select';
-import { ToastContainer, ToastMessage,
-} from "react-toastr";
+import { ToastContainer, ToastMessage} from "react-toastr";
+
 
 import { handleSelectFieldsChange, goToTechnicalDetails } from '../../containers/account/actions/accountActions';
 
 
 require( '../../../scss/style.scss' );
-
+import Users from '../../../json/Users.json';
 const ToastMessageFactory = React.createFactory( ToastMessage.animation );
 
 class AccountCommDetails extends React.Component {
   constructor( props, context ) {
     super( props, context );
-    this.accountCommInfo = this.props.accountObj || [];
-    this.accountCommInfo.revSharing = this.props.accountObj.revSharing || "No";
+  //  this.accountCommInfo = this.props.accountObj || [];
+    this.state={
+      accountCommInfo:this.props.accountObj || []
+    };
+  //  this.accountCommInfo.revSharing = this.props.accountObj.revSharing || "No";
   }
-  handleSelectFieldsChange( target, value ) {
-    this.props.handleSelectFieldsChange( value, target );
+  handleSelectFieldsChange( value ) {
+    var info=this.state.accountCommInfo;
+    info.acctManager=value;
+    this.setState({accountCommInfo:info});
+  //  this.props.handleSelectFieldsChange( value, target );
   }
+  rearrangeCols(){
 
+
+  }
 
 getOptions(input, callback) {
         setTimeout(function () {
@@ -46,21 +55,39 @@ getOptions(input, callback) {
         float: "left"
       }
     };
-
+    var userList = Users.data.map(function (user) {
+          return (
+            {
+              "label":user.name,
+              "value":user.login,
+            }
+          );
+      }.bind(this));
     var options = [
   { value: 'one', label: 'One' },
   { value: 'two', label: 'Two' }
   ];
     return (
       <div>
-      <div className="breadcrumb-container">
-      <ul className="breadcrumb">
-     <li className="active">Commercial Information</li>
-     <span className="glyphicon glyphicon-menu-right"/>
-     <li><a href="#">Technical Details</a></li>
-      <span className="glyphicon glyphicon-menu-right"/>
-     <li><a href="#">Create Account</a></li>
-     </ul>
+      <div className="stepwizard breadcrumb-container">
+        <div className="stepwizard-row">
+            <div className="stepwizard-step">
+                <button type="button" className="btn btn-primary btn-circle" disabled="disabled">1</button>
+                <p>Commercial Information</p>
+            </div>
+            <div className="stepwizard-step">
+                <button type="button" className="btn btn-circle inactive-step" disabled="disabled" >2</button>
+                <p>Technical Details</p>
+            </div>
+            <div className="stepwizard-step">
+                <button type="button" className="btn btn-circle inactive-step" disabled="disabled">3</button>
+                <p>Account Name and Interfaces</p>
+            </div>
+            <div className="stepwizard-step">
+                <button type="button" className="btn btn-circle inactive-step" disabled="disabled">4</button>
+                <p>Create Account</p>
+            </div>
+        </div>
       </div>
     <div className="controls-container">
     <div className="rec">
@@ -73,10 +100,12 @@ getOptions(input, callback) {
               md={ 2 }> Account Manager:
          </Col>
          <Col md={ 6 }>
-         <Select.Async
+         <Select
                name="form-field-name"
                placeholder="Select.."
-               loadOptions={this.getOptions.bind(this)}
+               options={userList}
+               value={this.state.accountCommInfo.acctManager}
+               onChange={this.handleSelectFieldsChange.bind(this)}
            />
          </Col>
          <Col
@@ -171,11 +200,11 @@ getOptions(input, callback) {
     )
   }
   handleRevSharingChanged( event, value ) {
-    this.accountCommInfo.revSharing = value;
+  //  this.accountCommInfo.revSharing = value;
   }
   goToTechnicalDetails() {
 
-    this.props.goToTechnicalDetails( this.accountCommInfo );
+    this.props.goToTechnicalDetails( this.state.accountCommInfo );
 
   }
   componentDidMount() {
@@ -184,23 +213,23 @@ getOptions(input, callback) {
 
   componentWillReceiveProps( nextProps ) {
     console.log("nextProps",nextProps);
-    switch (nextProps.target) {
-      case types.ACCOUNT_MGR_CHANGE:
-        this.accountCommInfo.acctManager = nextProps.data;
-        break;
-      case types.ACCOUNT_COMPANY_CHANGE:
-        this.accountCommInfo.company = nextProps.data;
-        break;
-      case types.ACCOUNT_BILLING_LOCATION:
-        this.accountCommInfo.billingLocation = nextProps.data;
-        break;
-      case types.SERVICE_LEVEL:
-        this.accountCommInfo.serviceLevel = nextProps.data;
-        break;
-      case types.TRAFFIC_TYPE:
-        this.accountCommInfo.trafficType = nextProps.data;
-        break;
-    }
+    // switch (nextProps.target) {
+    //   case types.ACCOUNT_MGR_CHANGE:
+    //     this.accountCommInfo.acctManager = nextProps.data;
+    //     break;
+    //   case types.ACCOUNT_COMPANY_CHANGE:
+    //     this.accountCommInfo.company = nextProps.data;
+    //     break;
+    //   case types.ACCOUNT_BILLING_LOCATION:
+    //     this.accountCommInfo.billingLocation = nextProps.data;
+    //     break;
+    //   case types.SERVICE_LEVEL:
+    //     this.accountCommInfo.serviceLevel = nextProps.data;
+    //     break;
+    //   case types.TRAFFIC_TYPE:
+    //     this.accountCommInfo.trafficType = nextProps.data;
+    //     break;
+    // }
 
   }
 }

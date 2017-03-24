@@ -18,13 +18,16 @@ class CreateAccount extends React.Component {
 
 
     render() {
-
+console.log("render showTechnicalDetails==",this.props.showTechnicalDetails);
 
         return (
                <div className="content">
                 <div className="col-md-1"></div>
                                 <div className="col-md-10 section-content">
-                                        <span className="page-heading">Create Account</span>
+                                <div className="line page-heading">
+                                CTool User Management
+                                    </div>
+
                                         {this.showCommDetails && <AccountCommDetails accountObj={this.accountObj} />}
                                         {this.showTechnicalDetails && <AccountTechnicalDetails accountObj={this.accountObj} />}
                                 </div>
@@ -34,6 +37,7 @@ class CreateAccount extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+      console.log("componentWillReceiveProps showTechnicalDetails==",this.props.showTechnicalDetails);
         if(nextProps.showTechnicalDetails){
           this.showTechnicalDetails = nextProps.showTechnicalDetails;
               this.showCommDetails=false;

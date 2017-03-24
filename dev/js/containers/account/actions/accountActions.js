@@ -2,17 +2,17 @@ import * as types from './accountActionTypes';
 import axios from 'axios';
 import * as config from '../../../containers/common/config';
 import {httpRequest} from '../../../containers/common/commonActions'
-export function handleSelectFieldsChangeRequest(data,target){
-	return{
-		type: target,
-		payload:data
-	}
-}
-export function handleSelectFieldsChange(value,target){
-	return function(dispatch) {
-		dispatch(handleSelectFieldsChangeRequest(value,target));
-		}
-}
+// export function handleSelectFieldsChangeRequest(data,target){
+// 	return{
+// 		type: target,
+// 		payload:data
+// 	}
+// }
+// export function handleSelectFieldsChange(value,target){
+// 	return function(dispatch) {
+// 		dispatch(handleSelectFieldsChangeRequest(value,target));
+// 		}
+// }
 export function handleTechDetailsBack(_accountCommInfo){
 	return function(dispatch){
 		dispatch(handleTechDetailsBackRequest(_accountCommInfo))

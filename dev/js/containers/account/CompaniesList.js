@@ -2,13 +2,27 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Nav,NavItem ,Button} from 'react-bootstrap';
+import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid, Image,Glyphicon } from 'react-bootstrap';
+import Select from 'react-select';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { navigateMenus } from '../../containers/common/commonActions';
 import * as types from '../../containers/common/commonActionTypes';
+
 require('../../../scss/style.scss');
 import Products from '../../../json/Products.json';
 
  class CompaniesList extends React.Component {
+   constructor(props, context) {
+       super(props, context);
+         this.state = {
+           listComp:{},
+           selectedCols:[{ value: 'name', label: 'Product Name'},
+            { value: 'price', label: 'Product Price'}]
+
+         };
+          this.masterCols=[{ value: 'name', label: 'Product Name'},
+           { value: 'price', label: 'Product Price'}];
+   }
   renderShowsTotal(start, to, total) {
     return (
       <p style={ { color: 'blue' } }>
@@ -16,11 +30,38 @@ import Products from '../../../json/Products.json';
       </p>
     );
   }
+  componentWillMount(){
+    // this.currentCols = this.masterCols;
+      this.rearrangeCols();
+  }
+  handleChange(val){
+    console.log("handleChange==",val);
+  this.setState({selectedCols:val},function(){
+      this.rearrangeCols();
+  });
+//this.currentCols = val.slice(0);
+
+  }
   navigateMenus()
   {
-      this.props.navigateMenus( types.ACCOUNT_MGMT );
+
+    //  this.props.navigateMenus( types.ACCOUNT_MGMT );
+  }
+  rearrangeCols(){
+
+	  var list = this.state.selectedCols.map(function (field) {
+          return (
+        		  <TableHeaderColumn
+                  dataField={field.value}
+                  dataSort={true}>
+                {field.label}
+              </TableHeaderColumn>
+          );
+      }.bind(this));
+      this.setState({listComp:list});
   }
   render() {
+
 	  this.data=Products.data;//this.props.Products || [];
     const searchoptions = {
   clearSearch: true
@@ -48,36 +89,33 @@ import Products from '../../../json/Products.json';
    // alwaysShowAllBtns: true // Always show next and previous button
    // withFirstAndLast: false > Hide the going to First and Last page button
  };
-	  var fields = [
-	               'Company',
-	               'Status',
-	               'TPOA',
-	               'RS','Type'
-	            ];
-	  var listUsers = fields.map(function (field) {
-          return (
-        		  <TableHeaderColumn
-                  dataField={field}
-                  dataSort={true}>
-                {field}
-              </TableHeaderColumn>
-          );
-      }.bind(this));
+
     return (
 
         <div className="controls-container">
-        <span>Companies List</span>
-			      		{/*<BootstrapTable   tableStyle={ { border: '#ffffff 0px ' } }
-                bodyStyle={ {border: '#ffffff 0px ' }} data={this.data } striped bordered
-                search={ true } options={ searchoptions }>
-			      		 <TableHeaderColumn dataField='name' isKey dataSort={true} isKey>Name</TableHeaderColumn>
-					      {listUsers}
-			      		</BootstrapTable>*/}
-                  <Button onClick={this.navigateMenus.bind(this)}>Show</Button>
-                <BootstrapTable data={this.data } pagination={ true }  search={ true } options={ options }>
+        <Grid fluid={ true }>
+        <Row>
+        <Col
+             componentClass={ ControlLabel }
+             md={ 1 }> Display Columns:
+        </Col>
+        <Col
+        md={ 5 }>
+        <Select
+        multi={true}
+              name="homepage"
+              placeholder="Select User Homepage.."
+              value={this.state.selectedCols}
+              onChange={this.handleChange.bind(this)}
+               options={this.masterCols}
+          />
+          </Col>
+          </Row>
+          </Grid>
+                {/*  <Button onClick={this.navigateMenus.bind(this)}>Show</Button>*/}
+                <BootstrapTable data={this.data } pagination={ true }  options={ options }>
         <TableHeaderColumn dataField='id' dataSort={true} isKey>Product ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='name' dataSort={true}>Product Name</TableHeaderColumn>
-        <TableHeaderColumn dataField='price' dataSort={true}>Product Price</TableHeaderColumn>
+        {this.state.listComp}
     </BootstrapTable>
                 </div>
     		);

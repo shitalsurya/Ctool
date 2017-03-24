@@ -1,5 +1,6 @@
 import * as types from '../../containers/common/commonActionTypes';
 export default function (state = {}, action = null) {
+	console.log("in login reducer");
 	switch(action.type) {
 		case types.LOGIN_USER_REQUEST:
 			return Object.assign({}, state, {});
