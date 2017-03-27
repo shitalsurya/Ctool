@@ -30,7 +30,7 @@ class AccountReviewDetails extends React.Component {
     }
 
     createNewAccount() {
-      this.props.createNewAccount( this.accountInfo );
+      this.props.createNewAccount( this.state.accountInfo );
     }
     render() {
         return (
@@ -66,7 +66,7 @@ class AccountReviewDetails extends React.Component {
                      md={ 3 }> Existing company contacts:
                 </Col>
                 <Col md={ 6 }>
-
+                  {this.state.accountInfo.exstContacts}
                 </Col>
                 <Col
                      mdHidden
@@ -153,14 +153,28 @@ class AccountReviewDetails extends React.Component {
       <ToastContainer
                       toastMessageFactory={ ToastMessageFactory }
                       ref="container"
-                      className="toast-top-right" />
+                      className="toast-top" />
       </div>
         )
     }
-
+componentWillReceiveProps(nextProps){
+      switch(nextProps.target){
+  case types.ACCOUNT_CREATE_NEW_SUCCESS:
+     //alert("Account created successfully.");
+      this.refs.container.success(`Account created successfully.`, ``, {
+          closeButton: true,
+      });
+      break;
+  case types.ACCOUNT_CREATE_NEW_FAILURE:
+      this.refs.container.error(`Failed to create new account.`, ``, {
+          closeButton: true,
+      });
+      break;
+    }
+}
 }
 function mapStateToProps(state) {
-    return { data: state.Account.data};
+    return { data: state.Account.data , target: state.Account.target};
 }
 
 	function mapDispatchToProps(dispatch) {

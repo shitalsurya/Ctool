@@ -29,19 +29,19 @@ class AccountCommDetails extends React.Component {
     var info=this.state.accountCommInfo;
     switch (target) {
       case types.ACCOUNT_MGR_CHANGE:
-        info.acctManager=value;
+        info.acctManager=value.value;
         break;
       case types.ACCOUNT_COMPANY_CHANGE:
-        info.company=value;
+        info.company=value.value;
         break;
       case types.ACCOUNT_BILLING_LOCATION:
-          info.billingLocation=value;
+          info.billingLocation=value.value;
         break;
       case types.ACCOUNT_SERVICE_LEVEL:
-          info.serviceLevel=value;
+          info.serviceLevel=value.value;
         break;
       case types.ACCOUNT_TRAFFIC_TYPE:
-          info.trafficType=value;
+          info.trafficType=value.value;
         break;
     }
     this.setState({accountCommInfo:info});

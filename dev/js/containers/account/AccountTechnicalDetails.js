@@ -259,17 +259,7 @@ componentDidMount(){
             case types.ACCOUNT_GET_COUNTRY_LIST_FAILURE:
                 alert("Failed to get countries");
                 break;
-            case types.ACCOUNT_CREATE_NEW_SUCCESS:
-               //alert("Account created successfully.");
-                this.refs.container.success(`Account created successfully.`, ``, {
-                    closeButton: true,
-                });
-                break;
-            case types.ACCOUNT_CREATE_NEW_FAILURE:
-                this.refs.container.error(`Failed to create new account.`, ``, {
-                    closeButton: true,
-                });
-                break;
+
         }
 
     }

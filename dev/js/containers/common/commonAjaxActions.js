@@ -20,7 +20,7 @@ export function httpRequest(dispatch,getState,request){
 		url:request.url,
 			data:request.data,
 	 headers: {
-		 Authorization:getToken(getState())
+		 Authorization:sessionStorage.getItem("token")//getToken(getState())
 	 }
  }).then(function (response) {
 			console.log("httpRequest then response==", response);
