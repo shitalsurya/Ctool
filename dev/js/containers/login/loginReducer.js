@@ -1,4 +1,4 @@
-import * as types from '../../containers/common/commonActionTypes';
+import * as types from '../../containers/login/loginActionTypes';
 export default function (state = {}, action = null) {
 	console.log("in login reducer");
 	switch(action.type) {
