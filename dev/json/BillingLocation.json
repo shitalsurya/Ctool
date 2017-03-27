@@ -1,9 +1,8 @@
 {
     "data": [
-        "Mobile 365 Inc.",
-        "Mobile 365 South Africa.",
-        "Mobileway Australia",
-        "Mobileway China",
-        "Mobileway India"
+        {"name": "Mobile 365 Inc.", "value": 1},
+          {"name": "Mobile 365 South Africa.", "value": 2},
+            {"name": "Mobileway Australia", "value": 3},
+              {"name": "Mobileway China", "value": 4}
     ]
 }

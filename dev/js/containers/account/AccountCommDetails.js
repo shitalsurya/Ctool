@@ -4,13 +4,16 @@ import { bindActionCreators } from 'redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 import Select from 'react-select';
 import { ToastContainer, ToastMessage} from "react-toastr";
-
-
-import { handleSelectFieldsChange, goToTechnicalDetails } from '../../containers/account/actions/accountActions';
+import * as types from '../../containers/account/actions/accountActionTypes';
+import { initializeData,handleSelectFieldsChange, goToTechnicalDetails } from '../../containers/account/actions/accountActions';
 
 
 require( '../../../scss/style.scss' );
 import Users from '../../../json/Users.json';
+import Company from '../../../json/Company.json';
+import BillingLocation from '../../../json/BillingLocation.json';
+import ServiceLevel from '../../../json/ServiceLevel.json';
+import TrafficType from '../../../json/TrafficType.json';
 const ToastMessageFactory = React.createFactory( ToastMessage.animation );
 
 class AccountCommDetails extends React.Component {
@@ -22,9 +25,25 @@ class AccountCommDetails extends React.Component {
     };
   //  this.accountCommInfo.revSharing = this.props.accountObj.revSharing || "No";
   }
-  handleSelectFieldsChange( value ) {
+  handleSelectFieldsChange( target,value ) {
     var info=this.state.accountCommInfo;
-    info.acctManager=value;
+    switch (target) {
+      case types.ACCOUNT_MGR_CHANGE:
+        info.acctManager=value;
+        break;
+      case types.ACCOUNT_COMPANY_CHANGE:
+        info.company=value;
+        break;
+      case types.ACCOUNT_BILLING_LOCATION:
+          info.billingLocation=value;
+        break;
+      case types.ACCOUNT_SERVICE_LEVEL:
+          info.serviceLevel=value;
+        break;
+      case types.ACCOUNT_TRAFFIC_TYPE:
+          info.trafficType=value;
+        break;
+    }
     this.setState({accountCommInfo:info});
   //  this.props.handleSelectFieldsChange( value, target );
   }
@@ -33,40 +52,11 @@ class AccountCommDetails extends React.Component {
 
   }
 
-getOptions(input, callback) {
-        setTimeout(function () {
-            callback(null, {
-                options: [
-                    { value: 'one', label: 'One' },
-                    { value: 'two', label: 'Two' }
-                ],
-                // CAREFUL! Only set this to true when there are no more options,
-                // or more specific queries will not be sent to the server.
-                complete: true
-            });
-        }, 500);
-    }
+
   render() {
-    const styles = {
-      radioButton: {
-        marginBottom: 16,
-      },
-      radioButtonGrp: {
-        float: "left"
-      }
-    };
-    var userList = Users.data.map(function (user) {
-          return (
-            {
-              "label":user.name,
-              "value":user.login,
-            }
-          );
-      }.bind(this));
-    var options = [
-  { value: 'one', label: 'One' },
-  { value: 'two', label: 'Two' }
-  ];
+
+
+
     return (
       <div>
       <div className="stepwizard breadcrumb-container">
@@ -101,11 +91,10 @@ getOptions(input, callback) {
          </Col>
          <Col md={ 6 }>
          <Select
-               name="form-field-name"
-               placeholder="Select.."
-               options={userList}
+               placeholder="Select account manager.."
+               options={this.userList}
                value={this.state.accountCommInfo.acctManager}
-               onChange={this.handleSelectFieldsChange.bind(this)}
+               onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_MGR_CHANGE)}
            />
          </Col>
          <Col
@@ -119,10 +108,11 @@ getOptions(input, callback) {
                      md={ 2 }> Company:
                 </Col>
                 <Col md={ 6 }>
-                <Select.Async
-                      name="form-field-name"
-                      placeholder="Select.."
-                      loadOptions={this.getOptions.bind(this)}
+                <Select
+                      placeholder="Select company.."
+                      options={this.companyList}
+                      value={this.state.accountCommInfo.company}
+                      onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_COMPANY_CHANGE)}
                   />
                 </Col>
                 <Col
@@ -135,10 +125,11 @@ getOptions(input, callback) {
                      md={ 2 }> Billing Location:
                 </Col>
                 <Col md={ 6 }>
-                <Select.Async
-                      name="form-field-name"
-                      placeholder="Select.."
-                      loadOptions={this.getOptions.bind(this)}
+                <Select
+                      placeholder="Select billing location.."
+                      options={this.BillingLocation}
+                      value={this.state.accountCommInfo.billingLocation}
+                      onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_BILLING_LOCATION)}
                   />
                 </Col>
                 <Col
@@ -151,10 +142,11 @@ getOptions(input, callback) {
                      md={ 2 }> Service Level:
                 </Col>
                 <Col md={ 6 }>
-                <Select.Async
-                      name="form-field-name"
-                      placeholder="Select.."
-                      loadOptions={this.getOptions.bind(this)}
+                <Select
+                      placeholder="Select service level.."
+                      options={this.ServiceLevel}
+                      value={this.state.accountCommInfo.serviceLevel}
+                      onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_SERVICE_LEVEL)}
                   />
                 </Col>
                 <Col
@@ -167,10 +159,11 @@ getOptions(input, callback) {
                      md={ 2 }> Traffic Type:
                 </Col>
                 <Col md={ 6 }>
-                <Select.Async
-                      name="form-field-name"
-                      placeholder="Select.."
-                      loadOptions={this.getOptions.bind(this)}
+                <Select
+                      placeholder="Select traffic type.."
+                      options={this.TrafficType}
+                      value={this.state.accountCommInfo.trafficType}
+                      onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_TRAFFIC_TYPE)}
                   />
                 </Col>
                 <Col
@@ -207,29 +200,41 @@ getOptions(input, callback) {
     this.props.goToTechnicalDetails( this.state.accountCommInfo );
 
   }
-  componentDidMount() {
+  componentWillMount() {
+    this.userList = initializeData(Users,'login');
+      this.companyList = initializeData(Company,'code');
+      var BillingLocation = {
+          "data": [
+              {"name": "Mobile 365 Inc.", "value": 1},
+                {"name": "Mobile 365 South Africa.", "value": 2},
+                  {"name": "Mobileway Australia", "value": 3},
+                    {"name": "Mobileway China", "value": 4}
+          ]
+      };
+
+        this.BillingLocation = initializeData(BillingLocation,'value');
+          var ServiceLevel = {
+            "data": [
+                {"name": "Standard", "value": "Standard"},
+                  {"name": "Premium", "value": "Premium"}
+            ]
+        }
+
+        this.ServiceLevel = initializeData(ServiceLevel,'value');
+        var TrafficType = {
+            "data": [
+                {"name": "General", "value": "General"},
+                  {"name": "Campaign", "value": "Campaign"},
+                    {"name": "Low Latency", "value": "Low Latency"},
+                      {"name": "Time Sensitive", "value": "Time Sensitive"}
+            ]
+        }
+         this.TrafficType = initializeData(TrafficType,'value');
     //this.refs.requesterName.getInputNode().value = sessionStorage.getItem( "Username" ) || "";
   }
 
   componentWillReceiveProps( nextProps ) {
-    console.log("nextProps",nextProps);
-    // switch (nextProps.target) {
-    //   case types.ACCOUNT_MGR_CHANGE:
-    //     this.accountCommInfo.acctManager = nextProps.data;
-    //     break;
-    //   case types.ACCOUNT_COMPANY_CHANGE:
-    //     this.accountCommInfo.company = nextProps.data;
-    //     break;
-    //   case types.ACCOUNT_BILLING_LOCATION:
-    //     this.accountCommInfo.billingLocation = nextProps.data;
-    //     break;
-    //   case types.SERVICE_LEVEL:
-    //     this.accountCommInfo.serviceLevel = nextProps.data;
-    //     break;
-    //   case types.TRAFFIC_TYPE:
-    //     this.accountCommInfo.trafficType = nextProps.data;
-    //     break;
-    // }
+
 
   }
 }

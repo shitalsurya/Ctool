@@ -1,18 +1,20 @@
 import * as types from './accountActionTypes';
 import axios from 'axios';
 import * as config from '../../../containers/common/config';
-import {httpRequest} from '../../../containers/common/commonActions'
-// export function handleSelectFieldsChangeRequest(data,target){
-// 	return{
-// 		type: target,
-// 		payload:data
-// 	}
-// }
-// export function handleSelectFieldsChange(value,target){
-// 	return function(dispatch) {
-// 		dispatch(handleSelectFieldsChangeRequest(value,target));
-// 		}
-// }
+import {httpRequest} from '../../../containers/common/commonAjaxActions';
+export function initializeData(_list,valField){
+  console.log("initializeData==",_list);
+  var list = _list.data.map(function (item) {
+        return (
+          {
+            "label":item.name,
+            "value":item[valField],
+          }
+        );
+    }.bind(this));
+    return list;
+}
+
 export function handleTechDetailsBack(_accountCommInfo){
 	return function(dispatch){
 		dispatch(handleTechDetailsBackRequest(_accountCommInfo))
@@ -23,6 +25,18 @@ export function handleTechDetailsBackRequest(_accountCommInfo){
 		  type: types.ACCOUNT_TECHDETAILS_BACK,
 			payload:_accountCommInfo
 	}
+}
+export function handleTechDetailsNext(_accountInfo){
+	return function(dispatch) {
+		dispatch(handleTechDetailsNextRequest(_accountInfo));
+		}
+
+}
+export function handleTechDetailsNextRequest(_accountInfo) {
+    return {
+        type: types.ACCOUNT_TECHDETAILS_NEXT,
+				payload:_accountInfo
+    }
 }
 export function goToTechnicalDetails(_accountCommInfo){
 	return function(dispatch) {
@@ -36,6 +50,41 @@ export function goToTechnicalDetailsRequest(_accountCommInfo) {
         type: types.ACCOUNT_COMMINFO_NEXT,
 				payload:_accountCommInfo
     }
+}
+export function handleInterfaceDetailsBack(_accountInfo){
+	return function(dispatch){
+		dispatch(handleInterfaceDetailsBackRequest(_accountInfo))
+	}
+}
+export function handleInterfaceDetailsBackRequest(_accountInfo){
+	return{
+		  type: types.ACCOUNT_INTERFACEDETAILS_BACK,
+			payload:_accountInfo
+	}
+}
+
+export function handleInterfaceDetailsNext(_accountInfo){
+	return function(dispatch) {
+		dispatch(handleInterfaceDetailsNextRequest(_accountInfo));
+		}
+}
+export function handleInterfaceDetailsNextRequest(_accountInfo) {
+    return {
+        type: types.ACCOUNT_INTERFACEDETAILS_NEXT,
+				payload:_accountInfo
+    }
+}
+
+export function handleReviewDetailsBack(_accountInfo){
+	return function(dispatch){
+		dispatch(handleReviewDetailsBackRequest(_accountInfo))
+	}
+}
+export function handleReviewDetailsBackRequest(_accountInfo){
+	return{
+		  type: types.ACCOUNT_REVIEWDETAILS_BACK,
+			payload:_accountInfo
+	}
 }
 export function createNewAccount(_accountInfo) {
 	return function (dispatch,getState) {

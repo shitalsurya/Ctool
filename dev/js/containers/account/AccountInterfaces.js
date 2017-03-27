@@ -8,7 +8,7 @@ import {
     ToastMessage,
 } from "react-toastr";
 
-import { createNewAccount, handleSelectFieldsChange, getMetadata,handleTechDetailsBack } from '../../containers/account/actions/accountActions';
+import { initializeData, createNewAccount, getMetadata,handleInterfaceDetailsBack,handleInterfaceDetailsNext } from '../../containers/account/actions/accountActions';
 import * as types from '../../containers/account/actions/accountActionTypes';
 
 
@@ -19,49 +19,52 @@ const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 class AccountInterfaces extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.Countries=[];
-        this.accountTechDetailsInfo=this.props.accountObj || [];
-        console.log("this.accountTechDetailsInfo==",this.accountTechDetailsInfo);
+      //  this.state.accountInterfacesInfo=this.props.accountObj || [];
+        this.state={
+          accountInterfacesInfo:this.props.accountObj || []
+        };
+        console.log("this.state.accountInterfacesInfo==",this.state.accountInterfacesInfo);
     }
+    handleTextFieldsChange(e){
+      switch(e.target.name){
+        case "techName":
+            this.state.accountInterfacesInfo.techName = e.target.value;
+          break;
+            case "commName":
+                this.state.accountInterfacesInfo.commName = e.target.value;
+              break;
 
-    handleSelectFieldsChange(target, event, key, value) {
-        this.props.handleSelectFieldsChange(value, target);
+      }
     }
-    handleTechDetailsBack(){
+    handleSelectFieldsChange(target, value) {
+      var info=this.state.accountInterfacesInfo;
+      console.log("handleSelectFieldsChange info==",info);
+      switch (target) {
+
+          case types.ACCOUNT_EXSTACCTS_CHANGE:
+              info.accountInterfacesInfo.ExstAccts = value;
+              break;
+          case types.ACCOUNT_INTERFACE_CHANGE:
+              info.accountInterfacesInfo.accInterface = value;
+              break;
+      }
+      this.setState({accountInterfacesInfo:info});
+    }
+    handleInterfaceDetailsBack(){
        this.StoreTextFieldsData();
-        this.props.handleTechDetailsBack(this.accountInfo);
+        this.props.handleInterfaceDetailsBack(this.accountInfo);
     }
     StoreTextFieldsData(){
-       this.accountCommInfo=this.props.accountObj || [];
-      this.accountTechDetailsInfo.name = this.refs.name.getValue();
-      this.accountTechDetailsInfo.email = this.refs.email.getValue();
-      this.accountTechDetailsInfo.MobNo = this.refs.MobNo.getValue();
-        this.accountTechDetailsInfo.DirectNo = this.refs.DirectNo.getValue();
+       this.accountInfo=this.props.accountObj || [];
 
-        this.accountTechDetailsInfo.techName = this.refs.techName.getValue();
-        this.accountTechDetailsInfo.commName = this.refs.commName.getValue();
-        this.accountInfo = Object.assign(this.accountCommInfo, this.accountTechDetailsInfo);
+        this.accountInfo = Object.assign(this.accountInfo, this.state.accountInterfacesInfo);
         console.log("Account Info=", this.accountInfo);
     }
-    handleTechDetailsNext(){
-
-
+    handleInterfaceDetailsNext(){
      this.StoreTextFieldsData();
-        this.props.createNewAccount(this.accountInfo);
+        this.props.handleInterfaceDetailsNext(this.accountInfo);
     }
-    getOptions(input, callback) {
-            setTimeout(function () {
-                callback(null, {
-                    options: [
-                        { value: 'one', label: 'One' },
-                        { value: 'two', label: 'Two' }
-                    ],
-                    // CAREFUL! Only set this to true when there are no more options,
-                    // or more specific queries will not be sent to the server.
-                    complete: true
-                });
-            }, 500);
-        }
+
     render() {
         return (
           <div>
@@ -72,11 +75,11 @@ class AccountInterfaces extends React.Component {
                     <p>Commercial Information</p>
                 </div>
                 <div className="stepwizard-step">
-                    <button type="button" className="btn btn-primary btn-circle" disabled="disabled">2</button>
+                    <button type="button" className="btn btn-default btn-circle">2</button>
                     <p>Technical Details</p>
                 </div>
                 <div className="stepwizard-step">
-                    <button type="button" className="btn btn-circle inactive-step" disabled="disabled">3</button>
+                    <button type="button" className="btn btn-primary btn-circle" disabled="disabled">3</button>
                     <p>Account Name and Interfaces</p>
                 </div>
                 <div className="stepwizard-step">
@@ -85,108 +88,7 @@ class AccountInterfaces extends React.Component {
                 </div>
             </div>
             </div>
-        <div className="controls-container">
-        <div className="rec">
-        <span>Technical Contact</span>
-        </div>
-           <Grid fluid={true}>
-           <Row className="show-grid">
-             <Col
-                  componentClass={ ControlLabel }
-                  md={ 3 }> Existing company contacts:
-             </Col>
-             <Col md={ 6 }>
-             <Select.Async
-                   name="form-field-name"
-                   placeholder="Select contacts.."
-                   loadOptions={this.getOptions.bind(this)}
-               />
-             </Col>
-             <Col
-                  mdHidden
-                  md={ 3 } />
-           </Row>
 
-                  <Row className="show-grid">
-                    <Col
-                         componentClass={ ControlLabel }
-                         md={ 3 }> Name:
-                    </Col>
-                    <Col md={ 6 }>
-                    <FormControl
-                                 type="text"
-                                 ref="userEmail"
-                                 placeholder="Enter your name" />
-                    </Col>
-                    <Col
-                         mdHidden
-                         md={ 3 } />
-                  </Row>
-                  <Row className="show-grid">
-                    <Col
-                         componentClass={ ControlLabel }
-                         md={ 3 }> Email:
-                    </Col>
-                    <Col md={ 6 }>
-                    <FormControl
-                                 type="email"
-                                 ref="userEmail"
-                                 placeholder="Enter your email" />
-                    </Col>
-                    <Col
-                         mdHidden
-                         md={ 3 } />
-                  </Row>
-                  <Row className="show-grid">
-                    <Col
-                         componentClass={ ControlLabel }
-                         md={ 3 }> Country:
-                    </Col>
-                    <Col md={ 6 }>
-                    <Select.Async
-                          name="form-field-name"
-                          placeholder="Select country.."
-                          loadOptions={this.getOptions.bind(this)}
-                      />
-                    </Col>
-                    <Col
-                         mdHidden
-                         md={ 3 } />
-                  </Row>
-                  <Row className="show-grid">
-                    <Col
-                         componentClass={ ControlLabel }
-                         md={ 3 }> Mobile phone number:
-                    </Col>
-                    <Col md={ 6 }>
-                    <FormControl
-                                 type="text"
-                                 ref="userEmail"
-                                 placeholder="Enter your mobile phone number"/>
-                    </Col>
-                    <Col
-                         mdHidden
-                         md={ 3 } />
-                  </Row>
-                  <Row className="show-grid">
-                    <Col
-                         componentClass={ ControlLabel }
-                         md={ 3 }> Direct phone number:
-                    </Col>
-                    <Col md={ 6 }>
-                    <FormControl
-                                 type="text"
-                                 ref="userEmail"
-                                 placeholder="Enter your direct phone number"/>
-                    </Col>
-                    <Col
-                         mdHidden
-                         md={ 3 } />
-                  </Row>
-
-     </Grid>
-
-        </div>
         <div className="controls-container">
         <div className="rec">
         <span>Account Name and Interfaces</span>
@@ -200,7 +102,9 @@ class AccountInterfaces extends React.Component {
         <Col md={ 6 }>
         <FormControl
                      type="text"
-                     ref="userEmail"
+                     name="techName"
+                     value={this.state.accountInterfacesInfo.techName}
+                    onChange={this.handleTextFieldsChange.bind(this)}
                      placeholder="Enter technical name"/>
         </Col>
         <Col
@@ -215,7 +119,9 @@ class AccountInterfaces extends React.Component {
         <Col md={ 6 }>
         <FormControl
                      type="text"
-                     ref="userEmail"
+                     name="commName"
+                     value={this.state.accountInterfacesInfo.commName}
+                    onChange={this.handleTextFieldsChange.bind(this)}
                      placeholder="Enter commercial name"/>
         </Col>
         <Col
@@ -228,11 +134,12 @@ class AccountInterfaces extends React.Component {
              md={ 3 }> Existing accounts :
         </Col>
         <Col md={ 6 }>
-        <Select.Async
-              name="form-field-name"
-              placeholder="Select account.."
-              loadOptions={this.getOptions.bind(this)}
-          />
+          <Select
+                placeholder="Select account.."
+                options={this.accountList}
+                value={this.state.accountInterfacesInfo.ExstAccts}
+                onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_EXSTACCTS_CHANGE)}
+            />
         </Col>
         <Col
              mdHidden
@@ -244,10 +151,11 @@ class AccountInterfaces extends React.Component {
              md={ 3 }> Interface:
         </Col>
         <Col md={ 6 }>
-        <Select.Async
-              name="form-field-name"
+        <Select
               placeholder="Select interface.."
-              loadOptions={this.getOptions.bind(this)}
+              options={this.interfaceList}
+              value={this.state.accountInterfacesInfo.accInterface}
+              onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_INTERFACE_CHANGE)}
           />
         </Col>
         <Col
@@ -260,8 +168,8 @@ class AccountInterfaces extends React.Component {
            md={ 3 } />
 
       <Col md={ 6 }>
-       <Button className="sap-btn btn-wizard pull-right"   onClick={ this.handleTechDetailsNext.bind( this ) }>Next</Button>
-     <Button className="sap-btn btn-wizard pull-right"   onClick={ this.handleTechDetailsBack.bind( this ) }>Back</Button>
+       <Button className="sap-btn btn-wizard pull-right"   onClick={ this.handleInterfaceDetailsNext.bind( this ) }>Next</Button>
+     <Button className="sap-btn btn-wizard pull-right"   onClick={ this.handleInterfaceDetailsBack.bind( this ) }>Back</Button>
       </Col>
       <Col
            mdHidden
@@ -278,73 +186,37 @@ class AccountInterfaces extends React.Component {
         )
     }
     componentWillMount(){
-        // var countryList = localStorage.getItem("countryList");
-        // if(countryList){
-        //   console.log("get from cache");
-        //     this.Countries = this.initializeData(JSON.parse(countryList),'code');
-        //     console.log("this.Countries==",this.Countries);
-        // }
-        // else{
-        //     console.log("get from backend");
-        //     this.props.getMetadata();
-        // }
+      var Interfaces = {
+          "data": [
+                {"name": "HTTP", "value": "HTTP"},
+                  {"name": "SMPP", "value": "SMPP"},
+                    {"name": "SMTP", "value": "SMTP"}
+          ]
+      };
+        this.interfaceList = initializeData(Interfaces,'value');
+      var Accounts = {
+          "data": [
+              {"name": "Mobile 365 Inc.", "value": 1},
+                {"name": "Mobile 365 South Africa.", "value": 2},
+                  {"name": "Mobileway Australia", "value": 3},
+                    {"name": "Mobileway China", "value": 4}
+          ]
+      };
+        this.accountList = initializeData(Accounts,'value');
     }
-componentDidMount(){
-  // this.refs.name.getInputNode().value = this.props.accountObj.name||"";
-  //   this.refs.email.getInputNode().value = this.props.accountObj.email||"";
-  //     this.refs.MobNo.getInputNode().value = this.props.accountObj.MobNo||"";
-  //       this.refs.DirectNo.getInputNode().value = this.props.accountObj.DirectNo||"";
-  //         this.refs.techName.getInputNode().value = this.props.accountObj.techName||"";
-  //           this.refs.commName.getInputNode().value = this.props.accountObj.commName||"";
-
-}
     componentWillReceiveProps (nextProps) {
-        switch(nextProps.target){
-        case types.ACCOUNT_COMPANY_CONTACT:
-        	this.accountTechDetailsInfo.ExstContacts=nextProps.data;
-        	break;
-        case types.ACCOUNT_COUNTRY_CHANGE:
-        	this.accountTechDetailsInfo.Country=nextProps.data;
-        	break;
-            case types.ACCOUNT_EXSTACCTS_CHANGE:
-                this.accountTechDetailsInfo.ExstAccts = nextProps.data;
-                break;
-            case types.ACCOUNT_INTERFACE_CHANGE:
-                this.accountTechDetailsInfo.accInterface = nextProps.data;
-                break;
-            case types.ACCOUNT_GET_COUNTRY_LIST_SUCCESS:
-              if(JSON.stringify(nextProps.data)!=""){
-                localStorage.setItem("countryList",JSON.stringify(nextProps.data));
-                this.Countries = this.initializeData(nextProps.data,'code');
-              }
-                break;
-            case types.ACCOUNT_GET_COUNTRY_LIST_FAILURE:
-                alert("Failed to get countries");
-                break;
-            case types.ACCOUNT_CREATE_NEW_SUCCESS:
-               //alert("Account created successfully.");
-                this.refs.container.success(`Account created successfully.`, ``, {
-                    closeButton: true,
-                });
-                break;
-            case types.ACCOUNT_CREATE_NEW_FAILURE:
-                this.refs.container.error(`Failed to create new account.`, ``, {
-                    closeButton: true,
-                });
-                break;
-        }
 
     }
 }
 function mapStateToProps(state) {
-    return { data: state.Account.data, target: state.Account.target };
+    return { data: state.Account.data };
 }
 
 	function mapDispatchToProps(dispatch) {
-		return bindActionCreators({handleSelectFieldsChange:handleSelectFieldsChange,
-            createNewAccount: createNewAccount,
-            handleTechDetailsBack:handleTechDetailsBack,
-            getMetadata:getMetadata}, dispatch);
+		return bindActionCreators({
+            handleInterfaceDetailsBack:handleInterfaceDetailsBack,
+            handleInterfaceDetailsNext:handleInterfaceDetailsNext
+          }, dispatch);
 	}
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccountTechnicalDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountInterfaces);

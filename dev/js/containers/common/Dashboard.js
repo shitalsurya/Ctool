@@ -50,7 +50,8 @@ class Dashboard extends React.Component {
               <ul className="dropdown-menu">
                   <li> <a
                       onClick={ this.navigateMenus.bind( this, types.ACCOUNT_CREATE ) }>Create Account<span className="sr-only">(current)</span></a></li>
-                  <li><a href="#">CTool Rights</a></li>
+                      <li> <a
+                          onClick={ this.navigateMenus.bind( this, types.ACCOUNT_MGMT ) }>Account Setup<span className="sr-only">(current)</span></a></li>
                   <li><a href="#">Companies</a></li>
                   <li><a href="#">Countries</a></li>
                   <li className="divider"></li>
@@ -92,7 +93,7 @@ class Dashboard extends React.Component {
         </nav>
         <div>
             { this.state.currentMenus.showAccountSetup && <CreateAccount /> }
-              { this.state.currentMenus.showAccountMgmt && <HubAccountMgmt /> }
+              { this.state.currentMenus.showAccountMgmt && <AccountSetup /> }
             { this.state.currentMenus.showSearch && <Search /> }
             { this.state.currentMenus.showMiscUsers && <MiscUsers /> }
 

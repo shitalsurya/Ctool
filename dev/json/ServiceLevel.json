@@ -1,6 +1,6 @@
 {
     "data": [
-        "Standard",
-        "Premium"
+        {"name": "Standard", "value": "Standard"},
+          {"name": "Premium", "value": "Premium"}
     ]
 }

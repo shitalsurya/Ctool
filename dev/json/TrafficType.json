@@ -1,8 +1,8 @@
 {
     "data": [
-        "General",
-        "Campaign",
-        "Low Latency",
-        "Time Sensitive"
+        {"name": "General", "value": "General"},
+          {"name": "Campaign", "value": "Campaign"},
+            {"name": "Low Latency", "value": "Low Latency"},
+              {"name": "Time Sensitive", "value": "Time Sensitive"}
     ]
 }

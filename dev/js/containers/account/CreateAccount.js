@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import AccountTechnicalDetails from './AccountTechnicalDetails';
 import AccountCommDetails from './AccountCommDetails';
+import AccountInterfaces from './AccountInterfaces';
+import AccountReviewDetails from './AccountReviewDetails';
+
 import {handleSelectFieldsChange } from '../../containers/account/actions/accountActions';
 require('../../../scss/style.scss');
 
@@ -11,8 +14,10 @@ require('../../../scss/style.scss');
 class CreateAccount extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.showTechnicalDetails = false;
         this.showCommDetails=true;
+          this.showTechnicalDetails = false;
+      this.showInterfaceDetails=false;
+      this.showReviewDetails=false;
           this.accountObj = {};
     }
 
@@ -29,7 +34,9 @@ console.log("render showTechnicalDetails==",this.props.showTechnicalDetails);
                                     </div>
 
                                         {this.showCommDetails && <AccountCommDetails accountObj={this.accountObj} />}
+                                        {this.showInterfaceDetails && <AccountInterfaces accountObj={this.accountObj} />}
                                         {this.showTechnicalDetails && <AccountTechnicalDetails accountObj={this.accountObj} />}
+                                        {this.showReviewDetails && <AccountReviewDetails accountObj={this.accountObj} />}
                                 </div>
                                   <div className="col-md-1"></div>
                 </div>
@@ -37,15 +44,33 @@ console.log("render showTechnicalDetails==",this.props.showTechnicalDetails);
     }
 
     componentWillReceiveProps(nextProps) {
-      console.log("componentWillReceiveProps showTechnicalDetails==",this.props.showTechnicalDetails);
         if(nextProps.showTechnicalDetails){
           this.showTechnicalDetails = nextProps.showTechnicalDetails;
               this.showCommDetails=false;
+                this.showInterfaceDetails=false;
+                    this.showReviewDetails=false;
+                  this.accountObj = nextProps.data;
+
+        }
+        else if(nextProps.showCommDetails){
+          this.showTechnicalDetails = false;
+            this.showInterfaceDetails=false;
+                this.showReviewDetails=false;
+              this.showCommDetails=nextProps.showCommDetails;
                   this.accountObj = nextProps.data;
         }
-        else{
+        else if(nextProps.showInterfaceDetails){
           this.showTechnicalDetails = false;
-              this.showCommDetails=nextProps.showCommDetails;
+            this.showCommDetails=false;
+                this.showReviewDetails=false;
+              this.showInterfaceDetails=nextProps.showInterfaceDetails;
+                  this.accountObj = nextProps.data;
+        }
+        else if(nextProps.showReviewDetails){
+          this.showTechnicalDetails = false;
+            this.showCommDetails=false;
+              this.showInterfaceDetails=false;
+              this.showReviewDetails=nextProps.showReviewDetails;
                   this.accountObj = nextProps.data;
         }
 
@@ -54,8 +79,11 @@ console.log("render showTechnicalDetails==",this.props.showTechnicalDetails);
 }
 
 function mapStateToProps(state) {
-    return { data: state.Account.accountCommInfo, showTechnicalDetails: state.Account.showTechnicalDetails,
-    showCommDetails:state.Account.showCommDetails };
+    return { data: state.Account.accountInfo,
+       showTechnicalDetails: state.Account.showTechnicalDetails,
+    showCommDetails:state.Account.showCommDetails,
+  showInterfaceDetails:state.Account.showInterfaceDetails,
+    showReviewDetails:state.Account.showReviewDetails };
 }
 
 function mapDispatchToProps(dispatch) {
