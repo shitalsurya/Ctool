@@ -351,7 +351,7 @@ class AccountReviewDetails extends React.Component {
 componentWillReceiveProps(nextProps){
       switch(nextProps.target){
   case types.ACCOUNT_CREATE_NEW_SUCCESS:
-     //alert("Account created successfully.");
+     
       this.refs.container.success(`Account created successfully.`, ``, {
           closeButton: true,
       });
