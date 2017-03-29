@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid, Button, Image,Glyphicon,Thumbnail} from 'react-bootstrap';
 import CreateAccount from '../../containers/account/CreateAccount';
 import HubAccountMgmt from '../../containers/account/HubAccountMgmt';
 import AccountSetup from '../../containers/account/AccountSetup';
@@ -9,6 +10,7 @@ import { bindActionCreators } from 'redux';
 import { navigateMenus } from '../../containers/common/commonActions';
 import * as types from '../../containers/common/commonActionTypes';
 require( '../../../scss/style.scss' );
+var sapImg = require( "../../../images/sap-logo.png" );
 var logoImg=require("../../../images/sybase-365.jpg");
 
 class Dashboard extends React.Component {
@@ -20,83 +22,78 @@ class Dashboard extends React.Component {
           showSearch :false,
         showAccountSetup :false,
           showAccountMgmt :false
-      }
+      },
+      submenus:["Accounts","Create Account",
+    "Account Setup"]
     }
   }
 
   render() {
     return (
       <div>
-        <nav className="navbar navbar-inverse">
-          <div className="container-fluid">
-            <div className="navbar-header">
-              <button
-                      type="button"
-                      className="navbar-toggle"
-                      data-toggle="collapse"
-                      data-target="#myNavbar">
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-              </button>
-  							 <div className="logo">CTOOL</div>
-            </div>
-            <div
-                 className="collapse navbar-collapse"
-                 id="myNavbar">
-              <ul className="nav navbar-nav">
-              <li >
-              <a href="#" data-toggle="dropdown" className="dropdown-toggle">Accounts <b className="caret"></b></a>
-              <ul className="dropdown-menu">
-                  <li> <a
-                      onClick={ this.navigateMenus.bind( this, types.ACCOUNT_CREATE ) }>Create Account<span className="sr-only">(current)</span></a></li>
-                      <li> <a
-                          onClick={ this.navigateMenus.bind( this, types.ACCOUNT_MGMT ) }>Account Setup<span className="sr-only">(current)</span></a></li>
-                  <li><a href="#">Companies</a></li>
-                  <li><a href="#">Countries</a></li>
-                  <li className="divider"></li>
-                 <li><a href="#">Account Manager</a></li>
-                  <li><a href="#">Country Manager</a></li>
-              </ul>
+      <nav className="navbar navbar-inverse">
+        <div className="container-fluid">
+        <div className="navbar-header">
+          <button
+              type="button"
+              className="navbar-toggle"
+              data-toggle="collapse"
+              data-target="#myNavbar">
+          <span className="icon-bar"></span>
+          <span className="icon-bar"></span>
+          <span className="icon-bar"></span>
+          </button>
+          <div className="dashboard-navbar">
+          <span> <img src={ sapImg } /></span>
+          <span>Sybase 365 Configuration Tool</span></div>
+        </div>
+        </div>
+      </nav>
 
-             </li>
-             <li>
-               <a href="#">Connections</a>
-             </li>
-             <li>
-               <a href="#">Operators</a>
-             </li>
-             <li className="dropdown">
-                       <a href="#" data-toggle="dropdown" className="dropdown-toggle">Miscelleneous <b className="caret"></b></a>
-                       <ul className="dropdown-menu">
-                           <li><a onClick={ this.navigateMenus.bind( this, types.MISC_USERS )}>CTool Users</a></li>
-                           <li><a href="#">CTool Rights</a></li>
-                           <li><a href="#">Companies</a></li>
-                           <li><a href="#">Countries</a></li>
-                           <li className="divider"></li>
-                          <li><a href="#">Account Manager</a></li>
-                           <li><a href="#">Country Manager</a></li>
-                       </ul>
-                   </li>
-             <li>
-               <a
-                  onClick={ this.navigateMenus.bind( this, types.TOOLBOX_SEARCH ) }>Toolbox</a>
-             </li>
-              </ul>
-              <ul className="nav navbar-nav navbar-right">
-                  <li className="active">
-                  <a href="#"><span className="glyphicon glyphicon-log-out"></span> Logout</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
         <div>
-            { this.state.currentMenus.showAccountSetup && <CreateAccount /> }
-              { this.state.currentMenus.showAccountMgmt && <AccountSetup /> }
-            { this.state.currentMenus.showSearch && <Search /> }
-            { this.state.currentMenus.showMiscUsers && <MiscUsers /> }
+          <Grid fluid={true}>
+          <Row>
+             <Col md={2}>
+             <div className="row">
+               <div class="col-sm-4 col-md-3 sidebar">
+             <div className="mini-submenu">
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>
+                    <span className="icon-bar"></span>
+                </div>
+             <div className="list-group">
+             <span className="list-group-item">
+             <a onClick={ this.goToLaunchpad.bind( this )}>
+                    <span className="glyphicon glyphicon-th-large"></span>
+                    <span> Launchpad </span>
+                 </a>
+             </span>
+                    <span className="list-group-item active">
+                          <span className="glyphicon glyphicon-th-list"></span>
+                            <span> { this.state.submenus[0]} </span>
+                        <span className="pull-right" id="slide-submenu">
+                            <i className="fa fa-times"></i>
+                        </span>
+                    </span>
+                    <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_CREATE )} className="list-group-item">
+                        <i className="fa fa-comment-o"></i> { this.state.submenus[1]}
+                    </a>
+                    <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_MGMT )}  className="list-group-item">
+                        <i className="fa fa-comment-o"></i>{ this.state.submenus[2]}
+                    </a>
+                </div>
+                </div>
+             	</div>
+             </Col>
+             <Col md={10}>
+             { this.state.currentMenus.showAccountSetup && <CreateAccount /> }
+               { this.state.currentMenus.showAccountMgmt && <AccountSetup /> }
+             { this.state.currentMenus.showSearch && <Search /> }
+             { this.state.currentMenus.showMiscUsers && <MiscUsers /> }
 
+             </Col>
+                 </Row>
+          </Grid>
         </div>
         {/*<footer className="container-fluid text-left">
           <p>
@@ -106,10 +103,22 @@ class Dashboard extends React.Component {
       </div>
     )
   }
-  showAbout() {
-    this.context.router.push( 'about' );
+  createAccountSubmenus(){
+    var AccountSubmenus = this.AccountSubmenus.map(function (field) {
+          return (
+            <a className="list-group-item">
+                <i className="fa fa-comment-o"></i> {field}
+            </a>
+          );
+      }.bind(this));
+      return AccountSubmenus;
+      //this.setState({listComp:list});
+  }
+  goToLaunchpad() {
+      this.context.router.push( 'launchpad' );
   }
   componentWillReceiveProps( nextProps ) {
+    console.log("dashboard nextProps==",nextProps);
     this.checkCurrentMenu( nextProps.currentMenu );
   }
   componentWillUpdate( prevProps, prevState ) {

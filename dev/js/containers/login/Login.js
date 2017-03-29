@@ -139,7 +139,7 @@ class Login extends Component {
 
   checkAuth( nextProps ) {
     if ( nextProps.error == false ) {
-      this.context.router.push( 'dashboard' );
+      this.context.router.push( 'launchpad' );
     }
     if ( nextProps.error == true ) {
       alert( "failed" );

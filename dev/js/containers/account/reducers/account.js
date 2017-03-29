@@ -30,8 +30,8 @@ export default function(state = {
         case types.ACCOUNT_INTERFACEDETAILS_BACK:
             return Object.assign({}, state, {
                 accountInfo: action.payload,
-                showTechnicalDetails: false,
-                showCommDetails: true,
+                showTechnicalDetails: true,
+                showCommDetails: false,
                 showInterfaceDetails: false,
 									showReviewDetails: false
             });
@@ -43,6 +43,14 @@ export default function(state = {
                 showInterfaceDetails: false,
 									showReviewDetails: true
             });
+            case types.ACCOUNT_REVIEWDETAILS_BACK:
+                return Object.assign({}, state, {
+                    accountInfo: action.payload,
+                    showTechnicalDetails: false,
+                    showCommDetails: false,
+                    showInterfaceDetails: true,
+                      showReviewDetails: false
+                });
         default:
         case types.ACCOUNT_CREATE_NEW:
         case types.ACCOUNT_GET_COUNTRY_LIST_SUCCESS:

@@ -17,16 +17,48 @@ import Products from '../../../json/Products.json';
          this.state = {
            listComp:{},
            selectedCols:[{ value: 'name', label: 'Product Name'},
-            { value: 'price', label: 'Product Price'}]
-
+            { value: 'price', label: 'Product Price'}],
+            currentSearchCriteria:{
+              showNameSearch:true,
+              showAdvSearch:false
+            }
          };
           this.masterCols=[{ value: 'name', label: 'Product Name'},
            { value: 'price', label: 'Product Price'}];
+           this.searchFilters={};
+   }
+   nameSearchTermChanged(e){
+       if(e.target.value!="")
+       this.searchFilters[e.target.name]=e.target.value;
+   }
+   advSearchTermChanged(e){
+
+     if(e.target.value!=""){
+       var _searchCriteria={
+         showNameSearch:false,
+         showAdvSearch:true
+       };
+       if(!this.searchFilters.hasOwnProperty("searchByName")){
+          if(e.target.value!="")
+            this.searchFilters[e.target.name]=e.target.value;
+       }
+
+     }
+     else{
+       var _searchCriteria={
+         showNameSearch:true,
+         showAdvSearch:false
+       };
+     }
+     this.setState({currentSearchCriteria:_searchCriteria})
+   }
+   handleSearch(){
+     console.log("Search with:",this.searchFilters);
    }
   renderShowsTotal(start, to, total) {
     return (
       <p style={ { color: 'blue' } }>
-        From { start } to { to }, totals is { total }&nbsp;&nbsp;(its a customize text)
+        Showing { start } to { to } records from { total }
       </p>
     );
   }
@@ -109,6 +141,33 @@ import Products from '../../../json/Products.json';
               onChange={this.handleChange.bind(this)}
                options={this.masterCols}
           />
+          </Col>
+          </Row>
+          <Row>
+          <Col
+          md={ 12 }>
+          <div className="input-group" id="adv-search">
+          						<input type="text" name="searchByName" onChange={this.nameSearchTermChanged.bind(this)} className="form-control" placeholder="Search for snippets" />
+          						<div className="input-group-btn">
+          							<div className="btn-group" role="group">
+          								<div className="dropdown dropdown-lg">
+          		{this.state.currentSearchCriteria.showNameSearch &&	<button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span className="caret"></span></button>}
+              {this.state.currentSearchCriteria.showAdvSearch && <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span className="caret"></span></button>}
+          									<div className="dropdown-menu dropdown-menu-right" role="menu">
+          										<form className="form-horizontal" role="form">
+          										  <div className="form-group">
+          											<label htmlFor="contain">Price</label>
+          											<input className="form-control" name="searchByPrice"  onChange={this.advSearchTermChanged.bind(this)} type="text" />
+          										  </div>
+
+          										  <button type="button" onClick={this.handleSearch.bind(this)} className="btn btn-primary"><span className="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+          										</form>
+          									</div>
+          								</div>
+          								<button type="button" className="btn btn-primary"><span className="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+          							</div>
+          						</div>
+          					</div>
           </Col>
           </Row>
           </Grid>

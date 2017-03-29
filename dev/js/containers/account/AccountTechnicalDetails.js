@@ -45,12 +45,13 @@ handleTextFieldsChange(e){
 }
     handleSelectFieldsChange(target, value) {
       var info=this.state.accountTechDetailsInfo;
+      console.log("handleSelectFieldsChange info==",info);
       switch (target) {
         case types.ACCOUNT_COMPANY_CONTACT:
-          info.accountTechDetailsInfo.exstContacts = value;
+          info.exstContacts = value.value;
           break;
         case types.ACCOUNT_COUNTRY_CHANGE:
-          info.accountTechDetailsInfo.country = value;
+          info.country = value.value;
           break;
       }
       this.setState({accountTechDetailsInfo:info});
@@ -227,16 +228,16 @@ handleTextFieldsChange(e){
         )
     }
     componentWillMount(){
-        // var countryList = localStorage.getItem("countryList");
-        // if(countryList){
-        //   console.log("get from cache");
-        //     this.Countries = initializeData(JSON.parse(countryList),'code');
-        //     console.log("this.Countries==",this.Countries);
-        // }
-        // else{
-        //     console.log("get from backend");
-        //     this.props.getMetadata();
-        // }
+        var countryList = localStorage.getItem("countryList");
+        if(countryList){
+          console.log("get from cache");
+            this.Countries = initializeData(JSON.parse(countryList),'code');
+            console.log("this.Countries==",this.Countries);
+        }
+        else{
+            console.log("get from backend");
+            this.props.getMetadata();
+        }
     }
 componentDidMount(){
   // this.refs.name.getInputNode().value = this.props.accountObj.name||"";
@@ -248,6 +249,7 @@ componentDidMount(){
 
 }
     componentWillReceiveProps (nextProps) {
+      console.log("componentWillReceiveProps==",nextProps);
         switch(nextProps.target){
 
             case types.ACCOUNT_GET_COUNTRY_LIST_SUCCESS:
@@ -265,7 +267,7 @@ componentDidMount(){
     }
 }
 function mapStateToProps(state) {
-    return { data: state.Account.data};
+    return { data: state.Account.data,target:state.Account.target};
 }
 
 	function mapDispatchToProps(dispatch) {

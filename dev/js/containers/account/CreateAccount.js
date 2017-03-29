@@ -27,18 +27,14 @@ console.log("render showTechnicalDetails==",this.props.showTechnicalDetails);
 
         return (
                <div className="content">
-                <div className="col-md-1"></div>
-                                <div className="col-md-10 section-content">
                                 <div className="line page-heading">
-                                CTool User Management
+                                CTool Create Account
                                     </div>
 
                                         {this.showCommDetails && <AccountCommDetails accountObj={this.accountObj} />}
                                         {this.showInterfaceDetails && <AccountInterfaces accountObj={this.accountObj} />}
                                         {this.showTechnicalDetails && <AccountTechnicalDetails accountObj={this.accountObj} />}
                                         {this.showReviewDetails && <AccountReviewDetails accountObj={this.accountObj} />}
-                                </div>
-                                  <div className="col-md-1"></div>
                 </div>
         )
     }

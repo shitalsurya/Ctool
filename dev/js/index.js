@@ -6,6 +6,7 @@ import createLogger from 'redux-logger';
 import allReducers from './containers/common/allReducers';
 import Login from './containers/Login/Login';
 import Dashboard from './containers/common/Dashboard';
+import Launchpad from './containers/common/Launchpad';
 import thunkMiddleware from 'redux-thunk';
 import {compose, createStore, applyMiddleware } from 'redux';
 import { routerStateReducer, reduxReactRouter } from 'redux-react-router';
@@ -37,10 +38,11 @@ ReactDOM.render(
     <Provider store={store}>
     <Router history={hashHistory}>
     	{ /* Default Route */ }
-    	<Route path="/" component={Login}/>
+    	{/*<Route path="/" component={Login}/>	*/}
+			<Route path="/" component={Login}/>	
     	 { /* Routes */ }
-         <Route path="dashboard" component={Dashboard}/>
-
+         <Route path="launchpad" component={Launchpad}/>
+   <Route path="dashboard" component={Dashboard}/>
     </Router>
 
     </Provider>,

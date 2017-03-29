@@ -54,9 +54,7 @@ class AccountSetup extends React.Component {
 
 
         return (
-               <div className="content">
-                <div className="col-md-1"></div>
-                                <div className="col-md-10 section-content">
+          <div>
                                 <Nav bsStyle="tabs" activeKey={this.selectedTab} onSelect={this.handleSelect.bind(this)}>
                                        <NavItem eventKey={1} href="/home">Companies</NavItem>
                                        <NavItem eventKey={2} >Open accounts</NavItem>
@@ -65,8 +63,7 @@ class AccountSetup extends React.Component {
                                      </Nav>
                                          {this.state.tabs.companies && <CompaniesList/>}
                                          {this.state.tabs.openAccounts && <OpenAccountsList/>}
-                                </div>
-                                  <div className="col-md-1"></div>
+
                 </div>
         )
     }

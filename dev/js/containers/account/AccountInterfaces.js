@@ -42,10 +42,10 @@ class AccountInterfaces extends React.Component {
       switch (target) {
 
           case types.ACCOUNT_EXSTACCTS_CHANGE:
-              info.accountInterfacesInfo.ExstAccts = value;
+              info.ExstAccts = value.value;
               break;
           case types.ACCOUNT_INTERFACE_CHANGE:
-              info.accountInterfacesInfo.accInterface = value;
+              info.accInterface = value.value;
               break;
       }
       this.setState({accountInterfacesInfo:info});

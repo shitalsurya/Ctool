@@ -57,110 +57,303 @@ class AccountReviewDetails extends React.Component {
             </div>
         <div className="controls-container">
         <div className="rec">
-        <span>Review Details</span>
+        <span>Commercial Information</span>
         </div>
-        <Grid fluid={true}>
-              <Row className="show-grid">
-                <Col
-                     componentClass={ ControlLabel }
-                     md={ 3 }> Existing company contacts:
-                </Col>
-                <Col md={ 6 }>
-                  {this.state.accountInfo.exstContacts}
-                </Col>
-                <Col
-                     mdHidden
-                     md={ 3 } />
-              </Row>
+            <Grid fluid={true}>
+                <Row className="show-grid">
+                    <Col
+                        componentClass={ ControlLabel }
+                        md={ 3 }> Account Manager:
+                    </Col>
+                    <Col md={ 6 }>
+                    {this.state.accountInfo.acctManager   }
+                    </Col>
+                    <Col
+                        mdHidden
+                        md={ 3 } />
+                </Row>
 
-                     <Row className="show-grid">
-                       <Col
-                            componentClass={ ControlLabel }
-                            md={ 3 }> Name:
-                       </Col>
-                       <Col md={ 6 }>
+                <Row className="show-grid">
+                    <Col
+                        componentClass={ ControlLabel }
+                        md={ 3 }> Company:
+                    </Col>
+                    <Col md={ 6 }>
+                    {this.state.accountInfo.company   }
+                    </Col>
+                    <Col
+                        mdHidden
+                        md={ 3 } />
+                </Row>
 
-                       </Col>
-                       <Col
-                            mdHidden
-                            md={ 3 } />
-                     </Row>
-                     <Row className="show-grid">
-                       <Col
-                            componentClass={ ControlLabel }
-                            md={ 3 }> Email:
-                       </Col>
-                       <Col md={ 6 }>
+                <Row className="show-grid">
+                    <Col
+                        componentClass={ ControlLabel }
+                        md={ 3 }> Billing location:
+                    </Col>
+                    <Col md={ 6 }>
+                    {this.state.accountInfo.billingLocation   }
+                    </Col>
+                    <Col
+                        mdHidden
+                        md={ 3 } />
+                </Row>
 
-                       </Col>
-                       <Col
-                            mdHidden
-                            md={ 3 } />
-                     </Row>
-                     <Row className="show-grid">
-                       <Col
-                            componentClass={ ControlLabel }
-                            md={ 3 }> Country:
-                       </Col>
-                       <Col md={ 6 }>
+                <Row className="show-grid">
+                    <Col
+                        componentClass={ ControlLabel }
+                        md={ 3 }> Service Level:
+                    </Col>
+                    <Col md={ 6 }>
+                    {this.state.accountInfo.serviceLevel   }
+                    </Col>
+                    <Col
+                        mdHidden
+                        md={ 3 } />
+                </Row>
 
-                       </Col>
-                       <Col
-                            mdHidden
-                            md={ 3 } />
-                     </Row>
-                     <Row className="show-grid">
-                       <Col
-                            componentClass={ ControlLabel }
-                            md={ 3 }> Mobile phone number:
-                       </Col>
-                       <Col md={ 6 }>
+                <Row className="show-grid">
+                    <Col
+                        componentClass={ ControlLabel }
+                        md={ 3 }> Traffic Type:
+                    </Col>
+                    <Col md={ 6 }>
+                    {this.state.accountInfo.trafficType  }
+                    </Col>
+                    <Col
+                        mdHidden
+                        md={ 3 } />
+                </Row>
 
-                       </Col>
-                       <Col
-                            mdHidden
-                            md={ 3 } />
-                     </Row>
-                     <Row className="show-grid">
-                       <Col
-                            componentClass={ ControlLabel }
-                            md={ 3 }> Direct phone number:
-                       </Col>
-                       <Col md={ 6 }>
 
-                       </Col>
-                       <Col
-                            mdHidden
-                            md={ 3 } />
-                     </Row>
-                     <Row className="show-grid">
-     <Col
-          mdHidden
-          md={ 3 } />
+            </Grid>
+        </div>
 
-     <Col md={ 6 }>
-      <Button className="sap-btn btn-wizard pull-right"   onClick={ this.createNewAccount.bind( this ) }>Create Account</Button>
-    <Button className="sap-btn btn-wizard pull-right"   onClick={ this.handleReviewDetailsBack.bind( this ) }>Back</Button>
-     </Col>
-     <Col
-          mdHidden
-          md={ 3 } />
+
+       < div className="controls-container">
+        <div className="rec">
+        <span>Technical Information</span>
+        </div>
+            <Grid fluid={true}>
+                <Row className="show-grid">
+                    <Col
+                        componentClass={ ControlLabel }
+                        md={ 3 }> Existing Company Contacts:
+                    </Col>
+                    <Col md={ 6 }>
+
+                    </Col>
+                    <Col
+                        mdHidden
+                        md={ 3 } />
+                </Row>
+
+                <Row className="show-grid">
+                    <Col
+                        componentClass={ ControlLabel }
+                        md={ 3 }> Name:
+                    </Col>
+                    <Col md={ 6 }>
+                    {this.state.accountInfo.name   }
+                    </Col>
+                    <Col
+                        mdHidden
+                        md={ 3 } />
+                </Row>
+
+                <Row className="show-grid">
+                    <Col
+                        componentClass={ ControlLabel }
+                        md={ 3 }> Email:
+                    </Col>
+                    <Col md={ 6 }>
+                        {this.state.accountInfo.email   }
+                    </Col>
+                    <Col
+                        mdHidden
+                        md={ 3 } />
+                </Row>
+
+                <Row className="show-grid">
+                    <Col
+                        componentClass={ ControlLabel }
+                        md={ 3 }> Country:
+                    </Col>
+                    <Col md={ 6 }>
+                    {this.state.accountInfo.serviceLevel   }
+                    </Col>
+                    <Col
+                        mdHidden
+                        md={ 3 } />
+                </Row>
+
+                <Row className="show-grid">
+                    <Col
+                        componentClass={ ControlLabel }
+                        md={ 3 }> Mobile Phone Number:
+                    </Col>
+                    <Col md={ 6 }>
+                    {this.state.accountInfo.MobNo  }
+                    </Col>
+                    <Col
+                        mdHidden
+                        md={ 3 } />
+                </Row>
+
+                <Row className="show-grid">
+                    <Col
+                        componentClass={ ControlLabel }
+                        md={ 3 }> Direct Phone Number:
+                    </Col>
+                    <Col md={ 6 }>
+                    {this.state.accountInfo.DirectNo  }
+                    </Col>
+                    <Col
+                        mdHidden
+                        md={ 3 } />
+                </Row>
+
+            </Grid>
+        </div>
+
+        <div className="controls-container">
+        <div className="rec">
+        <span>Account Name and Interfaces</span>
+        </div>
+            <Grid fluid={true}>
+                <Row className="show-grid">
+                    <Col
+                        componentClass={ ControlLabel }
+                        md={ 3 }> Technical name:
+                    </Col>
+                    <Col md={ 6 }>
+                   {this.state.accountInfo.techName   }
+                    </Col>
+                    <Col
+                        mdHidden
+                        md={ 3 } />
+                </Row>
+
+                <Row className="show-grid">
+                    <Col
+                        componentClass={ ControlLabel }
+                        md={ 3 }> Commercial name:
+                    </Col>
+                    <Col md={ 6 }>
+                    {this.state.accountInfo.commName   }
+
+                    </Col>
+                    <Col
+                        mdHidden
+                        md={ 3 } />
+                </Row>
+
+                <Row className="show-grid">
+                    <Col
+                        componentClass={ ControlLabel }
+                        md={ 3 }> Existing accounts:
+                    </Col>
+                    <Col md={ 6 }>
+
+                    </Col>
+                    <Col
+                        mdHidden
+                        md={ 3 } />
+                </Row>
+
+                <Row className="show-grid">
+                    <Col
+                        componentClass={ ControlLabel }
+                        md={ 3 }> Interface:
+                    </Col>
+                    <Col md={ 6 }>
+
+                    {this.state.accountInfo.accInterface}
+                    </Col>
+                    <Col
+                        mdHidden
+                        md={ 3 } />
+                </Row>
+
+
+
+
+            </Grid>
+        </div>
+
+        <div className="controls-container">
+        <div className="rec">
+        <span>MT Interfces</span>
+         </div>
+                    <Grid fluid={true}>
+                        <Row className="show-grid">
+                            <Col
+                                componentClass={ ControlLabel }
+                                md={ 3 }> Default TPOA:
+                            </Col>
+                            <Col md={ 6 }>
+                              {/*<textarea rows="1" cols="10"></textarea>*/}
+                            </Col>
+                            <Col
+                                mdHidden
+                                md={ 3 } />
+                        </Row>
+
+                    </Grid>
+         </div>
+
+        <div className="controls-container">
+        <div className="rec">
+        <span>MO Interfces</span>
+         </div>
+                    <Grid fluid={true}>
+                        <Row className="show-grid">
+                            <Col
+                                componentClass={ ControlLabel }
+                                md={ 3 }> HTTP URL:
+                            </Col>
+                            <Col md={ 6 }>
+                              {/* <textarea rows="1" cols="50"></textarea>*/}
+                            </Col>
+                            <Col
+                                mdHidden
+                                md={ 3 } />
+                        </Row>
+
+                    </Grid>
+         </div>
+
+
+      <Row className="show-grid">
+        <Col
+            mdHidden
+            md={ 3 } />
+
+        <Col md={ 6 }>
+        <Button className="sap-btn btn-wizard pull-right"   onClick={ this.createNewAccount.bind( this ) }>Create Account</Button>
+        <Button className="sap-btn btn-wizard pull-right"   onClick={ this.handleReviewDetailsBack.bind( this ) }>Back</Button>
+        </Col>
+        <Col
+            mdHidden
+            md={ 3 } />
 
      </Row>
 
-        </Grid>
-      </div>
-      <ToastContainer
+       <ToastContainer
                       toastMessageFactory={ ToastMessageFactory }
                       ref="container"
-                      className="toast-top" />
+                      className="toast-top-right" />
+
       </div>
+
         )
+    }
+    componentWillMount(){
+      console.log("componentWillMount");
     }
 componentWillReceiveProps(nextProps){
       switch(nextProps.target){
   case types.ACCOUNT_CREATE_NEW_SUCCESS:
-     //alert("Account created successfully.");
       this.refs.container.success(`Account created successfully.`, ``, {
           closeButton: true,
       });
