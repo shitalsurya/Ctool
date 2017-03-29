@@ -550,3 +550,27 @@ font-size: 14px;
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
 color:#333 !important;
 }
+
+.pagination>li>a, .pagination>li>span {
+	border-style: hidden;
+}
+.btn.btn-default.dropdown-toggle {
+	border-style: hidden;
+	background-color: inherit;
+}
+.btn .caret {
+	display: none;
+}
+#pageDropDown::before {
+	content: "Show ";
+}
+#pageDropDown::after {
+	content: " records per page";
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
+	background-color: white;
+	color: #337ab7;
+	text-decoration: underline;
+	font-weight: bold;
+	font-size: 17px;
+}
