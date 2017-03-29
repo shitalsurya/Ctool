@@ -21,10 +21,12 @@ class AccountReviewDetails extends React.Component {
         super(props, context);
         this.Countries=[];
         this.state={
+          interfaceFlag : false,
           accountInfo:this.props.accountObj || []
         };
         console.log("AccountReviewDetails accountInfo==",this.state.accountInfo);
     }
+
     handleReviewDetailsBack(){
         this.props.handleReviewDetailsBack(this.accountInfo);
     }
@@ -141,7 +143,7 @@ class AccountReviewDetails extends React.Component {
                         md={ 3 }> Existing Company Contacts:
                     </Col>
                     <Col md={ 6 }>
-
+                      {this.state.accountInfo.exstContacts}
                     </Col>
                     <Col
                         mdHidden
@@ -281,7 +283,7 @@ class AccountReviewDetails extends React.Component {
             </Grid>
         </div>
 
-        <div className="controls-container">
+        <div className="controls-container" hidden={this.state.interfaceFlag ? false : "hidden"}>
         <div className="rec">
         <span>MT Interfces</span>
          </div>
@@ -292,7 +294,7 @@ class AccountReviewDetails extends React.Component {
                                 md={ 3 }> Default TPOA:
                             </Col>
                             <Col md={ 6 }>
-                              {/*<textarea rows="1" cols="10"></textarea>*/}
+                              <textarea rows="1" cols="10"></textarea>
                             </Col>
                             <Col
                                 mdHidden
@@ -302,7 +304,7 @@ class AccountReviewDetails extends React.Component {
                     </Grid>
          </div>
 
-        <div className="controls-container">
+        <div className="controls-container" hidden={this.state.interfaceFlag ? false : "hidden"}>
         <div className="rec">
         <span>MO Interfces</span>
          </div>
@@ -313,7 +315,7 @@ class AccountReviewDetails extends React.Component {
                                 md={ 3 }> HTTP URL:
                             </Col>
                             <Col md={ 6 }>
-                              {/* <textarea rows="1" cols="50"></textarea>*/}
+                              <textarea rows="1" cols="50"></textarea>
                             </Col>
                             <Col
                                 mdHidden
@@ -348,33 +350,38 @@ class AccountReviewDetails extends React.Component {
 
         )
     }
-    componentWillMount(){
-      console.log("componentWillMount");
+
+    componentWillMount() {
+      if(this.state.accountInfo.accInterface == "HTTP")
+        this.setState({interfaceFlag:true});
+      else
+        this.setState({interfaceFlag:false});
     }
+
 componentWillReceiveProps(nextProps){
-      switch(nextProps.target){
-  case types.ACCOUNT_CREATE_NEW_SUCCESS:
-      this.refs.container.success(`Account created successfully.`, ``, {
-          closeButton: true,
-      });
-      break;
-  case types.ACCOUNT_CREATE_NEW_FAILURE:
-      this.refs.container.error(`Failed to create new account.`, ``, {
-          closeButton: true,
-      });
-      break;
-    }
-}
+  switch(nextProps.target){
+    case types.ACCOUNT_CREATE_NEW_SUCCESS:
+        this.refs.container.success(`Account created successfully.`, ``, {
+            closeButton: true,
+        });
+        break;
+    case types.ACCOUNT_CREATE_NEW_FAILURE:
+        this.refs.container.error(`Failed to create new account.`, ``, {
+            closeButton: true,
+        });
+        break;
+      }
+  }
 }
 function mapStateToProps(state) {
     return { data: state.Account.data , target: state.Account.target};
 }
 
-	function mapDispatchToProps(dispatch) {
-		return bindActionCreators({
-            createNewAccount: createNewAccount,
-            handleReviewDetailsBack:handleReviewDetailsBack,
-          }, dispatch);
-	}
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators({
+          createNewAccount: createNewAccount,
+          handleReviewDetailsBack:handleReviewDetailsBack,
+        }, dispatch);
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountReviewDetails);
