@@ -35,6 +35,117 @@ class AccountReviewDetails extends React.Component {
       this.props.createNewAccount( this.state.accountInfo );
     }
     render() {
+        const accountCreateInfo = [
+        {
+          'title' : 'Commercial Information',
+          'infoList' : [
+            {
+              'subtitle' : 'Account Manager',
+              'value' : 'acctManager'
+            },
+            {
+              'subtitle' : 'Company',
+              'value' : 'company'
+            },
+            {
+              'subtitle' : 'Billing Location',
+              'value' : 'billingLocation'
+            },
+            {
+              'subtitle' : 'Service Level',
+              'value' : 'serviceLevel'
+            },
+            {
+              'subtitle' : 'Traffic Type',
+              'value' : 'trafficType'
+            }
+          ]
+        },
+
+        {
+          'title' : 'Technical Information',
+          'infoList' : [
+            {
+              'subtitle' : 'Existing Company Contacts',
+              'value' : 'exstContacts'
+            },
+            {
+              'subtitle' : 'Name',
+              'value' : 'name'
+            },
+            {
+              'subtitle' : 'Email',
+              'value' : 'email'
+            },
+            {
+              'subtitle' : 'Country',
+              'value' : '-'
+            },
+            {
+              'subtitle' : 'Mobile Phone Number',
+              'value' : 'MobNo'
+            },
+            {
+              'subtitle' : 'Direct Phone Number',
+              'value' : 'DirectNo'
+            }
+          ]
+        },
+
+        {
+          'title' : 'Account Name and Interfaces',
+          'infoList' : [
+            {
+              'subtitle' : 'Technical name',
+              'value' : 'techName'
+            },
+            {
+              'subtitle' : 'Commercial name',
+              'value' : 'commName'
+            },
+            {
+              'subtitle' : 'Existing accounts',
+              'value' : 'ExstAccts'
+            },
+            {
+              'subtitle' : 'Interface',
+              'value' : 'accInterface'
+            }
+          ]
+        }
+    ];
+
+    const titleMapping = function(list, index) {
+      return (
+        <div key={index} className="controls-container">
+          <div className="rec">
+            <span>{list.title}</span>
+          </div>
+          <Grid fluid={true}>
+            {list.infoList.map(gridRowMapping)}
+          </Grid>
+        </div>
+      );
+    }
+
+    const gridRowMapping = function(list, index) {
+
+        return (
+            <Row key={index} className="show-grid">
+                <Col
+                    componentClass={ ControlLabel }
+                    md={ 3 }> {list.subtitle}:
+                </Col>
+                <Col md={ 6 }>
+                  {this.state.accountInfo[list.value]}
+                </Col>
+                <Col
+                    mdHidden
+                    md={ 3 } />
+            </Row>
+        )
+    }.bind(this);
+
         return (
           <div>
           <div className="stepwizard breadcrumb-container">
@@ -57,232 +168,11 @@ class AccountReviewDetails extends React.Component {
                 </div>
             </div>
             </div>
-        <div className="controls-container">
-        <div className="rec">
-        <span>Commercial Information</span>
+        
+        <div>
+           {accountCreateInfo.map(titleMapping)}
         </div>
-            <Grid fluid={true}>
-                <Row className="show-grid">
-                    <Col
-                        componentClass={ ControlLabel }
-                        md={ 3 }> Account Manager:
-                    </Col>
-                    <Col md={ 6 }>
-                    {this.state.accountInfo.acctManager   }
-                    </Col>
-                    <Col
-                        mdHidden
-                        md={ 3 } />
-                </Row>
-
-                <Row className="show-grid">
-                    <Col
-                        componentClass={ ControlLabel }
-                        md={ 3 }> Company:
-                    </Col>
-                    <Col md={ 6 }>
-                    {this.state.accountInfo.company   }
-                    </Col>
-                    <Col
-                        mdHidden
-                        md={ 3 } />
-                </Row>
-
-                <Row className="show-grid">
-                    <Col
-                        componentClass={ ControlLabel }
-                        md={ 3 }> Billing location:
-                    </Col>
-                    <Col md={ 6 }>
-                    {this.state.accountInfo.billingLocation   }
-                    </Col>
-                    <Col
-                        mdHidden
-                        md={ 3 } />
-                </Row>
-
-                <Row className="show-grid">
-                    <Col
-                        componentClass={ ControlLabel }
-                        md={ 3 }> Service Level:
-                    </Col>
-                    <Col md={ 6 }>
-                    {this.state.accountInfo.serviceLevel   }
-                    </Col>
-                    <Col
-                        mdHidden
-                        md={ 3 } />
-                </Row>
-
-                <Row className="show-grid">
-                    <Col
-                        componentClass={ ControlLabel }
-                        md={ 3 }> Traffic Type:
-                    </Col>
-                    <Col md={ 6 }>
-                    {this.state.accountInfo.trafficType  }
-                    </Col>
-                    <Col
-                        mdHidden
-                        md={ 3 } />
-                </Row>
-
-
-            </Grid>
-        </div>
-
-
-       < div className="controls-container">
-        <div className="rec">
-        <span>Technical Information</span>
-        </div>
-            <Grid fluid={true}>
-                <Row className="show-grid">
-                    <Col
-                        componentClass={ ControlLabel }
-                        md={ 3 }> Existing Company Contacts:
-                    </Col>
-                    <Col md={ 6 }>
-                      {this.state.accountInfo.exstContacts}
-                    </Col>
-                    <Col
-                        mdHidden
-                        md={ 3 } />
-                </Row>
-
-                <Row className="show-grid">
-                    <Col
-                        componentClass={ ControlLabel }
-                        md={ 3 }> Name:
-                    </Col>
-                    <Col md={ 6 }>
-                    {this.state.accountInfo.name   }
-                    </Col>
-                    <Col
-                        mdHidden
-                        md={ 3 } />
-                </Row>
-
-                <Row className="show-grid">
-                    <Col
-                        componentClass={ ControlLabel }
-                        md={ 3 }> Email:
-                    </Col>
-                    <Col md={ 6 }>
-                        {this.state.accountInfo.email   }
-                    </Col>
-                    <Col
-                        mdHidden
-                        md={ 3 } />
-                </Row>
-
-                <Row className="show-grid">
-                    <Col
-                        componentClass={ ControlLabel }
-                        md={ 3 }> Country:
-                    </Col>
-                    <Col md={ 6 }>
-                    {this.state.accountInfo.serviceLevel   }
-                    </Col>
-                    <Col
-                        mdHidden
-                        md={ 3 } />
-                </Row>
-
-                <Row className="show-grid">
-                    <Col
-                        componentClass={ ControlLabel }
-                        md={ 3 }> Mobile Phone Number:
-                    </Col>
-                    <Col md={ 6 }>
-                    {this.state.accountInfo.MobNo  }
-                    </Col>
-                    <Col
-                        mdHidden
-                        md={ 3 } />
-                </Row>
-
-                <Row className="show-grid">
-                    <Col
-                        componentClass={ ControlLabel }
-                        md={ 3 }> Direct Phone Number:
-                    </Col>
-                    <Col md={ 6 }>
-                    {this.state.accountInfo.DirectNo  }
-                    </Col>
-                    <Col
-                        mdHidden
-                        md={ 3 } />
-                </Row>
-
-            </Grid>
-        </div>
-
-        <div className="controls-container">
-        <div className="rec">
-        <span>Account Name and Interfaces</span>
-        </div>
-            <Grid fluid={true}>
-                <Row className="show-grid">
-                    <Col
-                        componentClass={ ControlLabel }
-                        md={ 3 }> Technical name:
-                    </Col>
-                    <Col md={ 6 }>
-                   {this.state.accountInfo.techName   }
-                    </Col>
-                    <Col
-                        mdHidden
-                        md={ 3 } />
-                </Row>
-
-                <Row className="show-grid">
-                    <Col
-                        componentClass={ ControlLabel }
-                        md={ 3 }> Commercial name:
-                    </Col>
-                    <Col md={ 6 }>
-                    {this.state.accountInfo.commName   }
-
-                    </Col>
-                    <Col
-                        mdHidden
-                        md={ 3 } />
-                </Row>
-
-                <Row className="show-grid">
-                    <Col
-                        componentClass={ ControlLabel }
-                        md={ 3 }> Existing accounts:
-                    </Col>
-                    <Col md={ 6 }>
-
-                    </Col>
-                    <Col
-                        mdHidden
-                        md={ 3 } />
-                </Row>
-
-                <Row className="show-grid">
-                    <Col
-                        componentClass={ ControlLabel }
-                        md={ 3 }> Interface:
-                    </Col>
-                    <Col md={ 6 }>
-
-                    {this.state.accountInfo.accInterface}
-                    </Col>
-                    <Col
-                        mdHidden
-                        md={ 3 } />
-                </Row>
-
-
-
-
-            </Grid>
-        </div>
-
+        
         <div className="controls-container" hidden={this.state.interfaceFlag ? false : "hidden"}>
         <div className="rec">
         <span>MT Interfces</span>
