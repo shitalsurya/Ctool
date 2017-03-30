@@ -15,6 +15,7 @@ var refreshIcon = require( "../../../../images/refresh-icon.png" );
 var lockIcon = require( "../../../../images/lock.png" );
 var unlockIcon = require( "../../../../images/unlock.png" );
 var errorIcon = require( "../../../../images/error-icon-32.png" );
+
 class MiscUsers extends React.Component {
   constructor( props, context ) {
     super( props, context );
@@ -95,7 +96,31 @@ class MiscUsers extends React.Component {
     } );
 }
   render() {
-      console.log( "this.props.userList==", this.props.userList );
+    console.log( "this.props.userList==", this.props.userList );
+    const options = {
+         clearSearch: true,
+         page: 1,  // which page you want to show as default
+         sizePerPageList: [ {
+           text: '5', value: 5
+         }, {
+           text: '10', value: 10
+         }, {
+           text: 'All', value: 50
+         } ], // you can change the dropdown list for size per page
+         sizePerPage: 5,  // which size per page you want to locate as default
+         pageStartIndex: 1, // where to start counting the pages
+         paginationSize: 3,  // the pagination bar size.
+         prePage: '<', // Previous page button text
+         nextPage: '>', // Next page button text
+         firstPage: '<<', // First page button text
+         lastPage: '>>', // Last page button text
+         paginationShowsTotal: this.renderShowsTotal,  // Accept bool or function
+         paginationPosition: 'top',  // default is bottom, top and both is all available
+         // hideSizePerPage: true > You can hide the dropdown for sizePerPage
+         alwaysShowAllBtns: false, // Always show next and previous button
+        //  withFirstAndLast: false // Hide the going to First and Last page button
+    };
+
     var  homepageOptions= [
         { value: 'Account', label: 'Account' },
         { value: 'Connections', label: 'Connections' }
@@ -372,76 +397,31 @@ class MiscUsers extends React.Component {
     }
 
     return (
-    <div className="content">
-      <div className="col-md-1"></div>
-      <div className="col-md-10 section-content">
-      <div>
-
-        </div>
-        <Grid fluid={ true }>
-        <Row>
-        <Col className="line page-heading"
-        md={ 12 }>
-        CTool User Management
-            </Col>
-              </Row>
-        <Row>
-        <Col className="sub-heading"
-             md={ 4 } >
-             1-8 of 30 Users
-             </Col>
-            <Col
-                 mdHidden
-                 md={ 4 } />
-          <Col className="pull-right"
-          md={ 4 }>
-            <FormGroup >
-          <FormControl type="text" placeholder="Search Users.." />
-          <FormControl.Feedback>
-            <Glyphicon glyph="search" />
-          </FormControl.Feedback>
-        </FormGroup>
-        </Col>
-          </Row>
-        </Grid>
-        <div className="list-container">
-        <div className="header-row">
+      <div className="content">
+        <div className="col-md-1"></div>
+        <div className="col-md-10 section-content">
+          <div></div>
           <Grid fluid={ true }>
-        <Row >
-          <Col
-               md={ 1 }>
-            User ID
-          </Col>
-          <Col
-               md={ 2 }>
-            User Login
-          </Col>
-          <Col md={ 3 }>
-        User Name
-          </Col>
-          <Col md={ 2 }>
-        User Status
-          </Col>
-          <Col md={ 2 }>
-        Created On
-          </Col>
-          <Col md={ 2 } className="right-align">
-        Action
-          </Col>
-        </Row>
+            <Row>
+              <Col className="line page-heading" md={ 12 }>
+                CTool User Management
+              </Col>
+            </Row>
           </Grid>
-        </div>
-          <Grid fluid={ true }>
-            { listUsers }
-          </Grid>
-        </div>
-          <div className="footer-row">
-          <div><span>Show More</span></div>
-            <div><span className="glyphicon glyphicon-chevron-down"></span></div>
+          <div className="list-container">
+            <div className="controls-container">
+              <BootstrapTable data ={ this.users } pagination={ true }  search={ true } options={ options }>
+                  <TableHeaderColumn dataField='id' dataSort={true} isKey>User ID</TableHeaderColumn>
+                  <TableHeaderColumn dataField='login' dataSort={true} >User Login</TableHeaderColumn>
+                  <TableHeaderColumn dataField='name' dataSort={true} >User Name</TableHeaderColumn>
+                  <TableHeaderColumn dataField='live' dataSort={true} >User Status</TableHeaderColumn>
+                  <TableHeaderColumn dataField='insertdate' dataSort={true} >Created On</TableHeaderColumn>
+              </BootstrapTable>
+            </div>
           </div>
+        </div>
+        <div className="col-md-1"></div>
       </div>
-      <div className="col-md-1"></div>
-    </div>
 
     );
   }
