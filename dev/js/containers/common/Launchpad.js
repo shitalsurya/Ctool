@@ -44,7 +44,7 @@ class Launchpad extends React.Component {
      <Row className="dashboard-menu first">
      <Col xs={6} md={3}>
        <Thumbnail className="notification">
-       <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_MGMT )}>
+       <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_SETUP )}>
          <span className="glyphicon glyphicon-th-list"></span>
          <h3>Accounts</h3>
        </a>

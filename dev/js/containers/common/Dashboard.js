@@ -75,11 +75,11 @@ class Dashboard extends React.Component {
                     <span> { this.state.submenus[0]} </span>
                  </a>
              </span>
-                  
+
                     <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_CREATE )} className="list-group-item">
                         <i className="fa fa-comment-o"></i> { this.state.submenus[1]}
                     </a>
-                    <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_SETUP )}  className="list-group-item">
+                    <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_MGMT )}  className="list-group-item">
                         <i className="fa fa-comment-o"></i>{ this.state.submenus[2]}
                     </a>
                 </div>
@@ -87,7 +87,8 @@ class Dashboard extends React.Component {
              	</div>
              </Col>
              <Col md={10}>
-             { this.state.currentMenus.showAccountSetup && <CreateAccount /> }
+              { this.state.currentMenus.showAccountCreate && <CreateAccount /> }
+             { this.state.currentMenus.showAccountSetup && <AccountSetup /> }
                { this.state.currentMenus.showAccountMgmt && <HubAccountMgmt /> }
              { this.state.currentMenus.showSearch && <Search /> }
              { this.state.currentMenus.showMiscUsers && <MiscUsers /> }
@@ -162,6 +163,7 @@ class Dashboard extends React.Component {
           showAccountSetup:false,
          showAccountMgmt :false
       };
+      break;
       case types.ACCOUNT_SETUP:
       menus={
         showSearch :false,
