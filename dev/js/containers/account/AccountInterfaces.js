@@ -21,6 +21,7 @@ class AccountInterfaces extends React.Component {
         super(props, context);
       //  this.state.accountInterfacesInfo=this.props.accountObj || [];
         this.state={
+          interfaceFlag : false,
           accountInterfacesInfo:this.props.accountObj || []
         };
         console.log("this.state.accountInterfacesInfo==",this.state.accountInterfacesInfo);
@@ -30,22 +31,33 @@ class AccountInterfaces extends React.Component {
         case "techName":
             this.state.accountInterfacesInfo.techName = e.target.value;
           break;
-            case "commName":
-                this.state.accountInterfacesInfo.commName = e.target.value;
-              break;
-
+        case "commName":
+            this.state.accountInterfacesInfo.commName = e.target.value;
+          break;
+        case "mtInterface":
+          this.state.accountInterfacesInfo.mtInterface = e.target.value;
+          break;
+        case "moInterface":
+          this.state.accountInterfacesInfo.moInterface = e.target.value;
+          break;
       }
     }
     handleSelectFieldsChange(target, value) {
       var info=this.state.accountInterfacesInfo;
       console.log("handleSelectFieldsChange info==",info);
       switch (target) {
-
           case types.ACCOUNT_EXSTACCTS_CHANGE:
               info.ExstAccts = value.value;
               break;
           case types.ACCOUNT_INTERFACE_CHANGE:
               info.accInterface = value.value;
+              switch (info.accInterface) {
+                case "HTTP":
+                  this.setState({interfaceFlag : true});
+                  break;
+                default:
+                  this.setState({interfaceFlag : false})
+              }
               break;
       }
       this.setState({accountInterfacesInfo:info});
@@ -162,22 +174,70 @@ class AccountInterfaces extends React.Component {
              mdHidden
              md={ 3 } />
       </Row>
-      <Row className="show-grid">
-      <Col
-           mdHidden
-           md={ 3 } />
 
-      <Col md={ 6 }>
-       <Button className="sap-btn btn-wizard pull-right"   onClick={ this.handleInterfaceDetailsNext.bind( this ) }>Next</Button>
-     <Button className="sap-btn btn-wizard pull-right"   onClick={ this.handleInterfaceDetailsBack.bind( this ) }>Back</Button>
-      </Col>
-      <Col
-           mdHidden
-           md={ 3 } />
-
-      </Row>
       </Grid>
       </div>
+
+      <div className="controls-container" hidden={this.state.interfaceFlag ? false : "hidden"}>
+      <div className="rec">
+      <span>MT Interfces</span>
+       </div>
+                  <Grid fluid={true}>
+                      <Row className="show-grid">
+                          <Col
+                              componentClass={ ControlLabel }
+                              md={ 3 }> Default TPOA:
+                          </Col>
+                          <Col md={ 6 }>
+                            <textarea name="mtInterface" rows="1" cols="10" onChange={this.handleTextFieldsChange.bind(this)}></textarea>
+                          </Col>
+                          <Col
+                              mdHidden
+                              md={ 3 } />
+                      </Row>
+
+                  </Grid>
+       </div>
+
+      <div className="controls-container" hidden={this.state.interfaceFlag ? false : "hidden"}>
+      <div className="rec">
+      <span>MO Interfces</span>
+       </div>
+                  <Grid fluid={true}>
+                      <Row className="show-grid">
+                          <Col
+                              componentClass={ ControlLabel }
+                              md={ 3 }> HTTP URL:
+                          </Col>
+                          <Col md={ 6 }>
+                            <textarea name="moInterface" rows="1" cols="50" onChange={this.handleTextFieldsChange.bind(this)}></textarea>
+                          </Col>
+                          <Col
+                              mdHidden
+                              md={ 3 } />
+                      </Row>
+
+                  </Grid>
+       </div>
+
+       <div >
+           <Grid fluid={true}>
+               <Row className="show-grid">
+                 <Col
+                      mdHidden
+                      md={ 3 } />
+
+                 <Col md={ 6 }>
+                  <Button className="sap-btn btn-wizard pull-right"   onClick={ this.handleInterfaceDetailsNext.bind( this ) }>Next</Button>
+                  <Button className="sap-btn btn-wizard pull-right"   onClick={ this.handleInterfaceDetailsBack.bind( this ) }>Back</Button>
+                 </Col>
+                 <Col
+                      mdHidden
+                      md={ 3 } />
+               </Row>
+           </Grid>
+        </div>
+
       <ToastContainer
                       toastMessageFactory={ ToastMessageFactory }
                       ref="container"
