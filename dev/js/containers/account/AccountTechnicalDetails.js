@@ -238,6 +238,16 @@ handleTextFieldsChange(e){
             console.log("get from backend");
             this.props.getMetadata();
         }
+
+        var Companies = {
+            "data":[
+              {"name": "10 GRAD(37669)", "value": "10 GRAD(37669)"},
+                  {"name": "100 BEST(39551)", "value": "100 BEST(39551)"},
+                    {"name": "10DUKE (38660)", "value": "10DUKE (38660)"},
+                      {"name": "118811 (39258)", "value": "118811 (39258)"}
+            ]
+        };
+        this.contactsList = initializeData(Companies,'value');
     }
 componentDidMount(){
   // this.refs.name.getInputNode().value = this.props.accountObj.name||"";
