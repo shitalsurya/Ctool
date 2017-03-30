@@ -11,6 +11,8 @@ export default function (state = {}, action = null) {
 				return Object.assign({}, state, {isLoading: true,menu:action.payload, error: false });
 				case types.ACCOUNT_MGMT:
 						return Object.assign({}, state, {isLoading: true,menu:action.payload, error: false });
+						case types.ACCOUNT_SETUP:
+								return Object.assign({}, state, {isLoading: true,menu:action.payload, error: false });
 		default:
 			return state;
 	}

@@ -21,6 +21,7 @@ class Dashboard extends React.Component {
           showMiscUsers:false,
           showSearch :false,
         showAccountSetup :false,
+          showAccountCreate:false,
           showAccountMgmt :false
       },
       submenus:["Accounts","Create Account",
@@ -68,17 +69,17 @@ class Dashboard extends React.Component {
                     <span> Launchpad </span>
                  </a>
              </span>
-                    <span className="list-group-item active">
-                          <span className="glyphicon glyphicon-th-list"></span>
-                            <span> { this.state.submenus[0]} </span>
-                        <span className="pull-right" id="slide-submenu">
-                            <i className="fa fa-times"></i>
-                        </span>
-                    </span>
+             <span className="list-group-item">
+             <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_SETUP )} >
+                    <span className="glyphicon glyphicon-th-list"></span>
+                    <span> { this.state.submenus[0]} </span>
+                 </a>
+             </span>
+                  
                     <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_CREATE )} className="list-group-item">
                         <i className="fa fa-comment-o"></i> { this.state.submenus[1]}
                     </a>
-                    <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_MGMT )}  className="list-group-item">
+                    <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_SETUP )}  className="list-group-item">
                         <i className="fa fa-comment-o"></i>{ this.state.submenus[2]}
                     </a>
                 </div>
@@ -87,7 +88,7 @@ class Dashboard extends React.Component {
              </Col>
              <Col md={10}>
              { this.state.currentMenus.showAccountSetup && <CreateAccount /> }
-               { this.state.currentMenus.showAccountMgmt && <AccountSetup /> }
+               { this.state.currentMenus.showAccountMgmt && <HubAccountMgmt /> }
              { this.state.currentMenus.showSearch && <Search /> }
              { this.state.currentMenus.showMiscUsers && <MiscUsers /> }
 
@@ -148,15 +149,25 @@ class Dashboard extends React.Component {
         menus={
           showSearch :true,
       showMiscUsers :false,
+        showAccountCreate:false,
         showAccountSetup:false,
          showAccountMgmt :false
       };
         break;
-      case types.ACCOUNT_CREATE:
+        case types.ACCOUNT_CREATE:
+        menus={
+          showSearch :false,
+      showMiscUsers :false,
+        showAccountCreate:true,
+          showAccountSetup:false,
+         showAccountMgmt :false
+      };
+      case types.ACCOUNT_SETUP:
       menus={
         showSearch :false,
     showMiscUsers :false,
       showAccountSetup:true,
+        showAccountCreate:false,
        showAccountMgmt :false
     };
         break;
@@ -165,6 +176,7 @@ class Dashboard extends React.Component {
           showSearch :false,
       showMiscUsers :false,
         showAccountSetup:false,
+          showAccountCreate:false,
          showAccountMgmt :true
       };
           break;
@@ -173,6 +185,7 @@ class Dashboard extends React.Component {
         showSearch :false,
     showMiscUsers :false,
       showAccountSetup:true,
+        showAccountCreate:false,
        showAccountMgmt :false
     };
         break;

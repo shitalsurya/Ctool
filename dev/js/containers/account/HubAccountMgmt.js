@@ -4,6 +4,10 @@ import { bindActionCreators } from 'redux';
 import { Nav,NavItem } from 'react-bootstrap';
 import HubAccountGeneral from './HubAccountGeneral';
 import HubAccountTPOA from './HubAccountTPOA';
+import HubAccountMORouting from './HubAccountMORouting';
+import HubAccountMTRouting from './HubAccountMTRouting';
+
+
 import {handleSelectFieldsChange} from '../../containers/account/actions/accountActions'
 
 require('../../../scss/style.scss');
@@ -11,54 +15,82 @@ require('../../../scss/style.scss');
 class HubAccountMgmt extends React.Component {
     constructor(props, context) {
         super(props, context);
+           this.selectedTab = 4;
           this.state={
             accountTabs:{
-              showGeneral:true,
-                showTPOA:false
+              showGeneral:false,
+                showTPOA:false,
+                showMORouting:true,
+                  showMTRouting:false
             },
             accountCaptions:{
               General:"General",
-                TPOA:"TPOA"
+                TPOA:"TPOA",
+                MORouting:"MORouting",
+                MTRouting:"MTRouting"
             }
         }
     }
 
     handleSelect(eventKey) {
        event.preventDefault();
-       console.log( "eventKey ==", eventKey );
+          this.selectedTab = eventKey;
        var accountTabs={};
        switch (eventKey) {
-         case "1":
+         case 1:
            accountTabs={
              showGeneral:true,
-               showTPOA:false
+               showTPOA:false,
+               showMORouting:false,
+                 showMTRouting:false
            }
            break;
-           case "2":
+           case 2:
              accountTabs={
                showGeneral:false,
-                 showTPOA:true
+                 showTPOA:true,
+                 showMORouting:false,
+                   showMTRouting:false
              }
              break;
+             case 3:
+               accountTabs={
+                 showGeneral:false,
+                   showTPOA:false,
+                   showMORouting:true,
+                     showMTRouting:false
+               }
+               break;
+               case 4:
+                 accountTabs={
+                   showGeneral:false,
+                     showTPOA:false,
+                     showMORouting:false,
+                       showMTRouting:true
+                 }
+                 break;
          }
-           this.setState({accountTabs:accountTabs});
+         this.setState({accountTabs:accountTabs});
+          //  this.setState({accountTabs:accountTabs},function(){
+          //       console.log("this.state.accountTabs==",this.state.accountTabs);
+          //  });
+
      }
     render() {
 
 
         return (
-               <div className="content">
-                <div className="col-md-1"></div>
-                                <div className="col-md-10 section-content">
-                                <Nav bsStyle="tabs" activeKey="1" onSelect={this.handleSelect.bind(this)}>
-                                       <NavItem eventKey="1" href="/home">{this.state.accountCaptions.General}</NavItem>
-                                       <NavItem eventKey="2" title="Item">{this.state.accountCaptions.TPOA }</NavItem>
-
+                                <div>
+                                <Nav bsStyle="tabs" activeKey={this.selectedTab} onSelect={this.handleSelect.bind(this)}>
+                                       <NavItem eventKey={1} >{this.state.accountCaptions.General}</NavItem>
+                                       <NavItem eventKey={2} >{this.state.accountCaptions.TPOA }</NavItem>
+                                       <NavItem eventKey={3} >{this.state.accountCaptions.MORouting}</NavItem>
+                                       <NavItem eventKey={4} >{this.state.accountCaptions.MTRouting }</NavItem>
                                      </Nav>
                                          {this.state.accountTabs.showGeneral && <HubAccountGeneral/>}
                                          {this.state.accountTabs.showTPOA && <HubAccountTPOA/>}
-                                </div>
-                                  <div className="col-md-1"></div>
+                                         {this.state.accountTabs.showMORouting && <HubAccountMORouting/>}
+                                         {this.state.accountTabs.showMTRouting && <HubAccountMTRouting/>}
                 </div>
         )
     }

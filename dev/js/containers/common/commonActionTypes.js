@@ -3,6 +3,7 @@
 export const TOOLBOX_SEARCH = 'TOOLBOX_SEARCH';
 export const ACCOUNT_CREATE = 'ACCOUNT_CREATE';
 export const ACCOUNT_MGMT='ACCOUNT_MGMT';
+export const ACCOUNT_SETUP='ACCOUNT_SETUP';
 export const MISC_USERS = 'MISC_USERS';
 
 

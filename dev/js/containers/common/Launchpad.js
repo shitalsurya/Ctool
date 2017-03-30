@@ -17,14 +17,6 @@ var logoImg=require("../../../images/sybase-365.jpg");
 class Launchpad extends React.Component {
   constructor( props, context ) {
     super( props, context );
-    this.state={
-        currentMenus:{
-          showMiscUsers:false,
-          showSearch :false,
-        showAccountSetup :false,
-          showAccountMgmt :false
-      }
-    }
   }
 
   render() {
