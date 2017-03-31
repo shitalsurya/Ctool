@@ -633,3 +633,8 @@ color:#333 !important;
 	font-size: 25px;
 	box-sizing: border-box;
 }
+.empty {
+	.Select, .Select div, .Select input {
+		border-color: red;
+	}
+}
