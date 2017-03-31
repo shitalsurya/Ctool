@@ -44,8 +44,8 @@ class Launchpad extends React.Component {
      <Row className="dashboard-menu first">
      <Col xs={6} md={3}>
        <Thumbnail className="notification">
-       <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_SETUP )}>
-         <span className="glyphicon glyphicon-th-list"></span>
+       <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_MGMT )}>
+         <span className="accounts-icon"></span>
          <h3>Accounts</h3>
        </a>
        <p>Accounts and Routing</p>
@@ -54,7 +54,7 @@ class Launchpad extends React.Component {
      <Col xs={6} md={3}>
        <Thumbnail>
        <a href="">
-         <span className="glyphicon glyphicon-random"></span>
+         <span className="connections-icon"></span>
          <h3>Connections</h3>
        </a>
        <p>SMSC Configuration</p>
@@ -63,7 +63,7 @@ class Launchpad extends React.Component {
      <Col xs={6} md={3}>
        <Thumbnail>
        <a href="">
-         <span className="glyphicon glyphicon-phone-alt"></span>
+         <span className="operators-icon"></span>
          <h3>Operators</h3>
        </a>
        <p>Operators and Routing preferences</p>
@@ -72,7 +72,7 @@ class Launchpad extends React.Component {
      <Col xs={6} md={3}>
        <Thumbnail>
        <a href="">
-         <span className="glyphicon glyphicon-tasks"></span>
+         <span className="misc-icon"></span>
          <h3>Miscelleneous</h3>
        </a>
        <p>Account Managers, countries etc.</p>
@@ -86,7 +86,7 @@ class Launchpad extends React.Component {
      <Col xs={6} md={3}>
        <Thumbnail>
        <a onClick={ this.navigateMenus.bind( this, types.MISC_USERS )}>
-         <span className="glyphicon glyphicon-user"></span>
+         <span className="user-icon"></span>
          <h3>CTool Users</h3>
        </a>
        <p>Users properties</p>
@@ -95,7 +95,7 @@ class Launchpad extends React.Component {
      <Col xs={6} md={3}>
        <Thumbnail>
        <a href="">
-         <span className="glyphicon glyphicon-wrench"></span>
+         <span className="toolbox-icon"></span>
 
           <h3>Toolbox</h3>
        </a>

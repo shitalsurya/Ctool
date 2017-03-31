@@ -21,12 +21,15 @@ class AccountCommDetails extends React.Component {
     super( props, context );
   //  this.accountCommInfo = this.props.accountObj || [];
     this.state={
+      emptyFlag : true,
       accountCommInfo:this.props.accountObj || []
     };
   //  this.accountCommInfo.revSharing = this.props.accountObj.revSharing || "No";
   }
   handleSelectFieldsChange( target,value ) {
     var info=this.state.accountCommInfo;
+    if(!value)
+      value = "";
     switch (target) {
       case types.ACCOUNT_MGR_CHANGE:
         info.acctManager=value.value;
@@ -47,11 +50,6 @@ class AccountCommDetails extends React.Component {
     this.setState({accountCommInfo:info});
   //  this.props.handleSelectFieldsChange( value, target );
   }
-  rearrangeCols(){
-
-
-  }
-
 
   render() {
 
@@ -59,146 +57,125 @@ class AccountCommDetails extends React.Component {
 
     return (
       <div>
-      <div className="stepwizard breadcrumb-container">
-        <div className="stepwizard-row">
+        <div className="stepwizard breadcrumb-container">
+          <div className="stepwizard-row">
             <div className="stepwizard-step">
-                <button type="button" className="btn btn-primary btn-circle" disabled="disabled">1</button>
-                <p>Commercial Information</p>
+              <button type="button" className="btn btn-primary btn-circle" disabled="disabled">1</button>
+              <p>Commercial Information</p>
             </div>
             <div className="stepwizard-step">
-                <button type="button" className="btn btn-circle inactive-step" disabled="disabled" >2</button>
-                <p>Technical Details</p>
+              <button type="button" className="btn btn-circle inactive-step" disabled="disabled" >2</button>
+              <p>Technical Details</p>
             </div>
             <div className="stepwizard-step">
-                <button type="button" className="btn btn-circle inactive-step" disabled="disabled">3</button>
-                <p>Account Name and Interfaces</p>
+              <button type="button" className="btn btn-circle inactive-step" disabled="disabled">3</button>
+              <p>Account Name and Interfaces</p>
             </div>
             <div className="stepwizard-step">
-                <button type="button" className="btn btn-circle inactive-step" disabled="disabled">4</button>
-                <p>Create Account</p>
+              <button type="button" className="btn btn-circle inactive-step" disabled="disabled">4</button>
+              <p>Create Account</p>
             </div>
+          </div>
         </div>
-      </div>
-    <div className="controls-container">
-    <div className="rec">
-    <span>Commercial Information</span>
-    </div>
-       <Grid fluid={true}>
-       <Row className="show-grid">
-         <Col
-              componentClass={ ControlLabel }
-              md={ 2 }> Account Manager:
-         </Col>
-         <Col md={ 6 }>
-         <Select
-               placeholder="Select account manager.."
-               options={this.userList}
-               value={this.state.accountCommInfo.acctManager}
-               onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_MGR_CHANGE)}
-           />
-         </Col>
-         <Col
-              mdHidden
-              md={ 4 } />
-       </Row>
-
-              <Row className="show-grid">
-                <Col
-                     componentClass={ ControlLabel }
-                     md={ 2 }> Company:
-                </Col>
-                <Col md={ 6 }>
+        <div className="controls-container">
+          <div className="rec">
+            <span>Commercial Information</span>
+          </div>
+          <Grid fluid={true}>
+            <Row className="show-grid">
+              <Col componentClass={ ControlLabel } md={ 2 }>
+                Account Manager:
+              </Col>
+              <Col md={ 6 } className={this.state.accountCommInfo.acctManager || this.state.emptyFlag ? false : "empty"}>
+                <Select
+                   placeholder="Select account manager.."
+                   name="acctManagerselect"
+                   options={this.userList}
+                   value={this.state.accountCommInfo.acctManager}
+                   onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_MGR_CHANGE)} />
+              </Col>
+              <Col mdHidden md={ 4 } />
+            </Row>
+            <Row className="show-grid">
+              <Col componentClass={ ControlLabel } md={ 2 }>
+                Company:
+              </Col>
+              <Col md={ 6 } className={this.state.accountCommInfo.company || this.state.emptyFlag ? false : "empty"}>
                 <Select
                       placeholder="Select company.."
                       options={this.companyList}
                       value={this.state.accountCommInfo.company}
-                      onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_COMPANY_CHANGE)}
-                  />
-                </Col>
-                <Col
-                     mdHidden
-                     md={ 4 } />
-              </Row>
-              <Row className="show-grid">
-                <Col
-                     componentClass={ ControlLabel }
-                     md={ 2 }> Billing Location:
-                </Col>
-                <Col md={ 6 }>
+                      onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_COMPANY_CHANGE)} />
+              </Col>
+              <Col mdHidden md={ 4 } />
+            </Row>
+            <Row className="show-grid">
+              <Col componentClass={ ControlLabel } md={ 2 }>
+                Billing Location:
+              </Col>
+              <Col md={ 6 } className={this.state.accountCommInfo.billingLocation || this.state.emptyFlag ? false : "empty"}>
                 <Select
                       placeholder="Select billing location.."
                       options={this.BillingLocation}
                       value={this.state.accountCommInfo.billingLocation}
-                      onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_BILLING_LOCATION)}
-                  />
-                </Col>
-                <Col
-                     mdHidden
-                     md={ 4 } />
-              </Row>
-              <Row className="show-grid">
-                <Col
-                     componentClass={ ControlLabel }
-                     md={ 2 }> Service Level:
-                </Col>
-                <Col md={ 6 }>
+                      onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_BILLING_LOCATION)} />
+              </Col>
+              <Col mdHidden md={ 4 } />
+            </Row>
+            <Row className="show-grid">
+              <Col componentClass={ ControlLabel } md={ 2 }>
+                Service Level:
+              </Col>
+              <Col md={ 6 } className={this.state.accountCommInfo.serviceLevel || this.state.emptyFlag ? false : "empty"}>
                 <Select
                       placeholder="Select service level.."
                       options={this.ServiceLevel}
                       value={this.state.accountCommInfo.serviceLevel}
-                      onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_SERVICE_LEVEL)}
-                  />
-                </Col>
-                <Col
-                     mdHidden
-                     md={ 4 } />
-              </Row>
-              <Row className="show-grid">
-                <Col
-                     componentClass={ ControlLabel }
-                     md={ 2 }> Traffic Type:
-                </Col>
-                <Col md={ 6 }>
+                      onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_SERVICE_LEVEL)} />
+              </Col>
+              <Col mdHidden md={ 4 } />
+            </Row>
+            <Row className="show-grid">
+              <Col componentClass={ ControlLabel } md={ 2 }>
+                Traffic Type:
+              </Col>
+              <Col md={ 6 } className={this.state.accountCommInfo.trafficType || this.state.emptyFlag ? false : "empty"}>
                 <Select
                       placeholder="Select traffic type.."
                       options={this.TrafficType}
                       value={this.state.accountCommInfo.trafficType}
-                      onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_TRAFFIC_TYPE)}
-                  />
-                </Col>
-                <Col
-                     mdHidden
-                     md={ 4 } />
-              </Row>
-              <Row className="show-grid">
-              <Col
-                   mdHidden
-                   md={ 2 } />
-
-              <Col md={ 6 } className="pull-right">
-             <Button className="sap-btn btn-wizard"   onClick={ this.goToTechnicalDetails.bind( this ) }>Next</Button>
+                      onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_TRAFFIC_TYPE)} />
               </Col>
-              <Col
-                   mdHidden
-                   md={ 4 } />
-
-              </Row>
- </Grid>
-    </div>
-    <ToastContainer
-                    toastMessageFactory={ ToastMessageFactory }
-                    ref="container"
-                    className="toast-top-right" />
-    </div>
+              <Col mdHidden md={ 4 } />
+            </Row>
+            <Row className="show-grid">
+              <Col mdHidden md={ 2 } />
+              <Col md={ 6 } className="pull-right">
+                <Button className="sap-btn btn-wizard"   onClick={ this.goToTechnicalDetails.bind( this ) }>Next</Button>
+              </Col>
+              <Col mdHidden md={ 4 } />
+            </Row>
+          </Grid>
+        </div>
+        <ToastContainer
+            toastMessageFactory={ ToastMessageFactory }
+            ref="container"
+            className="toast-top-right" />
+      </div>
     )
   }
   handleRevSharingChanged( event, value ) {
   //  this.accountCommInfo.revSharing = value;
   }
   goToTechnicalDetails() {
-
-    this.props.goToTechnicalDetails( this.state.accountCommInfo );
-
+    var accountObjCheck = this.state.accountCommInfo;
+    if(accountObjCheck.acctManager && accountObjCheck.company && accountObjCheck.billingLocation
+      && accountObjCheck.serviceLevel && accountObjCheck.trafficType){
+        this.props.goToTechnicalDetails( this.state.accountCommInfo );
+      }
+      else {
+        this.setState({emptyFlag:false});
+    }
   }
   componentWillMount() {
     this.userList = initializeData(Users,'login');

@@ -1,3 +1,10 @@
+@font-face {
+	font-family: 'SAP-icons';
+	src: url('../resources/fonts/SAP-icons.eot');
+	src: url('../resources/fonts/SAP-icons.eot?#iefix') format('embedded-opentype'), url('../resources/fonts/SAP-icons.woff2') format('woff2'), url('../resources/fonts/SAP-icons.woff') format('woff'), url('../resources/fonts/SAP-icons.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
 $color_tuatara_approx: #363636;
 $white: #ffffff;
 $offwhite1: #F6F6F6;
@@ -499,7 +506,7 @@ font-size: 14px;
 }
 /*menus thumbnail*/
 .thumbnail .caption h3 {
-	height: 95px;
+	height: 80px;
 }
 .thumbnail .caption .glyphicon {
 	font-size: 20px;
@@ -558,9 +565,7 @@ color:#333 !important;
 	border-style: hidden;
 	background-color: inherit;
 }
-.btn .caret {
-	display: none;
-}
+
 #pageDropDown::before {
 	content: "Show ";
 }
@@ -573,4 +578,63 @@ color:#333 !important;
 	text-decoration: underline;
 	font-weight: bold;
 	font-size: 17px;
+}
+
+.accounts-icon::after {
+	font-family: 'SAP-icons';
+	content: "\e001";
+}
+.accounts-icon {
+	font-size: 25px;
+	box-sizing: border-box;
+}
+
+.connections-icon::after {
+	font-family: 'SAP-icons';
+	content: "\e119";
+}
+.connections-icon {
+	font-size: 25px;
+	box-sizing: border-box;
+}
+
+.operators-icon::after {
+	font-family: 'SAP-icons';
+	content: "\e018";
+}
+.operators-icon {
+	font-size: 25px;
+	box-sizing: border-box;
+}
+
+.misc-icon::after {
+	font-family: 'SAP-icons';
+	content: "\e1a8";
+}
+.misc-icon {
+	font-size: 25px;
+	box-sizing: border-box;
+}
+
+.user-icon::after {
+	font-family: 'SAP-icons';
+	content: "\e0ca";
+}
+.user-icon {
+	font-size: 25px;
+	box-sizing: border-box;
+}
+
+.toolbox-icon::after {
+	font-family: 'SAP-icons';
+	content: "\e002";
+}
+.toolbox-icon {
+	font-size: 25px;
+	box-sizing: border-box;
+}
+.empty {
+	.Select, .Select div, .Select input {
+		border-color: red;
+	}
 }
