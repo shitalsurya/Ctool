@@ -201,6 +201,9 @@ color: #346187;
   font-weight: bold;
   color: #363636;
 	}
+	.glyphicon{
+		font-family: 'Glyphicons Halflings';
+	}
 }
 .line{
 	 border-bottom: 1px solid #97c2ec;
@@ -573,4 +576,42 @@ color:#333 !important;
 	text-decoration: underline;
 	font-weight: bold;
 	font-size: 17px;
+}
+
+.edit-icon::after {
+	font-family: 'SAP-icons';
+	content: "\e038";
+}
+.edit-icon {
+	font-size: 50px;
+}
+
+.input-group {
+	.form-control[disabled], fieldset[disabled] .form-control {
+		cursor: default;
+		background-color: inherit;
+	}
+	.form-control {
+		border-right: 0px;
+	}
+	.input-group-addon {
+		background-color: lightgrey ;
+		height: 34px;
+		width: 39px;
+	}
+}
+
+.hide-icon {
+	.form-control {
+		border-right: 0px;
+	}
+	.input-group-addon {
+		background-color: inherit;
+		border-left: 0px;
+		height: 34px;
+		width: 39px;
+		.glyphicon {
+			display: none
+		}
+	}
 }
