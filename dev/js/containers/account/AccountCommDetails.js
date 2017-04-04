@@ -6,7 +6,7 @@ import Select from 'react-select';
 import { ToastContainer, ToastMessage} from "react-toastr";
 import * as types from '../../containers/account/actions/accountActionTypes';
 import { initializeData,handleSelectFieldsChange, goToTechnicalDetails } from '../../containers/account/actions/accountActions';
-
+import Toggle from 'react-toggle'
 
 require( '../../../scss/style.scss' );
 import Users from '../../../json/Users.json';
@@ -21,6 +21,7 @@ class AccountCommDetails extends React.Component {
     super( props, context );
   //  this.accountCommInfo = this.props.accountObj || [];
     this.state={
+        toggleFlag : true,
       accountCommInfo:this.props.accountObj || []
     };
   //  this.accountCommInfo.revSharing = this.props.accountObj.revSharing || "No";
@@ -171,6 +172,28 @@ class AccountCommDetails extends React.Component {
                      md={ 4 } />
               </Row>
               <Row className="show-grid">
+                <Col
+                     componentClass={ ControlLabel }
+                     md={ 2 }>Revenue Sharing:
+                </Col>
+                <Col md={ 6 }>
+                <label>
+                    <Toggle
+
+                          icons={{
+                         checked:'on',
+                         unchecked: 'off',
+                       }}
+                        defaultChecked={this.state.toggleFlag}
+                        value={this.state.accountCommInfo.toggleFlag}
+                      onChange={this.toggleOnChange.bind(this)} />
+                  </label>
+                </Col>
+                <Col
+                     mdHidden
+                     md={ 4 } />
+              </Row>
+              <Row className="show-grid">
               <Col
                    mdHidden
                    md={ 2 } />
@@ -194,6 +217,14 @@ class AccountCommDetails extends React.Component {
   }
   handleRevSharingChanged( event, value ) {
   //  this.accountCommInfo.revSharing = value;
+  }
+  toggleOnChange(){
+    console.log( this.state.toggleFlag );
+    this.setState({
+       toggleFlag: !this.state.toggleFlag,
+
+     });
+      this.state.accountCommInfo.toggleFlag = !this.state.toggleFlag;
   }
   goToTechnicalDetails() {
 
