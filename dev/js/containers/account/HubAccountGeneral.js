@@ -27,17 +27,27 @@ class HubAccountTPOA extends React.Component {
                    <div className="rec">
                      <span>Commercial Information</span>
                      <FormGroup>
+                     <div className = "makers_container">
                         <InputGroup className={this.state.hiddenFlag ? "hide-icon" : false} onMouseOver={this.onMouseEdit.bind(this)} onMouseOut={this.onMouseEdit.bind(this)}>
                             <FormControl name="frm1" type="text" disabled={this.state.editFlag ? false : "disabled"} />
-                            <InputGroup.Addon>
-                              <Glyphicon glyph="pencil" onClick={ () => this.setState({editFlag : true})}/>
+                            <InputGroup.Addon onClick={ () => this.setState({editFlag : true})}>
+                              <Glyphicon glyph="pencil" />
                             </InputGroup.Addon>
                         </InputGroup>
+                        <InputGroup className ={this.state.editFlag ? "new_gly_style" :  "gly_style"}  >
+                            <InputGroup.Addon className="ok" onClick={ () => this.setState({editFlag : false})}>
+                              <Glyphicon glyph="ok"/>
+                            </InputGroup.Addon>
+                            <InputGroup.Addon className="remove" onClick={ () => this.setState({editFlag : false})}>
+                              <Glyphicon glyph="remove" />
+                            </InputGroup.Addon>
+                        </InputGroup>
+                      </div>
                       </FormGroup>
                    </div>
                    <div className="rec"></div>
                  </div>
-        )
+        );
     }
 
     componentWillReceiveProps(nextProps) {

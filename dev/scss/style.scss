@@ -615,3 +615,28 @@ color:#333 !important;
 		}
 	}
 }
+
+.gly_style{
+.input-group-addon{
+		display:none;
+	}
+}
+
+.new_gly_style{
+ 	.input-group-addon {
+ 		background-color: inherit;
+ 		border:0px;
+ 	}
+	 .ok{
+		 	position:absolute;
+		 	left:176px;
+		}
+	 .remove{
+	 		position:absolute;
+		 	left:215px;
+	 }
+ }
+
+.makers_container{
+	position:relative;
+}
