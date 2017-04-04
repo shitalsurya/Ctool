@@ -60,7 +60,7 @@ class OpenAccountsList extends React.Component {
       });
     return (
 
-        <div className="controls-container">
+        <div className="tabs-container">
           <span>Open accounts List</span>
 			      		{/*<BootstrapTable   tableStyle={ { border: '#ffffff 0px ' } }
                 bodyStyle={ {border: '#ffffff 0px ' }} data={this.data } striped bordered

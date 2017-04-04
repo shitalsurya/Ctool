@@ -15,7 +15,7 @@ class HubAccountMORouting extends React.Component {
 
 
         return (
-                 <div className="controls-container">
+                 <div className="tabs-container">
                    <div className="rec">
                    <span>MO Routing</span>
                    </div>

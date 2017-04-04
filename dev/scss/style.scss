@@ -176,7 +176,12 @@ span.error {
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
 	//margin-bottom: 20px;
 }
-
+.tabs-container{
+	background-color: #ffffff;
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+	padding: 20px;
+	margin-bottom: 20px;
+}
 
 .show-grid{
 	margin-top: 20px;
@@ -287,9 +292,7 @@ font-size: 14px;
 .search-results {
 	display: block;
 	margin: 20px 0px;
-	.react-bs-table{
-	       margin: 0;
-	}
+
 }
 
 // .btn-login {
@@ -573,4 +576,16 @@ color:#333 !important;
 	text-decoration: underline;
 	font-weight: bold;
 	font-size: 17px;
+}
+/*bootstrap table*/
+.react-bs-container-body{
+	.react-bs-container-header{
+		display: none;
+	}
+}
+
+.react-bs-table{
+			 margin: 0 !important;
+	border: 1px solid #ddd;
+	 border-radius: 0px !important;
 }

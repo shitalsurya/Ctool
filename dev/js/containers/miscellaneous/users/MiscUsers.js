@@ -95,9 +95,32 @@ class MiscUsers extends React.Component {
       currentUser: _item
     } );
 }
+onCellEdit  (row, fieldName, value)  {
+  console.log("row==",row);
+    console.log("fieldName==",fieldName);
+        console.log("value==",value);
+  //  const { data } = this.state;
+  //  let rowIdx;
+  //  const targetRow = data.find((prod, i) => {
+  //    if (prod.id === row.id) {
+  //      rowIdx = i;
+  //      return true;
+  //    }
+  //    return false;
+  //  });
+  //  if (targetRow) {
+  //    targetRow[fieldName] = value;
+  //    data[rowIdx] = targetRow;
+  //    this.setState({ data });
+  //  }
+ }
   render() {
+    const cellEditProp = {
+      mode: 'mousehover'
+    };
     console.log( "this.props.userList==", this.props.userList );
     const options = {
+      onCellEdit: this.onCellEdit.bind(this),
          clearSearch: true,
          page: 1,  // which page you want to show as default
          sizePerPageList: [ {
@@ -129,272 +152,6 @@ class MiscUsers extends React.Component {
         { value: 'Support', label: 'Support' },
         { value: 'ServiceDesk', label: 'ServiceDesk' }
     ];
-    if ( typeof( this.props.userList) != "undefined" ) {
-      var listUsers = this.props.userList.map( function ( field, index ) {
-        return (
-        <div>
-          <Row className="list-row">
-            <Col
-                md={ 1 }>
-            <span>
-              { field.id }
-            </span>
-              </Col>
-            <Col
-                 md={ 2 }>
-            <span>
-              { field.login }
-            </span>
-            </Col>
-            <Col md={ 3 }>
-            <img src={ userImg } /><span>{ field.name }</span>
-            </Col>
-            <Col md={ 2 }>
-            <span>{ field.live }</span>
-            </Col>
-            <Col md={ 2 }>
-            <span>{ field.insertdate }</span>
-            </Col>
-            <Col md={ 2 } className="right-align">
-            { !field.showDetails && !field.editDetails &&
-              <img title="Display" onClick={ this.showUserDetails.bind( this, field.id ) }
-                   src={ showIcon } />
-                 }
-            { field.showDetails &&   <img onClick={ this.editUserDetails.bind( this, field.id ) }
-                   src={ editIcon } /> }
-            { field.editDetails &&   <img onClick={ this.updateUserDetails.bind( this, field.id ) }
-                   src={ updateIcon } />}
-                { field.editDetails &&      <img onClick={ this.updateUserDetails.bind( this, field.id ) }
-                          src={ undoIcon } /> }
-            </Col>
-          </Row>
-          { field.showDetails
-            &&
-            <Grid fluid={ true } className="user-details">
-            <Row>
-              <Col
-                   className="list-col"
-                   md={ 3 }>
-              <div>
-                Name
-              </div>
-              <div>
-                { field.name }
-              </div>
-              </Col>
-              <Col
-                   className="list-col"
-                   md={ 3 }>
-              <div>
-                Email
-              </div>
-              <div>
-                { field.email }
-              </div>
-              </Col>
-              <Col className="list-col"
-              md={ 3 }>
-                <div>
-                  Password
-                </div>
-                <div>
-                  { field.password }
-                </div>
-                  </Col>
-              <Col className="list-col"
-              md={ 3 }>
-                <div>
-                  Locked
-                </div>
-                <div>
-                { field.locked &&
-                  <img onClick={ this.showUserDetails.bind( this, field.id ) }
-                       src={ lockIcon } />
-                }
-                { !field.locked &&
-                  <img onClick={ this.showUserDetails.bind( this, field.id ) }
-                       src={ unlockIcon } />
-                }
-                </div>
-              </Col>
-
-            </Row>
-            <Row>
-              <Col
-                   className="list-col"
-                   md={ 3 }>
-              <div>
-                Live
-              </div>
-              <div>
-              {field.live}
-              </div>
-              </Col>
-              <Col
-                   className="list-col"
-                   md={ 3 }>
-              <div>
-                User Homepage
-              </div>
-              <div>
-                { field.homepage }
-              </div>
-              </Col>
-              <Col className="list-col"
-              md={ 3 }>
-                <div>
-                  Role
-                </div>
-                <div>
-                  { field.role }
-                </div>
-                  </Col>
-              <Col className="list-col"
-              md={ 3 }>
-                <div>
-                Update Date
-                </div>
-                <div>
-                  { field.updatedate }
-                </div>
-              </Col>
-
-            </Row>
-            </Grid> }
-          { field.editDetails
-            &&
-            <Grid fluid={ true } className="user-details">
-            <Row>
-              <Col
-                   className="list-col"
-                   md={ 3 }>
-              <div>
-                Name
-              </div>
-              <div>
-              <FormControl name="name"
-                           type="text"
-                           value={ this.state.currentUser.name }
-                           onChange={ this.handleInputChange.bind( this ) }
-                           />
-              </div>
-              {/*
-                <Form inline>
-                <FormGroup controlId="email" validationState={this.state.validation.editUser.email}>
-                <FormControl name="email"
-                            type="email"
-                            value={ this.state.currentUser.email }
-                            onChange={ this.handleInputChange.bind( this ) }
-                            />
-
-                            { field.locked &&
-                 <Image onClick={ this.showUserDetails.bind( this, field.id ) } src={ errorIcon }  />
-                            }
-                             </FormGroup>
-                             </Form>
-                */}
-              </Col>
-              <Col
-                   className="list-col"
-                   md={ 3 }>
-              <div>
-                Email
-              </div>
-              <div>
-              <FormControl name="email"
-                           type="email"
-                           value={ this.state.currentUser.email }
-                           onChange={ this.handleInputChange.bind( this ) }
-                           />
-              </div>
-              </Col>
-              <Col className="list-col"
-              md={ 3 }>
-                <div>
-                  Password
-                </div>
-                <div>
-                <FormControl name="password"
-                             type="password"
-                             value={ this.state.currentUser.password }
-                             onChange={ this.handleInputChange.bind( this ) }
-                             />
-                </div>
-                  </Col>
-              <Col className="list-col"
-              md={ 3 }>
-                <div>
-                  Locked
-                </div>
-                <div>
-                { field.locked }
-                <img onClick={ this.showUserDetails.bind( this, field.id ) }
-                     src={ refreshIcon } />
-                </div>
-              </Col>
-
-            </Row>
-            <Row>
-              <Col
-                   className="list-col"
-                   md={ 3 }>
-              <div>
-              Live
-              </div>
-              <div>
-                <span>{ field.live }</span>
-              <img onClick={ this.showUserDetails.bind( this, field.id ) }
-                   src={ refreshIcon } />
-              </div>
-              </Col>
-              <Col
-                   className="list-col"
-                   md={ 3 }>
-              <div>
-                User Homepage
-              </div>
-              <div>
-              <Select
-                    name="homepage"
-                    placeholder="Select User Homepage.."
-                   value={ this.state.currentUser.homepage }
-                    onChange={this.handleSelectChange.bind(this,'homepage')}
-                     options={homepageOptions}
-                />
-              </div>
-              </Col>
-              <Col className="list-col"
-              md={ 3 }>
-                <div>
-                  Role
-                </div>
-                <div>
-                <Select
-                      name="role"
-                      placeholder="Select Role"
-                       value={ this.state.currentUser.role }
-                        onChange={this.handleSelectChange.bind(this,'role')}
-                       options={roleOptions}
-                        />
-                </div>
-                  </Col>
-              <Col className="list-col"
-              md={ 3 }>
-                <div>
-                  Update Date
-                </div>
-                <div>
-                  { field.updatedate }
-                </div>
-              </Col>
-
-            </Row>
-            </Grid>
-          }
-        </div>
-        );
-      }.bind( this ) );
-    }
 
     return (
       <div className="content">
@@ -410,12 +167,17 @@ class MiscUsers extends React.Component {
           </Grid>
           <div className="list-container">
             <div className="controls-container">
-              <BootstrapTable data ={ this.users } pagination={ true }  search={ true } options={ options }>
-                  <TableHeaderColumn dataField='id' dataSort={true} isKey>User ID</TableHeaderColumn>
-                  <TableHeaderColumn dataField='login' dataSort={true} >User Login</TableHeaderColumn>
-                  <TableHeaderColumn dataField='name' dataSort={true} >User Name</TableHeaderColumn>
-                  <TableHeaderColumn dataField='live' dataSort={true} >User Status</TableHeaderColumn>
-                  <TableHeaderColumn dataField='insertdate' dataSort={true} >Created On</TableHeaderColumn>
+              <BootstrapTable data ={ this.users } pagination={ true }  search={ true }
+              remote={ true }
+                      cellEdit={ cellEditProp }
+               options={ options }>
+                <TableHeaderColumn row='0' colSpan='2' dataField='id'>{12}</TableHeaderColumn>
+                  <TableHeaderColumn row='2' colSpan='2' dataField='id'>{12}</TableHeaderColumn>
+                  <TableHeaderColumn  row='1' dataField='id' dataSort={true} isKey>User ID</TableHeaderColumn>
+                  <TableHeaderColumn row='1'  dataField='login' dataSort={true} >User Login</TableHeaderColumn>
+                  <TableHeaderColumn row='1'  dataField='name' dataSort={true} >User Name</TableHeaderColumn>
+                  <TableHeaderColumn row='1'  dataField='live' dataSort={true} >User Status</TableHeaderColumn>
+                  <TableHeaderColumn row='1'  dataField='insertdate' dataSort={true} >Created On</TableHeaderColumn>
               </BootstrapTable>
             </div>
           </div>

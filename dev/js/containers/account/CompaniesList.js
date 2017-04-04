@@ -124,7 +124,7 @@ import Products from '../../../json/Products.json';
 
     return (
 
-        <div className="controls-container">
+        <div className="tabs-container">
         <Grid fluid={ true }>
         <Row>
         <Col

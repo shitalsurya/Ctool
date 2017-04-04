@@ -16,7 +16,7 @@ class HubAccountGeneral extends React.Component {
 
         return (
                <div>
-                 <div className="controls-container">
+                 <div className="tabs-container">
                    <div className="rec">
                    <span>TPOA</span>
                    </div>

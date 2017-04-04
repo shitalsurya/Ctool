@@ -20,8 +20,8 @@ class HubAccountMgmt extends React.Component {
             accountTabs:{
               showGeneral:false,
                 showTPOA:false,
-                showMORouting:true,
-                  showMTRouting:false
+                showMORouting:false,
+                  showMTRouting:true
             },
             accountCaptions:{
               General:"General",
