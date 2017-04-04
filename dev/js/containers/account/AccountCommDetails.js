@@ -220,7 +220,7 @@ class AccountCommDetails extends React.Component {
   }
   toggleOnChange(){
     console.log( this.state.toggleFlag );
-    this.setState({
+        this.setState({
        toggleFlag: !this.state.toggleFlag,
 
      });
@@ -262,6 +262,7 @@ class AccountCommDetails extends React.Component {
         }
          this.TrafficType = initializeData(TrafficType,'value');
     //this.refs.requesterName.getInputNode().value = sessionStorage.getItem( "Username" ) || "";
+     this.state.accountCommInfo.toggleFlag = this.state.toggleFlag;
   }
 
   componentWillReceiveProps( nextProps ) {
