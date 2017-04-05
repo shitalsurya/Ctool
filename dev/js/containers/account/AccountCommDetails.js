@@ -22,6 +22,7 @@ class AccountCommDetails extends React.Component {
     super( props, context );
   //  this.accountCommInfo = this.props.accountObj || [];
     this.state={
+        emptyFlag : true,
         toggleFlag : true,
       accountCommInfo:this.props.accountObj || []
     };
@@ -29,6 +30,8 @@ class AccountCommDetails extends React.Component {
   }
   handleSelectFieldsChange( target,value ) {
     var info=this.state.accountCommInfo;
+    if(!value)
+       value = "";
     switch (target) {
       case types.ACCOUNT_MGR_CHANGE:
         info.acctManager=value.value;
@@ -49,8 +52,8 @@ class AccountCommDetails extends React.Component {
     this.setState({accountCommInfo:info});
   //  this.props.handleSelectFieldsChange( value, target );
   }
-  rearrangeCols(){
 
+  rearrangeCols(){
 
   }
 
@@ -91,7 +94,7 @@ class AccountCommDetails extends React.Component {
               componentClass={ ControlLabel }
               md={ 2 }> Account Manager:
          </Col>
-         <Col md={ 6 }>
+         <Col md={ 6 } className={this.state.accountCommInfo.acctManager || this.state.emptyFlag ? false : "empty"}>
          <Select
                placeholder="Select account manager.."
                options={this.userList}
@@ -109,7 +112,7 @@ class AccountCommDetails extends React.Component {
                      componentClass={ ControlLabel }
                      md={ 2 }> Company:
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 6 } className={this.state.accountCommInfo.company || this.state.emptyFlag ? false : "empty"}>
                 <Select
                       placeholder="Select company.."
                       options={this.companyList}
@@ -126,7 +129,7 @@ class AccountCommDetails extends React.Component {
                      componentClass={ ControlLabel }
                      md={ 2 }> Billing Location:
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 6 } className={this.state.accountCommInfo.billingLocation || this.state.emptyFlag ? false : "empty"}>
                 <Select
                       placeholder="Select billing location.."
                       options={this.BillingLocation}
@@ -143,7 +146,7 @@ class AccountCommDetails extends React.Component {
                      componentClass={ ControlLabel }
                      md={ 2 }> Service Level:
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 6 } className={this.state.accountCommInfo.serviceLevel || this.state.emptyFlag ? false : "empty"}>
                 <Select
                       placeholder="Select service level.."
                       options={this.ServiceLevel}
@@ -160,7 +163,7 @@ class AccountCommDetails extends React.Component {
                      componentClass={ ControlLabel }
                      md={ 2 }> Traffic Type:
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 6 } className={this.state.accountCommInfo.trafficType || this.state.emptyFlag ? false : "empty"}>
                 <Select
                       placeholder="Select traffic type.."
                       options={this.TrafficType}
@@ -228,8 +231,15 @@ class AccountCommDetails extends React.Component {
       this.state.accountCommInfo.toggleFlag = !this.state.toggleFlag;
   }
   goToTechnicalDetails() {
-
-    this.props.goToTechnicalDetails( this.state.accountCommInfo );
+    // this.props.goToTechnicalDetails( this.state.accountCommInfo );
+    var accountObjCheck = this.state.accountCommInfo;
+     if(accountObjCheck.acctManager && accountObjCheck.company && accountObjCheck.billingLocation
+      && accountObjCheck.serviceLevel && accountObjCheck.trafficType){
+        this.props.goToTechnicalDetails( this.state.accountCommInfo );
+      }
+      else {
+        this.setState({emptyFlag:false});
+    }
 
   }
   componentWillMount() {
