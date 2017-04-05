@@ -579,8 +579,11 @@ color:#333 !important;
 }
 /*bootstrap table*/
 .react-bs-container-body{
-	.react-bs-container-header{
-		display: none;
+	// .react-bs-container-header{
+	// 	display: none;
+	// }
+	.react-bs-table-container{
+		margin: -10px;
 	}
 }
 
@@ -588,4 +591,16 @@ color:#333 !important;
 			 margin: 0 !important;
 	border: 1px solid #ddd;
 	 border-radius: 0px !important;
+}
+.master-body-class{
+	background-color: #f7f8fa;
+}
+.td-column-function-odd-example{
+    color: blue;
+    background-color: antiquewhite;
+}
+
+.td-column-function-even-example{
+    color: red;
+    background-color: yellowgreen;
 }

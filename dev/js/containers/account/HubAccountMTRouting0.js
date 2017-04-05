@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Nav,NavItem } from 'react-bootstrap';
-import Select from 'react-select';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal } from 'react-bootstrap';
 const ReactDataGrid = require('react-data-grid');
@@ -25,13 +24,12 @@ class BSTable extends React.Component {
     if (this.props.data) {
       return (
         <BootstrapTable data={ this.props.data } selectRow={ selectRow }>
-          <TableHeaderColumn dataField='destinationOperator' isKey={ true }>Destination Operator</TableHeaderColumn>
-          <TableHeaderColumn dataField='SMSC'>SMSC</TableHeaderColumn>
-          <TableHeaderColumn dataField='onOff'>On/Off</TableHeaderColumn>
-              <TableHeaderColumn dataField='permanent'>Permanent</TableHeaderColumn>
-                  <TableHeaderColumn dataField='status'>Status</TableHeaderColumn>
-                      <TableHeaderColumn dataField='comment'>Comment</TableHeaderColumn>
-
+          <TableHeaderColumn dataField='destinationOperator' isKey={ true }>Field A</TableHeaderColumn>
+          <TableHeaderColumn dataField='SMSC'>Field B</TableHeaderColumn>
+          <TableHeaderColumn dataField='onOff'>Field C</TableHeaderColumn>
+              <TableHeaderColumn dataField='permanent'>Field C</TableHeaderColumn>
+                  <TableHeaderColumn dataField='status'>Field C</TableHeaderColumn>
+                      <TableHeaderColumn dataField='comment'>Field C</TableHeaderColumn>
         </BootstrapTable>);
     } else {
       return (<p>?</p>);
@@ -46,14 +44,9 @@ class HubAccountMTRouting extends React.Component {
                showModal: false,
                // Default expanding row
                 expanding: [ 0 ],
-                groupBy:  {"label": "country", "value":"country"},
+                groupBy:'country',
                 data:Routings.data
           }
-          this.grpByMaster =
-             [
-                  {"label": "country", "value":"country"},
-                    {"label": "SMSC", "value":"SMSC"}
-              ]
     }
         close() {
           this.setState({ showModal: false });
@@ -83,24 +76,40 @@ expandComponent(row) {
     <BSTable data={ row.expand } />
   );
 }
-handleGroupByChange(val){
-  console.log("handleGroupByChange==",val);
-//var _groupBy = {"label": "SMSC", "value":"smsc"}
-  this.setState({groupBy:val},function(){
-    console.log("groupBy==",this.state.groupBy);
-    if(this.state.groupBy.value=='country'){
-      this.setState({data:Routings.data},function(){
-        console.log("data==",this.state.data);
-      });
+handleClickCell(e){
+  console.log("handleClickCell==",e);
 
-    }
-    else if(this.state.groupBy.value=='SMSC'){
-      this.setState({data:grpBySMSCData.data},function(){
-        console.log("data==",this.state.data);
-      });
-    }
+  this.setState({groupBy:'SMSC'},function(){
+    console.log("groupBy==",this.state.groupBy);
   });
+  this.setState({data:grpBySMSCData.data},function(){
+    console.log("groupBy==",this.state.data);
+  });
+
 }
+expandColumnComponent({ isExpandableRow, isExpanded }) {
+console.log("isExpanded==",isExpanded);
+  let content = '';
+
+  if (isExpandableRow) {
+    console.log("isExpandableRow");
+    content = (isExpanded ? '(-)' : '(+)' );
+  } else {
+    console.log("else isExpandableRow");
+    content = ' ';
+  }
+  return (
+    <div> { content } </div>
+  );
+}
+//  columnClassNameFormat(fieldValue, row, rowIdx, colIdx) {
+//   // fieldValue is column value
+//   // row is whole row object
+//   // rowIdx is index of row
+//   // colIdx is index of column
+//   return rowIdx % 2 === 0 ? 'td-column-function-even-example' : 'td-column-function-odd-example';
+// }
+
     render() {
 
  const options = {
@@ -128,43 +137,35 @@ handleGroupByChange(val){
                      <Row className="show-grid">
                        <Col
                            componentClass={ ControlLabel }
-                           md={ 3 }> Existing MT Routing
+                           md={ 3 }> Existing MT Routing:
                        </Col>
                        <Col
                            mdHidden
-                           md={ 3 } >   </Col>
-                       <Col
-                           componentClass={ ControlLabel }
-                           md={ 3 }> Group By:
-                       </Col>
-                       <Col
-                           md={ 3 } >
-                           <Select
-                                 placeholder="Select Column.."
-                                 options={this.grpByMaster}
-                                 value={this.state.groupBy}
-                                  onChange={this.handleGroupByChange.bind(this)}
-                             />
+                           md={ 9 } >
+                           <ButtonGroup justified>
+                           <Button href="#" onClick={this.handleClickCell.bind(this)}>Modify Selected MT Routings
+                           </Button>
+                           <Button href="#" onClick={this.open.bind(this)}>Delete Selected MT Routings
+                           </Button>
+                           <Button href="#" onClick={this.open.bind(this)}>Add Standard MT Routings
+                           </Button>
+                           </ButtonGroup>
                      </Col>
                      </Row>
                      <Row className="show-grid">
                      <Col md={ 12 }>
-
-                       </Col>
-                       </Row>
-                     <Row className="show-grid">
-                     <Col md={ 4 }>
-
                      <BootstrapTable data={this.state.data}
                        tableBodyClass='master-body-class'
      options={ options }
      expandableRow={ this.isExpandableRow }
        expandComponent={ this.expandComponent.bind(this) }>
-          <TableHeaderColumn isKey={ true } hidden dataField='id'>ID</TableHeaderColumn>
-     <TableHeaderColumn dataField={this.state.groupBy.value} >Grouped by {this.state.groupBy.value}
-
-       </TableHeaderColumn>
-
+     <TableHeaderColumn dataField={this.state.groupBy} tdStyle={ {'border-right': 'none','border-left': 'none' }} isKey={ true }
+     >Destination Operator</TableHeaderColumn>
+      <TableHeaderColumn tdStyle={ { 'border-right': 'none','border-left': 'none' } }>SMSC</TableHeaderColumn>
+        <TableHeaderColumn tdStyle={ { 'border-right': 'none','border-left': 'none'} }>On/Off</TableHeaderColumn>
+          <TableHeaderColumn tdStyle={ {  'border-right': 'none','border-left': 'none' } }>Permanent</TableHeaderColumn>
+            <TableHeaderColumn tdStyle={ {  'border-right': 'none','border-left': 'none'} }>Status</TableHeaderColumn>
+              <TableHeaderColumn tdStyle={ { 'border-left': 'none' } }>Comment</TableHeaderColumn>
    </BootstrapTable>
                      </Col>
                      </Row>

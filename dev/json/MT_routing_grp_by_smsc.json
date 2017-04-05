@@ -1,0 +1,36 @@
+{
+"data":  [{
+    "id":"1",
+    "SMSC":"GB_Vodafone_Bulk",
+  "expand": [{
+    "destinationOperator":"Vodafone UK(7)",
+      "country":"USA(60)",
+      "onOff":"On",
+      "permanent":"No",
+      "status":"Yes",
+      "comment":""
+    }, {
+      "destinationOperator":"Vodafone UK(7)",
+        "country":"USA(60)",
+        "onOff":"On",
+        "permanent":"No",
+        "status":"Yes",
+        "comment":""
+      }]
+},
+{
+    "id":"2",
+    "SMSC":"GB_Vodafone_Bulk",
+  "expand": [{
+    "destinationOperator":"Vodafone UK(7)",
+      "country":"United Kingdom(60)",
+      "onOff":"On"
+    }, {
+      "destinationOperator":"Vodafone UK(7)",
+        "country":"United Kingdom(60)",
+        "SMSC":"GB_Vodafone_Bulk",
+        "onOff":"On"
+      }]
+}
+]
+}
