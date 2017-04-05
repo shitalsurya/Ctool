@@ -128,7 +128,7 @@ class AccountReviewDetails extends React.Component {
           'infoList' : [
             {
               'subtitle' : 'HTTP URL',
-              'value' : 'mtInterface'
+              'value' : 'moInterface'
             }
           ],
           'hidden' : !this.state.interfaceFlag
