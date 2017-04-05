@@ -275,7 +275,7 @@ console.log("isExpanded==",isExpanded);
                       <FormControl
                          type="text"
                          name="tpoa"
-                         value={this.state.MTInfo.tpoa || ''}
+                         value={this.state.MTInfo.tpoa || ' '}
                          onChange={this.handleModalChange.bind(this,types.ACCOUNT_MT_ROUTING_TPOA)}
                          placeholder="Enter TPOA" />
                     </Col>
