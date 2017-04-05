@@ -61,26 +61,7 @@ class AccountCommDetails extends React.Component {
 
     return (
       <div>
-      <div className="stepwizard breadcrumb-container">
-        <div className="stepwizard-row">
-            <div className="stepwizard-step">
-                <button type="button" className="btn btn-primary btn-circle" disabled="disabled">1</button>
-                <p>Commercial Information</p>
-            </div>
-            <div className="stepwizard-step">
-                <button type="button" className="btn btn-circle inactive-step" disabled="disabled" >2</button>
-                <p>Technical Details</p>
-            </div>
-            <div className="stepwizard-step">
-                <button type="button" className="btn btn-circle inactive-step" disabled="disabled">3</button>
-                <p>Account Name and Interfaces</p>
-            </div>
-            <div className="stepwizard-step">
-                <button type="button" className="btn btn-circle inactive-step" disabled="disabled">4</button>
-                <p>Create Account</p>
-            </div>
-        </div>
-      </div>
+
     <div className="controls-container">
     <div className="rec">
     <span>Commercial Information</span>
