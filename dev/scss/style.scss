@@ -206,6 +206,9 @@ color: #346187;
   font-weight: bold;
   color: #363636;
 	}
+	.glyphicon{
+ 		font-family: 'Glyphicons Halflings';
+ 	}
 }
 .line{
 	 border-bottom: 1px solid #97c2ec;
@@ -603,4 +606,67 @@ color:#333 !important;
 .td-column-function-even-example{
     color: red;
     background-color: yellowgreen;
+}
+/* hover edit by sneha */
+.edit-icon::after {
+	font-family: 'SAP-icons';
+	content: "\e038";
+}
+.edit-icon {
+	font-size: 50px;
+}
+
+.input-group {
+	.form-control[disabled], fieldset[disabled] .form-control {
+		cursor: default;
+		background-color: inherit;
+	}
+	.form-control {
+		border-right: 0px;
+	}
+	.input-group-addon {
+		background-color: lightgrey ;
+		height: 34px;
+		width: 39px;
+	}
+}
+
+.hide-icon {
+	.form-control {
+		border-right: 0px;
+	}
+	.input-group-addon {
+		background-color: inherit;
+		border-left: 0px;
+		height: 34px;
+		width: 39px;
+		.glyphicon {
+			display: none
+		}
+	}
+}
+
+.gly_style{
+.input-group-addon{
+		display:none;
+	}
+}
+
+.new_gly_style{
+ 	.input-group-addon {
+ 		background-color: inherit;
+ 		border:0px;
+ 	}
+	 .ok{
+		 	position:absolute;
+		 	left:176px;
+		}
+	 .remove{
+	 		position:absolute;
+		 	left:215px;
+	 }
+ }
+
+.makers_container{
+	position:relative;
 }
