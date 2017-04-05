@@ -5,7 +5,7 @@ import { Nav,NavItem } from 'react-bootstrap';
 import HubAccountGeneral from './HubAccountGeneral';
 import HubAccountTPOA from './HubAccountTPOA';
 import HubAccountMORouting from './HubAccountMORouting';
-import HubAccountMTRouting from './HubAccountMTRouting';
+import HubAccountMTRouting0 from './HubAccountMTRouting0';
 
 
 import {handleSelectFieldsChange} from '../../containers/account/actions/accountActions'
@@ -90,7 +90,7 @@ class HubAccountMgmt extends React.Component {
                                          {this.state.accountTabs.showGeneral && <HubAccountGeneral/>}
                                          {this.state.accountTabs.showTPOA && <HubAccountTPOA/>}
                                          {this.state.accountTabs.showMORouting && <HubAccountMORouting/>}
-                                         {this.state.accountTabs.showMTRouting && <HubAccountMTRouting/>}
+                                         {this.state.accountTabs.showMTRouting && <HubAccountMTRouting0/>}
                 </div>
         )
     }
