@@ -512,7 +512,7 @@ font-size: 14px;
 }
 /*menus thumbnail*/
 .thumbnail .caption h3 {
-	height: 95px;
+	height: 80px;
 }
 .thumbnail .caption .glyphicon {
 	font-size: 20px;
@@ -570,9 +570,6 @@ color:#333 !important;
 .btn.btn-default.dropdown-toggle {
 	border-style: hidden;
 	background-color: inherit;
-}
-.btn .caret {
-	display: none;
 }
 #pageDropDown::before {
 	content: "Show ";
