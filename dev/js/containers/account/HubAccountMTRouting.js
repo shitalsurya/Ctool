@@ -4,16 +4,11 @@ import { bindActionCreators } from 'redux';
 import { Nav,NavItem } from 'react-bootstrap';
 import Select from 'react-select';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal } from 'react-bootstrap';
-const ReactDataGrid = require('react-data-grid');
-const {
-  ToolsPanel: { AdvancedToolbar: Toolbar, GroupedColumnsPanel },
-  Data: { Selectors },
-  Draggable: { Container: DraggableContainer },
-  Formatters: { ImageFormatter }
-} = require('react-data-grid-addons');
+import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal,Label } from 'react-bootstrap';
+import Toggle from 'react-toggle';
 
 require('../../../scss/style.scss');
+require('../../../scss/react-toggle.scss');
 
 import Routings from '../../../json/MT_routing.json';
 import grpBySMSCData from '../../../json/MT_routing_grp_by_smsc.json';
@@ -25,7 +20,8 @@ class BSTable extends React.Component {
     if (this.props.data) {
       return (
         <BootstrapTable data={ this.props.data } selectRow={ selectRow }>
-          <TableHeaderColumn dataField='destinationOperator' isKey={ true }>Destination Operator</TableHeaderColumn>
+          <TableHeaderColumn dataField='id' hidden isKey={ true }></TableHeaderColumn>
+          <TableHeaderColumn dataField='destinationOperator' >Destination Operator</TableHeaderColumn>
           <TableHeaderColumn dataField='SMSC'>SMSC</TableHeaderColumn>
           <TableHeaderColumn dataField='onOff'>On/Off</TableHeaderColumn>
               <TableHeaderColumn dataField='permanent'>Permanent</TableHeaderColumn>
@@ -47,7 +43,9 @@ class HubAccountMTRouting extends React.Component {
                // Default expanding row
                 expanding: [ 0 ],
                 groupBy:  {"label": "country", "value":"country"},
-                data:Routings.data
+                groupById:'countryId',
+                data:Routings.data,
+                resRouting:"Yes"
           }
           this.grpByMaster =
              [
@@ -89,17 +87,24 @@ handleGroupByChange(val){
   this.setState({groupBy:val},function(){
     console.log("groupBy==",this.state.groupBy);
     if(this.state.groupBy.value=='country'){
-      this.setState({data:Routings.data},function(){
+      this.setState({data:Routings.data,groupById:'countryId'},function(){
         console.log("data==",this.state.data);
       });
 
     }
     else if(this.state.groupBy.value=='SMSC'){
-      this.setState({data:grpBySMSCData.data},function(){
+      this.setState({data:grpBySMSCData.data,groupById:'SMSC_id'},function(){
         console.log("data==",this.state.data);
       });
     }
   });
+}
+toggleOnChange(event){
+  console.log( event.target.checked );
+  var _resRouting=event.target.checked==true?"Yes":"No";
+  this.setState({
+     resRouting: _resRouting
+   });
 }
     render() {
 
@@ -117,26 +122,28 @@ handleGroupByChange(val){
                      <Row className="show-grid">
                          <Col
                              componentClass={ ControlLabel }
-                             md={ 3 }> Restricted routing:
-                         </Col>
-                         <Col md={ 6 }>
+                             md={ 2 }> Restricted routing:
                          </Col>
                          <Col
-                             mdHidden
-                             md={ 3 } />
+                             md={ 1 } >  {this.state.resRouting} </Col>
+                         <Col md={ 1 }>
+                         <Toggle
+
+                             defaultChecked={this.state.resRouting}
+                             value={this.state.resRouting}
+                           onChange={this.toggleOnChange.bind(this)} />
+                         </Col>
+
                      </Row>
                      <Row className="show-grid">
                        <Col
                            componentClass={ ControlLabel }
                            md={ 3 }> Existing MT Routing
                        </Col>
-                       <Col
-                           mdHidden
-                           md={ 3 } >   </Col>
-                       <Col
-                           componentClass={ ControlLabel }
-                           md={ 3 }> Group By:
-                       </Col>
+                       </Row>
+                       <Row className="show-grid">
+                           <Col
+                               md={ 1 } >     <h4><Label>Group By:</Label></h4>  </Col>
                        <Col
                            md={ 3 } >
                            <Select
@@ -147,20 +154,16 @@ handleGroupByChange(val){
                              />
                      </Col>
                      </Row>
+
                      <Row className="show-grid">
                      <Col md={ 12 }>
-
-                       </Col>
-                       </Row>
-                     <Row className="show-grid">
-                     <Col md={ 4 }>
 
                      <BootstrapTable data={this.state.data}
                        tableBodyClass='master-body-class'
      options={ options }
      expandableRow={ this.isExpandableRow }
        expandComponent={ this.expandComponent.bind(this) }>
-          <TableHeaderColumn isKey={ true } hidden dataField='id'>ID</TableHeaderColumn>
+          <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
      <TableHeaderColumn dataField={this.state.groupBy.value} >Grouped by {this.state.groupBy.value}
 
        </TableHeaderColumn>
