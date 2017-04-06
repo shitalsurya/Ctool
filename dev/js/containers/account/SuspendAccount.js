@@ -3,11 +3,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 import Select from 'react-select';
+import Company from '../../../json/Company.json';
+import Company from '../../../json/Account.json';
+import { initializeData } from './actions/accountActions';
+import * as types from './actions/accountActionTypes';
 require( '../../../scss/style.scss' );
 
 class SuspendAccount extends React.Component {
   constructor( props, context ) {
     super( props, context );
+    this.state = {
+      susAccInfo : this.props.susAccInfo || [],
+    };
   }
 
   render() {
@@ -34,7 +41,9 @@ class SuspendAccount extends React.Component {
                 <Col md={ 6 }>
                   <Select
                         placeholder="Select Company.."
-                        options={options}  />
+                        options={this.companyList}
+                        value={this.state.susAccInfo.company}
+                        onChange={this.handleSelectFieldsChange.bind(this,types.SUSPEND_ACC_COMPANY)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -74,6 +83,25 @@ class SuspendAccount extends React.Component {
         </div>
       </div>
     );
+  }
+
+  handleSelectFieldsChange(target,value) {
+    debugger;
+    var info = this.state.susAccInfo;
+    switch (target) {
+      case types.SUSPEND_ACC_COMPANY:
+        info.company = value.value;
+        
+        break;
+      default:
+
+    }
+    this.setState({susAccInfo:info});
+  }
+
+  componentWillMount() {
+    debugger;
+    this.companyList = initializeData(Company,'code');
   }
 
 }
