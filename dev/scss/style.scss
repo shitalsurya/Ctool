@@ -634,45 +634,11 @@ color:#333 !important;
 		width: 39px;
 	}
 }
-
-.hide-icon {
-	.form-control {
-		border-right: 0px;
+.view-edit-control{
+	height: 50px;
+	#caption{
+		font-weight: 500;
 	}
-	.input-group-addon {
-		background-color: inherit;
-		border-left: 0px;
-		height: 34px;
-		width: 39px;
-		.glyphicon {
-			display: none
-		}
-	}
-}
-
-.gly_style{
-.input-group-addon{
-		display:none;
-	}
-}
-
-.new_gly_style{
- 	.input-group-addon {
- 		background-color: inherit;
- 		border:0px;
- 	}
-	 .ok{
-		 	position:absolute;
-		 	left:176px;
-		}
-	 .remove{
-	 		position:absolute;
-		 	left:215px;
-	 }
- }
-
-.makers_container{
-	position:relative;
 }
 
 

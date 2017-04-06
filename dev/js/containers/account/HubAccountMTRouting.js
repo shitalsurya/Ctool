@@ -9,17 +9,27 @@ import Toggle from 'react-toggle';
 
 require('../../../scss/style.scss');
 require('../../../scss/react-toggle.scss');
-
+import * as types from '../../containers/account/actions/accountActionTypes';
 import Routings from '../../../json/MT_routing.json';
 import grpBySMSCData from '../../../json/MT_routing_grp_by_smsc.json';
 class BSTable extends React.Component {
+  dataFormatter(cell, row) {
+  return `<input type='text' value='${cell}'>     <span className="glyphicon glyphicon-th-list"></span> </input>`;
+//    return ` <FormControl type='text' value='${cell}'  />`
+
+}
+
   render() {
     const selectRow = {
-     mode: 'checkbox'
+     mode: 'checkbox',
+       bgColor: '#427cac'
    };
+   const cellEditProp = {
+  mode: 'hover'
+};
     if (this.props.data) {
       return (
-        <BootstrapTable data={ this.props.data } selectRow={ selectRow }>
+        <BootstrapTable data={ this.props.data } selectRow={ selectRow }  cellEdit={ cellEditProp }>
           <TableHeaderColumn dataField='id' hidden isKey={ true }></TableHeaderColumn>
           <TableHeaderColumn dataField='destinationOperator' >Destination Operator</TableHeaderColumn>
           <TableHeaderColumn dataField='SMSC'>SMSC</TableHeaderColumn>
@@ -39,7 +49,9 @@ class HubAccountMTRouting extends React.Component {
         super(props, context);
 
           this.state={
+                MTInfo : this.props.MTInfo || [],
                showModal: false,
+               modalHeading:'',
                // Default expanding row
                 expanding: [ 0 ],
                 groupBy:  {"label": "country", "value":"country"},
@@ -57,8 +69,14 @@ class HubAccountMTRouting extends React.Component {
           this.setState({ showModal: false });
         }
 
-        open() {
-          this.setState({ showModal: true });
+        deleteSelectedMTRouting() {
+        //  this.setState({ showModal: true });
+        }
+        modifySelectedMTRouting() {
+          this.setState({ showModal: true,modalHeading:'Modify standard MT routing' });
+        }
+        addNewMTRouting() {
+            this.setState({ showModal: true,modalHeading:'Add standard MT routing' });
         }
         isExpandableRow(row) {
   if (typeof (row.expand)!='undefined') return true;
@@ -106,8 +124,37 @@ toggleOnChange(event){
      resRouting: _resRouting
    });
 }
-    render() {
+handleModalChange(target, value){
+  var info = this.state.MTInfo;
+  switch(target) {
+    case types.ACCOUNT_MT_ROUTING_OPERATOR:
+      info.operator=value.value;
+      break;
+    case types.ACCOUNT_MT_ROUTING_SMSC:
+      info.smsc=value.value;
+      break;
+    case types.ACCOUNT_MT_ROUTING_ONOFF:
+      info.onoff=value;
+      break;
+    case types.ACCOUNT_MT_ROUTING_PERMANENT:
+      info.permanent=value;
+      break;
+    case types.ACCOUNT_MT_ROUTING_TPOA:
+      info.tpoa=value.target.value;
+      break;
+  }
+  this.setState({MTInfo : info});
+}
 
+addRouting(){
+  console.log("Added Routing : " , this.state.MTInfo);
+  this.setState({ showModal: false });
+}
+    render() {
+      const modalOptions = [
+        { value: 'one', label: 'One' },
+        { value: 'two', label: 'Two' }
+      ];
  const options = {
  expandRowBgColor: 'transparent',
    expandBy: 'column',
@@ -124,11 +171,12 @@ toggleOnChange(event){
                              componentClass={ ControlLabel }
                              md={ 2 }> Restricted routing:
                          </Col>
-                         <Col
-                             md={ 1 } >  {this.state.resRouting} </Col>
                          <Col md={ 1 }>
                          <Toggle
-
+                         icons={{
+                              checked: 'Yes',
+                              unchecked: 'No',
+                            }}
                              defaultChecked={this.state.resRouting}
                              value={this.state.resRouting}
                            onChange={this.toggleOnChange.bind(this)} />
@@ -140,8 +188,24 @@ toggleOnChange(event){
                            componentClass={ ControlLabel }
                            md={ 3 }> Existing MT Routing
                        </Col>
+                       <Col
+                           mdHidden
+                           md={ 9 } >
+                           <ButtonGroup justified>
+                           <Button href="#" onClick={this.modifySelectedMTRouting.bind(this)}>Modify Selected MT Routings
+                           </Button>
+                           <Button href="#" onClick={this.deleteSelectedMTRouting.bind(this)}>Delete Selected MT Routings
+                           </Button>
+                           <Button href="#" onClick={this.addNewMTRouting.bind(this)}>Add Standard MT Routings
+                           </Button>
+                           </ButtonGroup>
+                       </Col>
                        </Row>
                        <Row className="show-grid">
+                       <Col
+                       mdHidden
+                           md={ 8 } >
+                           </Col>
                            <Col
                                md={ 1 } >     <h4><Label>Group By:</Label></h4>  </Col>
                        <Col
@@ -174,23 +238,97 @@ toggleOnChange(event){
                  </Grid>
 
 
-        <Modal show={this.state.showModal} onHide={this.close.bind(this)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <h4>Text in a modal</h4>
-            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
-
-
-            <hr />
-
-            <h4>Overflowing text to show scroll behavior</h4>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.close.bind(this)}>Close</Button>
-          </Modal.Footer>
-        </Modal>
+                 <Modal show={this.state.showModal} onHide={this.close.bind(this)}>
+                   <Modal.Header closeButton>
+                     <Modal.Title>{this.state.modalHeading}</Modal.Title>
+                   </Modal.Header>
+                   <Modal.Body>
+                     <div>
+                       <Grid fluid={true}>
+                         <Row className="show-grid">
+                             <Col componentClass={ ControlLabel } md={ 3 }>
+                               Operator:
+                             </Col>
+                             <Col md={ 6 }>
+                               <Select
+                                     name="operator"
+                                     placeholder="Select Operator.."
+                                     options={modalOptions}
+                                     value={this.state.MTInfo.operator}
+                                     onChange={this.handleModalChange.bind(this,types.ACCOUNT_MT_ROUTING_OPERATOR)}
+                                      />
+                             </Col>
+                             <Col mdHidden md={ 3 } />
+                         </Row>
+                         <Row className="show-grid">
+                             <Col componentClass={ ControlLabel } md={ 3 }>
+                               SMSC:
+                             </Col>
+                             <Col md={ 6 }>
+                               <Select
+                                     name="smsc"
+                                     placeholder="Select SMSC.."
+                                     options={modalOptions}
+                                     value={this.state.MTInfo.smsc}
+                                     onChange={this.handleModalChange.bind(this,types.ACCOUNT_MT_ROUTING_SMSC)}
+                                      />
+                             </Col>
+                             <Col mdHidden md={ 3 } />
+                         </Row>
+                         <Row className="show-grid">
+                             <Col componentClass={ ControlLabel } md={ 3 }>
+                               On/Off :
+                             </Col>
+                             <Col md={ 6 }>
+                             <Toggle
+                             icons={{
+                                  checked: 'On',
+                                  unchecked: 'Off',
+                                }}
+                                 defaultChecked='On'
+                                 value={this.state.resRouting}
+                               onChange={this.toggleOnChange.bind(this)} />
+                             </Col>
+                             <Col mdHidden md={ 3 } />
+                         </Row>
+                         <Row className="show-grid">
+                             <Col componentClass={ ControlLabel } md={ 3 }>
+                               Permanent :
+                             </Col>
+                             <Col md={ 6 }>
+                             <Toggle
+                             icons={{
+                                  checked: 'Yes',
+                                  unchecked: 'No',
+                                }}
+                                   defaultChecked='No'
+                                 value={this.state.resRouting}
+                               onChange={this.toggleOnChange.bind(this)} />
+                             </Col>
+                             <Col mdHidden md={ 3 } />
+                         </Row>
+                         <Row className="show-grid">
+                             <Col componentClass={ ControlLabel } md={ 3 }>
+                               TPOA :
+                             </Col>
+                             <Col md={ 6 }>
+                               <FormControl
+                                  type="text"
+                                  name="tpoa"
+                                  value={this.state.MTInfo.tpoa || ' '}
+                                  onChange={this.handleModalChange.bind(this,types.ACCOUNT_MT_ROUTING_TPOA)}
+                                  placeholder="Enter TPOA" />
+                             </Col>
+                             <Col mdHidden md={ 3 } />
+                         </Row>
+                       </Grid>
+                     </div>
+                   </Modal.Body>
+                   <Modal.Footer>
+                     <Button onClick={this.addRouting.bind(this)}>Add Routing</Button>
+                     <Button onClick={this.close.bind(this)}>Close</Button>
+                   </Modal.Footer>
+                 </Modal>
                  </div>
         )
     }
