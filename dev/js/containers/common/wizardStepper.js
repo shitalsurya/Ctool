@@ -12,7 +12,7 @@ class Stepper extends React.Component {
       <div className="stepwizard breadcrumb-container">
         <div className="stepwizard-row non-clickable">
             <div className="stepwizard-step">
-                <button type="button" className={this.props.buttonStyle.commStyle} onClick= { this.clicked }>
+                <button type="button" className={this.props.buttonStyle.commStyle} >
                   1
                 </button>
                 <p>Commercial Information</p>
