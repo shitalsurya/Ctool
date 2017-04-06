@@ -112,12 +112,32 @@ class AccountReviewDetails extends React.Component {
               'value' : 'accInterface'
             }
           ]
+        },
+        {
+          'title' : 'MT Interfces',
+          'infoList' : [
+            {
+              'subtitle' : 'Default TPOA',
+              'value' : 'mtInterface'
+            }
+          ],
+          'hidden' : !this.state.interfaceFlag
+        },
+        {
+          'title' : 'MO Interfces',
+          'infoList' : [
+            {
+              'subtitle' : 'HTTP URL',
+              'value' : 'moInterface'
+            }
+          ],
+          'hidden' : !this.state.interfaceFlag
         }
       ];
 
     const titleMapping = function(list, index) {
       return (
-        <div key={index} className="controls-container">
+        <div key={index} className="controls-container" hidden={list.hidden ? "hidden" : false}>
           <div className="rec">
             <span>{list.title}</span>
           </div>
@@ -172,49 +192,6 @@ class AccountReviewDetails extends React.Component {
           <div>
               {accountCreateInfo.map(titleMapping)}
           </div>
-
-        <div className="controls-container" hidden={this.state.interfaceFlag ? false : "hidden"}>
-        <div className="rec">
-        <span>MT Interfces</span>
-         </div>
-                    <Grid fluid={true}>
-                        <Row className="show-grid">
-                            <Col
-                                componentClass={ ControlLabel }
-                                md={ 3 }> Default TPOA:
-                            </Col>
-                            <Col md={ 6 }>
-                              <textarea rows="1" cols="10"></textarea>
-                            </Col>
-                            <Col
-                                mdHidden
-                                md={ 3 } />
-                        </Row>
-
-                    </Grid>
-         </div>
-
-        <div className="controls-container" hidden={this.state.interfaceFlag ? false : "hidden"}>
-        <div className="rec">
-        <span>MO Interfces</span>
-         </div>
-                    <Grid fluid={true}>
-                        <Row className="show-grid">
-                            <Col
-                                componentClass={ ControlLabel }
-                                md={ 3 }> HTTP URL:
-                            </Col>
-                            <Col md={ 6 }>
-                              <textarea rows="1" cols="50"></textarea>
-                            </Col>
-                            <Col
-                                mdHidden
-                                md={ 3 } />
-                        </Row>
-
-                    </Grid>
-         </div>
-
 
       <Row className="show-grid">
         <Col
