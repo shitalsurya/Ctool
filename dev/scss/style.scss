@@ -454,6 +454,7 @@ font-size: 14px;
 }
 .inactive-step  {
       background-color: #e6e6e6;
+			cursor: not-allowed;
 }
 .stepwizard-row:before {
     top: 35px;
@@ -599,6 +600,13 @@ color:#333 !important;
 	border: 1px solid #ddd;
 	 border-radius: 0px !important;
 }
+
+.non-clickable{
+	.btn-primary {
+		pointer-events: none;
+	}
+}
+
 .master-body-class{
 	background-color: #f7f8fa;
 }
@@ -610,6 +618,7 @@ color:#333 !important;
 .td-column-function-even-example{
     color: red;
     background-color: yellowgreen;
+
 }
 /* hover edit by sneha */
 .edit-icon::after {
