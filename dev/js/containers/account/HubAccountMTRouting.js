@@ -192,11 +192,17 @@ addRouting(){
                            mdHidden
                            md={ 9 } >
                            <ButtonGroup justified>
-                           <Button href="#" onClick={this.modifySelectedMTRouting.bind(this)}>Modify Selected MT Routings
+                           <Button href="#" className="grp-btn" onClick={this.modifySelectedMTRouting.bind(this)}>
+                             <span className="edit-button-icon"></span>
+                             <span>Modify Selected MT Routings</span>
                            </Button>
-                           <Button href="#" onClick={this.deleteSelectedMTRouting.bind(this)}>Delete Selected MT Routings
+                           <Button href="#" className="grp-btn" onClick={this.deleteSelectedMTRouting.bind(this)}>
+                             <span className="delete-icon"></span>
+                             <span>Delete Selected MT Routings</span>
                            </Button>
-                           <Button href="#" onClick={this.addNewMTRouting.bind(this)}>Add Standard MT Routings
+                           <Button href="#" className="grp-btn" onClick={this.addNewMTRouting.bind(this)}>
+                              <span className="add-icon"></span>
+                              <span>Add Standard MT Routings</span>
                            </Button>
                            </ButtonGroup>
                        </Col>

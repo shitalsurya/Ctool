@@ -706,3 +706,42 @@ font-family: 'SAP-icons';
 		border-color: red;
 	}
 }
+
+.add-icon::before {
+	font-family: 'SAP-icons';
+	content: "\e058";
+}
+.add-icon {
+	font-size: 15px;
+	box-sizing: border-box;
+}
+.edit-button-icon::before {
+	font-family: 'SAP-icons';
+	content: "\e038";
+}
+.edit-button-icon {
+	font-size: 15px;
+	box-sizing: border-box;
+}
+.delete-icon::before {
+	font-family: 'SAP-icons';
+	content: "\e03d";
+}
+.delete-icon {
+	font-size: 15px;
+	box-sizing: border-box;
+}
+.grp-btn {
+      background: $white;
+	  border: 1px solid $material_blue;
+	  border-radius: 0px !important;
+		color: $material_blue;
+    span{
+          margin-right: 10px;
+    }
+	}
+
+	.grp-btn:hover {
+		background: $material_blue !important;
+			color: $white !important;
+    }
