@@ -17,18 +17,25 @@ class SuspendAccount extends React.Component {
     super( props, context );
 
     this.state = {
+      emptyFlag : false,
       date : null,
       susAccInfo : this.props.susAccInfo || [],
     };
 
   }
 
+  checkEmpty(){
+    if(!this.state.susAccInfo.company)
+      this.setState({emptyFlag:true});
+  }
+
   render() {
+
     let date = '2017-04-24';
+
     const onChange = (dateString, { dateMoment, timestamp }) => {
       console.log(dateString)
     }
-    const options = [];
 
     return (
       <div>
@@ -47,7 +54,7 @@ class SuspendAccount extends React.Component {
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Company :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 6 } className={this.state.emptyFlag ? "empty" : false}>
                   <Select
                         placeholder="Select Company.."
                         options={options}  />
@@ -59,12 +66,13 @@ class SuspendAccount extends React.Component {
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Account :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 6 } >
                   <Select
                         placeholder="Select Account.."
                         options={this.accountList}
                         value={this.state.susAccInfo.account}
-                        onChange={this.handleSelectFieldsChange.bind(this,types.SUSPEND_ACC_ACCOUNT)}  />
+                        onChange={this.handleSelectFieldsChange.bind(this,types.SUSPEND_ACC_ACCOUNT)}
+                        onOpen={this.checkEmpty.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -125,7 +133,7 @@ class SuspendAccount extends React.Component {
         info.manager = manager[0].manager
         break;
     }
-    this.setState({susAccInfo:info});
+    this.setState({susAccInfo:info,emptyFlag:false});
   }
 
   componentWillMount() {
