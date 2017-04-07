@@ -141,7 +141,6 @@ class Dashboard extends React.Component {
   }
 
   checkCurrentMenu( currentMenu ) {
-    debugger;
     console.log( "currentMenu ==", currentMenu );
     var menus={};
     switch (currentMenu) {
