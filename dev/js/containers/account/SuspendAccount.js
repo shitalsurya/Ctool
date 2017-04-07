@@ -25,8 +25,9 @@ class SuspendAccount extends React.Component {
   }
 
   checkEmpty(){
-    if(!this.state.susAccInfo.company)
+    if(!this.state.susAccInfo.company) {
       this.setState({emptyFlag:true});
+    }
   }
 
   render() {
@@ -57,7 +58,11 @@ class SuspendAccount extends React.Component {
                 <Col md={ 6 } className={this.state.emptyFlag ? "empty" : false}>
                   <Select
                         placeholder="Select Company.."
-                        options={options}  />
+                        options={this.companyList}
+                        value={this.state.susAccInfo.company}
+                        onChange={this.handleSelectFieldsChange.bind(this,types.SUSPEND_ACC_COMPANY)}  />
+                      <div hidden={this.state.emptyFlag ? false : "hidden"} className="error-msg">Enter Company</div>
+
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -112,7 +117,7 @@ class SuspendAccount extends React.Component {
 
 
   handleSelectFieldsChange(target,value) {
-    debugger;
+
     var info = this.state.susAccInfo;
     switch (target) {
       case types.SUSPEND_ACC_COMPANY:

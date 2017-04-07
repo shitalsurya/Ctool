@@ -2,7 +2,7 @@ import React from 'react';
 import Account from '../../../json/Account.json';
 
 export function getSpndAccount(spndAccObj) {
-  debugger;
+
   var updatedAccountList = { "data":[ ]};
   const accList = spndAccObj["accounts"].data;
 
