@@ -15,16 +15,9 @@ require('../../../scss/style.scss');
 class HubAccountMgmt extends React.Component {
     constructor(props, context) {
         super(props, context);
-           this.selectedTab = 4;
           this.state={
-            accountTabs:{
-              showGeneral:false,
-                showTPOA:false,
-                showMORouting:false,
-                  showMTRouting:true
-            },
             accountCaptions:{
-              General:"General",
+                General:"General",
                 TPOA:"TPOA",
                 MORouting:"MORouting",
                 MTRouting:"MTRouting"
@@ -32,55 +25,10 @@ class HubAccountMgmt extends React.Component {
         }
     }
 
-    handleSelect(eventKey) {
-       event.preventDefault();
-          this.selectedTab = eventKey;
-       var accountTabs={};
-       switch (eventKey) {
-         case 1:
-           accountTabs={
-             showGeneral:true,
-               showTPOA:false,
-               showMORouting:false,
-                 showMTRouting:false
-           }
-           break;
-           case 2:
-             accountTabs={
-               showGeneral:false,
-                 showTPOA:true,
-                 showMORouting:false,
-                   showMTRouting:false
-             }
-             break;
-             case 3:
-               accountTabs={
-                 showGeneral:false,
-                   showTPOA:false,
-                   showMORouting:true,
-                     showMTRouting:false
-               }
-               break;
-               case 4:
-                 accountTabs={
-                   showGeneral:false,
-                     showTPOA:false,
-                     showMORouting:false,
-                       showMTRouting:true
-                 }
-                 break;
-         }
-         this.setState({accountTabs:accountTabs});
-          //  this.setState({accountTabs:accountTabs},function(){
-          //       console.log("this.state.accountTabs==",this.state.accountTabs);
-          //  });
-
-     }
     render() {
 
       const styles = {
         tabs: {
-            // width: '1100px',
             display: 'inline-block',
             marginRight: '30px',
             verticalAlign: 'top'
@@ -90,24 +38,23 @@ class HubAccountMgmt extends React.Component {
             padding: '0 20px'
         },
         tabLink: {
-            // height: '30px',
             lineHeight: '30px',
             padding: '10px 20px',
             cursor: 'pointer',
             borderBottom: '2px solid transparent',
-            display: 'inline-block'
+            display: 'inline-block',
+            marginTop: '30px'
         },
         activeLinkStyle: {
-            borderBottom: '2px solid #333'
+            borderBottom: '2px solid #333',
+            background: 'white',
+            boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.2)'
         },
         visibleTabStyle: {
             display: 'inline-block'
         },
         content: {
-            padding: '0 15px'
-        },
-        tabContent: {
-          width: '1000px'
+            padding: '0 20px'
         }
       };
 
@@ -120,23 +67,23 @@ class HubAccountMgmt extends React.Component {
                   <TabLink to="MORouting" style={styles.tabLink}>{this.state.accountCaptions.MORouting}</TabLink>
                   <TabLink to="MTRouting" style={styles.tabLink}>{this.state.accountCaptions.MTRouting }</TabLink>
               </div>
-              <div style={styles.content}>
-                <TabContent for="General" style={styles.tabContent}>
+              <div style={styles.content} >
+                <TabContent for="General">
                   <HubAccountGeneral/>
                 </TabContent>
-                <TabContent for="TPOA" style={styles.tabContent}>
+                <TabContent for="TPOA">
                   <HubAccountTPOA/>
                 </TabContent>
-                <TabContent for="MORouting" style={styles.tabContent}>
+                <TabContent for="MORouting">
                   <HubAccountMORouting/>
                 </TabContent>
-                <TabContent for="MTRouting" style={styles.tabContent}>
+                <TabContent for="MTRouting">
                   <HubAccountMTRouting/>
                 </TabContent>
               </div>
           </Tabs>
         </div>
-        )
+      );
     }
 
     componentWillReceiveProps(nextProps) {
