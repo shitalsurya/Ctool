@@ -6,7 +6,7 @@ import Select from 'react-select';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal,Label } from 'react-bootstrap';
 import Toggle from 'react-toggle';
-
+import ModalModify from './HubAccountModifyMTRouting';
 require('../../../scss/style.scss');
 require('../../../scss/react-toggle.scss');
 import * as types from '../../containers/account/actions/accountActionTypes';
@@ -65,7 +65,11 @@ class HubAccountMTRouting extends React.Component {
           this.state={
                 MTInfo : this.props.MTInfo || [],
                showModal: false,
+                ModifyModalFlag:false,
                modalHeading:'',
+               checked : false,
+               commentchecked : false,
+               smscmodify : true,
                // Default expanding row
                 expanding: [ 0 ],
                 groupBy:  {"label": "country", "value":"country"},
@@ -80,16 +84,15 @@ class HubAccountMTRouting extends React.Component {
               ]
     }
         close() {
-          this.setState({ showModal: false });
+          this.setState({ showModal: false , ModifyModalFlag :false});
         }
 
         deleteSelectedMTRouting() {
         //  this.setState({ showModal: true });
         }
         modifySelectedMTRouting() {
-            console.log("this.state==",this.state);
-          this.setState({ showModal: true,modalHeading:'Modify standard MT routing' });
-        }
+           this.setState({ ModifyModalFlag: true,modalHeading:'Modify standard MT routing' });
+      }
         addNewMTRouting() {
             this.setState({ showModal: true,modalHeading:'Add standard MT routing' });
         }
@@ -124,10 +127,21 @@ handleGroupByChange(val){
 }
 toggleOnChange(event){
   console.log( event.target.checked );
-  var _resRouting=event.target.checked==true?"Yes":"No";
-  this.setState({
-     resRouting: _resRouting
-   });
+    var _resRouting=event.target.checked==true?"Yes":"No";
+
+        var info = this.state.MTInfo;
+         switch(event.target.name) {
+           case "onOffToggle":
+            info.onOffValue = event.target.checked==true?"On":"Off";
+             break;
+            case "permanentToggle":
+            info.permanentValue = event.target.checked==true?"Yes":"No";
+              break;
+         }
+         this.setState({
+            resRouting: _resRouting,
+            MTInfo:info
+          });
 }
 handleModalChange(target, value){
   var info = this.state.MTInfo;
@@ -137,12 +151,6 @@ handleModalChange(target, value){
       break;
     case types.ACCOUNT_MT_ROUTING_SMSC:
       info.smsc=value.value;
-      break;
-    case types.ACCOUNT_MT_ROUTING_ONOFF:
-      info.onoff=value;
-      break;
-    case types.ACCOUNT_MT_ROUTING_PERMANENT:
-      info.permanent=value;
       break;
     case types.ACCOUNT_MT_ROUTING_TPOA:
       info.tpoa=value.target.value;
@@ -250,6 +258,8 @@ addRouting(){
                      </Row>
                    </Grid>
 
+                    <ModalModify MTInfo={this.state.MTInfo} ModifyModalFlag={this.state.ModifyModalFlag} close={this.close.bind(this)}/>
+                    
                    <Modal show={this.state.showModal} onHide={this.close.bind(this)}>
                      <Modal.Header closeButton>
                        <Modal.Title>{this.state.modalHeading}</Modal.Title>
@@ -286,19 +296,20 @@ addRouting(){
                                />
                              </Col>
                              <Col mdHidden md={ 3 } />
-                         </Row>
+                           </Row>
                          <Row className="show-grid">
                              <Col componentClass={ ControlLabel } md={ 3 }>
                                On/Off :
                              </Col>
                              <Col md={ 6 }>
                              <Toggle
+                             name="onOffToggle"
                              icons={{
                                   checked: 'On',
                                   unchecked: 'Off',
                                 }}
-                                 defaultChecked='On'
-                                 value={this.state.resRouting}
+                                 defaultChecked={true}
+                                 value={this.state.MTInfo.onOffValue}
                                onChange={this.toggleOnChange.bind(this)} />
                              </Col>
                              <Col mdHidden md={ 3 } />
@@ -309,12 +320,13 @@ addRouting(){
                              </Col>
                              <Col md={ 6 }>
                              <Toggle
+                             name="permanentToggle"
                              icons={{
                                   checked: 'Yes',
                                   unchecked: 'No',
                                 }}
-                                   defaultChecked='No'
-                                 value={this.state.resRouting}
+                                   defaultChecked={false}
+                                value={this.state.MTInfo.permanentValue}
                                onChange={this.toggleOnChange.bind(this)} />
                              </Col>
                              <Col mdHidden md={ 3 } />
