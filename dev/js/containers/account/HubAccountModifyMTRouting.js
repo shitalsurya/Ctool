@@ -27,12 +27,7 @@ class HubAccountModifyMTRouting extends React.Component {
     debugger;
     var modify = this.state.MTModifyInfo;
     switch(target) {
-      // case types.ACCOUNT_MT_ROUTING_OPERATOR:
-      //   modify.operator=value.target.value;
-      //   break;
-      // case types.ACCOUNT_MT_ROUTING_SMSC:
-      //  modify.prevsmsc=value.target.value;
-      //   break;
+
       case types.ACCOUNT_MODIFY_MT_ROUTING_SMSC:
         modify.smsc=value.value;
         modify.prevsmsc=this.props.MTInfo.smsc;
@@ -131,7 +126,7 @@ class HubAccountModifyMTRouting extends React.Component {
                          type="label"
                          name="operator"
                          value={this.props.MTInfo.operator}
-                          onChange={changed.bind(this) }
+
                         />
                       </Col>
                       <Col mdHidden md={ 3 } />
@@ -145,7 +140,7 @@ class HubAccountModifyMTRouting extends React.Component {
                          type="label"
                          name="prevsmsc"
                          value={this.props.MTInfo.smsc}
-                       onChange={changed.bind(this) }
+                      
                         />
                       </Col>
                       <Col mdHidden md={ 3 } />
