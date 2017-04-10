@@ -13,7 +13,7 @@ class HubAccountModifyMTRouting extends React.Component {
         this.state={
             ModifyFlag : '',
               MTModifyInfo : this.props.MTModifyInfo || [],
-             modalHeading:'',
+             modalHeading:'Modify standard MT routing',
 
              checked : false,
              commentchecked : false,
@@ -131,7 +131,7 @@ class HubAccountModifyMTRouting extends React.Component {
                          type="label"
                          name="operator"
                          value={this.props.MTInfo.operator}
-                         // onChange={changed.bind(this) }
+                          onChange={changed.bind(this) }
                         />
                       </Col>
                       <Col mdHidden md={ 3 } />
@@ -145,7 +145,7 @@ class HubAccountModifyMTRouting extends React.Component {
                          type="label"
                          name="prevsmsc"
                          value={this.props.MTInfo.smsc}
-                      //  onChange={changed.bind(this) }
+                       onChange={changed.bind(this) }
                         />
                       </Col>
                       <Col mdHidden md={ 3 } />
