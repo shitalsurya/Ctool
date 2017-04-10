@@ -9,6 +9,7 @@ import MiscUsers from '../../containers/miscellaneous/users/MiscUsers';
 import { bindActionCreators } from 'redux';
 import { navigateMenus } from '../../containers/common/commonActions';
 import * as types from '../../containers/common/commonActionTypes';
+import SuspendAccount from '../account/SuspendAccount';
 require( '../../../scss/style.scss' );
 var sapImg = require( "../../../images/sap-logo.png" );
 var logoImg=require("../../../images/sybase-365.jpg");
@@ -26,7 +27,7 @@ class Dashboard extends React.Component {
           showSuspendedAcc:false
       },
       submenus:["Accounts","Create Account",
-    "Account Setup"]
+    "Account Setup","Suspend Account"]
     }
   }
 
@@ -83,6 +84,9 @@ class Dashboard extends React.Component {
                     <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_MGMT )}  className="list-group-item">
                         <i className="fa fa-comment-o"></i>{ this.state.submenus[2]}
                     </a>
+                    <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_SPND )}  className="list-group-item">
+                        <i className="fa fa-comment-o"></i>{ this.state.submenus[3]}
+                    </a>
                 </div>
                 </div>
              	</div>
@@ -91,6 +95,7 @@ class Dashboard extends React.Component {
               { this.state.currentMenus.showAccountCreate && <CreateAccount /> }
              { this.state.currentMenus.showAccountSetup && <AccountSetup /> }
                { this.state.currentMenus.showAccountMgmt && <HubAccountMgmt /> }
+               { this.state.currentMenus.showSuspendedAcc && <SuspendAccount/> }
              { this.state.currentMenus.showSearch && <Search /> }
              { this.state.currentMenus.showMiscUsers && <MiscUsers /> }
 
@@ -144,7 +149,8 @@ class Dashboard extends React.Component {
           showMiscUsers :true,
           showAccountSetup:false,
            showAccountMgmt :false,
-        showSearch :false
+        showSearch :false,
+        showSuspendedAcc:false
       };
         break;
       case types.TOOLBOX_SEARCH:
@@ -153,7 +159,8 @@ class Dashboard extends React.Component {
       showMiscUsers :false,
         showAccountCreate:false,
         showAccountSetup:false,
-         showAccountMgmt :false
+         showAccountMgmt :false,
+         showSuspendedAcc:false
       };
         break;
         case types.ACCOUNT_CREATE:
@@ -162,7 +169,8 @@ class Dashboard extends React.Component {
       showMiscUsers :false,
         showAccountCreate:true,
           showAccountSetup:false,
-         showAccountMgmt :false
+         showAccountMgmt :false,
+         showSuspendedAcc:false
       };
       break;
       case types.ACCOUNT_SETUP:
@@ -171,7 +179,8 @@ class Dashboard extends React.Component {
     showMiscUsers :false,
       showAccountSetup:true,
         showAccountCreate:false,
-       showAccountMgmt :false
+       showAccountMgmt :false,
+       showSuspendedAcc:false
     };
         break;
         case types.ACCOUNT_MGMT:
@@ -180,8 +189,19 @@ class Dashboard extends React.Component {
       showMiscUsers :false,
         showAccountSetup:false,
           showAccountCreate:false,
-         showAccountMgmt :true
+         showAccountMgmt :true,
+         showSuspendedAcc:false
       };
+          break;
+        case types.ACCOUNT_SPND :
+        menus={
+          showSearch : false,
+          showMiscUsers:false,
+          showAccountSetup:false,
+          showAccountCreate:false,
+          showAccountMgmt:false,
+          showSuspendedAcc:true
+        };
           break;
       default:
       menus={
@@ -189,7 +209,8 @@ class Dashboard extends React.Component {
     showMiscUsers :false,
       showAccountSetup:true,
         showAccountCreate:false,
-       showAccountMgmt :false
+       showAccountMgmt :false,
+       showSuspendedAcc:false
     };
         break;
     }
