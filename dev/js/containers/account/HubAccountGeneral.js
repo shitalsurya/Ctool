@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Nav,NavItem } from 'react-bootstrap';
+import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 
 require('../../../scss/style.scss');
 
@@ -15,13 +15,11 @@ class HubAccountGeneral extends React.Component {
 
 
         return (
-               <div>
-                 <div className="tabs-container">
-                   <div className="rec">
-                   <span>TPOA</span>
-                   </div>
-                 </div>
-                </div>
+          <div className="tabs-container">
+            <div className="rec">
+
+            </div>
+          </div>
         )
     }
 

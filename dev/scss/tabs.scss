@@ -1,0 +1,29 @@
+.tabs{
+  margin: 30px;
+  vertical-align: top;
+  display: inline;
+}
+.links{
+  padding: 0px 20px;
+}
+.tab-link{
+  line-height: 30px;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: inline-block;
+}
+.tab-link-active{
+  color: #363636;
+  cursor: default;
+  background-color: #ffffff;
+  border: 1px solid #d7d7d7;
+  border-top: 4px solid #199de0;
+  border-bottom-color: transparent;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+}
+.tab-content-visible{
+  display: inline;
+}
+.content{
+  padding: 0 20px
+}
