@@ -2,6 +2,8 @@ import * as types from './accountActionTypes';
 import axios from 'axios';
 import * as config from '../../../containers/common/config';
 import {httpRequest} from '../../../containers/common/commonAjaxActions';
+import {getSpndAccount} from '../accountAjaxActions';
+
 export function initializeData(_list,valField){
   console.log("initializeData==",_list);
   var list = _list.data.map(function (item) {
@@ -149,5 +151,18 @@ export function getMetadataRequestFailure(data) {
 	return {
 		type: types.ACCOUNT_GET_COUNTRY_LIST_FAILURE,
 		payload: data
+	}
+}
+
+export function handleSuspendAccCompany(_accountSpndInfo){
+	return function(dispatch,getState){
+		dispatch(handleSuspendAccCompanyRequest(_accountSpndInfo));
+    return getSpndAccount(_accountSpndInfo);
+	}
+}
+export function handleSuspendAccCompanyRequest(_accountSpndInfo){
+	return{
+		  type: types.SUSPEND_ACC_COMPANY,
+			payload:_accountSpndInfo
 	}
 }
