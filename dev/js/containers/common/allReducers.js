@@ -2,7 +2,6 @@ import {combineReducers} from 'redux';
 import authReducer from '../../containers/login/loginReducer';
 import accountReducer from '../../containers/account/reducers/account.js';
 import menuReducer from './menuReducer';
-import inlineEditReducer from './components/InlineEditReducer';
 import miscUsers from '../../containers/miscellaneous/users/miscUserReducer';
 
 /*
@@ -14,8 +13,7 @@ const allReducers = combineReducers({
     Auth: authReducer,
     Account:accountReducer,
     Menu:menuReducer,
-    MiscUsers:miscUsers,
-    InlineEdit:inlineEditReducer
+    MiscUsers:miscUsers
 });
 
 export default allReducers

@@ -13,24 +13,51 @@ import * as types from '../../containers/account/actions/accountActionTypes';
 import InlineEdit from './../common/components/InlineEdit';
 import Routings from '../../../json/MT_routing.json';
 import grpBySMSCData from '../../../json/MT_routing_grp_by_smsc.json';
-class BSTable extends React.Component {
+
+class NestedTable extends React.Component {
+  constructor(props, context) {
+      super(props, context);
+}
+isExpandableRow(row) {
+if (typeof (row.expand)!='undefined') return true;
+else return false;
+}
+
+expandComponent(row) {
+return (
+<SubNestedTable data={ row.expand } />
+);
+}
+  render() {
+    if (this.props.data) {
+      return (
+        <BootstrapTable data={this.props.data}
+          tableBodyClass='nested-body-class'
+          tableHeaderClass='hide-header'
+          expandableRow={ this.isExpandableRow }
+          expandComponent={ this.expandComponent.bind(this) }>
+          <TableHeaderColumn isKey={ true } hidden dataField='id'>ID</TableHeaderColumn>
+          <TableHeaderColumn dataField='destinationOperator' >Grouped by destinationOperator
+          </TableHeaderColumn>
+        </BootstrapTable>
+      );
+    } else {
+      return (<p>?</p>);
+    }
+  }
+}
+class SubNestedTable extends React.Component {
   constructor(props, context) {
       super(props, context);
   this.currentRow = {};
   this.currentField = "";
 }
   dataFormatter(cell, row,field,index) {
-    console.log("field==",field);
-      console.log("state==",this.props.data);
       this.currentRow = row;
       this.currentField = field;
-    //  this.props.data[index][field]=cell;
-// return `<input type='text' value='${cell}'>     <span className="glyphicon glyphicon-th-list"></span> </input>`;
     return <InlineEdit  type='text' value={cell} onSave={this.updateValue.bind(this)}  />
-
 }
 updateValue(val){
-
   this.currentRow[this.currentField]=val;
   console.log("this.currentRow==",this.currentRow);
 }
@@ -39,14 +66,13 @@ updateValue(val){
      mode: 'checkbox',
        bgColor: '#427cac'
    };
-   const cellEditProp = {
-  mode: 'hover'
-};
+
     if (this.props.data) {
       return (
-        <BootstrapTable data={ this.props.data } selectRow={ selectRow }  cellEdit={ cellEditProp }>
+        <BootstrapTable data={ this.props.data } selectRow={ selectRow } >
           <TableHeaderColumn dataField='id' hidden isKey={ true }></TableHeaderColumn>
-          <TableHeaderColumn dataField='destinationOperator' dataFormat={ this.dataFormatter.bind(this) } formatExtraData={ 'destinationOperator' } >Destination Operator</TableHeaderColumn>
+          <TableHeaderColumn dataField='preference'  dataFormat={ this.dataFormatter.bind(this) } formatExtraData={ 'preference' } >Preference</TableHeaderColumn>
+
           <TableHeaderColumn dataField='SMSC'>SMSC</TableHeaderColumn>
           <TableHeaderColumn dataField='onOff'>On/Off</TableHeaderColumn>
           <TableHeaderColumn dataField='permanent'>Permanent</TableHeaderColumn>
@@ -103,7 +129,7 @@ class HubAccountMTRouting extends React.Component {
 
 expandComponent(row) {
   return (
-    <BSTable data={ row.expand } />
+    <NestedTable data={ row.expand } />
   );
 }
 handleGroupByChange(val){
@@ -245,12 +271,12 @@ addRouting(){
 
                          <BootstrapTable data={this.state.data}
                            tableBodyClass='master-body-class'
+                           tableHeaderClass='hide-header'
                            options={ options }
                            expandableRow={ this.isExpandableRow }
                            expandComponent={ this.expandComponent.bind(this) }>
                            <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
                            <TableHeaderColumn dataField={this.state.groupBy.value} >Grouped by {this.state.groupBy.value}
-
                            </TableHeaderColumn>
 
                          </BootstrapTable>
@@ -357,18 +383,17 @@ addRouting(){
         )
     }
 
-    componentWillReceiveProps(nextProps) {
-console.log("nextProps==",nextProps.InlineObject);
-      }
+                   componentWillReceiveProps(nextProps) {
+                   }
 
-}
+                   }
 
-function mapStateToProps(state) {
-    return { InlineObject:state.InlineEdit.InlineObject};
-}
+                   function mapStateToProps(state) {
+                     return {};
+                   }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({  }, dispatch);
-}
+                   function mapDispatchToProps(dispatch) {
+                     return bindActionCreators({  }, dispatch);
+                   }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HubAccountMTRouting);
+                   export default connect(mapStateToProps, mapDispatchToProps)(HubAccountMTRouting);

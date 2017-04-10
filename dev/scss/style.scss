@@ -594,7 +594,13 @@ color:#333 !important;
 		margin: -10px;
 	}
 }
+.hide-header{
+    display: none;
 
+}
+.nested-body-class{
+	background-color: #dee0f9 !important;
+}
 .react-bs-table{
 			 margin: 0 !important;
 	border: 1px solid #ddd;
@@ -620,21 +626,35 @@ color:#333 !important;
 .edit-icon {
 	font-size: 50px;
 }
-
-.input-group {
-	.form-control[disabled], fieldset[disabled] .form-control {
-		cursor: default;
-		background-color: inherit;
-	}
-	.form-control {
-		border-right: 0px;
-	}
-	.input-group-addon {
-		background-color: lightgrey ;
-		height: 34px;
-		width: 39px;
-	}
+.edit-ok-icon{
+  font-size: 18px;
 }
+.edit-ok-icon::after {
+	font-family: 'SAP-icons';
+	content: "\e05b";
+}
+.edit-cancel-icon{
+  font-size: 18px;
+}
+.edit-cancel-icon::after {
+	font-family: 'SAP-icons';
+	content: "\e03e";
+}
+
+// .input-group {
+// 	.form-control[disabled], fieldset[disabled] .form-control {
+// 		cursor: default;
+// 		background-color: inherit;
+// 	}
+// 	.form-control {
+// 		border-right: 0px;
+// 	}
+// 	.input-group-addon {
+// 		background-color: lightgrey ;
+// 		height: 34px;
+// 		width: 39px;
+// 	}
+// }
 .view-edit-control{
 	//height: 50px;
 	#caption{

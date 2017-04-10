@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {setInlineEditValue} from './InlineEditActions'
-import { Nav, NavItem, FormGroup, FormControl, InputGroup, Glyphicon,ControlLabel,Grid ,Row,Col} from 'react-bootstrap';
+import {Form, FormControl, InputGroup,FormGroup, Glyphicon} from 'react-bootstrap';
 import Select from 'react-select';
 require('../../../../scss/style.scss');
 
-class InlineEdit extends React.Component {
+export default class InlineEdit extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state={
@@ -37,7 +36,6 @@ class InlineEdit extends React.Component {
              this.props.onSave(this.state.value);
         });
 
-      //  this.props.setInlineEditValue(this.state);
     }
 
  componentDidMount(){
@@ -54,7 +52,7 @@ class InlineEdit extends React.Component {
          type : this.state.type,
          value: e.target.value,
        showButtons : true,
-       showEdit : true,
+       showEdit : false,
      };
    this.setState(_state,function(){
       console.log("this.state==",this.state);
@@ -63,7 +61,7 @@ class InlineEdit extends React.Component {
  }
  onEditClick()
  {
-    this.setState({showEdit : true,showLabel:false,showButtons : true},function(){
+    this.setState({showEdit : false,showButtons : true},function(){
       // var elem = document.getElementById("input");
       // var theCSSprop =parseInt(window.getComputedStyle(elem,null).getPropertyValue("width"))+100+'px';
       // console.log("theCSSprop==",theCSSprop);
@@ -75,32 +73,31 @@ class InlineEdit extends React.Component {
     render() {
         return (
           <div className="view-edit-control">
-            {this.state.showEdit &&
-              <InputGroup id="input" >
-                <FormControl value={this.state.value} onChange={this.handleInputChange.bind(this)} type="text" disabled={this.state.showButtons ? false : "disabled"} />
-                <InputGroup.Addon onClick={this.onEditClick.bind(this)}>
-                  <Glyphicon glyph="pencil" />
-                </InputGroup.Addon>
-              </InputGroup>}
-            {this.state.showButtons &&       <InputGroup >
-              <InputGroup.Addon className="ok" onClick={this.onOkClick.bind(this)}>
-                <Glyphicon glyph="ok"/>
-              </InputGroup.Addon>
-              <InputGroup.Addon className="remove" onClick={this.onCancelClick.bind(this)}>
-                <Glyphicon glyph="remove" />
-              </InputGroup.Addon>
-            </InputGroup>}
+            {
+              this.state.showEdit &&
+                <FormGroup>
+                  <InputGroup id="input" >
+                    <FormControl value={this.state.value} onChange={this.handleInputChange.bind(this)} type="text" disabled={this.state.showButtons ? false : "disabled"} />
+                    <InputGroup.Addon onClick={this.onEditClick.bind(this)}>
+                      <span className="edit-button-icon"></span>
+                    </InputGroup.Addon>
+                  </InputGroup>
+                </FormGroup>
+
+            }
+            {
+              this.state.showButtons &&
+                <FormGroup>
+                  <FormControl value={this.state.value} onChange={this.handleInputChange.bind(this)} type="text" disabled={this.state.showButtons ? false : "disabled"} />
+                  <div className="edit-buttons" >
+                    <span className="edit-ok-icon" onClick={this.onOkClick.bind(this)}></span>
+                    <span className="edit-cancel-icon" onClick={this.onCancelClick.bind(this)}></span>
+                  </div>
+                </FormGroup>
+
+            }
+
           </div>
               );
             }
             }
-
-            function mapStateToProps(state) {
-              return {  };
-            }
-
-            function mapDispatchToProps(dispatch) {
-              return bindActionCreators({setInlineEditValue:setInlineEditValue }, dispatch);
-            }
-
-            export default connect(mapStateToProps, mapDispatchToProps)(InlineEdit);
