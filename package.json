@@ -54,6 +54,7 @@
   "devDependencies": {
     "babel-plugin-react-transform": "^2.0.2",
     "babel-preset-stage-0": "^6.5.0",
+    "esformatter-jsx": "^7.4.1",
     "file-loader": "^0.10.1",
     "image-webpack-loader": "^3.2.0",
     "react-transform-hmr": "^1.0.4"

@@ -10,15 +10,30 @@ import Toggle from 'react-toggle';
 require('../../../scss/style.scss');
 require('../../../scss/react-toggle.scss');
 import * as types from '../../containers/account/actions/accountActionTypes';
+import InlineEdit from './../common/components/InlineEdit';
 import Routings from '../../../json/MT_routing.json';
 import grpBySMSCData from '../../../json/MT_routing_grp_by_smsc.json';
 class BSTable extends React.Component {
-  dataFormatter(cell, row) {
-  return `<input type='text' value='${cell}'>     <span className="glyphicon glyphicon-th-list"></span> </input>`;
-//    return ` <FormControl type='text' value='${cell}'  />`
+  constructor(props, context) {
+      super(props, context);
+  this.currentRow = {};
+  this.currentField = "";
+}
+  dataFormatter(cell, row,field,index) {
+    console.log("field==",field);
+      console.log("state==",this.props.data);
+      this.currentRow = row;
+      this.currentField = field;
+    //  this.props.data[index][field]=cell;
+// return `<input type='text' value='${cell}'>     <span className="glyphicon glyphicon-th-list"></span> </input>`;
+    return <InlineEdit  type='text' value={cell} onSave={this.updateValue.bind(this)}  />
 
 }
+updateValue(val){
 
+  this.currentRow[this.currentField]=val;
+  console.log("this.currentRow==",this.currentRow);
+}
   render() {
     const selectRow = {
      mode: 'checkbox',
@@ -31,12 +46,12 @@ class BSTable extends React.Component {
       return (
         <BootstrapTable data={ this.props.data } selectRow={ selectRow }  cellEdit={ cellEditProp }>
           <TableHeaderColumn dataField='id' hidden isKey={ true }></TableHeaderColumn>
-          <TableHeaderColumn dataField='destinationOperator' >Destination Operator</TableHeaderColumn>
+          <TableHeaderColumn dataField='destinationOperator' dataFormat={ this.dataFormatter.bind(this) } formatExtraData={ 'destinationOperator' } >Destination Operator</TableHeaderColumn>
           <TableHeaderColumn dataField='SMSC'>SMSC</TableHeaderColumn>
           <TableHeaderColumn dataField='onOff'>On/Off</TableHeaderColumn>
-              <TableHeaderColumn dataField='permanent'>Permanent</TableHeaderColumn>
-                  <TableHeaderColumn dataField='status'>Status</TableHeaderColumn>
-                      <TableHeaderColumn dataField='comment'>Comment</TableHeaderColumn>
+          <TableHeaderColumn dataField='permanent'>Permanent</TableHeaderColumn>
+          <TableHeaderColumn dataField='status'>Status</TableHeaderColumn>
+          <TableHeaderColumn dataField='comment'>Comment</TableHeaderColumn>
 
         </BootstrapTable>);
     } else {
@@ -47,7 +62,6 @@ class BSTable extends React.Component {
 class HubAccountMTRouting extends React.Component {
     constructor(props, context) {
         super(props, context);
-
           this.state={
                 MTInfo : this.props.MTInfo || [],
                showModal: false,
@@ -73,6 +87,7 @@ class HubAccountMTRouting extends React.Component {
         //  this.setState({ showModal: true });
         }
         modifySelectedMTRouting() {
+            console.log("this.state==",this.state);
           this.setState({ showModal: true,modalHeading:'Modify standard MT routing' });
         }
         addNewMTRouting() {
@@ -82,18 +97,7 @@ class HubAccountMTRouting extends React.Component {
   if (typeof (row.expand)!='undefined') return true;
   else return false;
 }
-priceFormatter(cell, row, enumObject, index) {
-  console.log(`The row index: ${index}`);
 
-    console.log(" expanding:priceFormatter==",this.state.expanding);
-  if (typeof (row.expand)!='undefined'){
-    if(this.state.expanding.includes(index)){
-        return `<i class='glyphicon glyphicon-triangle-bottom'></i> ${cell}`;
-    }
-    return `<i class='glyphicon glyphicon-triangle-right'></i> ${cell}`;
-  }
-  else return `${cell}`;
-}
 expandComponent(row) {
   return (
     <BSTable data={ row.expand } />
@@ -102,6 +106,7 @@ expandComponent(row) {
 handleGroupByChange(val){
   console.log("handleGroupByChange==",val);
 //var _groupBy = {"label": "SMSC", "value":"smsc"}
+
   this.setState({groupBy:val},function(){
     console.log("groupBy==",this.state.groupBy);
     if(this.state.groupBy.value=='country'){
@@ -165,33 +170,35 @@ addRouting(){
         return (
 
                  <div className="tabs-container">
-                 <Grid fluid={true}>
+                   <Grid fluid={true}>
                      <Row className="show-grid">
-                         <Col
-                             componentClass={ ControlLabel }
-                             md={ 2 }> Restricted routing:
-                         </Col>
-                         <Col md={ 1 }>
+                       <Col
+                         componentClass={ ControlLabel }
+                         md={ 2 }> Restricted routing:
+                       </Col>
+                       <Col md={ 1 }>
                          <Toggle
-                         icons={{
+                           icons={{
                               checked: 'Yes',
                               unchecked: 'No',
-                            }}
-                             defaultChecked={this.state.resRouting}
-                             value={this.state.resRouting}
+                           }}
+                           defaultChecked={this.state.resRouting}
+                           value={this.state.resRouting}
                            onChange={this.toggleOnChange.bind(this)} />
-                         </Col>
+
+
+                       </Col>
 
                      </Row>
                      <Row className="show-grid">
                        <Col
-                           componentClass={ ControlLabel }
-                           md={ 3 }> Existing MT Routing
+                         componentClass={ ControlLabel }
+                         md={ 3 }> Existing MT Routing
                        </Col>
                        <Col
-                           mdHidden
-                           md={ 9 } >
-                           <ButtonGroup justified>
+                         mdHidden
+                         md={ 9 } >
+                         <ButtonGroup justified>
                            <Button href="#" className="grp-btn" onClick={this.modifySelectedMTRouting.bind(this)}>
                              <span className="edit-button-icon"></span>
                              <span>Modify Selected MT Routings</span>
@@ -201,83 +208,82 @@ addRouting(){
                              <span>Delete Selected MT Routings</span>
                            </Button>
                            <Button href="#" className="grp-btn" onClick={this.addNewMTRouting.bind(this)}>
-                              <span className="add-icon"></span>
-                              <span>Add Standard MT Routings</span>
+                             <span className="add-icon"></span>
+                             <span>Add Standard MT Routings</span>
                            </Button>
-                           </ButtonGroup>
+                         </ButtonGroup>
                        </Col>
-                       </Row>
-                       <Row className="show-grid">
+                     </Row>
+                     <Row className="show-grid">
                        <Col
-                       mdHidden
-                           md={ 8 } >
-                           </Col>
-                           <Col
-                               md={ 1 } >     <h4><Label>Group By:</Label></h4>  </Col>
+                         mdHidden
+                         md={ 8 } >
+                       </Col>
                        <Col
-                           md={ 3 } >
-                           <Select
-                                 placeholder="Select Column.."
-                                 options={this.grpByMaster}
-                                 value={this.state.groupBy}
-                                  onChange={this.handleGroupByChange.bind(this)}
-                             />
-                     </Col>
+                         md={ 1 } >     <h4><Label>Group By:</Label></h4>  </Col>
+                       <Col
+                         md={ 3 } >
+                         <Select
+                           placeholder="Select Column.."
+                           options={this.grpByMaster}
+                           value={this.state.groupBy}
+                           onChange={this.handleGroupByChange.bind(this)}
+                         />
+                       </Col>
                      </Row>
 
                      <Row className="show-grid">
-                     <Col md={ 12 }>
+                       <Col md={ 12 }>
 
-                     <BootstrapTable data={this.state.data}
-                       tableBodyClass='master-body-class'
-     options={ options }
-     expandableRow={ this.isExpandableRow }
-       expandComponent={ this.expandComponent.bind(this) }>
-          <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
-     <TableHeaderColumn dataField={this.state.groupBy.value} >Grouped by {this.state.groupBy.value}
+                         <BootstrapTable data={this.state.data}
+                           tableBodyClass='master-body-class'
+                           options={ options }
+                           expandableRow={ this.isExpandableRow }
+                           expandComponent={ this.expandComponent.bind(this) }>
+                           <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
+                           <TableHeaderColumn dataField={this.state.groupBy.value} >Grouped by {this.state.groupBy.value}
 
-       </TableHeaderColumn>
+                           </TableHeaderColumn>
 
-   </BootstrapTable>
-                     </Col>
+                         </BootstrapTable>
+                       </Col>
                      </Row>
-                 </Grid>
+                   </Grid>
 
-
-                 <Modal show={this.state.showModal} onHide={this.close.bind(this)}>
-                   <Modal.Header closeButton>
-                     <Modal.Title>{this.state.modalHeading}</Modal.Title>
-                   </Modal.Header>
-                   <Modal.Body>
-                     <div>
-                       <Grid fluid={true}>
-                         <Row className="show-grid">
+                   <Modal show={this.state.showModal} onHide={this.close.bind(this)}>
+                     <Modal.Header closeButton>
+                       <Modal.Title>{this.state.modalHeading}</Modal.Title>
+                     </Modal.Header>
+                     <Modal.Body>
+                       <div>
+                         <Grid fluid={true}>
+                           <Row className="show-grid">
                              <Col componentClass={ ControlLabel } md={ 3 }>
                                Operator:
                              </Col>
                              <Col md={ 6 }>
                                <Select
-                                     name="operator"
-                                     placeholder="Select Operator.."
-                                     options={modalOptions}
-                                     value={this.state.MTInfo.operator}
-                                     onChange={this.handleModalChange.bind(this,types.ACCOUNT_MT_ROUTING_OPERATOR)}
-                                      />
+                                 name="operator"
+                                 placeholder="Select Operator.."
+                                 options={modalOptions}
+                                 value={this.state.MTInfo.operator}
+                                 onChange={this.handleModalChange.bind(this,types.ACCOUNT_MT_ROUTING_OPERATOR)}
+                               />
                              </Col>
                              <Col mdHidden md={ 3 } />
-                         </Row>
-                         <Row className="show-grid">
+                           </Row>
+                           <Row className="show-grid">
                              <Col componentClass={ ControlLabel } md={ 3 }>
                                SMSC:
                              </Col>
                              <Col md={ 6 }>
                                <Select
-                                     name="smsc"
-                                     placeholder="Select SMSC.."
-                                     options={modalOptions}
-                                     value={this.state.MTInfo.smsc}
-                                     onChange={this.handleModalChange.bind(this,types.ACCOUNT_MT_ROUTING_SMSC)}
-                                      />
+                                 name="smsc"
+                                 placeholder="Select SMSC.."
+                                 options={modalOptions}
+                                 value={this.state.MTInfo.smsc}
+                                 onChange={this.handleModalChange.bind(this,types.ACCOUNT_MT_ROUTING_SMSC)}
+                               />
                              </Col>
                              <Col mdHidden md={ 3 } />
                          </Row>
@@ -340,13 +346,13 @@ addRouting(){
     }
 
     componentWillReceiveProps(nextProps) {
-
+console.log("nextProps==",nextProps.InlineObject);
       }
 
 }
 
 function mapStateToProps(state) {
-    return { };
+    return { InlineObject:state.InlineEdit.InlineObject};
 }
 
 function mapDispatchToProps(dispatch) {
