@@ -4,14 +4,15 @@ import Select from 'react-select';
 import Toggle from 'react-toggle';
 require('../../../scss/style.scss');
 require('../../../scss/react-toggle.scss');
-import * as types from '../../containers/account/actions/accountActionTypes';
 
+import * as types from '../../containers/account/actions/accountActionTypes';
+import HubAccountAddMTRouting from './HubAccountAddMTRouting';
 class HubAccountModifyMTRouting extends React.Component {
   constructor(props, context) {
       super(props, context);
 
         this.state={
-            ModifyFlag : '',
+              ModifyFlag : '',
               MTModifyInfo : this.props.MTModifyInfo || [],
              modalHeading:'Modify standard MT routing',
 
@@ -27,16 +28,10 @@ class HubAccountModifyMTRouting extends React.Component {
     debugger;
     var modify = this.state.MTModifyInfo;
     switch(target) {
-      // case types.ACCOUNT_MT_ROUTING_OPERATOR:
-      //   modify.operator=value.target.value;
-      //   break;
-      // case types.ACCOUNT_MT_ROUTING_SMSC:
-      //  modify.prevsmsc=value.target.value;
-      //   break;
       case types.ACCOUNT_MODIFY_MT_ROUTING_SMSC:
         modify.smsc=value.value;
-        modify.prevsmsc=this.props.MTInfo.smsc;
-        modify.operator=this.props.MTInfo.operator;
+        //  modify.prevsmsc=this.props.MTInfo.smsc;
+        //  modify.operator=this.props.MTInfo.operator;
         break;
       case types.ACCOUNT_MODFIY_MT_ROUTING_ONOFF:
         modify.onoff=value;
@@ -130,8 +125,8 @@ class HubAccountModifyMTRouting extends React.Component {
                       <FormControl
                          type="label"
                          name="operator"
-                         value={this.props.MTInfo.operator}
-                          onChange={changed.bind(this) }
+                  //       value={this.props.MTInfo.operator || ''}
+
                         />
                       </Col>
                       <Col mdHidden md={ 3 } />
@@ -144,8 +139,8 @@ class HubAccountModifyMTRouting extends React.Component {
                       <FormControl
                          type="label"
                          name="prevsmsc"
-                         value={this.props.MTInfo.smsc}
-                       onChange={changed.bind(this) }
+                //        value={this.props.MTInfo.smsc || ''}
+
                         />
                       </Col>
                       <Col mdHidden md={ 3 } />
