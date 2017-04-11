@@ -5,6 +5,8 @@ import { Tabs,  TabLink, TabContent } from 'react-tabs-redux';
 import { Col, Row, Grid } from 'react-bootstrap';
 import InfoGeneralCommercial from './InfoGeneralCommercial';
 import InfoGeneralSybase from './InfoGeneralSybase';
+import InfoGeneralAddContacts from './InfoGeneralAddContacts';
+import InfoGeneralTechnical from './InfoGeneralTechnical';
 require('../../../scss/tabs.scss');
 require('../../../scss/style.scss');
 
@@ -25,6 +27,8 @@ class HubAccountGeneral extends React.Component {
                   <div className="links_stacked">
                       <TabLink to="CommercialInfo" default className="tab-link">Commercial Information</TabLink>
                       <TabLink to="SyBase" className="tab-link">SyBase 365 Contacts</TabLink>
+                      <TabLink to="AccContacts" className="tab-link">Account Contacts</TabLink>
+                      <TabLink to="TechnicalInfo" className="tab-link">Technical Information</TabLink>
                   </div>
                 </Col>
                 <Col sm={8}>
@@ -34,6 +38,12 @@ class HubAccountGeneral extends React.Component {
                     </TabContent>
                     <TabContent for="SyBase">
                       <InfoGeneralSybase/>
+                    </TabContent>
+                    <TabContent for="AccContacts">
+                      <InfoGeneralAddContacts/>
+                    </TabContent>
+                    <TabContent for="TechnicalInfo">
+                      <InfoGeneralTechnical/>
                     </TabContent>
                   </div>
                 </Col>
