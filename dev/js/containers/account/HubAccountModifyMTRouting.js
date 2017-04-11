@@ -3,10 +3,11 @@ import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,
 import Select from 'react-select';
 import Toggle from 'react-toggle';
 require('../../../scss/style.scss');
+require('../../../scss/time.scss');
 require('../../../scss/react-toggle.scss');
-
 import * as types from '../../containers/account/actions/accountActionTypes';
 import HubAccountAddMTRouting from './HubAccountAddMTRouting';
+import DateTimeField from 'react-bootstrap-datetimepicker';
 class HubAccountModifyMTRouting extends React.Component {
   constructor(props, context) {
       super(props, context);
@@ -247,11 +248,11 @@ class HubAccountModifyMTRouting extends React.Component {
                       <Col mdHidden md={ 3 } />
                   </Row>
                   <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 4 }>
+                      <Col componentClass={ ControlLabel } md={ 3 }>
                       Start Time(UTC) :
                       </Col>
-                      <Col md={ 2 }>
-
+                      <Col md={ 4 }>
+                           <DateTimeField mode="time" />
                       </Col>
 
                       <Col mdHidden md={ 3 } />
@@ -260,8 +261,8 @@ class HubAccountModifyMTRouting extends React.Component {
                       <Col componentClass={ ControlLabel } md={ 3 }>
                         End Time(UTC) :
                       </Col>
-                      <Col md={ 3 }>
-
+                      <Col md={ 4 }>
+                         <DateTimeField mode="time" />
                       </Col>
                       <Col mdHidden md={ 3 } />
                   </Row>
