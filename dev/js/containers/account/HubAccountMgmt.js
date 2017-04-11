@@ -50,7 +50,7 @@ class HubAccountMgmt extends React.Component {
                   <HubAccountMTRouting/>
                 </TabContent>
               </div>
-          </Tabs>
+            </Tabs>
         </div>
       );
     }

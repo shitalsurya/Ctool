@@ -19,11 +19,35 @@
   border: 1px solid #d7d7d7;
   border-top: 4px solid #199de0;
   border-bottom-color: transparent;
-  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 -1px 4px 0 rgba(0, 0, 0, 0.2);
 }
 .tab-content-visible{
   display: inline;
 }
 .content{
   padding: 0 20px
+}
+.tabs-container{
+  border: 1px solid #d7d7d7;
+  border-top: 1px solid white;
+}
+.links_stacked{
+  .tab-link {
+    cursor: default;
+    border: none;
+    border-left: 4px solid #199de0;
+    box-shadow: 0 0px 4px 3px rgba(0, 0, 0, 0.2);
+    width :100%;
+  }
+  .tab-link-active{
+    background-color: rgba(25, 157, 224, 0.329412);
+    box-shadow: 0 -1px 4px 0 rgba(0, 0, 0, 0.2);
+
+  }
+}
+.inner_grid {
+  box-shadow: 0 0px 4px 3px rgba(0, 0, 0, 0.2)
+}
+.show-grid {
+  margin : 20px;
 }
