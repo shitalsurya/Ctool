@@ -3,15 +3,17 @@ import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,
 import Select from 'react-select';
 import Toggle from 'react-toggle';
 require('../../../scss/style.scss');
+require('../../../scss/time.scss');
 require('../../../scss/react-toggle.scss');
 import * as types from '../../containers/account/actions/accountActionTypes';
-
+import HubAccountAddMTRouting from './HubAccountAddMTRouting';
+import DateTimeField from 'react-bootstrap-datetimepicker';
 class HubAccountModifyMTRouting extends React.Component {
   constructor(props, context) {
       super(props, context);
 
         this.state={
-            ModifyFlag : '',
+              ModifyFlag : '',
               MTModifyInfo : this.props.MTModifyInfo || [],
              modalHeading:'Modify standard MT routing',
 
@@ -24,19 +26,13 @@ class HubAccountModifyMTRouting extends React.Component {
   }
 
   handleModalChange(target, value){
-    debugger;
+
     var modify = this.state.MTModifyInfo;
     switch(target) {
-      // case types.ACCOUNT_MT_ROUTING_OPERATOR:
-      //   modify.operator=value.target.value;
-      //   break;
-      // case types.ACCOUNT_MT_ROUTING_SMSC:
-      //  modify.prevsmsc=value.target.value;
-      //   break;
       case types.ACCOUNT_MODIFY_MT_ROUTING_SMSC:
         modify.smsc=value.value;
-        modify.prevsmsc=this.props.MTInfo.smsc;
-        modify.operator=this.props.MTInfo.operator;
+        //  modify.prevsmsc=this.props.MTInfo.smsc;
+        //  modify.operator=this.props.MTInfo.operator;
         break;
       case types.ACCOUNT_MODFIY_MT_ROUTING_ONOFF:
         modify.onoff=value;
@@ -90,7 +86,7 @@ class HubAccountModifyMTRouting extends React.Component {
 
 
   render(){
-    debugger;
+
     const starttime = [
       { value : '1' , label : '1'},
       { value : '2' , label : '2'}
@@ -123,35 +119,35 @@ class HubAccountModifyMTRouting extends React.Component {
               <div>
                 <Grid fluid={true}>
                   <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 3 }>
+                      <Col componentClass={ ControlLabel } md={ 4 }>
                         Operator:
                       </Col>
                       <Col md={ 6 }>
                       <FormControl
                          type="label"
                          name="operator"
-                         value={this.props.MTInfo.operator}
-                          onChange={changed.bind(this) }
+                  //       value={this.props.MTInfo.operator || ''}
+
                         />
                       </Col>
                       <Col mdHidden md={ 3 } />
                   </Row>
                   <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 3 }>
+                      <Col componentClass={ ControlLabel } md={ 4 }>
                         SMSC:
                       </Col>
                       <Col md={ 6 }>
                       <FormControl
                          type="label"
                          name="prevsmsc"
-                         value={this.props.MTInfo.smsc}
-                       onChange={changed.bind(this) }
+                //        value={this.props.MTInfo.smsc || ''}
+
                         />
                       </Col>
                       <Col mdHidden md={ 3 } />
                   </Row>
                   <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 3 }>
+                      <Col componentClass={ ControlLabel } md={ 4 }>
                         Preferences:
                       </Col>
                       <Col md={ 2 }>
@@ -163,7 +159,7 @@ class HubAccountModifyMTRouting extends React.Component {
                       <Col mdHidden md={ 3 } />
                   </Row>
                   <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 3 }>
+                      <Col componentClass={ ControlLabel } md={ 4 }>
                         SMSC:
                       </Col>
                       <Col md={ 6 }>
@@ -184,7 +180,7 @@ class HubAccountModifyMTRouting extends React.Component {
                       <Col mdHidden md={ 3 } />
                   </Row>
                   <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 3 }>
+                      <Col componentClass={ ControlLabel } md={ 4 }>
                         On/Off :
                       </Col>
                       <Col md={ 6 }>
@@ -201,7 +197,7 @@ class HubAccountModifyMTRouting extends React.Component {
                       <Col mdHidden md={ 3 } />
                   </Row>
                   <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 3 }>
+                      <Col componentClass={ ControlLabel } md={ 4 }>
                         Permanent :
                       </Col>
                       <Col md={ 6 }>
@@ -218,7 +214,7 @@ class HubAccountModifyMTRouting extends React.Component {
                       <Col mdHidden md={ 3 } />
                   </Row>
                   <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 3 }>
+                      <Col componentClass={ ControlLabel } md={ 4 }>
                         TPOA :
                       </Col>
                       <Col md={ 6 }>
@@ -232,7 +228,7 @@ class HubAccountModifyMTRouting extends React.Component {
                       <Col mdHidden md={ 3 } />
                   </Row>
                   <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 3 }>
+                      <Col componentClass={ ControlLabel } md={ 4 }>
                         Comment :
                       </Col>
                       <Col md={ 6 }>
@@ -255,18 +251,18 @@ class HubAccountModifyMTRouting extends React.Component {
                       <Col componentClass={ ControlLabel } md={ 4 }>
                       Start Time(UTC) :
                       </Col>
-                      <Col md={ 2 }>
-
+                      <Col md={ 4 }>
+                           <DateTimeField mode="time" />
                       </Col>
 
                       <Col mdHidden md={ 3 } />
                   </Row>
                   <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 3 }>
+                      <Col componentClass={ ControlLabel } md={ 4 }>
                         End Time(UTC) :
                       </Col>
-                      <Col md={ 3 }>
-
+                      <Col md={ 4 }>
+                         <DateTimeField mode="time" />
                       </Col>
                       <Col mdHidden md={ 3 } />
                   </Row>
