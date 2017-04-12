@@ -12,22 +12,24 @@ require('../../../scss/style.scss');
 require('../../../scss/react-toggle.scss');
 
 import InlineEdit from './../common/components/InlineEdit';
+import InlineSelect from './../common/components/InlineSelect';
 import Routings from '../../../json/MT_routing.json';
 import grpBySMSCData from '../../../json/MT_routing_grp_by_smsc.json';
-
+import Users from '../../../json/Users.json';
+import { initializeData } from '../../containers/account/actions/accountActions';
 class NestedTable extends React.Component {
   constructor(props, context) {
       super(props, context);
 }
 isExpandableRow(row) {
-if (typeof (row.expand)!='undefined') return true;
-else return false;
+  if (typeof (row.expand)!='undefined') return true;
+  else return false;
 }
 
 expandComponent(row) {
-return (
-<SubNestedTable data={ row.expand } />
-);
+  return (
+    <SubNestedTable data={ row.expand } />
+  );
 }
   render() {
     if (this.props.data) {
@@ -37,26 +39,49 @@ return (
           tableHeaderClass='hide-header'
           expandableRow={ this.isExpandableRow }
           expandComponent={ this.expandComponent.bind(this) }>
-          <TableHeaderColumn isKey={ true } hidden dataField='id'>ID</TableHeaderColumn>
-          <TableHeaderColumn dataField='destinationOperator' >Grouped by destinationOperator
-          </TableHeaderColumn>
+          <TableHeaderColumn isKey={ true } hidden dataField={this.props.groupById}>ID</TableHeaderColumn>
+          <TableHeaderColumn dataField={this.props.groupBy.value}> </TableHeaderColumn>
         </BootstrapTable>
       );
     } else {
       return (<p>?</p>);
     }
   }
+
 }
 class SubNestedTable extends React.Component {
   constructor(props, context) {
       super(props, context);
-  this.currentRow = {};
-  this.currentField = "";
+      this.currentRow = {};
+      this.currentField = "";
 }
+
   dataFormatter(cell, row,field,index) {
       this.currentRow = row;
       this.currentField = field;
-    return <InlineEdit  type='text' value={cell} onSave={this.updateValue.bind(this)}  />
+    //   this.userList = initializeData(Users,'login');
+     var PreferenceList= [{ "id": 1, "value":"1"},{ "id": 2, "value":"2"}];
+      //  return <InlineEdit  type='text' value={cell} onSave={this.updateValue.bind(this)}  />
+    return <InlineSelect  options={PreferenceList} value={cell} onSave={this.updateValue.bind(this)}  />
+}
+statusDataFormatter(cell, row) {
+  const greenStatus = require( "../../../images/circle-green.png" );
+  const orangeStatus = require( "../../../images/circle-orange.png" );
+  const redStatus = require( "../../../images/circle-red.png" );
+  switch (cell) {
+    case 'green':
+        return <img src={ greenStatus }/>;
+      break;
+      case 'orange':
+          return <img src={ orangeStatus }/>;
+        break;
+        case 'red':
+            return <img src={ redStatus }/>;
+          break;
+    default:
+
+  }
+
 }
 updateValue(val){
   this.currentRow[this.currentField]=val;
@@ -77,7 +102,7 @@ updateValue(val){
           <TableHeaderColumn dataField='SMSC'>SMSC</TableHeaderColumn>
           <TableHeaderColumn dataField='onOff'>On/Off</TableHeaderColumn>
           <TableHeaderColumn dataField='permanent'>Permanent</TableHeaderColumn>
-          <TableHeaderColumn dataField='status'>Status</TableHeaderColumn>
+          <TableHeaderColumn dataField='status' dataAlign='center' width="80px" dataFormat={ this.statusDataFormatter.bind(this) }>Status</TableHeaderColumn>
           <TableHeaderColumn dataField='comment'>Comment</TableHeaderColumn>
 
         </BootstrapTable>);
@@ -100,6 +125,8 @@ class HubAccountMTRouting extends React.Component {
                 expanding: [ 0 ],
                 groupBy:  {"label": "country", "value":"country"},
                 groupById:'countryId',
+                subGroupBy:{"label": "operator", "value":"operator"},
+                subGroupById:'countryId',
                 data:Routings.data,
                 resRouting: true ,
           }
@@ -107,7 +134,12 @@ class HubAccountMTRouting extends React.Component {
              [
                   {"label": "country", "value":"country"},
                     {"label": "SMSC", "value":"SMSC"}
-              ]
+              ];
+              this.subGrpByMaster =
+                 [
+                      {"label": "operator", "value":"operator"},
+                        {"label": "SMSC", "value":"SMSC"}
+                  ]
     }
         close() {
           this.setState({ showAdd: false , ModifyModalFlag :false});
@@ -128,8 +160,9 @@ class HubAccountMTRouting extends React.Component {
 }
 
 expandComponent(row) {
+
   return (
-    <NestedTable data={ row.expand } />
+    <NestedTable data={ row.expand } groupBy={this.state.subGroupBy} groupById={this.state.subGroupById}  />
   );
 }
 handleGroupByChange(val){
@@ -146,6 +179,25 @@ handleGroupByChange(val){
     }
     else if(this.state.groupBy.value=='SMSC'){
       this.setState({data:grpBySMSCData.data,groupById:'SMSC_id'},function(){
+        console.log("data==",this.state.data);
+      });
+    }
+  });
+}
+handleSubGroupByChange(val){
+  console.log("handleSubGroupByChange==",val);
+//var _groupBy = {"label": "SMSC", "value":"smsc"}
+
+  this.setState({subGroupBy:val},function(){
+    console.log("subGroupBy==",this.state.subGroupBy);
+    if(this.state.subGroupBy.value=='operator'){
+      this.setState({data:Routings.data,subGroupById:'id'},function(){
+        console.log("data==",this.state.data);
+      });
+
+    }
+    else if(this.state.subGroupBy.value=='SMSC'){
+      this.setState({data:grpBySMSCData.data,subGroupById:'SMSC_id'},function(){
         console.log("data==",this.state.data);
       });
     }
@@ -223,7 +275,7 @@ toggleOnChange(event){
                      <Row className="show-grid">
                        <Col
                          mdHidden
-                         md={ 8 } >
+                         md={ 3 } >
                        </Col>
                        <Col
                          md={ 1 } >     <h4><Label>Group By:</Label></h4>  </Col>
@@ -234,6 +286,17 @@ toggleOnChange(event){
                            options={this.grpByMaster}
                            value={this.state.groupBy}
                            onChange={this.handleGroupByChange.bind(this)}
+                         />
+                       </Col>
+                       <Col
+                         md={ 2 } >     <h4><Label>Sub Group By:</Label></h4>  </Col>
+                       <Col
+                         md={ 3 } >
+                         <Select
+                           placeholder="Select Column.."
+                           options={this.subGrpByMaster}
+                           value={this.state.subGroupBy}
+                           onChange={this.handleSubGroupByChange.bind(this)}
                          />
                        </Col>
                      </Row>
@@ -248,16 +311,14 @@ toggleOnChange(event){
                            expandableRow={ this.isExpandableRow }
                            expandComponent={ this.expandComponent.bind(this) }>
                            <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
-                           <TableHeaderColumn dataField={this.state.groupBy.value} >Grouped by {this.state.groupBy.value}
-                           </TableHeaderColumn>
-
+                           <TableHeaderColumn dataField={this.state.groupBy.value} ></TableHeaderColumn>
                          </BootstrapTable>
                        </Col>
                      </Row>
                    </Grid>
 
-                    <ModalAdd showAdd={this.state.showAdd} close={this.close.bind(this)}/>
-                   <ModalModify  ModifyModalFlag={this.state.ModifyModalFlag} close={this.close.bind(this)}/>
+                     <ModalAdd showAdd={this.state.showAdd} close={this.close.bind(this)}/>
+                     <ModalModify  ModifyModalFlag={this.state.ModifyModalFlag} close={this.close.bind(this)}/>
 
 
                  </div>

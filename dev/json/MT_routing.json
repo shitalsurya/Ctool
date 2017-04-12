@@ -4,14 +4,14 @@
   "country":"USA(60)",
   "expand": [{
       "id":"1",
-    "destinationOperator":"Vodafone UK(7)",
+    "operator":"Vodafone UK(7)",
       "expand": [{
           "id":"1",
           "preference":"1",
           "SMSC":"GB_Vodafone_Bulk",
           "onOff":"On",
           "permanent":"No",
-          "status":"Yes",
+          "status":"green",
           "comment":""
         }, {
             "id":"2",
@@ -19,7 +19,7 @@
             "SMSC":"GB_Vodafone_Bulk",
             "onOff":"On",
             "permanent":"No",
-            "status":"Yes",
+            "status":"orange",
             "comment":""
           }]
     }]

@@ -655,12 +655,6 @@ color:#333 !important;
 // 		width: 39px;
 // 	}
 // }
-.view-edit-control{
-	//height: 50px;
-	#caption{
-		font-weight: 500;
-	}
-}
 
 .accounts-icon::after {
 	font-family: 'SAP-icons';
@@ -762,4 +756,7 @@ font-family: 'SAP-icons';
     }
 .error-msg {
   color: red;
+}
+.Select-menu-outer {
+  z-index: 999 !important;
 }
