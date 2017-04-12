@@ -40,7 +40,7 @@ class HubAccountGeneral extends React.Component {
           <div className="tabs-container">
 
             <div>
-              <div className="rec" onClick={this.handleButtonClick.bind(this , types.INFO_GENERAL_COMMERCIAL)}>
+              <div className="rec_tab" onClick={this.handleButtonClick.bind(this , types.INFO_GENERAL_COMMERCIAL)}>
                 <span className={this.state.openStatus.CommercialInfo ? "nav-up-icon" : "nav-down-icon"} >
                   Commercial Information
                 </span>
@@ -55,7 +55,7 @@ class HubAccountGeneral extends React.Component {
             </div>
 
             <div>
-              <div className="rec" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_SYBASE)}>
+              <div className="rec_tab" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_SYBASE)}>
                 <span className={this.state.openStatus.SyBase ? "nav-up-icon" : "nav-down-icon"} >
                   SyBase 365 Contacts
                 </span>
@@ -70,7 +70,7 @@ class HubAccountGeneral extends React.Component {
             </div>
 
             <div>
-              <div className="rec" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_ACC_CONTACTS)}>
+              <div className="rec_tab" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_ACC_CONTACTS)}>
                 <span className={this.state.openStatus.AccContacts ? "nav-up-icon" : "nav-down-icon"} >
                   Account Contacts
                 </span>
@@ -85,7 +85,7 @@ class HubAccountGeneral extends React.Component {
             </div>
 
             <div>
-              <div className="rec" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_TECHNICAL)}>
+              <div className="rec_tab" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_TECHNICAL)}>
                 <span className={this.state.openStatus.TechnicalInfo ? "nav-up-icon" : "nav-down-icon"} >
                   Technical Information
                 </span>
@@ -100,7 +100,7 @@ class HubAccountGeneral extends React.Component {
             </div>
 
             <div>
-              <div className="rec" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_VOLUME)}>
+              <div className="rec_tab" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_VOLUME)}>
                 <span className={this.state.openStatus.volCntrl ? "nav-up-icon" : "nav-down-icon"} >
                   Volume Control Setting
                 </span>
@@ -115,7 +115,7 @@ class HubAccountGeneral extends React.Component {
             </div>
 
             <div>
-              <div className="rec" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_MTSETTING)}>
+              <div className="rec_tab" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_MTSETTING)}>
                 <span className={this.state.openStatus.mtSetting ? "nav-up-icon" : "nav-down-icon"} >
                   MT Setting
                 </span>
@@ -130,7 +130,7 @@ class HubAccountGeneral extends React.Component {
             </div>
 
             <div>
-              <div className="rec" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_MOSETTING)}>
+              <div className="rec_tab" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_MOSETTING)}>
                 <span className={this.state.openStatus.moSetting ? "nav-up-icon" : "nav-down-icon"} >
                   MO Setting
                 </span>
@@ -145,7 +145,7 @@ class HubAccountGeneral extends React.Component {
             </div>
 
             <div>
-              <div className="rec" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_DELIVERY)} >
+              <div className="rec_tab" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_DELIVERY)} >
                 <span className={this.state.openStatus.deliveryTime ? "nav-up-icon" : "nav-down-icon"}>
                   Prefered Delivery Time Window
                 </span>

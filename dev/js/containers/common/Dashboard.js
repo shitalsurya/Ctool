@@ -23,7 +23,7 @@ class Dashboard extends React.Component {
           showSearch :false,
         showAccountSetup :false,
           showAccountCreate:false,
-          showAccountMgmt :true,
+          showAccountMgmt :false,
           showSuspendedAcc:false
       },
       submenus:["Accounts","Create Account",
