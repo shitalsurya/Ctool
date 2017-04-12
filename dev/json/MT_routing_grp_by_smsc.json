@@ -1,26 +1,59 @@
 {
 "data":  [{
-  "countryId":"1",
-  "country":"USA(60)",
+  "SMSC_id":"1",
+      "SMSC":"GB_Vodafone_Bulk",
   "expand": [{
-    "SMSC_id":"1",
-    "SMSC":"GB_Vodafone_Bulk",
+      "id":"1",
+    "operator":"Vodafone UK(7)",
       "expand": [{
           "id":"1",
           "preference":"1",
-          "operator":"Vodafone UK(7)",
+      "country":"USA(60)",
           "onOff":"On",
           "permanent":"No",
-          "status":"Yes",
-          "comment":""
+          "status":"green",
+          "comment":"",
+          "prefStartTime":"00:00",
+            "prefEndTime":"00:00"
         }, {
             "id":"2",
               "preference":"2",
-            "operator":"Vodafone UK(7)",
+            "SMSC":"GB_Vodafone_Bulk",
             "onOff":"On",
             "permanent":"No",
-            "status":"Yes",
-            "comment":""
+            "status":"orange",
+            "comment":"",
+            "prefStartTime":"00",
+              "prefEndTime":"00:00"
+          }]
+    }]
+},
+{
+  "SMSC_id":"2",
+      "SMSC":"GB_Vodafone_Bulk",
+  "expand": [{
+      "id":"1",
+    "operator":"2 Degrees (7123)",
+      "expand": [{
+          "id":"1",
+          "preference":"1",
+          "country":"New Zealand(60)",
+          "onOff":"On",
+          "permanent":"No",
+          "status":"green",
+          "comment":"",
+          "prefStartTime":"00:00",
+            "prefEndTime":"00:00"
+        }, {
+            "id":"2",
+              "preference":"2",
+            "SMSC":"GB_Vodafone_Bulk",
+            "onOff":"On",
+            "permanent":"No",
+            "status":"orange",
+            "comment":"",
+            "prefStartTime":"00:00",
+              "prefEndTime":"00:00"
           }]
     }]
 }

@@ -104,7 +104,8 @@ updateValue(val){
           <TableHeaderColumn dataField='permanent'>Permanent</TableHeaderColumn>
           <TableHeaderColumn dataField='status' dataAlign='center' width="80px" dataFormat={ this.statusDataFormatter.bind(this) }>Status</TableHeaderColumn>
           <TableHeaderColumn dataField='comment'>Comment</TableHeaderColumn>
-
+          <TableHeaderColumn dataField='prefStartTime'>Preferred Start Time</TableHeaderColumn>
+          <TableHeaderColumn dataField='prefEndTime'>Preferred End Time</TableHeaderColumn>
         </BootstrapTable>);
     } else {
       return (<p>?</p>);
@@ -231,11 +232,11 @@ toggleOnChange(event){
                      <Row className="show-grid">
                        <Col
                          componentClass={ ControlLabel }
-                         md={ 2 }> Restricted routing:
+                         md={ 3 }> Restricted routing:
                        </Col>
                        <Col md={ 1 }>
                          <Toggle
-                          name="resRouting"
+                           name="resRouting"
                            icons={{
                               checked: 'Yes',
                               unchecked: 'No',

@@ -4,15 +4,22 @@ import { bindActionCreators } from 'redux';
 import { Tabs,  TabLink, TabContent } from 'react-tabs-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 import Select from 'react-select';
+import InlineEdit from './../common/components/InlineEdit';
 require('../../../scss/tabs.scss');
 require('../../../scss/style.scss');
 
 class InfoGeneralCommercial extends React.Component {
     constructor(props, context) {
         super(props, context);
+        this.state={
+          acctCommName:"Comm name test"
+        };
     }
 
-
+handleInlineEditChange(val){
+  console.log("handleInlineEditChange val==",this.state.acctCommName);
+  this.setState({acctCommName:val});
+}
     render() {
 
         return (
@@ -24,10 +31,7 @@ class InfoGeneralCommercial extends React.Component {
                   Account Commercial Name :
                 </Col>
                 <Col md={ 6 } >
-                  <FormControl
-                      type="text"
-                      name="name"
-                      value="(Live)" />
+                  <InlineEdit value={this.state.acctCommName} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>

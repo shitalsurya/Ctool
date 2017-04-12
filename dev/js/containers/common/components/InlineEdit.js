@@ -9,7 +9,6 @@ export default class InlineEdit extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state={
-            type : this.props.type || 'text',
             value: this.props.value ||'',
           showButtons : false,
           showEdit : true,
@@ -26,7 +25,6 @@ export default class InlineEdit extends React.Component {
     onOkClick() {
 
         var _state = {
-              type : this.state.type,
               value: this.state.value,
             showButtons : false,
             showEdit : true,
@@ -49,7 +47,6 @@ export default class InlineEdit extends React.Component {
  handleInputChange(e){
    console.log("handleInputChange==",e.target.value);
    var _state = {
-         type : this.state.type,
          value: e.target.value,
        showButtons : true,
        showEdit : false,
