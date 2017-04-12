@@ -7,7 +7,10 @@ import InfoGeneralCommercial from './InfoGeneralCommercial';
 import InfoGeneralSybase from './InfoGeneralSybase';
 import InfoGeneralAddContacts from './InfoGeneralAddContacts';
 import InfoGeneralTechnical from './InfoGeneralTechnical';
-import InfoGeneralLookup from './InfoGeneralLookup';
+import InfoGeneralVolumeSetting from './InfoGeneralVolumeSetting';
+import InfoGeneralMTSetting from './InfoGeneralMTSetting';
+import InfoGeneralMOSetting from './InfoGeneralMOSetting';
+import InfoGeneralDeliveryTime from './InfoGeneralDeliveryTime';
 require('../../../scss/tabs.scss');
 require('../../../scss/style.scss');
 
@@ -30,7 +33,11 @@ class HubAccountGeneral extends React.Component {
                       <TabLink to="SyBase" className="tab-link">SyBase 365 Contacts</TabLink>
                       <TabLink to="AccContacts" className="tab-link">Account Contacts</TabLink>
                       <TabLink to="TechnicalInfo" className="tab-link">Technical Information</TabLink>
-                      <TabLink to="lookUp" className="tab-link">Customer Number Lookup Mode Setting</TabLink>
+                      <TabLink to="volCntrl" className="tab-link">Volume Control Setting</TabLink>
+                      <TabLink to="mtSetting" className="tab-link">MT Setting</TabLink>
+                      <TabLink to="moSetting" className="tab-link">MO Setting</TabLink>
+                      <TabLink to="deliveryTime" className="tab-link">Preffered Delivery Time Window</TabLink>
+
                   </div>
                 </Col>
                 <Col sm={8}>
@@ -47,9 +54,19 @@ class HubAccountGeneral extends React.Component {
                     <TabContent for="TechnicalInfo">
                       <InfoGeneralTechnical/>
                     </TabContent>
-                    <TabContent for="lookUp">
-                      <InfoGeneralLookup/>
+                    <TabContent for="volCntrl">
+                      <InfoGeneralVolumeSetting/>
                     </TabContent>
+                    <TabContent for="mtSetting">
+                      <InfoGeneralMTSetting/>
+                    </TabContent>
+                    <TabContent for="moSetting">
+                      <InfoGeneralMOSetting/>
+                    </TabContent>
+                    <TabContent for="deliveryTime">
+                      <InfoGeneralDeliveryTime/>
+                    </TabContent>
+
                   </div>
                 </Col>
               </Row>

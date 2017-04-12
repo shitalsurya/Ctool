@@ -7,7 +7,7 @@ import Select from 'react-select';
 require('../../../scss/tabs.scss');
 require('../../../scss/style.scss');
 
-class InfoGeneralSybase extends React.Component {
+class InfoGeneralVolumeSetting extends React.Component {
     constructor(props, context) {
         super(props, context);
     }
@@ -21,30 +21,55 @@ class InfoGeneralSybase extends React.Component {
 
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 5 }>
-                  Country Manager :
+                  Volume Type :
                 </Col>
-                <Col md={ 6 } >
+                <Col md={ 6 }>
                   <FormControl
                       type="text"
-                      name="cntryMgr"
-                      value="Wei Leng" />
+                      name="volType"
+                      value="None" />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
 
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 5 }>
-                  Account Manager :
+                  Volume Limit :
                 </Col>
-                <Col md={ 6 } >
+                <Col md={ 6 }>
                   <FormControl
                       type="text"
-                      name="accMgr"
-                      value="ww@sybase.com" />
+                      name="volLimit"
+                      value="" />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
 
+              <Row className="show-grid">
+                <Col componentClass={ ControlLabel } md={ 5 }>
+                  Prelimit Alert (%) :
+                </Col>
+                <Col md={ 6 }>
+                  <FormControl
+                      type="text"
+                      name="preAlert"
+                      value="" />
+                </Col>
+                <Col mdHidden md={ 3 }/>
+              </Row>
+
+              <Row className="show-grid">
+                <Col componentClass={ ControlLabel } md={ 5 }>
+                  Comments :
+                </Col>
+                <Col md={ 6 }>
+                  <FormControl
+                      type="text"
+                      name="commments"
+                      value="" />
+                </Col>
+                <Col mdHidden md={ 3 }/>
+              </Row>
             </Grid>
           </div>
         )
@@ -65,4 +90,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({ }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(InfoGeneralSybase);
+export default connect(mapStateToProps, mapDispatchToProps)(InfoGeneralVolumeSetting);

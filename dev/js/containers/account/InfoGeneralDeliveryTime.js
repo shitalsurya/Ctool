@@ -7,7 +7,7 @@ import Select from 'react-select';
 require('../../../scss/tabs.scss');
 require('../../../scss/style.scss');
 
-class InfoGeneralAddContacts extends React.Component {
+class InfoGeneralDeliveryTime extends React.Component {
     constructor(props, context) {
         super(props, context);
     }
@@ -15,26 +15,32 @@ class InfoGeneralAddContacts extends React.Component {
 
     render() {
 
-      const options=[];
-
         return (
           <div >
             <Grid fluid={true} className="inner_grid">
 
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 5 }>
-                  Country Name
+                  Preferred Start Time(UTC) :
                 </Col>
-                <Col componentClass={ ControlLabel } md={ 6 } >
-                  Lookup Mode
+                <Col md={ 6 }>
+                  <FormControl
+                      type="text"
+                      name="startTime"
+                      value="" />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 3 }>
-                  <Select
-                        options={options} />
+                <Col componentClass={ ControlLabel } md={ 5 }>
+                  Preferred End Time(UTC) :
+                </Col>
+                <Col md={ 6 }>
+                  <FormControl
+                      type="text"
+                      name="endTime"
+                      value="" />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -59,4 +65,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({ }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(InfoGeneralAddContacts);
+export default connect(mapStateToProps, mapDispatchToProps)(InfoGeneralDeliveryTime);
