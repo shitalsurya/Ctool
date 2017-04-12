@@ -13,6 +13,7 @@ import InfoGeneralMOSetting from './InfoGeneralMOSetting';
 import InfoGeneralDeliveryTime from './InfoGeneralDeliveryTime';
 require('../../../scss/tabs.scss');
 require('../../../scss/style.scss');
+import * as types from './actions/accountActionTypes';
 
 class HubAccountGeneral extends React.Component {
     constructor(props, context) {
@@ -32,104 +33,165 @@ class HubAccountGeneral extends React.Component {
 
     }
 
-    handleButtonClick(e){
-      debugger;
-    }
-
     render() {
 
 
         return (
           <div className="tabs-container">
-            <Button name="CommercialInfo" onClick={this.handleButtonClick.bind(this)}>
-              Commercial Information
-            </Button>
-            <Collapse in={this.state.openStatus.CommercialInfo}>
-              <div>
-                <Well>
-                  <InfoGeneralCommercial/>
-                </Well>
-              </div>
-            </Collapse>
 
-            <Button name="SyBase" onClick={this.handleButtonClick.bind(this)}>
-              SyBase 365 Contacts
-            </Button>
-            <Collapse in={this.state.openStatus.SyBase}>
-              <div>
-                <Well>
-                  <InfoGeneralSybase/>
-                </Well>
+            <div>
+              <div className="rec" onClick={this.handleButtonClick.bind(this , types.INFO_GENERAL_COMMERCIAL)}>
+                <span className={this.state.openStatus.CommercialInfo ? "nav-up-icon" : "nav-down-icon"} >
+                  Commercial Information
+                </span>
               </div>
-            </Collapse>
+              <Collapse in={this.state.openStatus.CommercialInfo}>
+                <div>
+                  <Well>
+                    <InfoGeneralCommercial/>
+                  </Well>
+                </div>
+              </Collapse>
+            </div>
 
-            <Button name="AccContacts" onClick={this.handleButtonClick.bind(this)}>
-              Account Contacts
-            </Button>
-            <Collapse in={this.state.openStatus.AccContacts}>
-              <div>
-                <Well>
-                  <InfoGeneralAddContacts/>
-                </Well>
+            <div>
+              <div className="rec" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_SYBASE)}>
+                <span className={this.state.openStatus.SyBase ? "nav-up-icon" : "nav-down-icon"} >
+                  SyBase 365 Contacts
+                </span>
               </div>
-            </Collapse>
+              <Collapse in={this.state.openStatus.SyBase}>
+                <div>
+                  <Well>
+                    <InfoGeneralSybase/>
+                  </Well>
+                </div>
+              </Collapse>
+            </div>
 
-            <Button name="TechnicalInfo" onClick={this.handleButtonClick.bind(this)}>
-              Technical Information
-            </Button>
-            <Collapse in={this.state.openStatus.TechnicalInfo}>
-              <div>
-                <Well>
-                  <InfoGeneralTechnical/>
-                </Well>
+            <div>
+              <div className="rec" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_ACC_CONTACTS)}>
+                <span className={this.state.openStatus.AccContacts ? "nav-up-icon" : "nav-down-icon"} >
+                  Account Contacts
+                </span>
               </div>
-            </Collapse>
+              <Collapse in={this.state.openStatus.AccContacts}>
+                <div>
+                  <Well>
+                    <InfoGeneralAddContacts/>
+                  </Well>
+                </div>
+              </Collapse>
+            </div>
 
-            <Button name="volCntrl" onClick={this.handleButtonClick.bind(this)}>
-              Volume Control Setting
-            </Button>
-            <Collapse in={this.state.openStatus.volCntrl}>
-              <div>
-                <Well>
-                  <InfoGeneralVolumeSetting/>
-                </Well>
+            <div>
+              <div className="rec" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_TECHNICAL)}>
+                <span className={this.state.openStatus.TechnicalInfo ? "nav-up-icon" : "nav-down-icon"} >
+                  Technical Information
+                </span>
               </div>
-            </Collapse>
+              <Collapse in={this.state.openStatus.TechnicalInfo}>
+                <div>
+                  <Well>
+                    <InfoGeneralTechnical/>
+                  </Well>
+                </div>
+              </Collapse>
+            </div>
 
-            <Button name="mtSetting" onClick={this.handleButtonClick.bind(this)}>
-              MT Setting
-            </Button>
-            <Collapse in={this.state.openStatus.mtSetting}>
-              <div>
-                <Well>
-                  <InfoGeneralMTSetting/>
-                </Well>
+            <div>
+              <div className="rec" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_VOLUME)}>
+                <span className={this.state.openStatus.volCntrl ? "nav-up-icon" : "nav-down-icon"} >
+                  Volume Control Setting
+                </span>
               </div>
-            </Collapse>
+              <Collapse in={this.state.openStatus.volCntrl}>
+                <div>
+                  <Well>
+                    <InfoGeneralVolumeSetting/>
+                  </Well>
+                </div>
+              </Collapse>
+            </div>
 
-            <Button name="moSetting" onClick={this.handleButtonClick.bind(this)}>
-              MO Setting
-            </Button>
-            <Collapse in={this.state.openStatus.moSetting}>
-              <div>
-                <Well>
-                  <InfoGeneralMOSetting/>
-                </Well>
+            <div>
+              <div className="rec" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_MTSETTING)}>
+                <span className={this.state.openStatus.mtSetting ? "nav-up-icon" : "nav-down-icon"} >
+                  MT Setting
+                </span>
               </div>
-            </Collapse>
+              <Collapse in={this.state.openStatus.mtSetting}>
+                <div>
+                  <Well>
+                    <InfoGeneralMTSetting/>
+                  </Well>
+                </div>
+              </Collapse>
+            </div>
 
-            <Button name="deliveryTime" onClick={this.handleButtonClick.bind(this)}>
-              Preffered Delivery Time Window
-            </Button>
-            <Collapse in={this.state.openStatus.deliveryTime}>
-              <div>
-                <Well>
-                  <InfoGeneralDeliveryTime/>
-                </Well>
+            <div>
+              <div className="rec" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_MOSETTING)}>
+                <span className={this.state.openStatus.moSetting ? "nav-up-icon" : "nav-down-icon"} >
+                  MO Setting
+                </span>
               </div>
-            </Collapse>
+              <Collapse in={this.state.openStatus.moSetting}>
+                <div>
+                  <Well>
+                    <InfoGeneralMOSetting/>
+                  </Well>
+                </div>
+              </Collapse>
+            </div>
+
+            <div>
+              <div className="rec" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_DELIVERY)} >
+                <span className={this.state.openStatus.deliveryTime ? "nav-up-icon" : "nav-down-icon"}>
+                  Prefered Delivery Time Window
+                </span>
+              </div>
+              <Collapse in={this.state.openStatus.deliveryTime}>
+                <div>
+                  <Well>
+                    <InfoGeneralDeliveryTime/>
+                  </Well>
+                </div>
+              </Collapse>
+            </div>
+
           </div>
         )
+    }
+
+    handleButtonClick(target){
+      let updatedOpenStatus = this.state.openStatus;
+      switch (target) {
+        case types.INFO_GENERAL_COMMERCIAL:
+          updatedOpenStatus.CommercialInfo = !this.state.openStatus.CommercialInfo;
+          break;
+        case types.INFO_GENERAL_SYBASE:
+          updatedOpenStatus.SyBase = !this.state.openStatus.SyBase;
+          break;
+        case types.INFO_GENERAL_ACC_CONTACTS:
+          updatedOpenStatus.AccContacts = !this.state.openStatus.AccContacts;
+          break;
+        case types.INFO_GENERAL_TECHNICAL:
+          updatedOpenStatus.TechnicalInfo = !this.state.openStatus.TechnicalInfo;
+          break;
+        case types.INFO_GENERAL_VOLUME:
+          updatedOpenStatus.volCntrl = !this.state.openStatus.volCntrl;
+          break;
+        case types.INFO_GENERAL_MTSETTING:
+          updatedOpenStatus.mtSetting = !this.state.openStatus.mtSetting;
+          break;
+        case types.INFO_GENERAL_MOSETTING:
+          updatedOpenStatus.moSetting = !this.state.openStatus.moSetting;
+          break;
+        case types.INFO_GENERAL_DELIVERY:
+          updatedOpenStatus.deliveryTime = !this.state.openStatus.deliveryTime;
+          break;
+      }
+      this.setState({openStatus : updatedOpenStatus});
     }
 
     componentWillReceiveProps(nextProps) {

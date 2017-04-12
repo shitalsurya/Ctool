@@ -760,3 +760,23 @@ font-family: 'SAP-icons';
 .Select-menu-outer {
   z-index: 999 !important;
 }
+.nav-down-icon::after {
+	font-family: 'SAP-icons';
+	content: "\e1e2";
+  padding-left: 20px;
+  float: right;
+}
+.nav-down-icon {
+	font-size: 10px;
+	box-sizing: border-box;
+}
+.nav-up-icon::after {
+	font-family: 'SAP-icons';
+	content: "\e1e1";
+  padding-left: 20px;
+  float: right;
+}
+.nav-up-icon {
+	font-size: 10px;
+	box-sizing: border-box;
+}
