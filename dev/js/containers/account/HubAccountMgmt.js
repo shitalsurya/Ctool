@@ -6,25 +6,18 @@ import HubAccountGeneral from './HubAccountGeneral';
 import HubAccountTPOA from './HubAccountTPOA';
 import HubAccountMORouting from './HubAccountMORouting';
 import HubAccountMTRouting from './HubAccountMTRouting';
-
+import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 
 import {handleSelectFieldsChange} from '../../containers/account/actions/accountActions'
-
+require('../../../scss/tabs.scss');
 require('../../../scss/style.scss');
 
 class HubAccountMgmt extends React.Component {
     constructor(props, context) {
         super(props, context);
-           this.selectedTab = 4;
           this.state={
-            accountTabs:{
-              showGeneral:false,
-                showTPOA:false,
-                showMORouting:false,
-                  showMTRouting:true
-            },
             accountCaptions:{
-              General:"General",
+                General:"General",
                 TPOA:"TPOA",
                 MORouting:"MORouting",
                 MTRouting:"MTRouting"
@@ -32,67 +25,34 @@ class HubAccountMgmt extends React.Component {
         }
     }
 
-    handleSelect(eventKey) {
-       event.preventDefault();
-          this.selectedTab = eventKey;
-       var accountTabs={};
-       switch (eventKey) {
-         case 1:
-           accountTabs={
-             showGeneral:true,
-               showTPOA:false,
-               showMORouting:false,
-                 showMTRouting:false
-           }
-           break;
-           case 2:
-             accountTabs={
-               showGeneral:false,
-                 showTPOA:true,
-                 showMORouting:false,
-                   showMTRouting:false
-             }
-             break;
-             case 3:
-               accountTabs={
-                 showGeneral:false,
-                   showTPOA:false,
-                   showMORouting:true,
-                     showMTRouting:false
-               }
-               break;
-               case 4:
-                 accountTabs={
-                   showGeneral:false,
-                     showTPOA:false,
-                     showMORouting:false,
-                       showMTRouting:true
-                 }
-                 break;
-         }
-         this.setState({accountTabs:accountTabs});
-          //  this.setState({accountTabs:accountTabs},function(){
-          //       console.log("this.state.accountTabs==",this.state.accountTabs);
-          //  });
-
-     }
     render() {
 
-
         return (
-                                <div>
-                                <Nav bsStyle="tabs" activeKey={this.selectedTab} onSelect={this.handleSelect.bind(this)}>
-                                       <NavItem eventKey={1} >{this.state.accountCaptions.General}</NavItem>
-                                       <NavItem eventKey={2} >{this.state.accountCaptions.TPOA }</NavItem>
-                                       <NavItem eventKey={3} >{this.state.accountCaptions.MORouting}</NavItem>
-                                       <NavItem eventKey={4} >{this.state.accountCaptions.MTRouting }</NavItem>
-                                     </Nav>
-                                         {this.state.accountTabs.showGeneral && <HubAccountGeneral/>}
-                                         {this.state.accountTabs.showTPOA && <HubAccountTPOA/>}
-                                         {this.state.accountTabs.showMORouting && <HubAccountMORouting/>}
-                                         {this.state.accountTabs.showMTRouting && <HubAccountMTRouting/>}
-                </div>
-        )
+          <div>
+            <Tabs className="tabs" >
+              <div className="links">
+                  <TabLink to="General" default className="tab-link">{this.state.accountCaptions.General}</TabLink>
+                  <TabLink to="TPOA" className="tab-link">{this.state.accountCaptions.TPOA }</TabLink>
+                  <TabLink to="MORouting" className="tab-link">{this.state.accountCaptions.MORouting}</TabLink>
+                  <TabLink to="MTRouting" className="tab-link">{this.state.accountCaptions.MTRouting }</TabLink>
+              </div>
+              <div className="content" >
+                <TabContent for="General">
+                  <HubAccountGeneral/>
+                </TabContent>
+                <TabContent for="TPOA">
+                  <HubAccountTPOA/>
+                </TabContent>
+                <TabContent for="MORouting">
+                  <HubAccountMORouting/>
+                </TabContent>
+                <TabContent for="MTRouting">
+                  <HubAccountMTRouting/>
+                </TabContent>
+              </div>
+            </Tabs>
+        </div>
+      );
     }
 
     componentWillReceiveProps(nextProps) {
