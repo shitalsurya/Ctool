@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Tabs,  TabLink, TabContent } from 'react-tabs-redux';
-import { Col, Row, Grid } from 'react-bootstrap';
+import { Col, Row, Grid, Collapse, Button, Well } from 'react-bootstrap';
 import InfoGeneralCommercial from './InfoGeneralCommercial';
 import InfoGeneralSybase from './InfoGeneralSybase';
 import InfoGeneralAddContacts from './InfoGeneralAddContacts';
@@ -17,60 +17,117 @@ require('../../../scss/style.scss');
 class HubAccountGeneral extends React.Component {
     constructor(props, context) {
         super(props, context);
+        this.state = {
+          openStatus : {
+            CommercialInfo : true,
+            SyBase : false,
+            AccContacts : false,
+            TechnicalInfo : false,
+            volCntrl : false,
+            mtSetting : false,
+            moSetting : false,
+            deliveryTime : false
+          }
+        };
+
     }
 
+    handleButtonClick(e){
+      debugger;
+    }
 
     render() {
 
 
         return (
           <div className="tabs-container">
-            <Tabs className="tabs" >
-              <Row >
-                <Col sm={4}>
-                  <div className="links_stacked">
-                      <TabLink to="CommercialInfo" default className="tab-link">Commercial Information</TabLink>
-                      <TabLink to="SyBase" className="tab-link">SyBase 365 Contacts</TabLink>
-                      <TabLink to="AccContacts" className="tab-link">Account Contacts</TabLink>
-                      <TabLink to="TechnicalInfo" className="tab-link">Technical Information</TabLink>
-                      <TabLink to="volCntrl" className="tab-link">Volume Control Setting</TabLink>
-                      <TabLink to="mtSetting" className="tab-link">MT Setting</TabLink>
-                      <TabLink to="moSetting" className="tab-link">MO Setting</TabLink>
-                      <TabLink to="deliveryTime" className="tab-link">Preffered Delivery Time Window</TabLink>
+            <Button name="CommercialInfo" onClick={this.handleButtonClick.bind(this)}>
+              Commercial Information
+            </Button>
+            <Collapse in={this.state.openStatus.CommercialInfo}>
+              <div>
+                <Well>
+                  <InfoGeneralCommercial/>
+                </Well>
+              </div>
+            </Collapse>
 
-                  </div>
-                </Col>
-                <Col sm={8}>
-                  <div className="content" >
-                    <TabContent for="CommercialInfo">
-                      <InfoGeneralCommercial/>
-                    </TabContent>
-                    <TabContent for="SyBase">
-                      <InfoGeneralSybase/>
-                    </TabContent>
-                    <TabContent for="AccContacts">
-                      <InfoGeneralAddContacts/>
-                    </TabContent>
-                    <TabContent for="TechnicalInfo">
-                      <InfoGeneralTechnical/>
-                    </TabContent>
-                    <TabContent for="volCntrl">
-                      <InfoGeneralVolumeSetting/>
-                    </TabContent>
-                    <TabContent for="mtSetting">
-                      <InfoGeneralMTSetting/>
-                    </TabContent>
-                    <TabContent for="moSetting">
-                      <InfoGeneralMOSetting/>
-                    </TabContent>
-                    <TabContent for="deliveryTime">
-                      <InfoGeneralDeliveryTime/>
-                    </TabContent>
+            <Button name="SyBase" onClick={this.handleButtonClick.bind(this)}>
+              SyBase 365 Contacts
+            </Button>
+            <Collapse in={this.state.openStatus.SyBase}>
+              <div>
+                <Well>
+                  <InfoGeneralSybase/>
+                </Well>
+              </div>
+            </Collapse>
 
-                  </div>
-                </Col>
-              </Row>
-            </Tabs>
+            <Button name="AccContacts" onClick={this.handleButtonClick.bind(this)}>
+              Account Contacts
+            </Button>
+            <Collapse in={this.state.openStatus.AccContacts}>
+              <div>
+                <Well>
+                  <InfoGeneralAddContacts/>
+                </Well>
+              </div>
+            </Collapse>
+
+            <Button name="TechnicalInfo" onClick={this.handleButtonClick.bind(this)}>
+              Technical Information
+            </Button>
+            <Collapse in={this.state.openStatus.TechnicalInfo}>
+              <div>
+                <Well>
+                  <InfoGeneralTechnical/>
+                </Well>
+              </div>
+            </Collapse>
+
+            <Button name="volCntrl" onClick={this.handleButtonClick.bind(this)}>
+              Volume Control Setting
+            </Button>
+            <Collapse in={this.state.openStatus.volCntrl}>
+              <div>
+                <Well>
+                  <InfoGeneralVolumeSetting/>
+                </Well>
+              </div>
+            </Collapse>
+
+            <Button name="mtSetting" onClick={this.handleButtonClick.bind(this)}>
+              MT Setting
+            </Button>
+            <Collapse in={this.state.openStatus.mtSetting}>
+              <div>
+                <Well>
+                  <InfoGeneralMTSetting/>
+                </Well>
+              </div>
+            </Collapse>
+
+            <Button name="moSetting" onClick={this.handleButtonClick.bind(this)}>
+              MO Setting
+            </Button>
+            <Collapse in={this.state.openStatus.moSetting}>
+              <div>
+                <Well>
+                  <InfoGeneralMOSetting/>
+                </Well>
+              </div>
+            </Collapse>
+
+            <Button name="deliveryTime" onClick={this.handleButtonClick.bind(this)}>
+              Preffered Delivery Time Window
+            </Button>
+            <Collapse in={this.state.openStatus.deliveryTime}>
+              <div>
+                <Well>
+                  <InfoGeneralDeliveryTime/>
+                </Well>
+              </div>
+            </Collapse>
           </div>
         )
     }
