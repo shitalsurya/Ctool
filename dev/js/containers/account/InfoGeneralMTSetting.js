@@ -7,7 +7,7 @@ import Select from 'react-select';
 require('../../../scss/tabs.scss');
 require('../../../scss/style.scss');
 
-class InfoGeneralTechnical extends React.Component {
+class InfoGeneralMTSetting extends React.Component {
     constructor(props, context) {
         super(props, context);
     }
@@ -21,38 +21,126 @@ class InfoGeneralTechnical extends React.Component {
 
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 5 }>
-                  Account ID :
-                </Col>
-                <Col md={ 6 } >
-                  <FormControl
-                      type="text"
-                      name="accID"
-                      value="31353" />
-                </Col>
-                <Col mdHidden md={ 3 }/>
-              </Row>
-
-              <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
-                  Technical Name :
-                </Col>
-                <Col md={ 6 } >
-                  <FormControl
-                      type="text"
-                      name="techName"
-                      value="ACCNAME12345_HTTP" />
-                </Col>
-                <Col mdHidden md={ 3 }/>
-              </Row>
-
-              <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
-                  Revenue Sharing Status :
+                  Interface Type :
                 </Col>
                 <Col md={ 6 }>
                   <FormControl
                       type="text"
-                      name="revStatus"
+                      name="interfaceType"
+                      value="HTTP" />
+                </Col>
+                <Col mdHidden md={ 3 }/>
+              </Row>
+
+              <Row className="show-grid">
+                <Col componentClass={ ControlLabel } md={ 5 }>
+                  URL :
+                </Col>
+                <Col md={ 6 }>
+                  <FormControl
+                      type="text"
+                      name="url"
+                      value="http://sms-pp.sapmobileservices.com/cmc/accname12348581/accname12348581.sms" />
+                </Col>
+                <Col mdHidden md={ 3 }/>
+              </Row>
+
+              <Row className="show-grid">
+                <Col componentClass={ ControlLabel } md={ 5 }>
+                  Login :
+                </Col>
+                <Col md={ 6 }>
+                  <FormControl
+                      type="text"
+                      name="login"
+                      value="accname12348581" />
+                </Col>
+                <Col mdHidden md={ 3 }/>
+              </Row>
+
+              <Row className="show-grid">
+                <Col componentClass={ ControlLabel } md={ 5 }>
+                  Password :
+                </Col>
+                <Col md={ 6 }>
+                  <FormControl
+                      type="text"
+                      name="password"
+                      value="JuF6HJi" />
+                </Col>
+                <Col mdHidden md={ 3 }/>
+              </Row>
+
+              <Row className="show-grid">
+                <Col componentClass={ ControlLabel } md={ 5 }>
+                  Encode_base64 :
+                </Col>
+                <Col md={ 6 }>
+                  <FormControl
+                      type="text"
+                      name="encode"
+                      value="YWNjbmFtZTEyMzQ4NTgxOkp1Rmo2SEpp" />
+                </Col>
+                <Col mdHidden md={ 3 }/>
+              </Row>
+
+              <Row className="show-grid">
+                <Col componentClass={ ControlLabel } md={ 5 }>
+                  Notification Level :
+                </Col>
+                <Col md={ 6 }>
+                  <Col componentClass={ ControlLabel } md={ 5 }>
+                    MW NOTIF :
+                  </Col>
+                  <Col md={ 7 }>
+                    <FormControl
+                        type="text"
+                        name="mwNotif"
+                        value="DEFAULT_ACK" />
+                  </Col>
+                  <Col componentClass={ ControlLabel } md={ 5 }>
+                    SMSC NOTIF :
+                  </Col>
+                  <Col md={ 7 }>
+                    <FormControl
+                        type="text"
+                        name="smscNotif"
+                        value="DEFAULT_ACK" />
+                  </Col>
+                  <Col componentClass={ ControlLabel } md={ 5 }>
+                    MOBILE NOTIF :
+                  </Col>
+                  <Col md={ 7 }>
+                    <FormControl
+                        type="text"
+                        name="mobileNotif"
+                        value="DEFAULT_ACK" />
+                  </Col>
+                </Col>
+                <Col mdHidden md={ 3 }/>
+              </Row>
+
+              <Row className="show-grid">
+                <Col componentClass={ ControlLabel } md={ 5 }>
+                  Notification Path :
+                </Col>
+                <Col md={ 6 }>
+                  <FormControl
+                      type="text"
+                      name="ntfPath"
+                      value="/usr/mobileway/notifs/outputspool/http" />
+                </Col>
+                <Col mdHidden md={ 3 }/>
+              </Row>
+
+              <Row className="show-grid">
+                <Col componentClass={ ControlLabel } md={ 5 }>
+                  Disable text body message on the extranet :
+                </Col>
+                <Col md={ 6 }>
+                  <FormControl
+                      type="text"
+                      name="disTxtBody"
                       value="No" />
                 </Col>
                 <Col mdHidden md={ 3 }/>
@@ -60,78 +148,23 @@ class InfoGeneralTechnical extends React.Component {
 
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 5 }>
-                  Extranet Address :
+                  Countries excluded from blacklist :
                 </Col>
                 <Col md={ 6 }>
-                  <FormControl
-                      type="text"
-                      name="exAdd"
-                      value="http://172.24.229.51:8883/" />
-                </Col>
-                <Col mdHidden md={ 3 }/>
-              </Row>
-
-              <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
-                  Disable Extranet Login :
-                </Col>
-                <Col md={ 6 }>
-                  <FormControl
-                      type="text"
-                      name="disExtranet"
-                      value="No" />
-                </Col>
-                <Col mdHidden md={ 3 }/>
-              </Row>
-
-              <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
-                  Extranet Login :
-                </Col>
-                <Col md={ 6 }>
-                  <FormControl
-                      type="text"
-                      name="extLogin"
-                      value="ACCNAME12345_HTTP" />
-                </Col>
-                <Col mdHidden md={ 3 }/>
-              </Row>
-
-              <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
-                  Extranet Password :
-                </Col>
-                <Col md={ 6 }>
-                  <FormControl
-                      type="text"
-                      name="extPassword"
-                      value="PWD" />
-                </Col>
-                <Col mdHidden md={ 3 }/>
-              </Row>
-
-              <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
-                  Message Encryption :
-                </Col>
-                <Col md={ 6 }>
-                  <FormControl
-                      type="text"
-                      name="msgEncrp"
-                      value="No" />
-                </Col>
-                <Col mdHidden md={ 3 }/>
-              </Row>
-
-              <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
-                  Message Body Removal :
-                </Col>
-                <Col md={ 6 }>
-                  <FormControl
-                      type="text"
-                      name="msgBodyRem"
-                      value="No" />
+                  {/*<Row className="show-grid">
+                    <Col componentClass={ ControlLabel } md={ 5 }>
+                      Country :
+                    </Col>
+                    <Col md={ 6 }>*/}
+                      <FormControl
+                          type="text"
+                          name="country"
+                          value="" />
+                  {/*</Col>
+                  </Row>
+                  <Row className="show-grid">
+                    <Button bsStyle="primary">Add Contact</Button>
+                  </Row>*/}
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -156,4 +189,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({ }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(InfoGeneralTechnical);
+export default connect(mapStateToProps, mapDispatchToProps)(InfoGeneralMTSetting);
