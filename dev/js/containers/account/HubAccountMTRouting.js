@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Nav,NavItem } from 'react-bootstrap';
 import Select from 'react-select';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal,Label } from 'react-bootstrap';
+import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal,Label, OverlayTrigger, Popover, ButtonToolbar } from 'react-bootstrap';
 import Toggle from 'react-toggle';
 import ModalModify from './HubAccountModifyMTRouting';
 import ModalAdd from './HubAccountAddMTRouting';
@@ -224,6 +224,34 @@ toggleOnChange(event){
     expanding: this.state.expanding
  };
 
+ const popoverBottom = (
+   <Popover id="popover-positioned-bottom" >
+     <Row className="show-grid">
+       <Col md={ 5 } >
+         <h4><Label>Group By:</Label></h4>
+       </Col>
+       <Col md={ 9 } >
+         <Select
+           placeholder="Select Column.."
+           options={this.grpByMaster}
+           value={this.state.groupBy}
+           onChange={this.handleGroupByChange.bind(this)}  />
+       </Col>
+     </Row>
+     <Row className="show-grid">
+       <Col md={ 5 } >
+         <h4><Label>Sub Group By:</Label></h4>
+        </Col>
+       <Col md={ 9 } >
+         <Select
+           placeholder="Select Column.."
+           options={this.subGrpByMaster}
+           value={this.state.subGroupBy}
+           onChange={this.handleSubGroupByChange.bind(this)} />
+       </Col>
+     </Row>
+   </Popover>
+ );
 
         return (
 
@@ -273,32 +301,16 @@ toggleOnChange(event){
                          </ButtonGroup>
                        </Col>
                      </Row>
+
                      <Row className="show-grid">
-                       <Col
-                         mdHidden
-                         md={ 3 } >
-                       </Col>
-                       <Col
-                         md={ 1 } >     <h4><Label>Group By:</Label></h4>  </Col>
-                       <Col
-                         md={ 3 } >
-                         <Select
-                           placeholder="Select Column.."
-                           options={this.grpByMaster}
-                           value={this.state.groupBy}
-                           onChange={this.handleGroupByChange.bind(this)}
-                         />
-                       </Col>
-                       <Col
-                         md={ 2 } >     <h4><Label>Sub Group By:</Label></h4>  </Col>
-                       <Col
-                         md={ 3 } >
-                         <Select
-                           placeholder="Select Column.."
-                           options={this.subGrpByMaster}
-                           value={this.state.subGroupBy}
-                           onChange={this.handleSubGroupByChange.bind(this)}
-                         />
+                       <Col mdHidden md={ 4 } />
+                       <Col mdHidden md={ 5 } />
+                       <Col md={ 3 } >
+                         <ButtonToolbar>
+                            <OverlayTrigger trigger="click" placement="bottom" overlay={popoverBottom}>
+                              <Button>Options</Button>
+                            </OverlayTrigger>
+                          </ButtonToolbar>
                        </Col>
                      </Row>
 
