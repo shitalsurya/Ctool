@@ -4,14 +4,24 @@ import { bindActionCreators } from 'redux';
 import { Tabs,  TabLink, TabContent } from 'react-tabs-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 import Select from 'react-select';
+import InlineEdit from './../common/components/InlineEdit';
 require('../../../scss/tabs.scss');
 require('../../../scss/style.scss');
 
 class InfoGeneralDeliveryTime extends React.Component {
     constructor(props, context) {
         super(props, context);
+        this.state = {
+          deliveryTimeObj : {
+            startTime : '',
+            endTime : ''
+          }
+        }
     }
 
+    handleInlineEditChange(val){
+      //<InlineEdit value={this.state.acctCommName} onSave={this.handleInlineEditChange.bind(this)}  />
+    }
 
     render() {
 
@@ -24,10 +34,7 @@ class InfoGeneralDeliveryTime extends React.Component {
                   Preferred Start Time(UTC) :
                 </Col>
                 <Col md={ 6 }>
-                  <FormControl
-                      type="text"
-                      name="startTime"
-                      value="" />
+                  <InlineEdit value={this.state.deliveryTimeObj.startTime} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -37,10 +44,7 @@ class InfoGeneralDeliveryTime extends React.Component {
                   Preferred End Time(UTC) :
                 </Col>
                 <Col md={ 6 }>
-                  <FormControl
-                      type="text"
-                      name="endTime"
-                      value="" />
+                  <InlineEdit value={this.state.deliveryTimeObj.endTime} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>

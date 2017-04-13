@@ -12,14 +12,26 @@ class InfoGeneralCommercial extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state={
-          acctCommName:"Comm name test"
+          commInfoObj : {
+            acctCommName : '(Live)',
+            billing : 'Mobile 365 Inc',
+            opened : '12 Jan 2017',
+            suspended : '',
+            closed : '',
+            serviceLevel : 'Standard',
+            status : 'UNSIGNED',
+            comment : 'N/A'
+          }
         };
     }
 
-handleInlineEditChange(val){
-  console.log("handleInlineEditChange val==",this.state.acctCommName);
-  this.setState({acctCommName:val});
-}
+    handleInlineEditChange(val){
+      // debugger;
+      // console.log("handleInlineEditChange val==",this.state.acctCommName);
+      // this.setState({acctCommName:val});
+      //<InlineEdit value={this.state.acctCommName} onSave={this.handleInlineEditChange.bind(this)}  />
+    }
+
     render() {
 
         return (
@@ -31,7 +43,10 @@ handleInlineEditChange(val){
                   Account Commercial Name :
                 </Col>
                 <Col md={ 6 } >
-                  <InlineEdit value={this.state.acctCommName} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <FormControl
+                      type="text"
+                      name="acctCommName"
+                      value={this.state.commInfoObj.acctCommName} />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -41,10 +56,7 @@ handleInlineEditChange(val){
                   Billing Location :
                 </Col>
                 <Col md={ 6 } >
-                  <FormControl
-                      type="text"
-                      name="billing"
-                      value="Mobile 365 Inc" />
+                  <InlineEdit value={this.state.commInfoObj.billing} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -57,7 +69,7 @@ handleInlineEditChange(val){
                   <FormControl
                       type="text"
                       name="opened"
-                      value="12 Jan 2017" />
+                      value={this.state.commInfoObj.opened} />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -70,7 +82,7 @@ handleInlineEditChange(val){
                   <FormControl
                       type="text"
                       name="suspended"
-                      value="" />
+                      value={this.state.commInfoObj.suspended} />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -83,7 +95,7 @@ handleInlineEditChange(val){
                   <FormControl
                       type="text"
                       name="closed"
-                      value="" />
+                      value={this.state.commInfoObj.closed} />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -93,10 +105,7 @@ handleInlineEditChange(val){
                   Service Level :
                 </Col>
                 <Col md={ 6 }>
-                  <FormControl
-                      type="text"
-                      name="serviceLevel"
-                      value="Standard" />
+                  <InlineEdit value={this.state.commInfoObj.serviceLevel} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -106,10 +115,7 @@ handleInlineEditChange(val){
                   Legal Status :
                 </Col>
                 <Col md={ 6 }>
-                  <FormControl
-                      type="text"
-                      name="status"
-                      value="UNSIGNED" />
+                  <InlineEdit value={this.state.commInfoObj.status} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -119,10 +125,7 @@ handleInlineEditChange(val){
                   Comment :
                 </Col>
                 <Col md={ 6 }>
-                  <FormControl
-                      type="text"
-                      name="comment"
-                      value="N/A" />
+                  <InlineEdit value={this.state.commInfoObj.comment} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>

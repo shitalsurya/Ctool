@@ -4,14 +4,24 @@ import { bindActionCreators } from 'redux';
 import { Tabs,  TabLink, TabContent } from 'react-tabs-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 import Select from 'react-select';
+import InlineEdit from './../common/components/InlineEdit';
 require('../../../scss/tabs.scss');
 require('../../../scss/style.scss');
 
 class InfoGeneralSybase extends React.Component {
     constructor(props, context) {
         super(props, context);
+        this.state = {
+          sybaseInfoObj : {
+            cntryMgr : 'Wei Leng',
+            accMgr : 'ww@sybase.com'
+          }
+        }
     }
 
+    handleInlineEditChange(val){
+      //<InlineEdit value={this.state.acctCommName} onSave={this.handleInlineEditChange.bind(this)}  />
+    }
 
     render() {
 
@@ -27,7 +37,7 @@ class InfoGeneralSybase extends React.Component {
                   <FormControl
                       type="text"
                       name="cntryMgr"
-                      value="Wei Leng" />
+                      value={this.state.sybaseInfoObj.cntryMgr} />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -37,10 +47,7 @@ class InfoGeneralSybase extends React.Component {
                   Account Manager :
                 </Col>
                 <Col md={ 6 } >
-                  <FormControl
-                      type="text"
-                      name="accMgr"
-                      value="ww@sybase.com" />
+                  <InlineEdit value={this.state.sybaseInfoObj.accMgr} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>

@@ -4,14 +4,28 @@ import { bindActionCreators } from 'redux';
 import { Tabs,  TabLink, TabContent } from 'react-tabs-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 import Select from 'react-select';
+import InlineEdit from './../common/components/InlineEdit';
 require('../../../scss/tabs.scss');
 require('../../../scss/style.scss');
 
 class InfoGeneralMOSetting extends React.Component {
     constructor(props, context) {
         super(props, context);
+        this.state =  {
+           moSettingObj : {
+             intrfType : 'HTTP',
+             replyAdd : 'http://192.168.60.99:888/cgi-bin/trash.pl',
+             login : 'N/A',
+             password : 'N/A',
+             pathOut : '/opt/HUB/routermo/outputspool/defaulttrash/',
+             disTxtBdy : 'No'
+           }
+        }
     }
 
+    handleInlineEditChange(val){
+      //<InlineEdit value={this.state.acctCommName} onSave={this.handleInlineEditChange.bind(this)}  />
+    }
 
     render() {
 
@@ -27,7 +41,7 @@ class InfoGeneralMOSetting extends React.Component {
                   <FormControl
                       type="text"
                       name="intrfType"
-                      value="HTTP" />
+                      value={this.state.moSettingObj.intrfType} />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -37,10 +51,7 @@ class InfoGeneralMOSetting extends React.Component {
                   Reply Address :
                 </Col>
                 <Col md={ 6 }>
-                  <FormControl
-                      type="text"
-                      name="replyAdd"
-                      value="http://192.168.60.99:888/cgi-bin/trash.pl" />
+                  <InlineEdit value={this.state.moSettingObj.replyAdd} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -53,7 +64,7 @@ class InfoGeneralMOSetting extends React.Component {
                   <FormControl
                       type="text"
                       name="login"
-                      value="N/A" />
+                      value={this.state.moSettingObj.login} />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -66,7 +77,7 @@ class InfoGeneralMOSetting extends React.Component {
                   <FormControl
                       type="text"
                       name="password"
-                      value="N/A" />
+                      value={this.state.moSettingObj.password} />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -76,10 +87,7 @@ class InfoGeneralMOSetting extends React.Component {
                   MO Spool Path out :
                 </Col>
                 <Col md={ 6 }>
-                  <FormControl
-                      type="text"
-                      name="pathOut"
-                      value="/opt/HUB/routermo/outputspool/defaulttrash/" />
+                  <InlineEdit value={this.state.moSettingObj.pathOut} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -92,7 +100,7 @@ class InfoGeneralMOSetting extends React.Component {
                   <FormControl
                       type="text"
                       name="disTxtBdy"
-                      value="No" />
+                      value={this.state.moSettingObj.disTxtBdy} />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
