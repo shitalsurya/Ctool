@@ -4,14 +4,33 @@ import { bindActionCreators } from 'redux';
 import { Tabs,  TabLink, TabContent } from 'react-tabs-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 import Select from 'react-select';
+import InlineEdit from './../common/components/InlineEdit';
 require('../../../scss/tabs.scss');
 require('../../../scss/style.scss');
 
 class InfoGeneralMTSetting extends React.Component {
     constructor(props, context) {
         super(props, context);
+        this.state = {
+          mtSettingObj : {
+            interfaceType : 'HTTP',
+            url : 'http://sms-pp.sapmobileservices.com/cmc/accname12348581/accname12348581.sms',
+            login : 'accname12348581',
+            password : 'JuF6HJi',
+            encode : 'YWNjbmFtZTEyMzQ4NTgxOkp1Rmo2SEpp',
+            mwNotif : 'DEFAULT_ACK',
+            smscNotif : 'DEFAULT_ACK',
+            mobileNotif : 'DEFAULT_ACK',
+            ntfPath : '/usr/mobileway/notifs/outputspool/http',
+            disTxtBody : 'No',
+            country : ''
+          }
+        }
     }
 
+    handleInlineEditChange(val){
+      //<InlineEdit value={this.state.acctCommName} onSave={this.handleInlineEditChange.bind(this)}  />
+    }
 
     render() {
 
@@ -27,7 +46,7 @@ class InfoGeneralMTSetting extends React.Component {
                   <FormControl
                       type="text"
                       name="interfaceType"
-                      value="HTTP" />
+                      value={this.state.mtSettingObj.interfaceType} />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -40,7 +59,7 @@ class InfoGeneralMTSetting extends React.Component {
                   <FormControl
                       type="text"
                       name="url"
-                      value="http://sms-pp.sapmobileservices.com/cmc/accname12348581/accname12348581.sms" />
+                      value={this.state.mtSettingObj.url} />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -53,7 +72,7 @@ class InfoGeneralMTSetting extends React.Component {
                   <FormControl
                       type="text"
                       name="login"
-                      value="accname12348581" />
+                      value={this.state.mtSettingObj.login} />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -63,10 +82,7 @@ class InfoGeneralMTSetting extends React.Component {
                   Password :
                 </Col>
                 <Col md={ 6 }>
-                  <FormControl
-                      type="text"
-                      name="password"
-                      value="JuF6HJi" />
+                  <InlineEdit value={this.state.mtSettingObj.password} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -79,7 +95,7 @@ class InfoGeneralMTSetting extends React.Component {
                   <FormControl
                       type="text"
                       name="encode"
-                      value="YWNjbmFtZTEyMzQ4NTgxOkp1Rmo2SEpp" />
+                      value={this.state.mtSettingObj.encode} />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -89,33 +105,30 @@ class InfoGeneralMTSetting extends React.Component {
                   Notification Level :
                 </Col>
                 <Col md={ 6 }>
-                  <Col componentClass={ ControlLabel } md={ 5 }>
-                    MW NOTIF :
-                  </Col>
-                  <Col md={ 7 }>
-                    <FormControl
-                        type="text"
-                        name="mwNotif"
-                        value="DEFAULT_ACK" />
-                  </Col>
-                  <Col componentClass={ ControlLabel } md={ 5 }>
-                    SMSC NOTIF :
-                  </Col>
-                  <Col md={ 7 }>
-                    <FormControl
-                        type="text"
-                        name="smscNotif"
-                        value="DEFAULT_ACK" />
-                  </Col>
-                  <Col componentClass={ ControlLabel } md={ 5 }>
-                    MOBILE NOTIF :
-                  </Col>
-                  <Col md={ 7 }>
-                    <FormControl
-                        type="text"
-                        name="mobileNotif"
-                        value="DEFAULT_ACK" />
-                  </Col>
+                  <Row>
+                    <Col componentClass={ ControlLabel } md={ 5 }>
+                      MW NOTIF :
+                    </Col>
+                    <Col md={ 7 }>
+                      <InlineEdit value={this.state.mtSettingObj.mwNotif} onSave={this.handleInlineEditChange.bind(this)}  />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col componentClass={ ControlLabel } md={ 5 }>
+                      SMSC NOTIF :
+                    </Col>
+                    <Col md={ 7 }>
+                      <InlineEdit value={this.state.mtSettingObj.smscNotif} onSave={this.handleInlineEditChange.bind(this)}  />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col componentClass={ ControlLabel } md={ 5 }>
+                      MOBILE NOTIF :
+                    </Col>
+                    <Col md={ 7 }>
+                      <InlineEdit value={this.state.mtSettingObj.mobileNotif} onSave={this.handleInlineEditChange.bind(this)}  />
+                    </Col>
+                  </Row>
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -125,10 +138,7 @@ class InfoGeneralMTSetting extends React.Component {
                   Notification Path :
                 </Col>
                 <Col md={ 6 }>
-                  <FormControl
-                      type="text"
-                      name="ntfPath"
-                      value="/usr/mobileway/notifs/outputspool/http" />
+                  <InlineEdit value={this.state.mtSettingObj.ntfPath} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -141,7 +151,7 @@ class InfoGeneralMTSetting extends React.Component {
                   <FormControl
                       type="text"
                       name="disTxtBody"
-                      value="No" />
+                      value={this.state.mtSettingObj.disTxtBody} />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -151,20 +161,10 @@ class InfoGeneralMTSetting extends React.Component {
                   Countries excluded from blacklist :
                 </Col>
                 <Col md={ 6 }>
-                  {/*<Row className="show-grid">
-                    <Col componentClass={ ControlLabel } md={ 5 }>
-                      Country :
-                    </Col>
-                    <Col md={ 6 }>*/}
                       <FormControl
                           type="text"
                           name="country"
-                          value="" />
-                  {/*</Col>
-                  </Row>
-                  <Row className="show-grid">
-                    <Button bsStyle="primary">Add Contact</Button>
-                  </Row>*/}
+                          value={this.state.mtSettingObj.country} />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>

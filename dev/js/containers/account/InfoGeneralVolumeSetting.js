@@ -4,16 +4,33 @@ import { bindActionCreators } from 'redux';
 import { Tabs,  TabLink, TabContent } from 'react-tabs-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 import Select from 'react-select';
+import InlineSelect from './../common/components/InlineSelect';
 require('../../../scss/tabs.scss');
 require('../../../scss/style.scss');
 
 class InfoGeneralVolumeSetting extends React.Component {
     constructor(props, context) {
         super(props, context);
+        this.state = {
+          volSettingObj : {
+            volType : 'None',
+            volLimit : '',
+            preAlert : '',
+            commments : ''
+          }
+        }
+    }
+
+    handleInlineEditChange(val){
+      //<InlineSelect  options={options} value={this.state.volSettingObj.volType} onSave={this.handleInlineEditChange.bind(this)}  />
     }
 
 
     render() {
+
+        var options = [
+          { "id": 1, "value":"None"}
+        ];
 
         return (
           <div >
@@ -24,10 +41,7 @@ class InfoGeneralVolumeSetting extends React.Component {
                   Volume Type :
                 </Col>
                 <Col md={ 6 }>
-                  <FormControl
-                      type="text"
-                      name="volType"
-                      value="None" />
+                    <InlineSelect  options={options} value={this.state.volSettingObj.volType} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
