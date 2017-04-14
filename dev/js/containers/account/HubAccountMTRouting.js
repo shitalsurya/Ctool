@@ -310,7 +310,7 @@ toggleOnChange(event){
                        <Col mdHidden md={ 5 } />
                        <Col md={ 3 } >
                          <ButtonToolbar>
-                           <OverlayTrigger trigger="click" placement="bottom" overlay={popoverBottom}>
+                           <OverlayTrigger trigger="focus" placement="bottom" overlay={popoverBottom}>
                              <Button>Options</Button>
                            </OverlayTrigger>
                          </ButtonToolbar>
