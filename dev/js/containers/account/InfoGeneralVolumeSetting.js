@@ -37,52 +37,52 @@ class InfoGeneralVolumeSetting extends React.Component {
             <Grid fluid={true} className="inner_grid">
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Volume Type :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <InlineEdit  options={options} value={this.state.volSettingObj.volType} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Volume Limit :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <FormControl
                       type="text"
                       name="volLimit"
                       value="" />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Prelimit Alert (%) :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <FormControl
                       type="text"
                       name="preAlert"
                       value="" />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Comments :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <FormControl
                       type="text"
                       name="commments"
                       value="" />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
             </Grid>
           </div>

@@ -30,26 +30,26 @@ class InfoGeneralSybase extends React.Component {
             <Grid fluid={true} className="inner_grid">
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Country Manager :
                 </Col>
-                <Col md={ 6 } >
+                <Col md={ 8 } >
                   <FormControl
                       type="text"
                       name="cntryMgr"
                       value={this.state.sybaseInfoObj.cntryMgr} />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Account Manager :
                 </Col>
-                <Col md={ 6 } >
+                <Col md={ 8 } >
                   <InlineEdit value={this.state.sybaseInfoObj.accMgr} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
             </Grid>
