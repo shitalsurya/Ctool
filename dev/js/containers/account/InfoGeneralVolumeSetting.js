@@ -41,7 +41,7 @@ class InfoGeneralVolumeSetting extends React.Component {
                   Volume Type :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineSelect  options={options} value={this.state.volSettingObj.volType} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit  options={options} value={this.state.volSettingObj.volType} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
