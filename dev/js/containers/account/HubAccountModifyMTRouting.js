@@ -26,7 +26,7 @@ class HubAccountModifyMTRouting extends React.Component {
   }
 
   handleModalChange(target, value){
-
+    debugger;
     var modify = this.state.MTModifyInfo;
     switch(target) {
       case types.ACCOUNT_MODIFY_MT_ROUTING_SMSC:
@@ -44,10 +44,14 @@ class HubAccountModifyMTRouting extends React.Component {
         modify.tpoa=value.target.value;
         break;
       case types.ACCOUNT_MODIFY_MT_ROUTING_STARTTIME :
-        modify.starttime=value.value;
+        modify.starttime=value;
         break;
       case types.ACCOUNT_MODIFY_MT_ROUTING_COMMENT :
         modify.comment=value.target.value;
+        break;
+      case types.ACCOUNT_MODIFY_MT_ROUTING_ENDTIME :
+        modify.endtime=value;
+
     }
     this.setState({MTModifyInfo : modify});
   }
@@ -252,7 +256,7 @@ class HubAccountModifyMTRouting extends React.Component {
                       Start Time(UTC) :
                       </Col>
                       <Col md={ 4 }>
-                           <DateTimeField mode="time" />
+                           <DateTimeField mode="time" onChange={this.handleModalChange.bind(this,types.ACCOUNT_MODIFY_MT_ROUTING_STARTTIME)} />
                       </Col>
 
                       <Col mdHidden md={ 3 } />
@@ -262,7 +266,7 @@ class HubAccountModifyMTRouting extends React.Component {
                         End Time(UTC) :
                       </Col>
                       <Col md={ 4 }>
-                         <DateTimeField mode="time" />
+                         <DateTimeField mode="time" onChange={this.handleModalChange.bind(this,types.ACCOUNT_MODIFY_MT_ROUTING_ENDTIME)} />
                       </Col>
                       <Col mdHidden md={ 3 } />
                   </Row>
