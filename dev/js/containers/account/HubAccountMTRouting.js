@@ -55,37 +55,9 @@ class SubNestedTable extends React.Component {
       this.currentField = "";
 }
 
-  dataFormatter(cell, row,field,index) {
-      this.currentRow = row;
-      this.currentField = field;
-    //   this.userList = initializeData(Users,'login');
-     var PreferenceList= [{ "id": 1, "value":"1"},{ "id": 2, "value":"2"}];
-      //  return <InlineEdit  type='text' value={cell} onSave={this.updateValue.bind(this)}  />
-    return <InlineEdit  options={PreferenceList} value={cell} onSave={this.updateValue.bind(this)}  />
-}
-statusDataFormatter(cell, row) {
-  const greenStatus = require( "../../../images/circle-green.png" );
-  const orangeStatus = require( "../../../images/circle-orange.png" );
-  const redStatus = require( "../../../images/circle-red.png" );
-  switch (cell) {
-    case 'green':
-        return <img src={ greenStatus }/>;
-      break;
-      case 'orange':
-          return <img src={ orangeStatus }/>;
-        break;
-        case 'red':
-            return <img src={ redStatus }/>;
-          break;
-    default:
 
-  }
 
-}
-updateValue(val){
-  this.currentRow[this.currentField]=val;
-  console.log("this.currentRow==",this.currentRow);
-}
+
   render() {
     const selectRow = {
      mode: 'checkbox',
@@ -96,15 +68,17 @@ updateValue(val){
       return (
         <BootstrapTable data={ this.props.data } selectRow={ selectRow } >
           <TableHeaderColumn dataField='id' hidden isKey={ true }></TableHeaderColumn>
-          <TableHeaderColumn dataField='preference'  dataFormat={ this.dataFormatter.bind(this) } formatExtraData={ 'preference' } >Preference</TableHeaderColumn>
+          {/*
+            <TableHeaderColumn dataField='preference'  dataFormat={ this.dataFormatter.bind(this) } formatExtraData={ 'preference' } >Preference</TableHeaderColumn>
 
-          <TableHeaderColumn dataField='SMSC'>SMSC</TableHeaderColumn>
-          <TableHeaderColumn dataField='onOff'>On/Off</TableHeaderColumn>
-          <TableHeaderColumn dataField='permanent'>Permanent</TableHeaderColumn>
-          <TableHeaderColumn dataField='status' dataAlign='center' width="80px" dataFormat={ this.statusDataFormatter.bind(this) }>Status</TableHeaderColumn>
-          <TableHeaderColumn dataField='comment'>Comment</TableHeaderColumn>
-          <TableHeaderColumn dataField='prefStartTime'>Preferred Start Time</TableHeaderColumn>
-          <TableHeaderColumn dataField='prefEndTime'>Preferred End Time</TableHeaderColumn>
+            <TableHeaderColumn dataField='SMSC'>SMSC</TableHeaderColumn>
+            <TableHeaderColumn dataField='onOff'>On/Off</TableHeaderColumn>
+            <TableHeaderColumn dataField='permanent'>Permanent</TableHeaderColumn>
+            <TableHeaderColumn dataField='status' dataAlign='center' width="80px" dataFormat={ this.statusDataFormatter.bind(this) }>Status</TableHeaderColumn>
+            <TableHeaderColumn dataField='comment'>Comment</TableHeaderColumn>
+            <TableHeaderColumn dataField='prefStartTime'>Preferred Start Time</TableHeaderColumn>
+            <TableHeaderColumn dataField='prefEndTime'>Preferred End Time</TableHeaderColumn>
+          */}
         </BootstrapTable>);
     } else {
       return (<p>?</p>);
@@ -158,7 +132,37 @@ class HubAccountMTRouting extends React.Component {
   if (typeof (row.expand)!='undefined') return true;
   else return false;
 }
+dataFormatter(cell, row,field,index) {
+    this.currentRow = row;
+    this.currentField = field;
+  //   this.userList = initializeData(Users,'login');
+   var PreferenceList= [{ "id": 1, "value":"1"},{ "id": 2, "value":"2"}];
+    //  return <InlineEdit  type='text' value={cell} onSave={this.updateValue.bind(this)}  />
+  return <InlineEdit  options={PreferenceList} value={cell} onSave={this.updateValue.bind(this)}  />
+}
+statusDataFormatter(cell, row) {
+  const greenStatus = require( "../../../images/circle-green.png" );
+  const orangeStatus = require( "../../../images/circle-orange.png" );
+  const redStatus = require( "../../../images/circle-red.png" );
+  switch (cell) {
+    case 'green':
+        return <img src={ greenStatus }/>;
+      break;
+      case 'orange':
+          return <img src={ orangeStatus }/>;
+        break;
+        case 'red':
+            return <img src={ redStatus }/>;
+          break;
+    default:
 
+  }
+
+}
+updateValue(val){
+  this.currentRow[this.currentField]=val;
+  console.log("this.currentRow==",this.currentRow);
+}
 expandComponent(row) {
 
   return (
@@ -240,7 +244,7 @@ toggleOnChange(event){
      <Row className="show-grid">
        <Col md={ 5 } >
          <h4><Label>Sub Group By:</Label></h4>
-        </Col>
+       </Col>
        <Col md={ 9 } >
          <Select
            placeholder="Select Column.."
@@ -306,10 +310,10 @@ toggleOnChange(event){
                        <Col mdHidden md={ 5 } />
                        <Col md={ 3 } >
                          <ButtonToolbar>
-                            <OverlayTrigger trigger="click" placement="bottom" overlay={popoverBottom}>
-                              <Button>Options</Button>
-                            </OverlayTrigger>
-                          </ButtonToolbar>
+                           <OverlayTrigger trigger="click" placement="bottom" overlay={popoverBottom}>
+                             <Button>Options</Button>
+                           </OverlayTrigger>
+                         </ButtonToolbar>
                        </Col>
                      </Row>
 
@@ -324,13 +328,22 @@ toggleOnChange(event){
                            expandComponent={ this.expandComponent.bind(this) }>
                            <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
                            <TableHeaderColumn dataField={this.state.groupBy.value} ></TableHeaderColumn>
+                           <TableHeaderColumn dataField='preference'  dataFormat={ this.dataFormatter.bind(this) } formatExtraData={ 'preference' } >Preference</TableHeaderColumn>
+
+                           <TableHeaderColumn dataField='SMSC'>SMSC</TableHeaderColumn>
+                           <TableHeaderColumn dataField='onOff'>On/Off</TableHeaderColumn>
+                           <TableHeaderColumn dataField='permanent'>Permanent</TableHeaderColumn>
+                           <TableHeaderColumn dataField='status' dataAlign='center' width="80px" dataFormat={ this.statusDataFormatter.bind(this) }>Status</TableHeaderColumn>
+                           <TableHeaderColumn dataField='comment'>Comment</TableHeaderColumn>
+                           <TableHeaderColumn dataField='prefStartTime'>Preferred Start Time</TableHeaderColumn>
+                           <TableHeaderColumn dataField='prefEndTime'>Preferred End Time</TableHeaderColumn>
                          </BootstrapTable>
                        </Col>
                      </Row>
                    </Grid>
 
-                     <ModalAdd showAdd={this.state.showAdd} close={this.close.bind(this)}/>
-                     <ModalModify  ModifyModalFlag={this.state.ModifyModalFlag} close={this.close.bind(this)}/>
+                   <ModalAdd showAdd={this.state.showAdd} close={this.close.bind(this)}/>
+                   <ModalModify  ModifyModalFlag={this.state.ModifyModalFlag} close={this.close.bind(this)}/>
 
 
                  </div>

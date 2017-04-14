@@ -2,10 +2,7 @@
 "data":  [{
   "countryId":"1",
   "country":"USA(60)",
-  "expand": [{
-      "id":"1",
     "operator":"Vodafone UK(7)",
-      "expand": [{
           "id":"1",
           "preference":"1",
           "SMSC":"GB_Vodafone_Bulk",
@@ -16,6 +13,9 @@
           "prefStartTime":"00:00",
             "prefEndTime":"00:00"
         }, {
+          "countryId":"1",
+          "country":"USA(60)",
+            "operator":"Vodafone UK(7)",
             "id":"2",
               "preference":"2",
             "SMSC":"GB_Vodafone_Bulk",
@@ -25,17 +25,12 @@
             "comment":"",
             "prefStartTime":"00",
               "prefEndTime":"00:00"
-          }]
-    }]
-},
+          },
 {
   "countryId":"2",
   "country":"New Zealand(60)",
-  "expand": [{
       "id":"1",
     "operator":"2 Degrees (7123)",
-      "expand": [{
-          "id":"1",
           "preference":"1",
           "SMSC":"GB_Vodafone_Bulk",
           "onOff":"On",
@@ -54,8 +49,7 @@
             "comment":"",
             "prefStartTime":"00:00",
               "prefEndTime":"00:00"
-          }]
-    }]
+
 }
 ]
 }
