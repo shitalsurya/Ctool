@@ -29,20 +29,20 @@ class InfoGeneralAddContacts extends React.Component {
             <Grid fluid={true} className="inner_grid">
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Contact :
                 </Col>
-                <Col md={ 6 } >
+                <Col md={ 8 } >
                   <InlineEdit value={this.state.addContactObj.contact} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                 <Button bsStyle="primary">Add Contact</Button>
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
             </Grid>
