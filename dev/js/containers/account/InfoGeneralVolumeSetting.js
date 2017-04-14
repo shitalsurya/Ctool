@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Tabs,  TabLink, TabContent } from 'react-tabs-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 import Select from 'react-select';
-import InlineSelect from './../common/components/InlineSelect';
+import InlineEdit from './../common/components/InlineEdit';
 require('../../../scss/tabs.scss');
 require('../../../scss/style.scss');
 
@@ -41,7 +41,7 @@ class InfoGeneralVolumeSetting extends React.Component {
                   Volume Type :
                 </Col>
                 <Col md={ 6 }>
-                    <InlineSelect  options={options} value={this.state.volSettingObj.volType} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit  options={options} value={this.state.volSettingObj.volType} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>

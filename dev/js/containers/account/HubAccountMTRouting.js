@@ -12,7 +12,6 @@ require('../../../scss/style.scss');
 require('../../../scss/react-toggle.scss');
 
 import InlineEdit from './../common/components/InlineEdit';
-import InlineSelect from './../common/components/InlineSelect';
 import Routings from '../../../json/MT_routing.json';
 import grpBySMSCData from '../../../json/MT_routing_grp_by_smsc.json';
 import Users from '../../../json/Users.json';
@@ -62,7 +61,7 @@ class SubNestedTable extends React.Component {
     //   this.userList = initializeData(Users,'login');
      var PreferenceList= [{ "id": 1, "value":"1"},{ "id": 2, "value":"2"}];
       //  return <InlineEdit  type='text' value={cell} onSave={this.updateValue.bind(this)}  />
-    return <InlineSelect  options={PreferenceList} value={cell} onSave={this.updateValue.bind(this)}  />
+    return <InlineEdit  options={PreferenceList} value={cell} onSave={this.updateValue.bind(this)}  />
 }
 statusDataFormatter(cell, row) {
   const greenStatus = require( "../../../images/circle-green.png" );
