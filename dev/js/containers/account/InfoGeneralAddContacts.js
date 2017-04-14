@@ -19,7 +19,7 @@ class InfoGeneralAddContacts extends React.Component {
     }
 
     handleInlineEditChange(val){
-      //<InlineEdit value={this.state.acctCommName} onSave={this.handleInlineEditChange.bind(this)}  />
+      //<InlineEdit type="text" value={this.state.acctCommName} onSave={this.handleInlineEditChange.bind(this)}  />
     }
 
     render() {
@@ -33,7 +33,7 @@ class InfoGeneralAddContacts extends React.Component {
                   Contact :
                 </Col>
                 <Col md={ 6 } >
-                  <InlineEdit value={this.state.addContactObj.contact} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit type="text" value={this.state.addContactObj.contact} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
