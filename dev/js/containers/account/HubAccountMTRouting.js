@@ -8,8 +8,10 @@ import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,
 import Toggle from 'react-toggle';
 import ModalModify from './HubAccountModifyMTRouting';
 import ModalAdd from './HubAccountAddMTRouting';
+import DateTimeField from 'react-bootstrap-datetimepicker';
 require('../../../scss/style.scss');
 require('../../../scss/react-toggle.scss');
+require('../../../scss/time.scss');
 
 import InlineEdit from './../common/components/InlineEdit';
 import Routings from '../../../json/MT_routing.json';
@@ -138,7 +140,39 @@ dataFormatter(cell, row,field,index) {
   //   this.userList = initializeData(Users,'login');
    var PreferenceList= [{ "id": 1, "value":"1"},{ "id": 2, "value":"2"}];
     //  return <InlineEdit  type='text' value={cell} onSave={this.updateValue.bind(this)}  />
-  return <InlineEdit  options={PreferenceList} value={cell} onSave={this.updateValue.bind(this)}  />
+  return <InlineEdit type='select' options={PreferenceList} value={cell} onSave={this.updateValue.bind(this)}  />
+}
+toggleFormatter(cell, row,field,index) {
+  var icons;
+  if(field == "onOff") {
+    icons={
+       checked: 'On',
+       unchecked: 'Off',
+    };
+  }
+  else if (field == "permanent") {
+    icons={
+       checked: 'Yes',
+       unchecked: 'No',
+    };
+  }
+    this.currentRow = row;
+    this.currentField = field;
+  //   this.userList = initializeData(Users,'login');
+  //  var PreferenceList= [{ "id": 1, "value":"1"},{ "id": 2, "value":"2"}];
+    //  return <InlineEdit  type='text' value={cell} onSave={this.updateValue.bind(this)}  />
+  // return <InlineEdit type='select'  options={PreferenceList} value={cell} onSave={this.updateValue.bind(this)}  />
+  return <InlineEdit type="toggle" value={this.state.resRouting} icons={icons} field={ field } onSave={this.updateValue.bind(this)}  />
+}
+timeFormatter(cell, row,field,index) {
+
+    this.currentRow = row;
+    this.currentField = field;
+  //   this.userList = initializeData(Users,'login');
+  //  var PreferenceList= [{ "id": 1, "value":"1"},{ "id": 2, "value":"2"}];
+    //  return <InlineEdit  type='text' value={cell} onSave={this.updateValue.bind(this)}  />
+  // return <InlineEdit type='select'  options={PreferenceList} value={cell} onSave={this.updateValue.bind(this)}  />
+  return <DateTimeField mode="time" />
 }
 statusDataFormatter(cell, row) {
   const greenStatus = require( "../../../images/circle-green.png" );
@@ -212,7 +246,7 @@ toggleOnChange(event){
   switch(event)
   {
     case "resRouting":
-    resRouting = event.target.checked==true?"Yes":"No";
+    var resRouting = event.target.checked==true?"Yes":"No";
      break;
   }
    this.setState({
@@ -329,14 +363,13 @@ toggleOnChange(event){
                            <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
                            <TableHeaderColumn dataField={this.state.groupBy.value} ></TableHeaderColumn>
                            <TableHeaderColumn dataField='preference'  dataFormat={ this.dataFormatter.bind(this) } formatExtraData={ 'preference' } >Preference</TableHeaderColumn>
-
                            <TableHeaderColumn dataField='SMSC'>SMSC</TableHeaderColumn>
-                           <TableHeaderColumn dataField='onOff'>On/Off</TableHeaderColumn>
-                           <TableHeaderColumn dataField='permanent'>Permanent</TableHeaderColumn>
+                           <TableHeaderColumn dataField='onOff' dataFormat = { this.toggleFormatter.bind(this) } formatExtraData={ 'onOff' } >On/Off</TableHeaderColumn>
+                           <TableHeaderColumn dataField='permanent' dataFormat = { this.toggleFormatter.bind(this) } formatExtraData={ 'permanent' } >Permanent</TableHeaderColumn>
                            <TableHeaderColumn dataField='status' dataAlign='center' width="80px" dataFormat={ this.statusDataFormatter.bind(this) }>Status</TableHeaderColumn>
                            <TableHeaderColumn dataField='comment'>Comment</TableHeaderColumn>
-                           <TableHeaderColumn dataField='prefStartTime'>Preferred Start Time</TableHeaderColumn>
-                           <TableHeaderColumn dataField='prefEndTime'>Preferred End Time</TableHeaderColumn>
+                           <TableHeaderColumn dataField='prefStartTime' dataFormat = { this.timeFormatter.bind(this) } >Preferred Start Time</TableHeaderColumn>
+                           <TableHeaderColumn dataField='prefEndTime' dataFormat = { this.timeFormatter.bind(this) } >Preferred End Time</TableHeaderColumn>
                          </BootstrapTable>
                        </Col>
                      </Row>
@@ -350,17 +383,17 @@ toggleOnChange(event){
         )
     }
 
-                   componentWillReceiveProps(nextProps) {
-                   }
+componentWillReceiveProps(nextProps) {
+}
 
-                   }
+}
 
-                   function mapStateToProps(state) {
-                     return {};
-                   }
+function mapStateToProps(state) {
+return {};
+}
 
-                   function mapDispatchToProps(dispatch) {
-                     return bindActionCreators({  }, dispatch);
-                   }
+function mapDispatchToProps(dispatch) {
+return bindActionCreators({  }, dispatch);
+}
 
-                   export default connect(mapStateToProps, mapDispatchToProps)(HubAccountMTRouting);
+export default connect(mapStateToProps, mapDispatchToProps)(HubAccountMTRouting);

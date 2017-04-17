@@ -29,7 +29,7 @@ class InfoGeneralCommercial extends React.Component {
       // debugger;
       // console.log("handleInlineEditChange val==",this.state.acctCommName);
       // this.setState({acctCommName:val});
-      //<InlineEdit value={this.state.acctCommName} onSave={this.handleInlineEditChange.bind(this)}  />
+      //<InlineEdit type="text" value={this.state.acctCommName} onSave={this.handleInlineEditChange.bind(this)}  />
     }
 
     render() {
@@ -56,7 +56,7 @@ class InfoGeneralCommercial extends React.Component {
                   Billing Location :
                 </Col>
                 <Col md={ 6 } >
-                  <InlineEdit value={this.state.commInfoObj.billing} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit type="text" value={this.state.commInfoObj.billing} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -105,7 +105,7 @@ class InfoGeneralCommercial extends React.Component {
                   Service Level :
                 </Col>
                 <Col md={ 6 }>
-                  <InlineEdit value={this.state.commInfoObj.serviceLevel} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit type="text" value={this.state.commInfoObj.serviceLevel} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -115,7 +115,7 @@ class InfoGeneralCommercial extends React.Component {
                   Legal Status :
                 </Col>
                 <Col md={ 6 }>
-                  <InlineEdit value={this.state.commInfoObj.status} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit type="text" value={this.state.commInfoObj.status} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -125,7 +125,7 @@ class InfoGeneralCommercial extends React.Component {
                   Comment :
                 </Col>
                 <Col md={ 6 }>
-                  <InlineEdit value={this.state.commInfoObj.comment} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit type="text" value={this.state.commInfoObj.comment} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>

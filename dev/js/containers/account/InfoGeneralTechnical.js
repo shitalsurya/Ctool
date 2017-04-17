@@ -27,7 +27,7 @@ class InfoGeneralTechnical extends React.Component {
     }
 
     handleInlineEditChange(val){
-      //<InlineEdit value={this.state.acctCommName} onSave={this.handleInlineEditChange.bind(this)}  />
+      //<InlineEdit type="text" value={this.state.acctCommName} onSave={this.handleInlineEditChange.bind(this)}  />
     }
 
     render() {
@@ -54,7 +54,7 @@ class InfoGeneralTechnical extends React.Component {
                   Technical Name :
                 </Col>
                 <Col md={ 6 } >
-                    <InlineEdit value={this.state.techInfoObj.techName} onSave={this.handleInlineEditChange.bind(this)}  />
+                    <InlineEdit type="text" value={this.state.techInfoObj.techName} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -116,7 +116,7 @@ class InfoGeneralTechnical extends React.Component {
                   Extranet Password :
                 </Col>
                 <Col md={ 6 }>
-                  <InlineEdit value={this.state.techInfoObj.extPassword} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit type="text" value={this.state.techInfoObj.extPassword} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
