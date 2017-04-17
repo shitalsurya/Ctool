@@ -39,95 +39,95 @@ class InfoGeneralCommercial extends React.Component {
             <Grid fluid={true} className="inner_grid">
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Account Commercial Name :
                 </Col>
-                <Col md={ 6 } >
+                <Col md={ 8 } >
                   <FormControl
                       type="text"
                       name="acctCommName"
                       value={this.state.commInfoObj.acctCommName} />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Billing Location :
                 </Col>
-                <Col md={ 6 } >
+                <Col md={ 8 } >
                   <InlineEdit type="text" value={this.state.commInfoObj.billing} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Opened :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <FormControl
                       type="text"
                       name="opened"
                       value={this.state.commInfoObj.opened} />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Suspended :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <FormControl
                       type="text"
                       name="suspended"
                       value={this.state.commInfoObj.suspended} />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Closed :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <FormControl
                       type="text"
                       name="closed"
                       value={this.state.commInfoObj.closed} />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Service Level :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <InlineEdit type="text" value={this.state.commInfoObj.serviceLevel} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Legal Status :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <InlineEdit type="text" value={this.state.commInfoObj.status} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Comment :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <InlineEdit type="text" value={this.state.commInfoObj.comment} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
             </Grid>
