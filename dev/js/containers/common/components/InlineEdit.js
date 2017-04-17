@@ -100,15 +100,6 @@ export default class InlineEdit extends React.Component {
        });
      }
 
-     onMouseOut(e){
-       console.log("e==",e.target.getAttribute("class"));
-      if(e.target.getAttribute("class")!="input-group-addon" || e.target.getAttribute("class")!="edit-button-icon"){
-        this.setState({showView:true,showEdit : false,showButtons : false},function(){
-
-      });
-      }
-     }
-
      render() {
         return (
           <div className="view-edit-control">
@@ -125,16 +116,19 @@ export default class InlineEdit extends React.Component {
             }
             {
               this.state.showEdit &&
-                <InputGroup controlId="formControlsSelectMultiple" >
-                  <FormControl componentClass="label">
-                    {this.state.value}
-                  </FormControl>
-                  <InputGroup.Addon onClick={this.onEditClick.bind(this)}>
-                    <span title="Click to edit"
-                      className="edit-button-icon"></span>
-                  </InputGroup.Addon>
-                </InputGroup>
+                <div   onMouseLeave={()=>this.setState({showView:true,showEdit : false,showButtons : false})}>
+                  <InputGroup controlId="formControlsSelectMultiple"
 
+                  >
+                    <FormControl componentClass="label">
+                      {this.state.value}
+                    </FormControl>
+                    <InputGroup.Addon onClick={this.onEditClick.bind(this)}>
+                      <span title="Click to edit"
+                        className="edit-button-icon"></span>
+                    </InputGroup.Addon>
+                  </InputGroup>
+                  </div>
             }
             {
               this.state.showButtons &&
