@@ -34,75 +34,75 @@ class InfoGeneralMOSetting extends React.Component {
             <Grid fluid={true} className="inner_grid">
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Interface Type :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <FormControl
                       type="text"
                       name="intrfType"
                       value={this.state.moSettingObj.intrfType} />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Reply Address :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <InlineEdit type="text" value={this.state.moSettingObj.replyAdd} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Login :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <FormControl
                       type="text"
                       name="login"
                       value={this.state.moSettingObj.login} />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Password :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <FormControl
                       type="text"
                       name="password"
                       value={this.state.moSettingObj.password} />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   MO Spool Path out :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <InlineEdit type="text" value={this.state.moSettingObj.pathOut} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Disable text bode message on the extranet :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <FormControl
                       type="text"
                       name="disTxtBdy"
                       value={this.state.moSettingObj.disTxtBdy} />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
 

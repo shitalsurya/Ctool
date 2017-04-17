@@ -31,10 +31,10 @@ class SuspendAccount extends React.Component {
 
   render() {
 
-    let date = '2017-04-24';
-
     const onChange = (dateString, { dateMoment, timestamp }) => {
-      console.log(dateString)
+      var info = this.state.susAccInfo;
+      info.date = dateString;
+      this.setState({susAccInfo:info});
     }
 
     return (
@@ -99,10 +99,19 @@ class SuspendAccount extends React.Component {
                 </Col>
                 <Col md={ 6 }>
                   <DateField
-                    dateFormat="YYYY-MM-DD"
-                    defaultValue={date}
+                    dateFormat="DD-MM-YYYY"
+                    defaultValue={this.state.susAccInfo.date}
                     onChange={onChange}
                   />
+                </Col>
+                <Col mdHidden md={ 3 }/>
+              </Row>
+
+              <Row className="show-grid">
+                <Col componentClass={ ControlLabel } md={ 5 }>
+                  <Button bsStyle="primary" onClick={this.handleSubmitSuspend.bind(this)}>
+                    Suspend Account
+                  </Button>
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -114,6 +123,9 @@ class SuspendAccount extends React.Component {
     );
   }
 
+  handleSubmitSuspend(){
+    console.log(this.state.susAccInfo);
+  }
 
   handleSelectFieldsChange(target,value) {
 

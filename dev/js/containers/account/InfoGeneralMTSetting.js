@@ -39,74 +39,74 @@ class InfoGeneralMTSetting extends React.Component {
             <Grid fluid={true} className="inner_grid">
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Interface Type :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <FormControl
                       type="text"
                       name="interfaceType"
                       value={this.state.mtSettingObj.interfaceType} />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   URL :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <FormControl
                       type="text"
                       name="url"
                       value={this.state.mtSettingObj.url} />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Login :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <FormControl
                       type="text"
                       name="login"
                       value={this.state.mtSettingObj.login} />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Password :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <InlineEdit type="text" value={this.state.mtSettingObj.password} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Encode_base64 :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <FormControl
                       type="text"
                       name="encode"
                       value={this.state.mtSettingObj.encode} />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Notification Level :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <Row>
-                    <Col componentClass={ ControlLabel } md={ 5 }>
+                    <Col componentClass={ ControlLabel } md={ 3 }>
                       MW NOTIF :
                     </Col>
                     <Col md={ 7 }>
@@ -114,7 +114,7 @@ class InfoGeneralMTSetting extends React.Component {
                     </Col>
                   </Row>
                   <Row>
-                    <Col componentClass={ ControlLabel } md={ 5 }>
+                    <Col componentClass={ ControlLabel } md={ 3 }>
                       SMSC NOTIF :
                     </Col>
                     <Col md={ 7 }>
@@ -122,7 +122,7 @@ class InfoGeneralMTSetting extends React.Component {
                     </Col>
                   </Row>
                   <Row>
-                    <Col componentClass={ ControlLabel } md={ 5 }>
+                    <Col componentClass={ ControlLabel } md={ 3 }>
                       MOBILE NOTIF :
                     </Col>
                     <Col md={ 7 }>
@@ -130,43 +130,43 @@ class InfoGeneralMTSetting extends React.Component {
                     </Col>
                   </Row>
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Notification Path :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <InlineEdit type="text" value={this.state.mtSettingObj.ntfPath} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Disable text body message on the extranet :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <FormControl
                       type="text"
                       name="disTxtBody"
                       value={this.state.mtSettingObj.disTxtBody} />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Countries excluded from blacklist :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                       <FormControl
                           type="text"
                           name="country"
                           value={this.state.mtSettingObj.country} />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
             </Grid>

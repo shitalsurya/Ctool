@@ -30,23 +30,23 @@ class InfoGeneralDeliveryTime extends React.Component {
             <Grid fluid={true} className="inner_grid">
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Preferred Start Time(UTC) :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <InlineEdit type="text" value={this.state.deliveryTimeObj.startTime} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 8 }/>
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 }>
+                <Col componentClass={ ControlLabel } md={ 3 }>
                   Preferred End Time(UTC) :
                 </Col>
-                <Col md={ 6 }>
+                <Col md={ 8 }>
                   <InlineEdit type="text" value={this.state.deliveryTimeObj.endTime} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
-                <Col mdHidden md={ 3 }/>
+                <Col mdHidden md={ 2 }/>
               </Row>
 
             </Grid>
