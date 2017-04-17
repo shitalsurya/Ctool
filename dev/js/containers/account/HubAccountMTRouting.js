@@ -368,8 +368,8 @@ toggleOnChange(event){
                            <TableHeaderColumn dataField='permanent' dataFormat = { this.toggleFormatter.bind(this) } formatExtraData={ 'permanent' } >Permanent</TableHeaderColumn>
                            <TableHeaderColumn dataField='status' dataAlign='center' width="80px" dataFormat={ this.statusDataFormatter.bind(this) }>Status</TableHeaderColumn>
                            <TableHeaderColumn dataField='comment'>Comment</TableHeaderColumn>
-                           <TableHeaderColumn dataField='prefStartTime' dataFormat = { this.timeFormatter.bind(this) } >Preferred Start Time</TableHeaderColumn>
-                           <TableHeaderColumn dataField='prefEndTime' dataFormat = { this.timeFormatter.bind(this) } >Preferred End Time</TableHeaderColumn>
+                           <TableHeaderColumn dataField='prefStartTime' dataFormat = { this.timeFormatter.bind(this) } formatExtraData={ 'prefStartTime' } >Preferred Start Time</TableHeaderColumn>
+                           <TableHeaderColumn dataField='prefEndTime' dataFormat = { this.timeFormatter.bind(this) } formatExtraData={ 'prefEndTime' }>Preferred End Time</TableHeaderColumn>
                          </BootstrapTable>
                        </Col>
                      </Row>
