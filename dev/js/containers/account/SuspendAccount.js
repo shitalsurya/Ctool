@@ -5,7 +5,7 @@ import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,
 import Select from 'react-select';
 import Company from '../../../json/Company.json';
 import Account from '../../../json/Account.json';
-import { initializeData, handleSuspendAccCompany } from './actions/accountActions';
+import { initializeData, handleSuspendAccCompany, setSuspendAccountInfo } from './actions/accountActions';
 import { DateField, Calendar } from 'react-date-picker';
 import * as types from './actions/accountActionTypes';
 require( '../../../scss/style.scss' );
@@ -124,6 +124,7 @@ class SuspendAccount extends React.Component {
   }
 
   handleSubmitSuspend(){
+    this.props.setSuspendAccountInfo(this.state.susAccInfo);
     console.log(this.state.susAccInfo);
   }
 
@@ -164,7 +165,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
-      handleSuspendAccCompany : handleSuspendAccCompany
+      handleSuspendAccCompany : handleSuspendAccCompany,
+      setSuspendAccountInfo : setSuspendAccountInfo
         }, dispatch);
 }
 

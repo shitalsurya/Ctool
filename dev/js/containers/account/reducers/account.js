@@ -65,7 +65,10 @@ export default function(state = {
             return Object.assign({}, state, {
                 target: action.type
             });
-
+        case types.SUSPEND_ACC_INFO :
+            return Object.assign({}, state, {
+                data: action.payload
+            });
 
             return state;
     }

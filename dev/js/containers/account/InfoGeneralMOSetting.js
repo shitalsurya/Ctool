@@ -39,6 +39,7 @@ class InfoGeneralMOSetting extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="intrfType"
                       value={this.state.moSettingObj.intrfType} />
@@ -62,6 +63,7 @@ class InfoGeneralMOSetting extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="login"
                       value={this.state.moSettingObj.login} />
@@ -75,6 +77,7 @@ class InfoGeneralMOSetting extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="password"
                       value={this.state.moSettingObj.password} />
@@ -98,6 +101,7 @@ class InfoGeneralMOSetting extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="disTxtBdy"
                       value={this.state.moSettingObj.disTxtBdy} />

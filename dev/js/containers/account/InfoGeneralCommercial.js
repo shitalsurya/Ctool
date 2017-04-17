@@ -42,8 +42,9 @@ class InfoGeneralCommercial extends React.Component {
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Account Commercial Name :
                 </Col>
-                <Col md={ 8 } >
+                <Col md={ 8 }  >
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="acctCommName"
                       value={this.state.commInfoObj.acctCommName} />
@@ -67,6 +68,7 @@ class InfoGeneralCommercial extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="opened"
                       value={this.state.commInfoObj.opened} />
@@ -80,6 +82,7 @@ class InfoGeneralCommercial extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="suspended"
                       value={this.state.commInfoObj.suspended} />
@@ -93,6 +96,7 @@ class InfoGeneralCommercial extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="closed"
                       value={this.state.commInfoObj.closed} />
