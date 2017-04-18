@@ -60,7 +60,7 @@ handleModalChange(target, value){
         }
         this.setState({ ContactInfo: contactinfo});
 
-      } 
+      }
     render() {
 
         return (
@@ -93,7 +93,7 @@ handleModalChange(target, value){
               <Row className="show-grid">
                  <BootstrapTable data={this.state.data} >
                    <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
-                   <TableHeaderColumn dataField='Name'>Name Operator</TableHeaderColumn>
+                   <TableHeaderColumn dataField='Name'>Name</TableHeaderColumn>
                    <TableHeaderColumn dataField='Email'>Email</TableHeaderColumn>
                    <TableHeaderColumn dataField='delete' dataFormat={ this.deleteDataFormatter.bind(this) } formatExtraData={ 'delete' } ></TableHeaderColumn>
                  </BootstrapTable>
