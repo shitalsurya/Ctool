@@ -2,7 +2,7 @@ import * as types from './accountActionTypes';
 import axios from 'axios';
 import * as config from '../../../containers/common/config';
 import {httpRequest} from '../../../containers/common/commonAjaxActions';
-import {getSpndAccount} from '../accountAjaxActions';
+import {getSpndAccount, getDataList} from '../accountAjaxActions';
 
 export function initializeData(_list,valField){
   console.log("initializeData==",_list);
@@ -172,10 +172,35 @@ export function setSuspendAccountInfo(_accountInfo){
 		dispatch(setSuspendAccountInfoRequest(_accountInfo))
 	}
 }
-
 export function setSuspendAccountInfoRequest(_accountInfo){
 	return{
 		  type: types.SUSPEND_ACC_INFO,
 			payload:_accountInfo
+	}
+}
+
+export function getCompanyList(){
+	return function (dispatch) {
+		const listType = dispatch(getCompanyListRequest());
+    return getDataList(listType);
+	}
+}
+export function getCompanyListRequest() {
+	return{
+		  type: types.ACCOUNT_GET_COMPANY_LIST
+	}
+}
+
+export function getCompanyListRequestSuccess(data) {
+	//	localStorage.setItem("token",data.token);
+	return {
+  		type: types.ACCOUNT_GET_COMPANY_LIST_SUCCESS,
+  		payload: data
+	}
+}
+export function getCompanyListRequestFailure(data) {
+	return {
+  		type: types.ACCOUNT_GET_COMPANY_LIST_FAILURE,
+  		payload: data
 	}
 }

@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 import Select from 'react-select';
-import Company from '../../../json/Company.json';
+// import Company from '../../../json/Company.json';
 import Account from '../../../json/Account.json';
-import { initializeData, handleSuspendAccCompany, setSuspendAccountInfo } from './actions/accountActions';
+import { initializeData, handleSuspendAccCompany, setSuspendAccountInfo, getCompanyList } from './actions/accountActions';
 import { DateField, Calendar } from 'react-date-picker';
 import * as types from './actions/accountActionTypes';
 require( '../../../scss/style.scss' );
@@ -154,7 +154,12 @@ class SuspendAccount extends React.Component {
   }
 
   componentWillMount() {
+    debugger;
+    let Company = this.props.getCompanyList();
+    // console.log(this.props.getCompanyList());
     this.companyList = initializeData(Company,'code');
+    // debugger;
+    // this.props.getCompanyList();
   }
 
 }
@@ -166,7 +171,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
       handleSuspendAccCompany : handleSuspendAccCompany,
-      setSuspendAccountInfo : setSuspendAccountInfo
+      setSuspendAccountInfo : setSuspendAccountInfo,
+      getCompanyList : getCompanyList
         }, dispatch);
 }
 
