@@ -35,6 +35,7 @@ class InfoGeneralSybase extends React.Component {
                 </Col>
                 <Col md={ 8 } >
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="cntryMgr"
                       value={this.state.sybaseInfoObj.cntryMgr} />

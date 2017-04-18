@@ -53,9 +53,10 @@ class InfoGeneralVolumeSetting extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="volLimit"
-                      value="" />
+                      value={this.state.volSettingObj.volLimit} />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -66,9 +67,10 @@ class InfoGeneralVolumeSetting extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="preAlert"
-                      value="" />
+                      value={this.state.volSettingObj.preAlert} />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -79,9 +81,10 @@ class InfoGeneralVolumeSetting extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="commments"
-                      value="" />
+                      value={this.state.volSettingObj.commments} />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>

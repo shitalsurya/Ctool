@@ -44,6 +44,7 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="interfaceType"
                       value={this.state.mtSettingObj.interfaceType} />
@@ -57,6 +58,7 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="url"
                       value={this.state.mtSettingObj.url} />
@@ -70,6 +72,7 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="login"
                       value={this.state.mtSettingObj.login} />
@@ -93,6 +96,7 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="encode"
                       value={this.state.mtSettingObj.encode} />
@@ -105,7 +109,7 @@ class InfoGeneralMTSetting extends React.Component {
                   Notification Level :
                 </Col>
                 <Col md={ 8 }>
-                  <Row>
+                  <Row className="show-grid">
                     <Col componentClass={ ControlLabel } md={ 3 }>
                       MW NOTIF :
                     </Col>
@@ -113,7 +117,7 @@ class InfoGeneralMTSetting extends React.Component {
                       <InlineEdit type="text" value={this.state.mtSettingObj.mwNotif} onSave={this.handleInlineEditChange.bind(this)}  />
                     </Col>
                   </Row>
-                  <Row>
+                  <Row className="show-grid">
                     <Col componentClass={ ControlLabel } md={ 3 }>
                       SMSC NOTIF :
                     </Col>
@@ -121,7 +125,7 @@ class InfoGeneralMTSetting extends React.Component {
                       <InlineEdit type="text" value={this.state.mtSettingObj.smscNotif} onSave={this.handleInlineEditChange.bind(this)}  />
                     </Col>
                   </Row>
-                  <Row>
+                  <Row className="show-grid">
                     <Col componentClass={ ControlLabel } md={ 3 }>
                       MOBILE NOTIF :
                     </Col>
@@ -149,6 +153,7 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="disTxtBody"
                       value={this.state.mtSettingObj.disTxtBody} />
@@ -162,6 +167,7 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                       <FormControl
+                          className="info_label"
                           type="text"
                           name="country"
                           value={this.state.mtSettingObj.country} />

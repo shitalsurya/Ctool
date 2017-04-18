@@ -45,7 +45,13 @@
   }
 }
 .inner_grid {
-  box-shadow: 0 0px 4px 3px rgba(0, 0, 0, 0.2)
+  box-shadow: 0 0px 4px 3px rgba(0, 0, 0, 0.2);
+  .info_label {
+    border: none;
+    cursor: default;
+    box-shadow: none;
+    pointer-events: none;
+  }
 }
 .show-grid {
   margin : 20px;

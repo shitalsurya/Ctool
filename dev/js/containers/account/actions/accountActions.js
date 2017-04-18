@@ -166,3 +166,16 @@ export function handleSuspendAccCompanyRequest(_accountSpndInfo){
 			payload:_accountSpndInfo
 	}
 }
+
+export function setSuspendAccountInfo(_accountInfo){
+	return function(dispatch){
+		dispatch(setSuspendAccountInfoRequest(_accountInfo))
+	}
+}
+
+export function setSuspendAccountInfoRequest(_accountInfo){
+	return{
+		  type: types.SUSPEND_ACC_INFO,
+			payload:_accountInfo
+	}
+}

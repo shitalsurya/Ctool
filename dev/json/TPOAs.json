@@ -1,0 +1,28 @@
+{
+"data":  [
+  {
+    "SMSCOp" : "Aircel Delhi",
+    "TPOA" : "D1234",
+    "custRouting" : "No",
+    "delete" : ""
+  },
+  {
+    "SMSCOp" : "Vodafone Pune",
+    "TPOA" : "P324",
+    "custRouting" : "No",
+    "delete" : ""
+  },
+  {
+    "SMSCOp" : "Airtel Mumbai",
+    "TPOA" : "A4849",
+    "custRouting" : "No",
+    "delete" : ""
+  },
+  {
+    "SMSCOp" : "Jio Banglore",
+    "TPOA" : "Joker",
+    "custRouting" : "Yes",
+    "delete" : ""
+  }
+]
+}

@@ -42,6 +42,7 @@ class InfoGeneralTechnical extends React.Component {
                 </Col>
                 <Col md={ 8 } >
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="accID"
                       value={this.state.techInfoObj.accID} />
@@ -65,6 +66,7 @@ class InfoGeneralTechnical extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="revStatus"
                       value={this.state.techInfoObj.revStatus} />
@@ -78,6 +80,7 @@ class InfoGeneralTechnical extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="exAdd"
                       value={this.state.techInfoObj.exAdd} />
@@ -91,6 +94,7 @@ class InfoGeneralTechnical extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="disExtranet"
                       value={this.state.techInfoObj.disExtranet} />
@@ -104,6 +108,7 @@ class InfoGeneralTechnical extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="extLogin"
                       value={this.state.techInfoObj.extLogin} />
@@ -127,6 +132,7 @@ class InfoGeneralTechnical extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="msgEncrp"
                       value={this.state.techInfoObj.msgEncrp} />
@@ -140,6 +146,7 @@ class InfoGeneralTechnical extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
+                      className="info_label"
                       type="text"
                       name="msgBodyRem"
                       value={this.state.techInfoObj.msgBodyRem} />
