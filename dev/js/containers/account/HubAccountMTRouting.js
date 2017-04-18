@@ -261,34 +261,34 @@ toggleOnChange(event){
     expanding: this.state.expanding
  };
 
- const popoverBottom = (
-   <Popover id="popover-positioned-bottom" >
-     <Row className="show-grid">
-       <Col md={ 5 } >
-         <h4><Label>Group By:</Label></h4>
-       </Col>
-       <Col md={ 9 } >
-         <Select
-           placeholder="Select Column.."
-           options={this.grpByMaster}
-           value={this.state.groupBy}
-           onChange={this.handleGroupByChange.bind(this)}  />
-       </Col>
-     </Row>
-     <Row className="show-grid">
-       <Col md={ 5 } >
-         <h4><Label>Sub Group By:</Label></h4>
-       </Col>
-       <Col md={ 9 } >
-         <Select
-           placeholder="Select Column.."
-           options={this.subGrpByMaster}
-           value={this.state.subGroupBy}
-           onChange={this.handleSubGroupByChange.bind(this)} />
-       </Col>
-     </Row>
-   </Popover>
- );
+ // const popoverBottom = (
+ //   <Popover id="popover-positioned-bottom" >
+ //     <Row className="show-grid">
+ //       <Col md={ 5 } >
+ //         <h4><Label>Group By:</Label></h4>
+ //       </Col>
+ //       <Col md={ 9 } >
+ //         <Select
+ //           placeholder="Select Column.."
+ //           options={this.grpByMaster}
+ //           value={this.state.groupBy}
+ //           onChange={this.handleGroupByChange.bind(this)}  />
+ //       </Col>
+ //     </Row>
+ //     <Row className="show-grid">
+ //       <Col md={ 5 } >
+ //         <h4><Label>Sub Group By:</Label></h4>
+ //       </Col>
+ //       <Col md={ 9 } >
+ //         <Select
+ //           placeholder="Select Column.."
+ //           options={this.subGrpByMaster}
+ //           value={this.state.subGroupBy}
+ //           onChange={this.handleSubGroupByChange.bind(this)} />
+ //       </Col>
+ //     </Row>
+ //   </Popover>
+ // );
 
         return (
 
@@ -339,7 +339,7 @@ toggleOnChange(event){
                        </Col>
                      </Row>
 
-                     <Row className="show-grid">
+                     {/*<Row className="show-grid">
                        <Col mdHidden md={ 4 } />
                        <Col mdHidden md={ 5 } />
                        <Col md={ 3 } >
@@ -349,7 +349,7 @@ toggleOnChange(event){
                            </OverlayTrigger>
                          </ButtonToolbar>
                        </Col>
-                     </Row>
+                     </Row>*/}
 
                      <Row className="show-grid">
                        <Col md={ 12 }>
@@ -368,8 +368,8 @@ toggleOnChange(event){
                            <TableHeaderColumn dataField='permanent' dataFormat = { this.toggleFormatter.bind(this) } formatExtraData={ 'permanent' } >Permanent</TableHeaderColumn>
                            <TableHeaderColumn dataField='status' dataAlign='center' width="80px" dataFormat={ this.statusDataFormatter.bind(this) }>Status</TableHeaderColumn>
                            <TableHeaderColumn dataField='comment'>Comment</TableHeaderColumn>
-                           <TableHeaderColumn dataField='prefStartTime' dataFormat = { this.timeFormatter.bind(this) } >Preferred Start Time</TableHeaderColumn>
-                           <TableHeaderColumn dataField='prefEndTime' dataFormat = { this.timeFormatter.bind(this) } >Preferred End Time</TableHeaderColumn>
+                           <TableHeaderColumn dataField='prefStartTime' dataFormat = { this.timeFormatter.bind(this) } formatExtraData={ 'prefStartTime' } >Preferred Start Time</TableHeaderColumn>
+                           <TableHeaderColumn dataField='prefEndTime' dataFormat = { this.timeFormatter.bind(this) } formatExtraData={ 'prefEndTime' }>Preferred End Time</TableHeaderColumn>
                          </BootstrapTable>
                        </Col>
                      </Row>
