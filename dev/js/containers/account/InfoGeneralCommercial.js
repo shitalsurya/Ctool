@@ -26,7 +26,6 @@ class InfoGeneralCommercial extends React.Component {
     }
 
     handleInlineEditChange(val){
-      // debugger;
       // console.log("handleInlineEditChange val==",this.state.acctCommName);
       // this.setState({acctCommName:val});
       //<InlineEdit type="text" value={this.state.acctCommName} onSave={this.handleInlineEditChange.bind(this)}  />
