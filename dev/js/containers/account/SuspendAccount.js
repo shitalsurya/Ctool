@@ -154,12 +154,8 @@ class SuspendAccount extends React.Component {
   }
 
   componentWillMount() {
-    debugger;
     let Company = this.props.getCompanyList();
-    // console.log(this.props.getCompanyList());
     this.companyList = initializeData(Company,'code');
-    // debugger;
-    // this.props.getCompanyList();
   }
 
 }

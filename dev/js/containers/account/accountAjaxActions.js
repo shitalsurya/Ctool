@@ -19,7 +19,6 @@ export function getSpndAccount(spndAccObj) {
 export function getDataList(listType) {
 
   var list = { "data":[ ]};
-  debugger;
   switch(listType.type) {
     case types.ACCOUNT_GET_COMPANY_LIST:
       list = Company;
