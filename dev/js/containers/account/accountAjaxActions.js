@@ -1,5 +1,6 @@
 import React from 'react';
-import Account from '../../../json/Account.json';
+import Company from '../../../json/Company.json';
+import * as types from './actions/accountActionTypes';
 
 export function getSpndAccount(spndAccObj) {
 
@@ -13,4 +14,17 @@ export function getSpndAccount(spndAccObj) {
   }
 
   return updatedAccountList;
+}
+
+export function getDataList(listType) {
+
+  var list = { "data":[ ]};
+  debugger;
+  switch(listType.type) {
+    case types.ACCOUNT_GET_COMPANY_LIST:
+      list = Company;
+      break;
+  }
+
+  return list;
 }
