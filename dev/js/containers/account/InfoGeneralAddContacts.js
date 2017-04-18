@@ -7,6 +7,7 @@ import Select from 'react-select';
 import InlineEdit from './../common/components/InlineEdit';
 require('../../../scss/tabs.scss');
 require('../../../scss/style.scss');
+import DeleteRowLink from './../common/components/DeleteRow';
 import ModalAddContact from './AddContact';
 import Contact from '../../../json/ExistingContact.json';
 import * as types from '../../containers/account/actions/accountActionTypes';
@@ -18,7 +19,7 @@ class InfoGeneralAddContacts extends React.Component {
         this.state = {
            data : [
 
-          ],
+           ],
            groupById:'countryId',
           ContactInfo : this.props.ContactInfo || [],
         }
@@ -58,7 +59,7 @@ handleModalChange(target, value){
             console.log(contactinfo);
           break;
         }
-        this.setState({ ContactInfo: contactinfo});
+        this.setState({ ContactInfo: contactinfo,data : [contactinfo]});
 
       }
     render() {
@@ -93,8 +94,8 @@ handleModalChange(target, value){
               <Row className="show-grid">
                  <BootstrapTable data={this.state.data} >
                    <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
-                   <TableHeaderColumn dataField='Name'>Name</TableHeaderColumn>
-                   <TableHeaderColumn dataField='Email'>Email</TableHeaderColumn>
+                   <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
+                   <TableHeaderColumn dataField='email'>Email</TableHeaderColumn>
                    <TableHeaderColumn dataField='delete' dataFormat={ this.deleteDataFormatter.bind(this) } formatExtraData={ 'delete' } ></TableHeaderColumn>
                  </BootstrapTable>
                </Row>
