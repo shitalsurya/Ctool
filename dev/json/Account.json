@@ -4,61 +4,71 @@
               "company" : "10 GRAD(37669)",
               "account" : "1_Acc1",
               "name" : "1_Acc1",
-              "manager" : "1_Mgr1"
+              "manager" : "1_Mgr1",
+              "date"    : "02/02/2017"
             },
             {
               "company" : "100 BEST(39551)",
               "account" : "2_Acc1",
               "name" : "2_Acc1",
-              "manager" : "2_Mgr1"
+              "manager" : "2_Mgr1",
+              "date"    : "02/03/2017"
             },
             {
               "company" : "100 BEST(39551)",
               "account" : "2_Acc2",
               "name" : "2_Acc2",
-              "manager" : "2_Mgr2"
+              "manager" : "2_Mgr2",
+              "date"    : "02/02/2017"
             },
             {
               "company" : "100 BEST(39551)",
               "account" : "2_Acc3",
               "name" : "2_Acc3",
-              "manager" : "2_Mgr3"
+              "manager" : "2_Mgr3",
+              "date"    : "02/02/2017"
             },
             {
               "company" : "10DUKE (38660)",
               "account" : "3_Acc1",
               "name" : "3_Acc1",
-              "manager" : "3_Mgr1"
+              "manager" : "3_Mgr1",
+              "date"    : "02/02/2017"
             },
             {
               "company" : "10DUKE (38660)",
               "account" : "3_Acc2",
               "name" : "3_Acc2",
-              "manager" : "3_Mgr2"
+              "manager" : "3_Mgr2",
+              "date"    : "02/02/2017"
             },
             {
               "company" : "10DUKE (38660)",
               "account" : "3_Acc3",
               "name" : "3_Acc3",
-              "manager" : "3_Mgr3"
+              "manager" : "3_Mgr3",
+              "date"    : "02/02/2017"
             },
             {
               "company" : "10DUKE (38660)",
               "account" : "3_Acc4",
               "name" : "3_Acc4",
-              "manager" : "3_Mgr4"
+              "manager" : "3_Mgr4",
+              "date"    : "02/02/2017"
             },
             {
               "company" : "118811 (39258)",
               "account" : "4_Acc1",
               "name" : "4_Acc1",
-              "manager" : "4_Mgr2"
+              "manager" : "4_Mgr2",
+              "date"    : "02/02/2017"
             },
             {
               "company" : "118811 (39258)",
               "account" : "4_Acc2",
               "name" : "4_Acc2",
-              "manager" : "4_Mgr2"
+              "manager" : "4_Mgr2",
+              "date"    : "02/02/2017"
             }
   ]
 }

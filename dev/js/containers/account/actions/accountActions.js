@@ -204,3 +204,54 @@ export function getCompanyListRequestFailure(data) {
   		payload: data
 	}
 }
+
+export function handleReactivateAccCompany(_accountReactivateInfo){
+	return function(dispatch,getState){
+		dispatch(handleReactivateAccCompanyRequest(_accountReactivateInfo));
+    return getSpndAccount(_accountReactivateInfo);
+	}
+}
+export function handleReactivateAccCompanyRequest(_accountReactivateInfo){
+	return{
+		  type: types.REACTIVATE_ACC_COMPANY,
+			payload:_accountReactivateInfo
+	}
+}
+
+export function setReactivateAccountInfo(_accountInfo){
+	return function(dispatch){
+		dispatch(setReactivateAccountInfoRequest(_accountInfo))
+	}
+}
+export function setReactivateAccountInfoRequest(_accountInfo){
+	return{
+		  type: types.REACTIVATE_ACC_INFO,
+			payload:_accountInfo
+	}
+}
+
+
+export function handleCloseAccCompany(_accountCloseInfo){
+	return function(dispatch,getState){
+		dispatch(handleCloseAccCompanyRequest(_accountCloseInfo));
+    return getSpndAccount(_accountCloseInfo);
+	}
+}
+export function handleCloseAccCompanyRequest(_accountCloseInfo){
+	return{
+		  type: types.CLOSE_ACC_COMPANY,
+			payload:_accountCloseInfo
+	}
+}
+
+export function setCloseAccountInfo(_accountInfo){
+	return function(dispatch){
+		dispatch(setCloseAccountInfoRequest(_accountInfo))
+	}
+}
+export function setCloseAccountInfoRequest(_accountInfo){
+	return{
+		  type: types.CLOSE_ACC_INFO,
+			payload:_accountInfo
+	}
+}
