@@ -7,21 +7,61 @@ import Select from 'react-select';
 import InlineEdit from './../common/components/InlineEdit';
 require('../../../scss/tabs.scss');
 require('../../../scss/style.scss');
-
+import DeleteRowLink from './../common/components/DeleteRow';
+import ModalAddContact from './AddContact';
+import Contact from '../../../json/ExistingContact.json';
+import * as types from '../../containers/account/actions/accountActionTypes';
+import { initializeData } from '../../containers/account/actions/accountActions';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 class InfoGeneralAddContacts extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-          addContactObj : {
-            contact : '123456'
-          }
+           data : [
+
+           ],
+           groupById:'countryId',
+          ContactInfo : this.props.ContactInfo || [],
         }
     }
+  close() {
 
-    handleInlineEditChange(val){
-      //<InlineEdit type="text" value={this.state.acctCommName} onSave={this.handleInlineEditChange.bind(this)}  />
+      this.setState({showContact : false});
     }
+    addContact(){
+       this.setState({showContact: true , modalHeading:'Account Contacts' });
 
+    }
+    componentWillMount(){
+        this.companyList = initializeData(Contact,'name');
+
+    }
+    deleteDataFormatter(cell, row,field,index) {
+     this.currentRow = row;
+     this.currentField = field;
+
+   return (
+       <DeleteRowLink currentRow={this.currentRow.name}/>
+   )
+ }
+
+handleModalChange(target, value){
+      var contactinfo = this.state.ContactInfo;
+      debugger;
+      switch(target) {
+        case types.ADDCONTACT_EXISTINGCOMPANY :
+          var _data = Contact.data.filter(function (header, item) {
+          if(header.name === value.value)
+            return header;
+          }.bind(this));
+
+          contactinfo = _data[0];
+            console.log(contactinfo);
+          break;
+        }
+        this.setState({ ContactInfo: contactinfo,data : [contactinfo]});
+
+      }
     render() {
 
         return (
@@ -30,22 +70,38 @@ class InfoGeneralAddContacts extends React.Component {
 
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
-                  Contact :
+                   Existing Company Contact:
                 </Col>
                 <Col md={ 8 } >
-                  <InlineEdit type="text" value={this.state.addContactObj.contact} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <Select
+                        name="existingcompany"
+                        placeholder="Select company.."
+                        options={this.companyList}
+                        value={this.state.ContactInfo.name || ''}
+                        onChange={this.handleModalChange.bind(this,types.ADDCONTACT_EXISTINGCOMPANY)}
+                         />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
 
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
-                <Button bsStyle="primary">Add Contact</Button>
+                <Button bsStyle="primary" onClick={this.addContact.bind(this)}>Add New Contact</Button>
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
 
+              <Row className="show-grid">
+                 <BootstrapTable data={this.state.data} >
+                   <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
+                   <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
+                   <TableHeaderColumn dataField='email'>Email</TableHeaderColumn>
+                   <TableHeaderColumn dataField='delete' dataFormat={ this.deleteDataFormatter.bind(this) } formatExtraData={ 'delete' } ></TableHeaderColumn>
+                 </BootstrapTable>
+               </Row>
             </Grid>
+
+            <ModalAddContact  showContact={this.state.showContact} close={this.close.bind(this)}/>
           </div>
         )
     }
