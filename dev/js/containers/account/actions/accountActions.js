@@ -229,3 +229,29 @@ export function setReactivateAccountInfoRequest(_accountInfo){
 			payload:_accountInfo
 	}
 }
+
+
+export function handleCloseAccCompany(_accountCloseInfo){
+	return function(dispatch,getState){
+		dispatch(handleCloseAccCompanyRequest(_accountCloseInfo));
+    return getSpndAccount(_accountCloseInfo);
+	}
+}
+export function handleCloseAccCompanyRequest(_accountCloseInfo){
+	return{
+		  type: types.CLOSE_ACC_COMPANY,
+			payload:_accountCloseInfo
+	}
+}
+
+export function setCloseAccountInfo(_accountInfo){
+	return function(dispatch){
+		dispatch(setCloseAccountInfoRequest(_accountInfo))
+	}
+}
+export function setCloseAccountInfoRequest(_accountInfo){
+	return{
+		  type: types.CLOSE_ACC_INFO,
+			payload:_accountInfo
+	}
+}

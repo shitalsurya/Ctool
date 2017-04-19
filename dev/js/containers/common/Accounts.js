@@ -10,6 +10,8 @@ import { bindActionCreators } from 'redux';
 import * as types from '../../containers/common/commonActionTypes';
 import SuspendAccount from '../account/SuspendAccount';
 import ReactivateAccount from '../account/ReactivateAccount';
+import CloseAccount from '../account/CloseAccount';
+
 require( '../../../scss/style.scss' );
 var sapImg = require( "../../../images/sap-logo.png" );
 var logoImg=require("../../../images/sybase-365.jpg");
@@ -23,10 +25,11 @@ class Accounts extends React.Component {
           showAccountCreate:false,
           showAccountMgmt :false,
           showSuspendedAcc:false,
-          showReactivateAcc:false
+          showReactivateAcc:false,
+          showCloseAcc:false
       },
       submenus:["Accounts","Create Account",
-    "Account Setup","Suspend Account","Reactivate Account"]
+    "Account Setup","Suspend Account","Reactivate Account","Close Account"]
     }
   }
 
@@ -89,6 +92,9 @@ class Accounts extends React.Component {
                       <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_REAC )}  className="list-group-item">
                         <i className="fa fa-comment-o"></i>{ this.state.submenus[4]}
                       </a>
+                      <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_CLOSE )}  className="list-group-item">
+                        <i className="fa fa-comment-o"></i>{ this.state.submenus[5]}
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -99,6 +105,7 @@ class Accounts extends React.Component {
                 { this.state.currentMenus.showAccountMgmt && <HubAccountMgmt /> }
                 { this.state.currentMenus.showSuspendedAcc && <SuspendAccount/> }
                 { this.state.currentMenus.showReactivateAcc && <ReactivateAccount/>}
+                { this.state.currentMenus.showCloseAcc && <CloseAccount/>}
               </Col>
                  </Row>
           </Grid>
@@ -138,7 +145,8 @@ class Accounts extends React.Component {
           showAccountSetup:false,
          showAccountMgmt :false,
          showSuspendedAcc:false,
-         showReactivateAcc :false
+         showReactivateAcc :false,
+         showCloseAcc :false
       };
       break;
       case types.ACCOUNT_SETUP:
@@ -147,7 +155,8 @@ class Accounts extends React.Component {
         showAccountCreate:false,
        showAccountMgmt :false,
        showSuspendedAcc:false,
-       showReactivateAcc :false
+       showReactivateAcc :false,
+       showCloseAcc :false
     };
         break;
         case types.ACCOUNT_MGMT:
@@ -156,7 +165,8 @@ class Accounts extends React.Component {
           showAccountCreate:false,
          showAccountMgmt :true,
          showSuspendedAcc:false,
-         showReactivateAcc :false
+         showReactivateAcc :false,
+         showCloseAcc :false
       };
           break;
         case types.ACCOUNT_SPND :
@@ -165,7 +175,8 @@ class Accounts extends React.Component {
           showAccountCreate:false,
           showAccountMgmt:false,
           showSuspendedAcc:true,
-          showReactivateAcc :false
+          showReactivateAcc :false,
+          showCloseAcc :false
         };
           break;
           case types.ACCOUNT_REAC :
@@ -174,15 +185,27 @@ class Accounts extends React.Component {
             showAccountCreate:false,
             showAccountMgmt:false,
             showSuspendedAcc:false,
-            showReactivateAcc :true
+            showReactivateAcc :true,
+            showCloseAcc :false
           };
             break;
+          case types.ACCOUNT_CLOSE :
+            menus={
+              showAccountSetup:false,
+              showAccountCreate:false,
+              showAccountMgmt:false,
+              showSuspendedAcc:false,
+              showReactivateAcc :false,
+              showCloseAcc : true
+            };
+              break;
       default:
       menus={
         showAccountSetup:true,
         showAccountCreate:false,
         showAccountMgmt :false,
-        showSuspendedAcc:false
+        showSuspendedAcc:false,
+        showCloseAcc:false
     };
         break;
     }

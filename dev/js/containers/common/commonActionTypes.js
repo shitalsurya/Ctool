@@ -7,8 +7,8 @@ export const ACCOUNT_SETUP='ACCOUNT_SETUP';
 export const MISC_USERS = 'MISC_USERS';
 export const ACCOUNT_SPND = 'ACCOUNT_SPND';
 export const CONNECTIONS = 'CONNECTIONS';
-export const ACCOUNT_REAC = 'ACCOUNT_REAC'; 
-
+export const ACCOUNT_REAC = 'ACCOUNT_REAC';
+export const ACCOUNT_CLOSE = 'ACCOUNT_CLOSE';
 
 //Miscelleneous
 //Users
