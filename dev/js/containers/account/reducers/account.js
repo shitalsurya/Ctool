@@ -69,6 +69,12 @@ export default function(state = {
             return Object.assign({}, state, {
                 data: action.payload
             });
+        case types.ACCOUNT_GET_COMPANY_LIST:
+        case types.ACCOUNT_GET_COMPANY_LIST_SUCCESS:
+        case types.ACCOUNT_GET_COMPANY_LIST_FAILURE:
+            return Object.assign({}, state, {
+                target: action.type
+            });
 
             return state;
     }
