@@ -204,3 +204,28 @@ export function getCompanyListRequestFailure(data) {
   		payload: data
 	}
 }
+
+export function handleReactivateAccCompany(_accountReactivateInfo){
+	return function(dispatch,getState){
+		dispatch(handleReactivateAccCompanyRequest(_accountReactivateInfo));
+    return getSpndAccount(_accountReactivateInfo);
+	}
+}
+export function handleReactivateAccCompanyRequest(_accountReactivateInfo){
+	return{
+		  type: types.REACTIVATE_ACC_COMPANY,
+			payload:_accountReactivateInfo
+	}
+}
+
+export function setReactivateAccountInfo(_accountInfo){
+	return function(dispatch){
+		dispatch(setReactivateAccountInfoRequest(_accountInfo))
+	}
+}
+export function setReactivateAccountInfoRequest(_accountInfo){
+	return{
+		  type: types.REACTIVATE_ACC_INFO,
+			payload:_accountInfo
+	}
+}

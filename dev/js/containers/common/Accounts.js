@@ -9,6 +9,7 @@ import MiscUsers from '../../containers/miscellaneous/users/MiscUsers';
 import { bindActionCreators } from 'redux';
 import * as types from '../../containers/common/commonActionTypes';
 import SuspendAccount from '../account/SuspendAccount';
+import ReactivateAccount from '../account/ReactivateAccount';
 require( '../../../scss/style.scss' );
 var sapImg = require( "../../../images/sap-logo.png" );
 var logoImg=require("../../../images/sybase-365.jpg");
@@ -21,10 +22,11 @@ class Accounts extends React.Component {
           showAccountSetup :true,
           showAccountCreate:false,
           showAccountMgmt :false,
-          showSuspendedAcc:false
+          showSuspendedAcc:false,
+          showReactivateAcc:false
       },
       submenus:["Accounts","Create Account",
-    "Account Setup","Suspend Account"]
+    "Account Setup","Suspend Account","Reactivate Account"]
     }
   }
 
@@ -84,6 +86,9 @@ class Accounts extends React.Component {
                       <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_SPND )}  className="list-group-item">
                         <i className="fa fa-comment-o"></i>{ this.state.submenus[3]}
                       </a>
+                      <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_REAC )}  className="list-group-item">
+                        <i className="fa fa-comment-o"></i>{ this.state.submenus[4]}
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -93,7 +98,7 @@ class Accounts extends React.Component {
                 { this.state.currentMenus.showAccountSetup && <AccountSetup /> }
                 { this.state.currentMenus.showAccountMgmt && <HubAccountMgmt /> }
                 { this.state.currentMenus.showSuspendedAcc && <SuspendAccount/> }
-
+                { this.state.currentMenus.showReactivateAcc && <ReactivateAccount/>}
               </Col>
                  </Row>
           </Grid>
@@ -132,7 +137,8 @@ class Accounts extends React.Component {
         showAccountCreate:true,
           showAccountSetup:false,
          showAccountMgmt :false,
-         showSuspendedAcc:false
+         showSuspendedAcc:false,
+         showReactivateAcc :false
       };
       break;
       case types.ACCOUNT_SETUP:
@@ -140,7 +146,8 @@ class Accounts extends React.Component {
       showAccountSetup:true,
         showAccountCreate:false,
        showAccountMgmt :false,
-       showSuspendedAcc:false
+       showSuspendedAcc:false,
+       showReactivateAcc :false
     };
         break;
         case types.ACCOUNT_MGMT:
@@ -148,7 +155,8 @@ class Accounts extends React.Component {
         showAccountSetup:false,
           showAccountCreate:false,
          showAccountMgmt :true,
-         showSuspendedAcc:false
+         showSuspendedAcc:false,
+         showReactivateAcc :false
       };
           break;
         case types.ACCOUNT_SPND :
@@ -156,15 +164,25 @@ class Accounts extends React.Component {
           showAccountSetup:false,
           showAccountCreate:false,
           showAccountMgmt:false,
-          showSuspendedAcc:true
+          showSuspendedAcc:true,
+          showReactivateAcc :false
         };
           break;
+          case types.ACCOUNT_REAC :
+          menus={
+            showAccountSetup:false,
+            showAccountCreate:false,
+            showAccountMgmt:false,
+            showSuspendedAcc:false,
+            showReactivateAcc :true
+          };
+            break;
       default:
       menus={
-      showAccountSetup:true,
+        showAccountSetup:true,
         showAccountCreate:false,
-       showAccountMgmt :false,
-       showSuspendedAcc:false
+        showAccountMgmt :false,
+        showSuspendedAcc:false
     };
         break;
     }
