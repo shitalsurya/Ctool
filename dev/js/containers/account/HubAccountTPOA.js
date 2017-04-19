@@ -48,13 +48,15 @@ class HubAccountGeneral extends React.Component {
                </Row>
 
                <Row className="show-grid">
-                 <BootstrapTable data={this.state.data} >
-                   <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
-                   <TableHeaderColumn dataField='SMSCOp'>SMSC Operator</TableHeaderColumn>
-                   <TableHeaderColumn dataField='TPOA'>TPOA</TableHeaderColumn>
-                   <TableHeaderColumn dataField='custRouting'>Customer Routing</TableHeaderColumn>
-                   <TableHeaderColumn dataField='delete' dataFormat={ this.deleteDataFormatter.bind(this) } formatExtraData={ 'delete' } ></TableHeaderColumn>
-                 </BootstrapTable>
+                 <Col md={ 12 }>
+                   <BootstrapTable data={this.state.data} >
+                     <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
+                     <TableHeaderColumn dataField='SMSCOp'>SMSC Operator</TableHeaderColumn>
+                     <TableHeaderColumn dataField='TPOA'>TPOA</TableHeaderColumn>
+                     <TableHeaderColumn dataField='custRouting'>Customer Routing</TableHeaderColumn>
+                     <TableHeaderColumn dataField='delete' dataFormat={ this.deleteDataFormatter.bind(this) } formatExtraData={ 'delete' } ></TableHeaderColumn>
+                   </BootstrapTable>
+                </Col>
                </Row>
 
                <Row className="show-grid">
