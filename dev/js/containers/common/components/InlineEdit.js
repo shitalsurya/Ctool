@@ -124,7 +124,7 @@ export default class InlineEdit extends React.Component {
             {
               this.state.showEdit &&
                 <div style={this.state.styles}  onMouseLeave={()=>this.setState({showView:true,showEdit : false,showButtons : false})}>
-                  <InputGroup style={this.state.styles} controlId="formControlsSelectMultiple">
+                  <InputGroup controlId="formControlsSelectMultiple">
                     <FormControl componentClass="label">
                       {this.state.value}
                     </FormControl>
