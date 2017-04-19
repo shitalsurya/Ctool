@@ -13,8 +13,8 @@
           "permanent":"No",
           "status":"green",
           "comment":"",
-          "prefStartTime":"1492511150340",
-            "prefEndTime":"1492511150340"
+          "prefStartTime":"1492552680000",
+            "prefEndTime":"1492556280000"
         }, {
             "id":"2",
               "preference":"2",
@@ -23,8 +23,8 @@
             "permanent":"No",
             "status":"orange",
             "comment":"",
-            "prefStartTime":"1492511150340",
-              "prefEndTime":"1492511150340"
+            "prefStartTime":"1492559880000",
+              "prefEndTime":"1492563480000"
           }]
     }]
 },
@@ -42,8 +42,8 @@
           "permanent":"No",
           "status":"green",
           "comment":"",
-          "prefStartTime":"1492511150340",
-            "prefEndTime":"1492511150340"
+          "prefStartTime":"1492552680000",
+            "prefEndTime":"1492556280000"
         }, {
             "id":"2",
               "preference":"2",
@@ -52,8 +52,8 @@
             "permanent":"No",
             "status":"orange",
             "comment":"",
-            "prefStartTime":"1492511150340",
-              "prefEndTime":"1492511150340"
+            "prefStartTime":"1492559880000",
+              "prefEndTime":"1492563480000"
           }]
     }]
 }
