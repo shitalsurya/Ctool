@@ -4,7 +4,8 @@ import { bindActionCreators } from 'redux';
 import {Form, FormControl, InputGroup,FormGroup, Glyphicon} from 'react-bootstrap';
 import Select from 'react-select';
 import Toggle from 'react-toggle';
-
+import DateTimeField from 'react-bootstrap-datetimepicker';
+import moment from 'moment';
 require('./Inline.scss');
 
 export default class InlineEdit extends React.Component {
@@ -24,11 +25,21 @@ export default class InlineEdit extends React.Component {
     }
 
     onCancelClick() {
-      let _value = this.state.value;
-      this.setState({   showView:true,showEdit : false,  showButtons : false,
-      value:_value
-    });
-    }
+      if(this.state.type=="time")
+      {
+        var ms=parseInt(this.props.value);
+        var _time = moment(ms).format("HH:mm A");
+
+        this.setState({   showView:true,showEdit : false,  showButtons : false,
+        value:_time
+        });
+      }
+      else{
+           this.setState({   showView:true,showEdit : false,  showButtons : false,
+           value:this.props.value
+         });
+      }
+}
     onOkClick() {
 
         var _state = {
@@ -46,6 +57,7 @@ export default class InlineEdit extends React.Component {
 
      onEditClick()
      {
+         console.log("this.state==",this.state);
         this.setState({showView:false,showEdit : false,showButtons : true},function(){
           // var elem = document.getElementById("input");
           // var theCSSprop =parseInt(window.getComputedStyle(elem,null).getPropertyValue("width"))+100+'px';
@@ -60,37 +72,42 @@ export default class InlineEdit extends React.Component {
        console.log("handleChange==",e);
        switch(this.state.type){
          case "text":
-           var _state = {
-               value: e.target.value,
-               showView:false,
-               showButtons : true,
-               showEdit : false,
-           };
-           break;
         case "select":
-          var _state = {
-              value: e.target.value,
-              showView:false,
-              showButtons : true,
-              showEdit : false,
-          };
-          break;
+        var _state = {
+            value: e.target.value,
+            showView:false,
+            showButtons : true,
+            showEdit : false,
+        };
+        break;
+
+            case "time":
+        //    var ms=parseInt(e);
+          //  var _time = moment(ms).format("HH:mm");
+            //console.log("time==",_time);
+    var _state = {
+        value:e,
+        showView:false,
+        showButtons : true,
+        showEdit : false,
+    };
+        break;
         case "toggle":
           var _value, _defaultVal;
           if(this.props.field === "onOff"){
             _value = e.target.value == "On" ? "Off" : "On";
-            _defaultVal = _value == "On" ? true : false;
+          //  _defaultVal = _value == "On" ? true : false;
           }
           else{
             _value = e.target.value == "Yes" ? "No" : "Yes";
-            _defaultVal = _value == "Yes" ? true : false;
+          //  _defaultVal = _value == "Yes" ? true : false;
           }
           var _state = {
             value: _value,
             showView:false,
             showButtons : true,
             showEdit : false,
-            defaultVal : _defaultVal
+          //  defaultVal : _defaultVal
           }
           break;
        }
@@ -128,31 +145,40 @@ export default class InlineEdit extends React.Component {
                         className="edit-button-icon"></span>
                     </InputGroup.Addon>
                   </InputGroup>
-                  </div>
+                </div>
             }
             {
               this.state.showButtons &&
                 <FormGroup>
                   {
                     this.state.select &&
-                    <FormControl componentClass="select" disabled={this.state.showButtons ? false : "disabled"}
-                    value={this.state.value}  onChange={this.handleChange.bind(this)}>
-                    {this.state.options}
-                    </FormControl>
+                      <FormControl componentClass="select" disabled={this.state.showButtons ? false : "disabled"}
+                        value={this.state.value}  onChange={this.handleChange.bind(this)}>
+                        {this.state.options}
+                      </FormControl>
                   }
                   {
                     this.state.text &&
-                    <FormControl value={this.state.value} onChange={this.handleChange.bind(this)}
-                      type="text" disabled={this.state.showButtons ? false : "disabled"} />
+                      <FormControl value={this.state.value} onChange={this.handleChange.bind(this)}
+                        type="text" disabled={this.state.showButtons ? false : "disabled"} />
                   }
                   {
                     this.state.toggle &&
-                    <Toggle
-                      icons={this.props.icons}
-                      defaultChecked={this.state.defaultVal}
-                      value={this.state.value}
-                      onChange={this.handleChange.bind(this)}
-                    />
+                      <Toggle
+                        icons={this.props.icons}
+                        defaultChecked={this.state.defaultVal}
+                        value={this.state.value}
+                        onChange={this.handleChange.bind(this)}
+                      />
+
+                  }
+                  {
+                    this.state.time &&
+                      <DateTimeField mode="time" inputFormat="HH:mm A"
+                        dateTime={this.state.value}
+                        format="HH:mm A"
+                        use24hours={true}
+                        onChange={this.handleChange.bind(this)} />
 
                   }
                   <div className="edit-buttons" >
@@ -194,9 +220,15 @@ export default class InlineEdit extends React.Component {
             _value =  this.state.value ? "Yes" : "No";
           this.setState({toggle : true , value : _value });
           break;
-        case "text":
-          this.setState({text : true});
+        case "time":
+        console.log("this.state.value==",this.state.value);
+        var ms=parseInt(this.state.value);
+          console.log("ms==",ms);
+        var _time = moment(ms).format("HH:mm A");
+          console.log("_time==",_time);
+          this.setState({time : true,value:_time});
           break;
+
       }
     }
 

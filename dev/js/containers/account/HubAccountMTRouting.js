@@ -8,7 +8,7 @@ import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,
 import Toggle from 'react-toggle';
 import ModalModify from './HubAccountModifyMTRouting';
 import ModalAdd from './HubAccountAddMTRouting';
-import DateTimeField from 'react-bootstrap-datetimepicker';
+
 require('../../../scss/style.scss');
 require('../../../scss/react-toggle.scss');
 require('../../../scss/time.scss');
@@ -32,6 +32,7 @@ expandComponent(row) {
     <SubNestedTable data={ row.expand } />
   );
 }
+
   render() {
     if (this.props.data) {
       return (
@@ -42,6 +43,7 @@ expandComponent(row) {
           expandComponent={ this.expandComponent.bind(this) }>
           <TableHeaderColumn isKey={ true } hidden dataField={this.props.groupById}>ID</TableHeaderColumn>
           <TableHeaderColumn dataField={this.props.groupBy.value}> </TableHeaderColumn>
+
         </BootstrapTable>
       );
     } else {
@@ -57,6 +59,69 @@ class SubNestedTable extends React.Component {
       this.currentField = "";
 }
 
+dataFormatter(cell, row,field,index) {
+    this.currentRow = row;
+    this.currentField = field;
+  //   this.userList = initializeData(Users,'login');
+   var PreferenceList= [{ "id": 1, "value":"1"},{ "id": 2, "value":"2"}];
+    //  return <InlineEdit  type='text' value={cell} onSave={this.updateValue.bind(this)}  />
+  return <InlineEdit type='select' options={PreferenceList} value={cell} onSave={this.updateValue.bind(this)}  />
+}
+toggleFormatter(cell, row,field,index) {
+  var icons;
+  if(field == "onOff") {
+    icons={
+       checked: 'On',
+       unchecked: 'Off',
+    };
+  }
+  else if (field == "permanent") {
+    icons={
+       checked: 'Yes',
+       unchecked: 'No',
+    };
+  }
+    this.currentRow = row;
+    this.currentField = field;
+  //   this.userList = initializeData(Users,'login');
+  //  var PreferenceList= [{ "id": 1, "value":"1"},{ "id": 2, "value":"2"}];
+    //  return <InlineEdit  type='text' value={cell} onSave={this.updateValue.bind(this)}  />
+  // return <InlineEdit type='select'  options={PreferenceList} value={cell} onSave={this.updateValue.bind(this)}  />
+  return <InlineEdit type="toggle" value={cell} icons={icons} field={ field } onSave={this.updateValue.bind(this)}  />
+}
+timeFormatter(cell, row,field,index) {
+
+    this.currentRow = row;
+    this.currentField = field;
+  //   this.userList = initializeData(Users,'login');
+  //  var PreferenceList= [{ "id": 1, "value":"1"},{ "id": 2, "value":"2"}];
+      return <InlineEdit  type='time' value={cell} onSave={this.updateValue.bind(this)}  />
+  // return <InlineEdit type='select'  options={PreferenceList} value={cell} onSave={this.updateValue.bind(this)}  />
+  //return <DateTimeField mode="time" />
+}
+statusDataFormatter(cell, row) {
+  const greenStatus = require( "../../../images/circle-green.png" );
+  const orangeStatus = require( "../../../images/circle-orange.png" );
+  const redStatus = require( "../../../images/circle-red.png" );
+  switch (cell) {
+    case 'green':
+        return <img src={ greenStatus }/>;
+      break;
+      case 'orange':
+          return <img src={ orangeStatus }/>;
+        break;
+        case 'red':
+            return <img src={ redStatus }/>;
+          break;
+    default:
+
+  }
+
+}
+updateValue(val){
+  this.currentRow[this.currentField]=val;
+  console.log("this.currentRow==",this.currentRow);
+}
 
 
 
@@ -70,17 +135,14 @@ class SubNestedTable extends React.Component {
       return (
         <BootstrapTable data={ this.props.data } selectRow={ selectRow } >
           <TableHeaderColumn dataField='id' hidden isKey={ true }></TableHeaderColumn>
-          {/*
-            <TableHeaderColumn dataField='preference'  dataFormat={ this.dataFormatter.bind(this) } formatExtraData={ 'preference' } >Preference</TableHeaderColumn>
-
-            <TableHeaderColumn dataField='SMSC'>SMSC</TableHeaderColumn>
-            <TableHeaderColumn dataField='onOff'>On/Off</TableHeaderColumn>
-            <TableHeaderColumn dataField='permanent'>Permanent</TableHeaderColumn>
-            <TableHeaderColumn dataField='status' dataAlign='center' width="80px" dataFormat={ this.statusDataFormatter.bind(this) }>Status</TableHeaderColumn>
-            <TableHeaderColumn dataField='comment'>Comment</TableHeaderColumn>
-            <TableHeaderColumn dataField='prefStartTime'>Preferred Start Time</TableHeaderColumn>
-            <TableHeaderColumn dataField='prefEndTime'>Preferred End Time</TableHeaderColumn>
-          */}
+          <TableHeaderColumn dataField='preference'  dataFormat={ this.dataFormatter.bind(this) } formatExtraData={ 'preference' } >Preference</TableHeaderColumn>
+          <TableHeaderColumn dataField='SMSC'>SMSC</TableHeaderColumn>
+          <TableHeaderColumn dataField='onOff' dataFormat = { this.toggleFormatter.bind(this) } formatExtraData={ 'onOff' } >On/Off</TableHeaderColumn>
+          <TableHeaderColumn dataField='permanent' dataFormat = { this.toggleFormatter.bind(this) } formatExtraData={ 'permanent' } >Permanent</TableHeaderColumn>
+          <TableHeaderColumn dataField='status' dataAlign='center' width="80px" dataFormat={ this.statusDataFormatter.bind(this) }>Status</TableHeaderColumn>
+          <TableHeaderColumn dataField='comment'>Comment</TableHeaderColumn>
+          <TableHeaderColumn dataField='prefStartTime' width="140px" dataFormat = { this.timeFormatter.bind(this) } formatExtraData={ 'prefStartTime' } >Preferred Start Time</TableHeaderColumn>
+          <TableHeaderColumn dataField='prefEndTime' width="140px" dataFormat = { this.timeFormatter.bind(this) } formatExtraData={ 'prefEndTime' }>Preferred End Time</TableHeaderColumn>
         </BootstrapTable>);
     } else {
       return (<p>?</p>);
@@ -133,69 +195,6 @@ class HubAccountMTRouting extends React.Component {
         isExpandableRow(row) {
   if (typeof (row.expand)!='undefined') return true;
   else return false;
-}
-dataFormatter(cell, row,field,index) {
-    this.currentRow = row;
-    this.currentField = field;
-  //   this.userList = initializeData(Users,'login');
-   var PreferenceList= [{ "id": 1, "value":"1"},{ "id": 2, "value":"2"}];
-    //  return <InlineEdit  type='text' value={cell} onSave={this.updateValue.bind(this)}  />
-  return <InlineEdit type='select' options={PreferenceList} value={cell} onSave={this.updateValue.bind(this)}  />
-}
-toggleFormatter(cell, row,field,index) {
-  var icons;
-  if(field == "onOff") {
-    icons={
-       checked: 'On',
-       unchecked: 'Off',
-    };
-  }
-  else if (field == "permanent") {
-    icons={
-       checked: 'Yes',
-       unchecked: 'No',
-    };
-  }
-    this.currentRow = row;
-    this.currentField = field;
-  //   this.userList = initializeData(Users,'login');
-  //  var PreferenceList= [{ "id": 1, "value":"1"},{ "id": 2, "value":"2"}];
-    //  return <InlineEdit  type='text' value={cell} onSave={this.updateValue.bind(this)}  />
-  // return <InlineEdit type='select'  options={PreferenceList} value={cell} onSave={this.updateValue.bind(this)}  />
-  return <InlineEdit type="toggle" value={this.state.resRouting} icons={icons} field={ field } onSave={this.updateValue.bind(this)}  />
-}
-timeFormatter(cell, row,field,index) {
-
-    this.currentRow = row;
-    this.currentField = field;
-  //   this.userList = initializeData(Users,'login');
-  //  var PreferenceList= [{ "id": 1, "value":"1"},{ "id": 2, "value":"2"}];
-    //  return <InlineEdit  type='text' value={cell} onSave={this.updateValue.bind(this)}  />
-  // return <InlineEdit type='select'  options={PreferenceList} value={cell} onSave={this.updateValue.bind(this)}  />
-  return <DateTimeField mode="time" />
-}
-statusDataFormatter(cell, row) {
-  const greenStatus = require( "../../../images/circle-green.png" );
-  const orangeStatus = require( "../../../images/circle-orange.png" );
-  const redStatus = require( "../../../images/circle-red.png" );
-  switch (cell) {
-    case 'green':
-        return <img src={ greenStatus }/>;
-      break;
-      case 'orange':
-          return <img src={ orangeStatus }/>;
-        break;
-        case 'red':
-            return <img src={ redStatus }/>;
-          break;
-    default:
-
-  }
-
-}
-updateValue(val){
-  this.currentRow[this.currentField]=val;
-  console.log("this.currentRow==",this.currentRow);
 }
 expandComponent(row) {
 
@@ -362,14 +361,7 @@ toggleOnChange(event){
                            expandComponent={ this.expandComponent.bind(this) }>
                            <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
                            <TableHeaderColumn dataField={this.state.groupBy.value} ></TableHeaderColumn>
-                           <TableHeaderColumn dataField='preference'  dataFormat={ this.dataFormatter.bind(this) } formatExtraData={ 'preference' } >Preference</TableHeaderColumn>
-                           <TableHeaderColumn dataField='SMSC'>SMSC</TableHeaderColumn>
-                           <TableHeaderColumn dataField='onOff' dataFormat = { this.toggleFormatter.bind(this) } formatExtraData={ 'onOff' } >On/Off</TableHeaderColumn>
-                           <TableHeaderColumn dataField='permanent' dataFormat = { this.toggleFormatter.bind(this) } formatExtraData={ 'permanent' } >Permanent</TableHeaderColumn>
-                           <TableHeaderColumn dataField='status' dataAlign='center' width="80px" dataFormat={ this.statusDataFormatter.bind(this) }>Status</TableHeaderColumn>
-                           <TableHeaderColumn dataField='comment'>Comment</TableHeaderColumn>
-                           <TableHeaderColumn dataField='prefStartTime' dataFormat = { this.timeFormatter.bind(this) } formatExtraData={ 'prefStartTime' } >Preferred Start Time</TableHeaderColumn>
-                           <TableHeaderColumn dataField='prefEndTime' dataFormat = { this.timeFormatter.bind(this) } formatExtraData={ 'prefEndTime' }>Preferred End Time</TableHeaderColumn>
+
                          </BootstrapTable>
                        </Col>
                      </Row>
