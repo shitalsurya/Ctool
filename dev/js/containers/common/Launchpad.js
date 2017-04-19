@@ -27,14 +27,14 @@ export default class Launchpad extends React.Component {
               </button>
               <div className="dashboard-navbar">
                 <span> <img src={ sapImg } /></span>
-                <span>Sybase 365 Configuration Tool</span></div>
+                <span >Sybase 365 Configuration Tool</span></div>
             </div>
           </div>
         </nav>
         <Grid>
           <Row className="dashboard-menu first">
             <Col xs={6} md={3}>
-              <Thumbnail className="notification">
+              <Thumbnail>
                 <a onClick={ this.navigateRoutes.bind( this, types.ACCOUNT_SETUP )}>
                   <span className="accounts-icon"></span>
                   <h3>Accounts</h3>

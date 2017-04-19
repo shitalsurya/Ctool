@@ -7,7 +7,7 @@
   padding: 0px 20px;
 }
 .tab-link{
-  line-height: 30px;
+  line-height: 15px;
   padding: 10px 20px;
   cursor: pointer;
   display: inline-block;
@@ -45,7 +45,7 @@
   }
 }
 .inner_grid {
-  box-shadow: 0 0px 4px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 4px 3px rgba(0, 0, 0, 0.2);
   .info_label {
     border: none;
     cursor: default;
@@ -54,5 +54,11 @@
   }
 }
 .show-grid {
-  margin : 20px;
+  margin : 10px;
+}
+.block_box {
+  // border: 1px solid #999;
+  padding: 5px 20px 0px 20px;
+  background-color: #f5f5f5;
+  margin-bottom: 10px;//border: 1px solid #999;
 }

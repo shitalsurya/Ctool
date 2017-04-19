@@ -64,13 +64,13 @@ class Accounts extends React.Component {
                     <div className="list-group">
                       <span className="list-group-item">
                         <a onClick={ this.goToLaunchpad.bind( this )}>
-                          <span className="glyphicon glyphicon-th-large"></span>
+                          <span className="launchpad-icon"></span>
                           <span> Launchpad </span>
                         </a>
                       </span>
                       <span className="list-group-item">
                         <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_SETUP )} >
-                          <span className="glyphicon glyphicon-th-list"></span>
+                          <span className="accounts-icon"></span>
                           <span> { this.state.submenus[0]} </span>
                         </a>
                       </span>
