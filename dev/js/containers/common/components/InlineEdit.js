@@ -106,8 +106,15 @@ export default class InlineEdit extends React.Component {
             {
               this.state.showView &&
                 <InputGroup controlId="formControlsSelectMultiple">
-                  <FormControl componentClass="label"
-                    onMouseOver={ () => this.setState({showView:false,showEdit : true,showButtons:false}) }>
+                  <FormControl id="input" componentClass="label"
+                    onMouseOver={ () => this.setState({},function(){
+                      var elem = document.getElementById("input");
+                      var theCSSprop =parseInt(document.defaultView.getComputedStyle(elem,null).getPropertyValue("width"))+100+'px';
+                      console.log("theCSSprop==",theCSSprop);
+                      this.setState({styles: {
+                         width:theCSSprop
+                      },showView:false,showEdit : true,showButtons:false});
+                    }) }>
                     {this.state.value}
                   </FormControl>
 
@@ -116,10 +123,8 @@ export default class InlineEdit extends React.Component {
             }
             {
               this.state.showEdit &&
-                <div   onMouseLeave={()=>this.setState({showView:true,showEdit : false,showButtons : false})}>
-                  <InputGroup controlId="formControlsSelectMultiple"
-
-                  >
+                <div style={this.state.styles}  onMouseLeave={()=>this.setState({showView:true,showEdit : false,showButtons : false})}>
+                  <InputGroup style={this.state.styles} controlId="formControlsSelectMultiple">
                     <FormControl componentClass="label">
                       {this.state.value}
                     </FormControl>
