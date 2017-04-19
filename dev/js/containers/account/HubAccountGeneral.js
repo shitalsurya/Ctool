@@ -39,7 +39,7 @@ class HubAccountGeneral extends React.Component {
         return (
           <div className="tabs-container">
 
-            <div>
+            <div className="block_box">
               <div className="rec_tab" onClick={this.handleButtonClick.bind(this , types.INFO_GENERAL_COMMERCIAL)}>
                 <span className={this.state.openStatus.CommercialInfo ? "nav-up-icon" : "nav-down-icon"} >
                   Commercial Information
@@ -54,7 +54,7 @@ class HubAccountGeneral extends React.Component {
               </Collapse>
             </div>
 
-            <div>
+            <div className="block_box">
               <div className="rec_tab" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_SYBASE)}>
                 <span className={this.state.openStatus.SyBase ? "nav-up-icon" : "nav-down-icon"} >
                   SyBase 365 Contacts
@@ -69,7 +69,7 @@ class HubAccountGeneral extends React.Component {
               </Collapse>
             </div>
 
-            <div>
+            <div className="block_box">
               <div className="rec_tab" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_ACC_CONTACTS)}>
                 <span className={this.state.openStatus.AccContacts ? "nav-up-icon" : "nav-down-icon"} >
                   Account Contacts
@@ -84,7 +84,7 @@ class HubAccountGeneral extends React.Component {
               </Collapse>
             </div>
 
-            <div>
+            <div className="block_box">
               <div className="rec_tab" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_TECHNICAL)}>
                 <span className={this.state.openStatus.TechnicalInfo ? "nav-up-icon" : "nav-down-icon"} >
                   Technical Information
@@ -99,7 +99,7 @@ class HubAccountGeneral extends React.Component {
               </Collapse>
             </div>
 
-            <div>
+            <div className="block_box">
               <div className="rec_tab" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_VOLUME)}>
                 <span className={this.state.openStatus.volCntrl ? "nav-up-icon" : "nav-down-icon"} >
                   Volume Control Setting
@@ -114,7 +114,7 @@ class HubAccountGeneral extends React.Component {
               </Collapse>
             </div>
 
-            <div>
+            <div className="block_box">
               <div className="rec_tab" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_MTSETTING)}>
                 <span className={this.state.openStatus.mtSetting ? "nav-up-icon" : "nav-down-icon"} >
                   MT Setting
@@ -129,7 +129,7 @@ class HubAccountGeneral extends React.Component {
               </Collapse>
             </div>
 
-            <div>
+            <div className="block_box">
               <div className="rec_tab" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_MOSETTING)}>
                 <span className={this.state.openStatus.moSetting ? "nav-up-icon" : "nav-down-icon"} >
                   MO Setting
@@ -144,7 +144,7 @@ class HubAccountGeneral extends React.Component {
               </Collapse>
             </div>
 
-            <div>
+            <div className="block_box">
               <div className="rec_tab" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_DELIVERY)} >
                 <span className={this.state.openStatus.deliveryTime ? "nav-up-icon" : "nav-down-icon"}>
                   Prefered Delivery Time Window

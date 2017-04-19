@@ -18,7 +18,7 @@ class SuspendAccount extends React.Component {
     this.state = {
       emptyFlag : false,
       date : null,
-      susAccInfo : this.props.susAccInfo || [],
+      susAccInfo : [],
     };
 
   }
@@ -87,7 +87,9 @@ class SuspendAccount extends React.Component {
                 </Col>
                 <Col md={ 6 }>
                   <FormGroup>
-                    <FormControl value={this.state.susAccInfo.manager} disabled/>
+                    <FormControl.Static>
+                      {this.state.susAccInfo.manager}
+                    </FormControl.Static>
                   </FormGroup>
                 </Col>
                 <Col mdHidden md={ 3 }/>
@@ -126,6 +128,8 @@ class SuspendAccount extends React.Component {
   handleSubmitSuspend(){
     this.props.setSuspendAccountInfo(this.state.susAccInfo);
     console.log(this.state.susAccInfo);
+    this.setState({susAccInfo : []});
+    this.accountList = [];
   }
 
   handleSelectFieldsChange(target,value) {
@@ -133,6 +137,7 @@ class SuspendAccount extends React.Component {
     var info = this.state.susAccInfo;
     switch (target) {
       case types.SUSPEND_ACC_COMPANY:
+        info = [];
         info.company = value.value;
         const spndAccObj = {
           "company" :value.value,
