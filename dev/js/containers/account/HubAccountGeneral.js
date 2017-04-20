@@ -39,125 +39,145 @@ class HubAccountGeneral extends React.Component {
         return (
           <div className="tabs-container">
 
-            <div className="block_box">
-              <div className="rec_tab" onClick={this.handleButtonClick.bind(this , types.INFO_GENERAL_COMMERCIAL)}>
-                <span className={this.state.openStatus.CommercialInfo ? "nav-up-icon" : "nav-down-icon"} >
-                  Commercial Information
-                </span>
-              </div>
-              <Collapse in={this.state.openStatus.CommercialInfo}>
-                <div>
-                  <Well>
-                    <InfoGeneralCommercial/>
-                  </Well>
-                </div>
-              </Collapse>
-            </div>
+            <Grid fluid={true} >
 
-            <div className="block_box">
-              <div className="rec_tab" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_SYBASE)}>
-                <span className={this.state.openStatus.SyBase ? "nav-up-icon" : "nav-down-icon"} >
-                  SyBase 365 Contacts
-                </span>
-              </div>
-              <Collapse in={this.state.openStatus.SyBase}>
-                <div>
-                  <Well>
-                    <InfoGeneralSybase/>
-                  </Well>
-                </div>
-              </Collapse>
-            </div>
+              <Row className="show-grid">
+                <Col md={ 12 }>
+                  <div className="rec_tab" onClick={this.handleButtonClick.bind(this , types.INFO_GENERAL_COMMERCIAL)}>
+                    <span className={this.state.openStatus.CommercialInfo ? "nav-up-icon" : "nav-down-icon"} >
+                      Commercial Information
+                    </span>
+                  </div>
+                  <Collapse in={this.state.openStatus.CommercialInfo}>
+                    <div>
+                      <Well>
+                        <InfoGeneralCommercial/>
+                      </Well>
+                    </div>
+                  </Collapse>
+                </Col>
+              </Row>
 
-            <div className="block_box">
-              <div className="rec_tab" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_ACC_CONTACTS)}>
-                <span className={this.state.openStatus.AccContacts ? "nav-up-icon" : "nav-down-icon"} >
-                  Account Contacts
-                </span>
-              </div>
-              <Collapse in={this.state.openStatus.AccContacts}>
-                <div>
-                  <Well>
-                    <InfoGeneralAddContacts/>
-                  </Well>
-                </div>
-              </Collapse>
-            </div>
+              <Row className="show-grid">
+                <Col md={ 12 }>
+                  <div className="rec_tab" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_SYBASE)}>
+                    <span className={this.state.openStatus.SyBase ? "nav-up-icon" : "nav-down-icon"} >
+                      SyBase 365 Contacts
+                    </span>
+                  </div>
+                  <Collapse in={this.state.openStatus.SyBase}>
+                    <div>
+                      <Well>
+                        <InfoGeneralSybase/>
+                      </Well>
+                    </div>
+                  </Collapse>
+                </Col>
+              </Row>
 
-            <div className="block_box">
-              <div className="rec_tab" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_TECHNICAL)}>
-                <span className={this.state.openStatus.TechnicalInfo ? "nav-up-icon" : "nav-down-icon"} >
-                  Technical Information
-                </span>
-              </div>
-              <Collapse in={this.state.openStatus.TechnicalInfo}>
-                <div>
-                  <Well>
-                    <InfoGeneralTechnical/>
-                  </Well>
-                </div>
-              </Collapse>
-            </div>
+              <Row className="show-grid">
+                <Col md={ 12 }>
+                  <div className="rec_tab" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_ACC_CONTACTS)}>
+                    <span className={this.state.openStatus.AccContacts ? "nav-up-icon" : "nav-down-icon"} >
+                      Account Contacts
+                    </span>
+                  </div>
+                  <Collapse in={this.state.openStatus.AccContacts}>
+                    <div>
+                      <Well>
+                        <InfoGeneralAddContacts/>
+                      </Well>
+                    </div>
+                  </Collapse>
+                </Col>
+              </Row>
 
-            <div className="block_box">
-              <div className="rec_tab" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_VOLUME)}>
-                <span className={this.state.openStatus.volCntrl ? "nav-up-icon" : "nav-down-icon"} >
-                  Volume Control Setting
-                </span>
-              </div>
-              <Collapse in={this.state.openStatus.volCntrl}>
-                <div>
-                  <Well>
-                    <InfoGeneralVolumeSetting/>
-                  </Well>
-                </div>
-              </Collapse>
-            </div>
+              <Row className="show-grid">
+                <Col md={ 12 }>
+                  <div className="rec_tab" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_TECHNICAL)}>
+                    <span className={this.state.openStatus.TechnicalInfo ? "nav-up-icon" : "nav-down-icon"} >
+                      Technical Information
+                    </span>
+                  </div>
+                  <Collapse in={this.state.openStatus.TechnicalInfo}>
+                    <div>
+                      <Well>
+                        <InfoGeneralTechnical/>
+                      </Well>
+                    </div>
+                  </Collapse>
+                </Col>
+              </Row>
 
-            <div className="block_box">
-              <div className="rec_tab" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_MTSETTING)}>
-                <span className={this.state.openStatus.mtSetting ? "nav-up-icon" : "nav-down-icon"} >
-                  MT Setting
-                </span>
-              </div>
-              <Collapse in={this.state.openStatus.mtSetting}>
-                <div>
-                  <Well>
-                    <InfoGeneralMTSetting/>
-                  </Well>
-                </div>
-              </Collapse>
-            </div>
+              <Row className="show-grid">
+                <Col md={ 12 }>
+                  <div className="rec_tab" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_VOLUME)}>
+                    <span className={this.state.openStatus.volCntrl ? "nav-up-icon" : "nav-down-icon"} >
+                      Volume Control Setting
+                    </span>
+                  </div>
+                  <Collapse in={this.state.openStatus.volCntrl}>
+                    <div>
+                      <Well>
+                        <InfoGeneralVolumeSetting/>
+                      </Well>
+                    </div>
+                  </Collapse>
+                </Col>
+              </Row>
 
-            <div className="block_box">
-              <div className="rec_tab" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_MOSETTING)}>
-                <span className={this.state.openStatus.moSetting ? "nav-up-icon" : "nav-down-icon"} >
-                  MO Setting
-                </span>
-              </div>
-              <Collapse in={this.state.openStatus.moSetting}>
-                <div>
-                  <Well>
-                    <InfoGeneralMOSetting/>
-                  </Well>
-                </div>
-              </Collapse>
-            </div>
+              <Row className="show-grid">
+                <Col md={ 12 }>
+                  <div className="rec_tab" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_MTSETTING)}>
+                    <span className={this.state.openStatus.mtSetting ? "nav-up-icon" : "nav-down-icon"} >
+                      MT Setting
+                    </span>
+                  </div>
+                  <Collapse in={this.state.openStatus.mtSetting}>
+                    <div>
+                      <Well>
+                        <InfoGeneralMTSetting/>
+                      </Well>
+                    </div>
+                  </Collapse>
+                </Col>
+              </Row>
 
-            <div className="block_box">
-              <div className="rec_tab" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_DELIVERY)} >
-                <span className={this.state.openStatus.deliveryTime ? "nav-up-icon" : "nav-down-icon"}>
-                  Prefered Delivery Time Window
-                </span>
-              </div>
-              <Collapse in={this.state.openStatus.deliveryTime}>
-                <div>
-                  <Well>
-                    <InfoGeneralDeliveryTime/>
-                  </Well>
-                </div>
-              </Collapse>
-            </div>
+              <Row className="show-grid">
+                <Col md={ 12 }>
+                  <div className="rec_tab" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_MOSETTING)}>
+                    <span className={this.state.openStatus.moSetting ? "nav-up-icon" : "nav-down-icon"} >
+                      MO Setting
+                    </span>
+                  </div>
+                  <Collapse in={this.state.openStatus.moSetting}>
+                    <div>
+                      <Well>
+                        <InfoGeneralMOSetting/>
+                      </Well>
+                    </div>
+                  </Collapse>
+                </Col>
+              </Row>
+
+              <Row className="show-grid">
+                <Col md={ 12 }>
+                  <div className="rec_tab" onClick={this.handleButtonClick.bind(this, types.INFO_GENERAL_DELIVERY)} >
+                    <span className={this.state.openStatus.deliveryTime ? "nav-up-icon" : "nav-down-icon"}>
+                      Prefered Delivery Time Window
+                    </span>
+                  </div>
+                  <Collapse in={this.state.openStatus.deliveryTime}>
+                    <div>
+                      <Well>
+                        <InfoGeneralDeliveryTime/>
+                      </Well>
+                    </div>
+                  </Collapse>
+                </Col>
+              </Row>
+
+            </Grid>
 
           </div>
         )
