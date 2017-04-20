@@ -36,9 +36,8 @@ export default class DeleteRow extends React.Component {
             {
               this.state.showView &&
                 <InputGroup controlId="formControlsSelectMultiple">
-                  <FormControl componentClass="button"
+                  <FormControl componentClass="button" className="delete-icon"
                     onClick={ () => this.setState({showEdit : true}) }>
-                    delete
                   </FormControl>
                 </InputGroup>
 
