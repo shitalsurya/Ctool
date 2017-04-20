@@ -17,9 +17,7 @@ class CloseAccount extends React.Component {
     this.state = {
       emptyFlag : false,
       warnFlag : false,
-      closeAccInfo : [
-
-      ],
+      closeAccInfo : {},
     };
 
   }
@@ -42,7 +40,7 @@ class CloseAccount extends React.Component {
         <div className="controls-container">
 
           <div className="rec">
-            <div className="line page-heading">
+            <div className="page-heading">
               Close Account
             </div>
           </div>
@@ -86,19 +84,18 @@ class CloseAccount extends React.Component {
                   Account Manager :
                 </Col>
                 <Col md={ 6 }>
-                  <FormGroup>
                     <FormControl.Static>
                         {this.state.closeAccInfo.manager}
                     </FormControl.Static>
-                  </FormGroup>
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
 
-              <Row className="show-grid">
-                <div hidden={this.state.warnFlag ? false : "hidden"} className="error-msg">
-                  WARNING : jhgdhhhhhhhh hhhhhhhhhhhh hhhhhhhhhhhhhhhh  hhhhhhhhhhhvfhvdh vxhdvchdvchcdhdgd
-                </div>
+              <Row className="show-grid" hidden={this.state.warnFlag ? false : "hidden"}>
+                <Col md={ 12 } className="error-msg">
+                  WARNING : All Routing will be removed when the account is closed !
+                  Please review the account details before proceeding.
+                </Col>
               </Row>
 
               <Row className="show-grid">
@@ -120,7 +117,7 @@ class CloseAccount extends React.Component {
   handleSubmitClose(){
     this.props.setCloseAccountInfo(this.state.closeAccInfo);
     console.log(this.state.closeAccInfo);
-    this.setState({warnFlag:false,closeAccInfo : []});
+    this.setState({warnFlag:false,closeAccInfo : {}});
   }
 
   handleSelectFieldsChange(target,value) {

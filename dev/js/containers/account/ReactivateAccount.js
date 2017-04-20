@@ -14,9 +14,7 @@ class ReactivateAccount extends React.Component {
     super( props, context );
     this.state = {
         emptyFlag : false,
-        reactivateAccInfo : [
-
-      ],
+        reactivateAccInfo : {},
     };
   }
 
@@ -28,18 +26,13 @@ class ReactivateAccount extends React.Component {
 
 
   render() {
-    const onChange = (dateString, { dateMoment, timestamp }) => {
-      var info = this.state.reactivateAccInfo;
-      info.date = dateString;
-      this.setState({reactivateAccInfo:info});
-    }
 
     return(
       <div>
       <div className="controls-container">
 
         <div className="rec">
-          <div className="line page-heading">
+          <div className="page-heading">
             Reactivate Account
           </div>
         </div>
@@ -84,9 +77,9 @@ class ReactivateAccount extends React.Component {
                 Suspended On :
               </Col>
               <Col md={ 6 }>
-                <FormGroup>
-                  <FormControl value={this.state.reactivateAccInfo.date} disabled/>
-                </FormGroup>
+                <FormControl.Static>
+                  {this.state.reactivateAccInfo.date}
+                </FormControl.Static>
               </Col>
               <Col mdHidden md={ 3 }/>
             </Row>
@@ -110,6 +103,7 @@ class ReactivateAccount extends React.Component {
 handleSubmitReactivateAcc(){
   this.props.setReactivateAccountInfo(this.state.reactivateAccInfo);
   console.log(this.state.reactivateAccInfo);
+  this.setState({reactivateAccInfo : {} });
 }
 
 handleSelectFieldsChange(target,value) {
