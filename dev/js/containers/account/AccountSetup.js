@@ -4,73 +4,44 @@ import { bindActionCreators } from 'redux';
 import { Nav,NavItem } from 'react-bootstrap';
 import CompaniesList from './CompaniesList';
 import OpenAccountsList from './OpenAccountsList';
-
+import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 require('../../../scss/style.scss');
 
 class AccountSetup extends React.Component {
     constructor(props, context) {
         super(props, context);
-           this.selectedTab = 1;
-          this.state={
-            tabs:{
-              companies:true,
-                openAccounts:false,
-                  closeAccounts:false
-            }
-        }
+
     }
 
-    handleSelect(eventKey) {
-       event.preventDefault();
-       console.log( "eventKey ==", eventKey );
-       this.selectedTab = eventKey;
-       var _tabs={};
-       switch (eventKey) {
-         case 1:
-             _tabs={
-               companies:true,
-                 openAccounts:false,
-                   closeAccounts:false
-             }
-           break;
-           case 2:
-               _tabs={
-                 companies:false,
-                   openAccounts:true,
-                     closeAccounts:false
-               }
-             break;
-             case 3:
-                 _tabs={
-                   companies:false,
-                     openAccounts:false,
-                       closeAccounts:true
-                 }
-               break;
-         }
-           this.setState({tabs:_tabs});
-     }
     render() {
-
 
         return (
           <div>
-                                <Nav bsStyle="tabs" activeKey={this.selectedTab} onSelect={this.handleSelect.bind(this)}>
-                                       <NavItem eventKey={1} href="/home">Companies</NavItem>
-                                       <NavItem eventKey={2} >Open accounts</NavItem>
-                                       <NavItem eventKey={3} >Close accounts</NavItem>
+            <Tabs className="tabs" >
+              <div className="links">
+                <TabLink to="Companies" default className="tab-link">Companies</TabLink>
+                <TabLink to="OpenAccounts" className="tab-link">Open accounts</TabLink>
+                <TabLink to="CloseAccounts" className="tab-link">Close accounts</TabLink>
+              </div>
+              <div className="content" >
+                <TabContent for="Companies">
+                  <CompaniesList/>
+                </TabContent>
+                <TabContent for="OpenAccounts">
+                  <OpenAccountsList/>
+                </TabContent>
+                <TabContent for="CloseAccounts">
 
-                                     </Nav>
-                                         {this.state.tabs.companies && <CompaniesList/>}
-                                         {this.state.tabs.openAccounts && <OpenAccountsList/>}
-
-                </div>
+                </TabContent>
+              </div>
+            </Tabs>
+          </div>
         )
     }
 
     componentWillReceiveProps(nextProps) {
 
-      }
+    }
 
 }
 

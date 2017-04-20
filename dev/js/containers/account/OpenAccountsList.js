@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Nav,NavItem } from 'react-bootstrap';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid, Image,Glyphicon } from 'react-bootstrap';
 require('../../../scss/style.scss');
 import Products from '../../../json/Products.json';
 
@@ -61,19 +62,29 @@ class OpenAccountsList extends React.Component {
     return (
 
         <div className="tabs-container">
-          <span>Open accounts List</span>
-			      		{/*<BootstrapTable   tableStyle={ { border: '#ffffff 0px ' } }
+          <Grid fluid={true}>
+            <Row className="show-grid">
+              <Col md={ 12 } className="page-heading">
+                Open accounts List
+              </Col>
+            </Row>
+            <Row className="show-grid">
+              <Col md={ 12 }>
+                {/*<BootstrapTable   tableStyle={ { border: '#ffffff 0px ' } }
                 bodyStyle={ {border: '#ffffff 0px ' }} data={this.data } striped bordered
                 search={ true } options={ searchoptions }>
 			      		 <TableHeaderColumn dataField='name' isKey dataSort={true} isKey>Name</TableHeaderColumn>
 					      {listUsers}
 			      		</BootstrapTable>*/}
                 <BootstrapTable data={this.data } pagination={ true }  search={ true } options={ options }>
-        <TableHeaderColumn dataField='id' dataSort={true} isKey>Product ID</TableHeaderColumn>
-        <TableHeaderColumn dataField='name' dataSort={true}>Product Name</TableHeaderColumn>
-        <TableHeaderColumn dataField='price' dataSort={true}>Product Price</TableHeaderColumn>
-    </BootstrapTable>
-                </div>
+                  <TableHeaderColumn dataField='id' dataSort={true} isKey>Product ID</TableHeaderColumn>
+                  <TableHeaderColumn dataField='name' dataSort={true}>Product Name</TableHeaderColumn>
+                  <TableHeaderColumn dataField='price' dataSort={true}>Product Price</TableHeaderColumn>
+                </BootstrapTable>
+              </Col>
+            </Row>
+          </Grid>
+        </div>
     		);
   }
 }
