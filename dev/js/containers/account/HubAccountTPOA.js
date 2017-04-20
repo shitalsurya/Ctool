@@ -52,7 +52,7 @@ class HubAccountGeneral extends React.Component {
                    <BootstrapTable data={this.state.data} >
                      <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
                      <TableHeaderColumn dataField='SMSCOp'>SMSC Operator</TableHeaderColumn>
-                     <TableHeaderColumn dataField='TPOA'>TPOA</TableHeaderColumn>
+                     <TableHeaderColumn dataField='TPOA' dataFormat={ this.dataFormatter.bind(this) } formatExtraData={ 'TPOA' } >TPOA</TableHeaderColumn>
                      <TableHeaderColumn dataField='custRouting'>Customer Routing</TableHeaderColumn>
                      <TableHeaderColumn dataField='delete' dataFormat={ this.deleteDataFormatter.bind(this) } formatExtraData={ 'delete' } ></TableHeaderColumn>
                    </BootstrapTable>
@@ -85,6 +85,10 @@ class HubAccountGeneral extends React.Component {
       return (
           <DeleteRowLink currentRow={this.currentRow.SMSCOp}/>
       )
+    }
+
+    dataFormatter(cell, row,field,index) {
+      return <InlineEdit type='text' value={cell} onSave={this.handleInlineEditChange.bind(this)}  />
     }
 
     close() {

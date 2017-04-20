@@ -2,6 +2,14 @@
   button.form-control {
     border: none;
     color: royalblue;
-    text-decoration: underline;
+    // text-decoration: underline;
   }
+}
+.delete-icon::before {
+	font-family: 'SAP-icons';
+	content: "\e03d";
+}
+.delete-icon {
+	font-size: 15px;
+	box-sizing: border-box;
 }

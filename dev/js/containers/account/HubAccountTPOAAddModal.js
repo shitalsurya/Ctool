@@ -32,10 +32,12 @@ class HubAccountTPOAAddModal extends React.Component {
 
   addRouting(){
     console.log(this.state.TPOAinfo);
+    this.setState({TPOAinfo : []});
     this.props.close();
   }
 
   close() {
+    this.setState({TPOAinfo : []});
     this.props.close();
   }
 

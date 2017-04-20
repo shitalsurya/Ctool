@@ -17,8 +17,7 @@ class SuspendAccount extends React.Component {
 
     this.state = {
       emptyFlag : false,
-      date : null,
-      susAccInfo : [],
+      susAccInfo : {},
     };
 
   }
@@ -42,7 +41,7 @@ class SuspendAccount extends React.Component {
         <div className="controls-container">
 
           <div className="rec">
-            <div className="line page-heading">
+            <div className="page-heading">
               Suspend Account
             </div>
           </div>
@@ -81,16 +80,14 @@ class SuspendAccount extends React.Component {
                 <Col mdHidden md={ 3 }/>
               </Row>
 
-              <Row className="show-grid">
+              <Row className="show-grid" hidden={this.state.susAccInfo.manager ? false : "hidden"}>
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Account Manager :
                 </Col>
                 <Col md={ 6 }>
-                  <FormGroup>
                     <FormControl.Static>
                       {this.state.susAccInfo.manager}
                     </FormControl.Static>
-                  </FormGroup>
                 </Col>
                 <Col mdHidden md={ 3 }/>
               </Row>
@@ -102,8 +99,9 @@ class SuspendAccount extends React.Component {
                 <Col md={ 6 }>
                   <DateField
                     dateFormat="DD-MM-YYYY"
-                    defaultValue={this.state.susAccInfo.date}
+                    value={this.state.susAccInfo.date}
                     onChange={onChange}
+                    placeholder="Select Date.."
                   />
                 </Col>
                 <Col mdHidden md={ 3 }/>
@@ -128,7 +126,7 @@ class SuspendAccount extends React.Component {
   handleSubmitSuspend(){
     this.props.setSuspendAccountInfo(this.state.susAccInfo);
     console.log(this.state.susAccInfo);
-    this.setState({susAccInfo : []});
+    this.setState({susAccInfo : {}});
     this.accountList = [];
   }
 
@@ -137,7 +135,7 @@ class SuspendAccount extends React.Component {
     var info = this.state.susAccInfo;
     switch (target) {
       case types.SUSPEND_ACC_COMPANY:
-        info = [];
+        info = {};
         info.company = value.value;
         const spndAccObj = {
           "company" :value.value,
@@ -152,7 +150,10 @@ class SuspendAccount extends React.Component {
           if(header.account === value.value)
             return header.manager;
         }.bind(this));
-        info.manager = manager[0].manager
+        if(manager.length)
+          info.manager = manager[0].manager;
+        else
+          info.manager = null;
         break;
     }
     this.setState({susAccInfo:info,emptyFlag:false});

@@ -125,26 +125,22 @@ import Products from '../../../json/Products.json';
 
         <div className="tabs-container">
           <Grid fluid={ true }>
-            <Row>
-              <Col
-                componentClass={ ControlLabel }
-                md={ 1 }> Display Columns:
+            <Row className="show-grid">
+              <Col componentClass={ ControlLabel } md={ 1 }>
+                Display Columns:
               </Col>
-              <Col
-                md={ 5 }>
+              <Col md={ 5 }>
                 <Select
                   multi={true}
                   name="homepage"
                   placeholder="Select User Homepage.."
                   value={this.state.selectedCols}
                   onChange={this.handleChange.bind(this)}
-                  options={this.masterCols}
-                />
+                  options={this.masterCols} />
               </Col>
             </Row>
-            <Row>
-              <Col
-                md={ 12 }>
+            <Row className="show-grid">
+              <Col md={ 12 }>
                 <div className="input-group" id="adv-search">
                   <input type="text" name="searchByName" onChange={this.nameSearchTermChanged.bind(this)} className="form-control" placeholder="Search for snippets" />
                   <div className="input-group-btn">
@@ -158,7 +154,6 @@ import Products from '../../../json/Products.json';
                               <label htmlFor="contain">Price</label>
                               <input className="form-control" name="searchByPrice"  onChange={this.advSearchTermChanged.bind(this)} type="text" />
                             </div>
-
                             <button type="button" onClick={this.handleSearch.bind(this)} className="btn btn-primary"><span className="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                           </form>
                         </div>
@@ -169,13 +164,17 @@ import Products from '../../../json/Products.json';
                 </div>
               </Col>
             </Row>
-          </Grid>
-          {/*  <Button onClick={this.navigateMenus.bind(this)}>Show</Button>*/}
+            <Row className="show-grid">
+              <Col md={ 12 }>
+                {/*  <Button onClick={this.navigateMenus.bind(this)}>Show</Button>*/}
                 <BootstrapTable data={this.data } pagination={ true }  options={ options }>
-        <TableHeaderColumn dataField='id' dataSort={true} isKey>Product ID</TableHeaderColumn>
-        {this.state.listComp}
-    </BootstrapTable>
-                </div>
+                    <TableHeaderColumn dataField='id' dataSort={true} isKey>Product ID</TableHeaderColumn>
+                    {this.state.listComp}
+                </BootstrapTable>
+              </Col>
+            </Row>
+          </Grid>
+        </div>
     		);
   }
 }
