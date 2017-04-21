@@ -30,11 +30,6 @@ class CloseAccount extends React.Component {
 
   render() {
 
-    const onChange = (dateString, { dateMoment, timestamp }) => {
-      var info = this.state.closeAccInfo;
-      this.setState({closeAccInfo:info});
-    }
-
     return (
       <div>
         <div className="controls-container">
@@ -79,7 +74,7 @@ class CloseAccount extends React.Component {
                 <Col mdHidden md={ 3 }/>
               </Row>
 
-              <Row className="show-grid">
+              <Row className="show-grid" hidden={this.state.closeAccInfo.manager ? false : "hidden"}>
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Account Manager :
                 </Col>
@@ -118,6 +113,7 @@ class CloseAccount extends React.Component {
     this.props.setCloseAccountInfo(this.state.closeAccInfo);
     console.log(this.state.closeAccInfo);
     this.setState({warnFlag:false,closeAccInfo : {}});
+    this.accountList = [];
   }
 
   handleSelectFieldsChange(target,value) {
@@ -125,6 +121,7 @@ class CloseAccount extends React.Component {
     var info = this.state.closeAccInfo;
     switch (target) {
       case types.CLOSE_ACC_COMPANY:
+        info = {};
         info.company = value.value;
         const closeAccObj = {
           "company" :value.value,
@@ -140,7 +137,10 @@ class CloseAccount extends React.Component {
           if(header.account === value.value)
             return header.manager;
         }.bind(this));
-        info.manager = manager[0].manager
+        if(manager.length)
+          info.manager = manager[0].manager;
+        else
+          info.manager = null;
         break;
     }
     this.setState({closeAccInfo:info,emptyFlag:false});
