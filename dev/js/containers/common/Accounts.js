@@ -21,9 +21,9 @@ class Accounts extends React.Component {
     super( props, context );
     this.state={
         currentMenus:{
-          showAccountSetup :true,
+          showAccountSetup :false,
           showAccountCreate:false,
-          showAccountMgmt :false,
+          showAccountMgmt :true,
           showSuspendedAcc:false,
           showReactivateAcc:false,
           showCloseAcc:false

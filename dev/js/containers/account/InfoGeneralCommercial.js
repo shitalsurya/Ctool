@@ -39,7 +39,7 @@ class InfoGeneralCommercial extends React.Component {
 
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
-                  Account Commercial Name :
+                  Account Commercial Name:
                 </Col>
                 <Col md={ 8 }  >
                   <FormControl

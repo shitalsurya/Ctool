@@ -8,11 +8,11 @@
       "expand": [{
           "id":"1",
           "preference":"1",
-          "SMSC":"GB_Vodafone_Bulk",
+          "SMSC":"GB_Vodafone_Bulk 1111111111111111111111111",
           "onOff":"On",
           "permanent":"No",
           "status":"green",
-          "comment":"",
+          "comment":"comment 1",
           "prefStartTime":"1492552680000",
             "prefEndTime":"1492556280000"
         }, {
@@ -22,7 +22,7 @@
             "onOff":"On",
             "permanent":"No",
             "status":"orange",
-            "comment":"",
+          "comment":"comment 1",
             "prefStartTime":"1492559880000",
               "prefEndTime":"1492563480000"
           }]
@@ -41,7 +41,7 @@
           "onOff":"On",
           "permanent":"No",
           "status":"green",
-          "comment":"",
+        "comment":"comment 1",
           "prefStartTime":"1492552680000",
             "prefEndTime":"1492556280000"
         }, {
@@ -51,7 +51,7 @@
             "onOff":"On",
             "permanent":"No",
             "status":"orange",
-            "comment":"",
+          "comment":"comment 1",
             "prefStartTime":"1492559880000",
               "prefEndTime":"1492563480000"
           }]

@@ -186,7 +186,8 @@ span.error {
 .tabs-container{
 	background-color: #ffffff;
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
-	padding: 20px;
+	padding-top: 20px;
+  padding-bottom : 20px;
 	margin-bottom: 20px;
 }
 
@@ -827,4 +828,21 @@ iframe  {
 }
 .form-control-static {
   padding-left: 10px;
+}
+.inline-view-ctrl{
+   white-space: nowrap;
+   min-width:40px;
+   max-width: 150px;
+   overflow: hidden;
+  text-overflow: ellipsis;
+}
+#inline-edit-ctrl{
+  min-width:65px;
+  //max-width: 150px;
+}
+.view-edit-control .input-group-addon{
+padding:6px !important;
+// padding-left:8px !important;
+// padding-right:8px !important;
+// padding-top:6px !important;
 }

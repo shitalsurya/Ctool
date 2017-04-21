@@ -8,16 +8,16 @@ import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,
 import Toggle from 'react-toggle';
 import ModalModify from './HubAccountModifyMTRouting';
 import ModalAdd from './HubAccountAddMTRouting';
-
+import InlineEdit from './../common/components/InlineEdit';
 require('../../../scss/style.scss');
 require('../../../scss/react-toggle.scss');
 require('../../../scss/time.scss');
 
-import InlineEdit from './../common/components/InlineEdit';
+
 import Routings from '../../../json/MT_routing.json';
 import grpBySMSCData from '../../../json/MT_routing_grp_by_smsc.json';
 import Users from '../../../json/Users.json';
-import { initializeData } from '../../containers/account/actions/accountActions';
+import * as table from './../common/Functions/customTable';
 class NestedTable extends React.Component {
   constructor(props, context) {
       super(props, context);
@@ -43,11 +43,8 @@ expandComponent(row) {
           expandComponent={ this.expandComponent.bind(this) }>
           <TableHeaderColumn isKey={ true } hidden dataField={this.props.groupById}>ID</TableHeaderColumn>
           <TableHeaderColumn dataField={this.props.groupBy.value}> </TableHeaderColumn>
-
         </BootstrapTable>
       );
-    } else {
-      return (<p>?</p>);
     }
   }
 
@@ -56,93 +53,94 @@ class SubNestedTable extends React.Component {
   constructor(props, context) {
       super(props, context);
       this.currentRow = {};
-      this.currentField = "";
 }
 
-dataFormatter(cell, row,field,index) {
-    this.currentRow = row;
-    this.currentField = field;
-  //   this.userList = initializeData(Users,'login');
-   var PreferenceList= [{ "id": 1, "value":"1"},{ "id": 2, "value":"2"}];
-    //  return <InlineEdit  type='text' value={cell} onSave={this.updateValue.bind(this)}  />
-  return <InlineEdit type='select' options={PreferenceList} value={cell} onSave={this.updateValue.bind(this)}  />
-}
-toggleFormatter(cell, row,field,index) {
-  var icons;
-  if(field == "onOff") {
-    icons={
-       checked: 'On',
-       unchecked: 'Off',
-    };
-  }
-  else if (field == "permanent") {
-    icons={
-       checked: 'Yes',
-       unchecked: 'No',
-    };
-  }
-    this.currentRow = row;
-    this.currentField = field;
-  //   this.userList = initializeData(Users,'login');
-  //  var PreferenceList= [{ "id": 1, "value":"1"},{ "id": 2, "value":"2"}];
-    //  return <InlineEdit  type='text' value={cell} onSave={this.updateValue.bind(this)}  />
-  // return <InlineEdit type='select'  options={PreferenceList} value={cell} onSave={this.updateValue.bind(this)}  />
-  return <InlineEdit type="toggle" value={cell} icons={icons} field={ field } onSave={this.updateValue.bind(this)}  />
-}
-timeFormatter(cell, row,field,index) {
-
-    this.currentRow = row;
-    this.currentField = field;
-  //   this.userList = initializeData(Users,'login');
-  //  var PreferenceList= [{ "id": 1, "value":"1"},{ "id": 2, "value":"2"}];
-      return <InlineEdit  type='time' value={cell} onSave={this.updateValue.bind(this)}  />
-  // return <InlineEdit type='select'  options={PreferenceList} value={cell} onSave={this.updateValue.bind(this)}  />
-  //return <DateTimeField mode="time" />
-}
-statusDataFormatter(cell, row) {
-  const greenStatus = require( "../../../images/circle-green.png" );
-  const orangeStatus = require( "../../../images/circle-orange.png" );
-  const redStatus = require( "../../../images/circle-red.png" );
-  switch (cell) {
-    case 'green':
-        return <img src={ greenStatus }/>;
-      break;
-      case 'orange':
-          return <img src={ orangeStatus }/>;
-        break;
-        case 'red':
-            return <img src={ redStatus }/>;
-          break;
-    default:
-
-  }
-
-}
-updateValue(val){
-  this.currentRow[this.currentField]=val;
+updateValue(name,val){
+  console.log("name==",name);
+  this.currentRow[name]=val;
   console.log("this.currentRow==",this.currentRow);
 }
-
-
-
-  render() {
+    render() {
     const selectRow = {
      mode: 'checkbox',
        bgColor: '#427cac'
    };
 
+var fields = [
+  {
+      name:'Preference',
+      dataField:'preference',
+      type:'select',
+      width:'80px',
+      options: [{ "id": 1, "value":"1"},{ "id": 2, "value":"2"}]
+  },
+  {
+      name:'SMSC',
+    dataField:'SMSC',
+    type:'text'
+  },
+{
+      name:'On/Off',
+    dataField:'onOff',
+    type:'toggle',
+      width:'85px',
+        options: {
+           checked: 'On',
+           unchecked: 'Off',
+        }
+  },
+  {
+        name:'Permanent',
+    dataField:'permanent',
+    type:'toggle',
+      width:'85px',
+      options: {
+         checked: 'Yes',
+         unchecked: 'No',
+      }
+  },
+  {
+        name:'Status',
+    dataField:'status',
+    type:'image',
+      width:'50px'
+  },
+  {
+        name:'Comment',
+    dataField:'comment',
+    type:'text'
+  },
+{
+      name:'Preferred Start Time',
+    dataField:'prefStartTime',
+    type:'time',
+      width:'125px'
+  },
+  {
+    name:'Preferred End Time',
+    dataField:'prefEndTime',
+    type:'time',
+      width:'125px'
+  }
+];
+
     if (this.props.data) {
+      var listCols = fields.map(function (field) {
+            return (
+                <TableHeaderColumn dataField={field.dataField}
+                  width={field.width}
+                  headerAlign='left'
+                  dataAlign='center'
+                  dataFormat={ table.columnFormatter.bind(this) }
+                  formatExtraData={ field} >
+                  {field.name}
+                </TableHeaderColumn>
+            );
+        }.bind(this));
       return (
         <BootstrapTable data={ this.props.data } selectRow={ selectRow } >
           <TableHeaderColumn dataField='id' hidden isKey={ true }></TableHeaderColumn>
-          <TableHeaderColumn dataField='preference'  dataFormat={ this.dataFormatter.bind(this) } formatExtraData={ 'preference' } >Preference</TableHeaderColumn>
-          <TableHeaderColumn dataField='SMSC'>SMSC</TableHeaderColumn>
-          <TableHeaderColumn dataField='onOff' dataFormat = { this.toggleFormatter.bind(this) } formatExtraData={ 'onOff' } >On/Off</TableHeaderColumn>
-          <TableHeaderColumn dataField='permanent' dataFormat = { this.toggleFormatter.bind(this) } formatExtraData={ 'permanent' } >Permanent</TableHeaderColumn>
-          <TableHeaderColumn dataField='status' dataAlign='center' width="80px" dataFormat={ this.statusDataFormatter.bind(this) }>Status</TableHeaderColumn>
-          <TableHeaderColumn dataField='comment'>Comment</TableHeaderColumn>
-          <TableHeaderColumn dataField='prefStartTime' width="140px" dataFormat = { this.timeFormatter.bind(this) } formatExtraData={ 'prefStartTime' } >Preferred Start Time</TableHeaderColumn>
-          <TableHeaderColumn dataField='prefEndTime' width="140px" dataFormat = { this.timeFormatter.bind(this) } formatExtraData={ 'prefEndTime' }>Preferred End Time</TableHeaderColumn>
+          {listCols}
         </BootstrapTable>);
     } else {
       return (<p>?</p>);
@@ -153,12 +151,10 @@ class HubAccountMTRouting extends React.Component {
     constructor(props, context) {
         super(props, context);
           this.state={
-
                showAdd: false,
               ModifyModalFlag:false,
                modalHeading:'',
                checked : false,
-
               // Default expanding row
                 expanding: [ 0 ],
                 groupBy:  {"label": "country", "value":"country"},
@@ -240,16 +236,9 @@ handleSubGroupByChange(val){
     }
   });
 }
-toggleOnChange(event){
-  console.log( event.target.checked );
-  switch(event)
-  {
-    case "resRouting":
-    var resRouting = event.target.checked==true?"Yes":"No";
-     break;
-  }
-   this.setState({
-      resRouting: resRouting    });
+toggleOnChange(value){
+    var _resRouting = value=="Yes"?"Yes":"No";
+   this.setState({resRouting: _resRouting    });
 }
 
     render() {
@@ -259,35 +248,6 @@ toggleOnChange(event){
    expandBy: 'column',
     expanding: this.state.expanding
  };
-
- // const popoverBottom = (
- //   <Popover id="popover-positioned-bottom" >
- //     <Row className="show-grid">
- //       <Col md={ 5 } >
- //         <h4><Label>Group By:</Label></h4>
- //       </Col>
- //       <Col md={ 9 } >
- //         <Select
- //           placeholder="Select Column.."
- //           options={this.grpByMaster}
- //           value={this.state.groupBy}
- //           onChange={this.handleGroupByChange.bind(this)}  />
- //       </Col>
- //     </Row>
- //     <Row className="show-grid">
- //       <Col md={ 5 } >
- //         <h4><Label>Sub Group By:</Label></h4>
- //       </Col>
- //       <Col md={ 9 } >
- //         <Select
- //           placeholder="Select Column.."
- //           options={this.subGrpByMaster}
- //           value={this.state.subGroupBy}
- //           onChange={this.handleSubGroupByChange.bind(this)} />
- //       </Col>
- //     </Row>
- //   </Popover>
- // );
 
         return (
 
@@ -299,16 +259,17 @@ toggleOnChange(event){
                          md={ 3 }> Restricted routing:
                        </Col>
                        <Col md={ 1 }>
-                         <Toggle
-                           name="resRouting"
+                         <InlineEdit  name="resRouting"
+                           type = "toggle"
+                           value={this.state.resRouting}
                            icons={{
                               checked: 'Yes',
                               unchecked: 'No',
                            }}
-                           defaultChecked={true}
-                           value={this.state.resRouting}
-                           onChange={this.toggleOnChange.bind(this)} />
-
+                           onSave = {
+                             this.toggleOnChange.bind(this)
+                           }
+                         />
 
                        </Col>
 

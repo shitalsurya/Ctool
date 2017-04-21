@@ -11,20 +11,20 @@ require('./Inline.scss');
 export default class InlineEdit extends React.Component {
     constructor(props, context) {
         super(props, context);
-
         this.state={
-            options : this.props.options || [],
+            name:this.props.name||'',
             value: this.props.value ||'',
+            type : this.props.type || 'text',
+            defaultVal : this.props.value,
+            options : this.props.options || [],
             showView:true,
             showEdit : false,
             showButtons : false,
-            type : this.props.type || 'text',
-            defaultVal : this.props.value
         };
-        console.log("this.state==",this.state);
     }
 
     onCancelClick() {
+        console.log("this.state.type==",this.props.value);
       if(this.state.type=="time")
       {
         var ms=parseInt(this.props.value);
@@ -35,6 +35,7 @@ export default class InlineEdit extends React.Component {
         });
       }
       else{
+
            this.setState({   showView:true,showEdit : false,  showButtons : false,
            value:this.props.value
          });
@@ -43,33 +44,24 @@ export default class InlineEdit extends React.Component {
     onOkClick() {
 
         var _state = {
+            name: this.state.name,
             value: this.state.value,
             showView:true,
             showEdit : false,
             showButtons : false
           };
         this.setState(_state,function(){
-           console.log("this.state==",this.state);
-          this.props.onSave(this.state.value);
+          this.props.onSave(this.state.name,this.state.value);
         });
 
     }
 
      onEditClick()
      {
-         console.log("this.state==",this.state);
-        this.setState({showView:false,showEdit : false,showButtons : true},function(){
-          // var elem = document.getElementById("input");
-          // var theCSSprop =parseInt(window.getComputedStyle(elem,null).getPropertyValue("width"))+100+'px';
-          // console.log("theCSSprop==",theCSSprop);
-          // this.setState({styles: {
-          //    width:theCSSprop
-          // }});
-        });
+        this.setState({showView:false,showEdit : false,showButtons : true});
      }
 
      handleChange(e){
-       console.log("handleChange==",e);
        switch(this.state.type){
          case "text":
         case "select":
@@ -82,9 +74,6 @@ export default class InlineEdit extends React.Component {
         break;
 
             case "time":
-        //    var ms=parseInt(e);
-          //  var _time = moment(ms).format("HH:mm");
-            //console.log("time==",_time);
     var _state = {
         value:e,
         showView:false,
@@ -94,9 +83,8 @@ export default class InlineEdit extends React.Component {
         break;
         case "toggle":
           var _value, _defaultVal;
-          if(this.props.field === "onOff"){
+          if(this.state.name === "onOff"){
             _value = e.target.value == "On" ? "Off" : "On";
-          //  _defaultVal = _value == "On" ? true : false;
           }
           else{
             _value = e.target.value == "Yes" ? "No" : "Yes";
@@ -116,33 +104,29 @@ export default class InlineEdit extends React.Component {
           console.log("this.state==",this.state);
        });
      }
-
+handleMouseOver(e){
+   var labelWidth =parseInt(document.defaultView.getComputedStyle(e.target,null).getPropertyValue("width"))+'px';
+   this.setState({styles: {
+      width:labelWidth
+   },showView:false,showEdit : true,showButtons:false});
+}
      render() {
         return (
           <div className="view-edit-control">
             {
               this.state.showView &&
-                <InputGroup controlId="formControlsSelectMultiple">
-                  <FormControl id="input" componentClass="label"
-                    onMouseOver={ () => this.setState({},function(){
-                      var elem = document.getElementById("input");
-                      var theCSSprop =parseInt(document.defaultView.getComputedStyle(elem,null).getPropertyValue("width"))+100+'px';
-                      console.log("theCSSprop==",theCSSprop);
-                      this.setState({styles: {
-                         width:theCSSprop
-                      },showView:false,showEdit : true,showButtons:false});
-                    }) }>
+                <InputGroup >
+                  <FormControl componentClass="label" className="inline-view-ctrl"
+                    onMouseOver={this.handleMouseOver.bind(this) }>
                     {this.state.value}
                   </FormControl>
-
                 </InputGroup>
-
             }
             {
               this.state.showEdit &&
                 <div style={this.state.styles}  onMouseLeave={()=>this.setState({showView:true,showEdit : false,showButtons : false})}>
-                  <InputGroup controlId="formControlsSelectMultiple">
-                    <FormControl componentClass="label">
+                  <InputGroup>
+                    <FormControl title={this.state.value} className="inline-view-ctrl" componentClass="label">
                       {this.state.value}
                     </FormControl>
                     <InputGroup.Addon onClick={this.onEditClick.bind(this)}>
@@ -154,7 +138,7 @@ export default class InlineEdit extends React.Component {
             }
             {
               this.state.showButtons &&
-                <FormGroup>
+                <FormGroup id="inline-edit-ctrl">
                   {
                     this.state.select &&
                       <FormControl componentClass="select" disabled={this.state.showButtons ? false : "disabled"}
@@ -164,7 +148,7 @@ export default class InlineEdit extends React.Component {
                   }
                   {
                     this.state.text &&
-                      <FormControl value={this.state.value} onChange={this.handleChange.bind(this)}
+                      <FormControl title={this.state.value} value={this.state.value} onChange={this.handleChange.bind(this)}
                         type="text" disabled={this.state.showButtons ? false : "disabled"} />
                   }
                   {
@@ -200,7 +184,6 @@ export default class InlineEdit extends React.Component {
 
     componentWillMount() {
       var _options = this.state.options.map(function (field) {
-        console.log("field==",field);
             return (
                 <option key={field.id}
                   value={field.value} >
@@ -219,18 +202,15 @@ export default class InlineEdit extends React.Component {
           break;
         case "toggle":
           var _value;
-          if(this.props.field === "onOff")
+          if(this.state.name === "onOff")
             _value = this.state.value ? "On" : "Off";
           else
             _value =  this.state.value ? "Yes" : "No";
           this.setState({toggle : true , value : _value });
           break;
         case "time":
-        console.log("this.state.value==",this.state.value);
         var ms=parseInt(this.state.value);
-          console.log("ms==",ms);
         var _time = moment(ms).format("HH:mm A");
-          console.log("_time==",_time);
           this.setState({time : true,value:_time});
           break;
 
