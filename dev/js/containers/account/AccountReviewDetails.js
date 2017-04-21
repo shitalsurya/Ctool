@@ -173,8 +173,8 @@ class AccountReviewDetails extends React.Component {
                 <Row className="show-grid">
                   <Col md={ 12 } >
                     <ButtonToolbar>
-                      <Button className="btn-primary"   onClick={ this.createNewAccount.bind( this ) }>Create Account</Button>
                       <Button className="btn-primary"   onClick={ this.handleReviewDetailsBack.bind( this ) }>Back</Button>
+                      <Button className="btn-primary"   onClick={ this.createNewAccount.bind( this ) }>Create Account</Button>
                     </ButtonToolbar>
                   </Col>
                 </Row>

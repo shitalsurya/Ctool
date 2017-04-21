@@ -168,8 +168,8 @@ class AccountTechnicalDetails extends React.Component {
                 <Row className="show-grid">
                   <Col md={ 12 } >
                     <ButtonToolbar>
-                      <Button className="btn-primary"   onClick={ this.handleTechDetailsNext.bind( this ) }>Next</Button>
                       <Button className="btn-primary"   onClick={ this.handleTechDetailsBack.bind( this ) }>Back</Button>
+                      <Button className="btn-primary"   onClick={ this.handleTechDetailsNext.bind( this ) }>Next</Button>
                     </ButtonToolbar>
                   </Col>
                 </Row>
