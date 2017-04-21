@@ -43,12 +43,12 @@ class HubAccountMORoutingAdd extends React.Component {
 
   addRouting(){
     console.log(this.state.MORouting);
-    this.setState({MORouting : []});
+    this.setState({MORouting : {}});
     this.props.close();
   }
 
   close() {
-    this.setState({MORouting : []});
+    this.setState({MORouting : {}});
     this.props.close();
   }
 

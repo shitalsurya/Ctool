@@ -14,7 +14,7 @@ export default class DeleteRow extends React.Component {
         this.state={
           showView:true,
           showEdit:false,
-          modalHeading : this.props.currentRow || '',
+          // modalHeading : this.props.currentRow || '',
         };
     }
 
@@ -46,7 +46,7 @@ export default class DeleteRow extends React.Component {
               this.state.showEdit &&
               <Modal show={true} onHide={this.close.bind(this)}>
                   <Modal.Header closeButton>
-                      <Modal.Title> Delete {this.state.modalHeading}</Modal.Title>
+                      <Modal.Title> Delete {this.props.currentRow || ''}</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
                     <div>
