@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
+import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button, ButtonToolbar } from 'react-bootstrap';
 import Select from 'react-select';
 import {
     ToastContainer,
@@ -199,22 +199,17 @@ class AccountInterfaces extends React.Component {
                   </Grid>
        </div>
 
-       <div >
-           <Grid fluid={true}>
-               <Row className="show-grid">
-                 <Col
-                      mdHidden
-                      md={ 3 } />
-
-                 <Col md={ 6 }>
-                  <Button className="sap-btn btn-wizard pull-right"   onClick={ this.handleInterfaceDetailsNext.bind( this ) }>Next</Button>
-                  <Button className="sap-btn btn-wizard pull-right"   onClick={ this.handleInterfaceDetailsBack.bind( this ) }>Back</Button>
-                 </Col>
-                 <Col
-                      mdHidden
-                      md={ 3 } />
-               </Row>
-           </Grid>
+        <div className="button-container">
+          <Grid fluid={true}>
+            <Row className="show-grid">
+              <Col md={ 12 } >
+                <ButtonToolbar>
+                  <Button className="btn-primary"   onClick={ this.handleInterfaceDetailsNext.bind( this ) }>Next</Button>
+                  <Button className="btn-primary"   onClick={ this.handleInterfaceDetailsBack.bind( this ) }>Back</Button>
+                </ButtonToolbar>
+              </Col>
+            </Row>
+          </Grid>
         </div>
 
       <ToastContainer

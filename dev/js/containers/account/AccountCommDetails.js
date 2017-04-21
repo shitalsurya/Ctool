@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
+import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup, Button, ButtonToolbar } from 'react-bootstrap';
 import Select from 'react-select';
 import { ToastContainer, ToastMessage} from "react-toastr";
 import * as types from '../../containers/account/actions/accountActionTypes';
@@ -67,26 +67,26 @@ class AccountCommDetails extends React.Component {
 
     <div className="controls-container">
     <div className="rec">
-    <span>Commercial Information</span>
+      <span>Commercial Information</span>
     </div>
        <Grid fluid={true}>
-       <Row className="show-grid">
-         <Col
-              componentClass={ ControlLabel }
-              md={ 2 }> Account Manager:
-         </Col>
-         <Col md={ 6 } className={this.state.accountCommInfo.acctManager || this.state.emptyFlag ? false : "empty"}>
-         <Select
-               placeholder="Select account manager.."
-               options={this.userList}
-               value={this.state.accountCommInfo.acctManager}
-               onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_MGR_CHANGE)}
-           />
-         </Col>
-         <Col
-              mdHidden
-              md={ 4 } />
-       </Row>
+             <Row className="show-grid">
+               <Col
+                    componentClass={ ControlLabel }
+                    md={ 2 }> Account Manager:
+               </Col>
+               <Col md={ 6 } className={this.state.accountCommInfo.acctManager || this.state.emptyFlag ? false : "empty"}>
+               <Select
+                     placeholder="Select account manager.."
+                     options={this.userList}
+                     value={this.state.accountCommInfo.acctManager}
+                     onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_MGR_CHANGE)}
+                 />
+               </Col>
+               <Col
+                    mdHidden
+                    md={ 4 } />
+             </Row>
 
               <Row className="show-grid">
                 <Col
@@ -178,21 +178,22 @@ class AccountCommDetails extends React.Component {
                      mdHidden
                      md={ 4 } />
               </Row>
-              <Row className="show-grid">
-              <Col
-                   mdHidden
-                   md={ 2 } />
 
-              <Col md={ 6 } className="pull-right">
-             <Button className="sap-btn btn-wizard"   onClick={ this.goToTechnicalDetails.bind( this ) }>Next</Button>
-              </Col>
-              <Col
-                   mdHidden
-                   md={ 4 } />
-
-              </Row>
- </Grid>
+      </Grid>
     </div>
+
+    <div className="button-container">
+      <Grid fluid={true}>
+        <Row className="show-grid">
+          <Col md={ 12 } >
+            <ButtonToolbar>
+              <Button className="btn-primary" onClick={ this.goToTechnicalDetails.bind( this ) }>Next</Button>
+            </ButtonToolbar>
+          </Col>
+        </Row>
+      </Grid>
+    </div>
+
     <ToastContainer
                     toastMessageFactory={ ToastMessageFactory }
                     ref="container"

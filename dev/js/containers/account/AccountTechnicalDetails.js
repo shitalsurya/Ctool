@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
+import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button, ButtonToolbar } from 'react-bootstrap';
 import Select from 'react-select';
 import {
     ToastContainer,
@@ -76,7 +76,7 @@ handleTextFieldsChange(e){
 
         <div className="controls-container">
         <div className="rec">
-        <span>Technical Details</span>
+          <span>Technical Details</span>
         </div>
         <Grid fluid={true}>
               <Row className="show-grid">
@@ -185,22 +185,35 @@ handleTextFieldsChange(e){
                             md={ 3 } />
                      </Row>
                      <Row className="show-grid">
-     <Col
-          mdHidden
-          md={ 3 } />
+                       <Col
+                            mdHidden
+                            md={ 3 } />
 
-     <Col md={ 6 }>
-      <Button className="sap-btn btn-wizard pull-right"   onClick={ this.handleTechDetailsNext.bind( this ) }>Next</Button>
-    <Button className="sap-btn btn-wizard pull-right"   onClick={ this.handleTechDetailsBack.bind( this ) }>Back</Button>
-     </Col>
-     <Col
-          mdHidden
-          md={ 3 } />
+                       <Col md={ 6 }>
 
-     </Row>
+                       </Col>
+                       <Col
+                            mdHidden
+                            md={ 3 } />
+
+                     </Row>
 
         </Grid>
       </div>
+
+      <div className="button-container">
+        <Grid fluid={true}>
+          <Row className="show-grid">
+            <Col md={ 12 } >
+              <ButtonToolbar>
+                <Button className="btn-primary"   onClick={ this.handleTechDetailsNext.bind( this ) }>Next</Button>
+                <Button className="btn-primary"   onClick={ this.handleTechDetailsBack.bind( this ) }>Back</Button>
+              </ButtonToolbar>
+            </Col>
+          </Row>
+        </Grid>
+      </div>
+
       <ToastContainer
                       toastMessageFactory={ ToastMessageFactory }
                       ref="container"

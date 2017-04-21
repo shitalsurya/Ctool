@@ -35,16 +35,16 @@ console.log("render showTechnicalDetails==",this.props.showTechnicalDetails);
 
         return (
                <div className="content">
-                                <div className="line page-heading">
-                                CTool Create Account
-                                    </div>
-                                    <div>
-                                      <WizardStepper buttonStyle = { this.state.buttonStyle }/>
-                                    </div>
-                                        {this.showCommDetails && <AccountCommDetails accountObj={this.accountObj} />}
-                                        {this.showInterfaceDetails && <AccountInterfaces accountObj={this.accountObj} />}
-                                        {this.showTechnicalDetails && <AccountTechnicalDetails accountObj={this.accountObj} />}
-                                        {this.showReviewDetails && <AccountReviewDetails accountObj={this.accountObj} />}
+                  <div className="line page-heading">
+                    CTool Create Account
+                  </div>
+                  <div>
+                    <WizardStepper buttonStyle = { this.state.buttonStyle }/>
+                  </div>
+                  {this.showCommDetails && <AccountCommDetails accountObj={this.accountObj} />}
+                  {this.showInterfaceDetails && <AccountInterfaces accountObj={this.accountObj} />}
+                  {this.showTechnicalDetails && <AccountTechnicalDetails accountObj={this.accountObj} />}
+                  {this.showReviewDetails && <AccountReviewDetails accountObj={this.accountObj} />}
                 </div>
         )
     }
