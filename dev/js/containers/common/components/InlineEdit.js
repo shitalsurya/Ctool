@@ -89,7 +89,6 @@ export default class InlineEdit extends React.Component {
           };
           break;
         case "toggle":
-          debugger;
           var _value, _defaultVal;
           if(e.target.value === "On" || e.target.value === "Off"){
             _value = e.target.value == "On" ? "Off" : "On";
@@ -119,7 +118,6 @@ handleMouseOver(e){
    },showView:false,showEdit : true,showButtons:false});
 }
      render() {
-       debugger;
         return (
           <div className="view-edit-control">
             {
