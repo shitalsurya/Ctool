@@ -1,12 +1,13 @@
 import React from 'react';
 import InlineEdit from './../../common/components/InlineEdit';
 export function columnFormatter(cell, row, field, index) {
-    this.currentRow = row;
+  //  this.currentRow = row;
     switch (field.type) {
         case "text":
             return <InlineEdit name = {
-                field.name
+                field.dataField
             }
+              row={row}
               type = 'text'
               value = {
                 cell
@@ -18,8 +19,9 @@ export function columnFormatter(cell, row, field, index) {
             break;
         case "select":
             return <InlineEdit name = {
-                field.name
+                field.dataField
             }
+              row={row}
               type = 'select'
               options = {
                 field.options
@@ -35,8 +37,9 @@ export function columnFormatter(cell, row, field, index) {
         case "toggle":
             var icons;
             return <InlineEdit name = {
-                field.name
+                field.dataField
             }
+              row={row}
               type = "toggle"
               value = {
                 cell
@@ -51,8 +54,9 @@ export function columnFormatter(cell, row, field, index) {
             break;
         case "time":
             return <InlineEdit name = {
-                field.name
+                field.dataField
             }
+              row={row}
               type = 'time'
               value = {
                 cell

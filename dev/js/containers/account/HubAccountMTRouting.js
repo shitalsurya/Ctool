@@ -55,10 +55,10 @@ class SubNestedTable extends React.Component {
       this.currentRow = {};
 }
 
-updateValue(name,val){
+updateValue(name,val,currentRow){
   console.log("name==",name);
-  this.currentRow[name]=val;
-  console.log("this.currentRow==",this.currentRow);
+  currentRow[name]=val;
+  console.log("currentRow==",currentRow);
 }
     render() {
     const selectRow = {
@@ -162,7 +162,7 @@ class HubAccountMTRouting extends React.Component {
                 subGroupBy:{"label": "operator", "value":"operator"},
                 subGroupById:'countryId',
                 data:Routings.data,
-                resRouting: true ,
+                resRouting: "Yes" ,
           }
           this.grpByMaster =
              [
@@ -236,9 +236,12 @@ handleSubGroupByChange(val){
     }
   });
 }
-toggleOnChange(value){
+toggleOnChange(name,value){
+  console.log("value==",value);
     var _resRouting = value=="Yes"?"Yes":"No";
    this.setState({resRouting: _resRouting    });
+   this.name=value;
+   console.log("this.name==",this.name);
 }
 
     render() {

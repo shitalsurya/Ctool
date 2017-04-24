@@ -12,7 +12,8 @@ export default class InlineEdit extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state={
-            name:this.props.name||'',
+            name:this.props.name||[],
+            row:this.props.row||{},
             value: this.props.value ||'',
             type : this.props.type || 'text',
             defaultVal : this.props.value,
@@ -28,18 +29,21 @@ export default class InlineEdit extends React.Component {
       if(this.state.type=="time")
       {
         var ms=parseInt(this.props.value);
-        var _time = moment(ms).format("HH:mm A");
-
-        this.setState({   showView:true,showEdit : false,  showButtons : false,
-        value:_time
-        });
+        var _value = moment(ms).format("HH:mm A");
       }
       else{
-
-           this.setState({   showView:true,showEdit : false,  showButtons : false,
-           value:this.props.value
-         });
+        var _value = this.props.value;
       }
+      this.setState(
+        {
+         name: this.state.name,
+         showView:true,
+         showEdit : false,
+         showButtons : false,
+         value:_value
+        },function(){
+            this.props.onSave(this.state.name,this.state.value,this.state.row);
+        });
 }
     onOkClick() {
 
@@ -51,7 +55,7 @@ export default class InlineEdit extends React.Component {
             showButtons : false
           };
         this.setState(_state,function(){
-          this.props.onSave(this.state.name,this.state.value);
+          this.props.onSave(this.state.name,this.state.value,this.state.row);
         });
 
     }
