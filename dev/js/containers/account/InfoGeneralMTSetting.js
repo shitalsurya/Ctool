@@ -29,7 +29,7 @@ class InfoGeneralMTSetting extends React.Component {
     }
 
     handleInlineEditChange(val){
-      //<InlineEdit type="text" value={this.state.acctCommName} onSave={this.handleInlineEditChange.bind(this)}  />
+
     }
 
     render() {
@@ -85,7 +85,7 @@ class InfoGeneralMTSetting extends React.Component {
                   Password :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit type="text" value={this.state.mtSettingObj.password} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="password" type="text" value={this.state.mtSettingObj.password} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -114,7 +114,7 @@ class InfoGeneralMTSetting extends React.Component {
                       MW NOTIF :
                     </Col>
                     <Col md={ 7 }>
-                      <InlineEdit type="text" value={this.state.mtSettingObj.mwNotif} onSave={this.handleInlineEditChange.bind(this)}  />
+                      <InlineEdit name="mwNotif" type="text" value={this.state.mtSettingObj.mwNotif} onSave={this.handleInlineEditChange.bind(this)}  />
                     </Col>
                   </Row>
                   <Row className="show-grid">
@@ -122,7 +122,7 @@ class InfoGeneralMTSetting extends React.Component {
                       SMSC NOTIF :
                     </Col>
                     <Col md={ 7 }>
-                      <InlineEdit type="text" value={this.state.mtSettingObj.smscNotif} onSave={this.handleInlineEditChange.bind(this)}  />
+                      <InlineEdit name="smscNotif" type="text" value={this.state.mtSettingObj.smscNotif} onSave={this.handleInlineEditChange.bind(this)}  />
                     </Col>
                   </Row>
                   <Row className="show-grid">
@@ -130,7 +130,7 @@ class InfoGeneralMTSetting extends React.Component {
                       MOBILE NOTIF :
                     </Col>
                     <Col md={ 7 }>
-                      <InlineEdit type="text" value={this.state.mtSettingObj.mobileNotif} onSave={this.handleInlineEditChange.bind(this)}  />
+                      <InlineEdit name="mobileNotif" type="text" value={this.state.mtSettingObj.mobileNotif} onSave={this.handleInlineEditChange.bind(this)}  />
                     </Col>
                   </Row>
                 </Col>
@@ -142,7 +142,7 @@ class InfoGeneralMTSetting extends React.Component {
                   Notification Path :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit type="text" value={this.state.mtSettingObj.ntfPath} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="ntfPath" type="text" value={this.state.mtSettingObj.ntfPath} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>

@@ -17,6 +17,9 @@ class HubAccountGeneral extends React.Component {
         this.state = {
           data:TPOAs.data,
           showAddTPOA : false,
+          TPOAinfo : {
+            defaultTPOA : "A365"
+          }
         }
     }
 
@@ -81,7 +84,7 @@ class HubAccountGeneral extends React.Component {
                    Default TPOA :
                  </Col>
                  <Col md={ 8 } >
-                   <InlineEdit type="text" value="A365" onSave={this.handleInlineEditChange.bind(this)}  />
+                   <InlineEdit name="defaultTPOA" type="text" value={this.state.TPOAinfo.defaultTPOA} onSave={this.handleInlineEditChange.bind(this)}  />
                  </Col>
                  <Col mdHidden md={ 2 }/>
                </Row>

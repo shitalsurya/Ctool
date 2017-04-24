@@ -20,7 +20,7 @@ class InfoGeneralDeliveryTime extends React.Component {
     }
 
     handleInlineEditChange(val){
-      //<InlineEdit type="text" value={this.state.acctCommName} onSave={this.handleInlineEditChange.bind(this)}  />
+
     }
 
     render() {
@@ -34,7 +34,7 @@ class InfoGeneralDeliveryTime extends React.Component {
                   Preferred Start Time(UTC) :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit type="text" value={this.state.deliveryTimeObj.startTime} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="startTime" type="text" value={this.state.deliveryTimeObj.startTime} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 8 }/>
               </Row>
@@ -44,7 +44,7 @@ class InfoGeneralDeliveryTime extends React.Component {
                   Preferred End Time(UTC) :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit type="text" value={this.state.deliveryTimeObj.endTime} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="endTime" type="text" value={this.state.deliveryTimeObj.endTime} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
