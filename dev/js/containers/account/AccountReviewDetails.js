@@ -1,19 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
+import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button, ButtonToolbar } from 'react-bootstrap';
 import Select from 'react-select';
 import {
     ToastContainer,
     ToastMessage,
 } from "react-toastr";
-
 import { createNewAccount,handleReviewDetailsBack } from '../../containers/account/actions/accountActions';
 import * as types from '../../containers/account/actions/accountActionTypes';
-
-
 require('../../../scss/style.scss');
-
 const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
 class AccountReviewDetails extends React.Component {
@@ -34,7 +30,9 @@ class AccountReviewDetails extends React.Component {
     createNewAccount() {
       this.props.createNewAccount( this.state.accountInfo );
     }
+
     render() {
+
       const accountCreateInfo = [
         {
           'title' : 'Commercial Information',
@@ -113,6 +111,7 @@ class AccountReviewDetails extends React.Component {
             }
           ]
         },
+
         {
           'title' : 'MT Interfces',
           'infoList' : [
@@ -123,6 +122,7 @@ class AccountReviewDetails extends React.Component {
           ],
           'hidden' : !this.state.interfaceFlag
         },
+
         {
           'title' : 'MO Interfces',
           'infoList' : [
@@ -135,22 +135,21 @@ class AccountReviewDetails extends React.Component {
         }
       ];
 
-    const titleMapping = function(list, index) {
-      return (
-        <div key={index} className="controls-container" hidden={list.hidden ? "hidden" : false}>
-          <div className="rec">
-            <span>{list.title}</span>
-          </div>
-          <Grid fluid={true}>
-            {list.infoList.map(gridRowMapping)}
-          </Grid>
-        </div>
-      );
-    }
-
-    const gridRowMapping = function(list, index) {
-
+      const titleMapping = function(list, index) {
         return (
+          <div key={index} className="controls-container" hidden={list.hidden ? "hidden" : false}>
+            <div className="rec">
+              <span>{list.title}</span>
+            </div>
+            <Grid fluid={true}>
+              {list.infoList.map(gridRowMapping)}
+            </Grid>
+          </div>
+        );
+      }
+
+      const gridRowMapping = function(list, index) {
+          return (
             <Row key={index} className="show-grid">
                 <Col
                     componentClass={ ControlLabel }
@@ -163,38 +162,29 @@ class AccountReviewDetails extends React.Component {
                     mdHidden
                     md={ 3 } />
             </Row>
-        )
-    }.bind(this);
+          )
+      }.bind(this);
 
         return (
           <div>
-
-          <div>
-              {accountCreateInfo.map(titleMapping)}
+            {accountCreateInfo.map(titleMapping)}
+            <div className="button-container">
+              <Grid fluid={true}>
+                <Row className="show-grid">
+                  <Col md={ 12 } >
+                    <ButtonToolbar>
+                      <Button className="btn-primary"   onClick={ this.handleReviewDetailsBack.bind( this ) }>Back</Button>
+                      <Button className="btn-primary"   onClick={ this.createNewAccount.bind( this ) }>Create Account</Button>
+                    </ButtonToolbar>
+                  </Col>
+                </Row>
+              </Grid>
+            </div>
+            <ToastContainer
+                toastMessageFactory={ ToastMessageFactory }
+                ref="container"
+                className="toast-top-right" />
           </div>
-
-      <Row className="show-grid">
-        <Col
-            mdHidden
-            md={ 3 } />
-
-        <Col md={ 6 }>
-        <Button className="sap-btn btn-wizard pull-right"   onClick={ this.createNewAccount.bind( this ) }>Create Account</Button>
-        <Button className="sap-btn btn-wizard pull-right"   onClick={ this.handleReviewDetailsBack.bind( this ) }>Back</Button>
-        </Col>
-        <Col
-            mdHidden
-            md={ 3 } />
-
-     </Row>
-
-       <ToastContainer
-                      toastMessageFactory={ ToastMessageFactory }
-                      ref="container"
-                      className="toast-top-right" />
-
-      </div>
-
         )
     }
 
@@ -205,21 +195,23 @@ class AccountReviewDetails extends React.Component {
         this.setState({interfaceFlag:false});
     }
 
-componentWillReceiveProps(nextProps){
-  switch(nextProps.target){
-    case types.ACCOUNT_CREATE_NEW_SUCCESS:
-        this.refs.container.success(`Account created successfully.`, ``, {
-            closeButton: true,
-        });
-        break;
-    case types.ACCOUNT_CREATE_NEW_FAILURE:
-        this.refs.container.error(`Failed to create new account.`, ``, {
-            closeButton: true,
-        });
-        break;
+    componentWillReceiveProps(nextProps){
+      switch(nextProps.target){
+        case types.ACCOUNT_CREATE_NEW_SUCCESS:
+            this.refs.container.success(`Account created successfully.`, ``, {
+                closeButton: true,
+            });
+            break;
+        case types.ACCOUNT_CREATE_NEW_FAILURE:
+            this.refs.container.error(`Failed to create new account.`, ``, {
+                closeButton: true,
+            });
+            break;
+          }
       }
-  }
+
 }
+
 function mapStateToProps(state) {
     return { data: state.Account.data , target: state.Account.target};
 }

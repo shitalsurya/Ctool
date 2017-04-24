@@ -47,7 +47,6 @@ class InfoGeneralAddContacts extends React.Component {
 
 handleModalChange(target, value){
       var contactinfo = this.state.ContactInfo;
-      debugger;
       switch(target) {
         case types.ADDCONTACT_EXISTINGCOMPANY :
           var _data = Contact.data.filter(function (header, item) {
@@ -85,19 +84,21 @@ handleModalChange(target, value){
               </Row>
 
               <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 3 }>
-                <Button bsStyle="primary" onClick={this.addContact.bind(this)}>Add New Contact</Button>
-                </Col>
-                <Col mdHidden md={ 2 }/>
-              </Row>
+                 <Col md= { 12 }>
+                   <BootstrapTable data={this.state.data} >
+                     <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
+                     <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
+                     <TableHeaderColumn dataField='email'>Email</TableHeaderColumn>
+                     <TableHeaderColumn dataField='delete' dataFormat={ this.deleteDataFormatter.bind(this) } formatExtraData={ 'delete' } ></TableHeaderColumn>
+                   </BootstrapTable>
+                 </Col>
+               </Row>
 
-              <Row className="show-grid">
-                 <BootstrapTable data={this.state.data} >
-                   <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
-                   <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
-                   <TableHeaderColumn dataField='email'>Email</TableHeaderColumn>
-                   <TableHeaderColumn dataField='delete' dataFormat={ this.deleteDataFormatter.bind(this) } formatExtraData={ 'delete' } ></TableHeaderColumn>
-                 </BootstrapTable>
+               <Row className="show-grid">
+                 <Col componentClass={ ControlLabel } md={ 3 }>
+                 <Button bsStyle="primary" onClick={this.addContact.bind(this)}>Add New Contact</Button>
+                 </Col>
+                 <Col mdHidden md={ 2 }/>
                </Row>
             </Grid>
 
