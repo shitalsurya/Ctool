@@ -34,6 +34,9 @@ export default class InlineEdit extends React.Component {
       else{
         var _value = this.props.value;
       }
+      if(this.state.type == "toggle") {
+        var _value = this.state.value;
+      }
       this.setState(
         {
          name: this.state.name,
@@ -44,7 +47,8 @@ export default class InlineEdit extends React.Component {
         },function(){
             this.props.onSave(this.state.name,this.state.value,this.state.row);
         });
-}
+    }
+
     onOkClick() {
 
         var _state = {
@@ -60,46 +64,46 @@ export default class InlineEdit extends React.Component {
 
     }
 
-     onEditClick()
-     {
+     onEditClick(){
         this.setState({showView:false,showEdit : false,showButtons : true});
      }
 
      handleChange(e){
        switch(this.state.type){
-         case "text":
+        case "text":
         case "select":
-        var _state = {
-            value: e.target.value,
-            showView:false,
-            showButtons : true,
-            showEdit : false,
-        };
-        break;
+          var _state = {
+              value: e.target.value,
+              showView:false,
+              showButtons : true,
+              showEdit : false,
+          };
+          break;
 
-            case "time":
-    var _state = {
-        value:e,
-        showView:false,
-        showButtons : true,
-        showEdit : false,
-    };
-        break;
+        case "time":
+          var _state = {
+              value:e,
+              showView:false,
+              showButtons : true,
+              showEdit : false,
+          };
+          break;
         case "toggle":
+          debugger;
           var _value, _defaultVal;
-          if(this.state.name === "onOff"){
+          if(e.target.value === "On" || e.target.value === "Off"){
             _value = e.target.value == "On" ? "Off" : "On";
           }
-          else{
+          else if(e.target.value === "Yes" || e.target.value === "No"){
             _value = e.target.value == "Yes" ? "No" : "Yes";
-          //  _defaultVal = _value == "Yes" ? true : false;
           }
+          _defaultVal = (_value === "On" || _value === "Yes") ? true : false ;
           var _state = {
             value: _value,
             showView:false,
             showButtons : true,
             showEdit : false,
-          //  defaultVal : _defaultVal
+           defaultVal : _defaultVal
           }
           break;
        }
@@ -115,6 +119,7 @@ handleMouseOver(e){
    },showView:false,showEdit : true,showButtons:false});
 }
      render() {
+       debugger;
         return (
           <div className="view-edit-control">
             {
@@ -205,12 +210,9 @@ handleMouseOver(e){
           this.setState({select : true});
           break;
         case "toggle":
-          var _value;
-          if(this.state.name === "onOff")
-            _value = this.state.value ? "On" : "Off";
-          else
-            _value =  this.state.value ? "Yes" : "No";
-          this.setState({toggle : true , value : _value });
+          var _defaultVal;
+          _defaultVal = (this.state.value === "On" || this.state.value === "Yes") ? true : false ;
+          this.setState({toggle : true , defaultVal : _defaultVal});
           break;
         case "time":
         var ms=parseInt(this.state.value);

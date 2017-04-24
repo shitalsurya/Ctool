@@ -6,7 +6,7 @@ import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,
 import Select from 'react-select';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import InlineEdit from './../common/components/InlineEdit';
-import DeleteRowLink from './../common/components/DeleteRow';
+import * as table from './../common/Functions/customTable';
 import TPOAs from '../../../json/TPOAs.json';
 import AddTPOAModal from './HubAccountTPOAAddModal';
 require('../../../scss/style.scss');
@@ -16,14 +16,60 @@ class HubAccountGeneral extends React.Component {
         super(props, context);
         this.state = {
           data:TPOAs.data,
-          groupById:'countryId',
           showAddTPOA : false,
         }
     }
 
+    updateValue(name,val,currentRow){
+      console.log("name==",name);
+      currentRow[name]=val;
+      console.log("currentRow==",currentRow);
+    }
 
     render() {
 
+      var fields = [
+        {
+            name:'SMSC Operator',
+            dataField:'SMSCOp',
+            type:'select',
+            options: [{ "id": 1, "value":"Aircel Delhi"},{ "id": 2, "value":"Vodafone Pune"},
+                      { "id": 3, "value":"Airtel Mumbai"},{ "id": 4, "value":"Jio Banglore"}]
+        },
+        {
+            name:'TPOA',
+            dataField:'TPOA',
+            type:'text',
+        },
+        {
+            name:'Customer Routing',
+            dataField:'custRouting',
+            type:'toggle',
+            options: {
+               checked: 'Yes',
+               unchecked: 'No',
+            }
+        },
+        {
+          dataField:'deleteRow',
+          type:'delete',
+          rowId:'SMSCOp',
+          width:'60px'
+        }
+      ];
+
+      var listCols = fields.map(function (field) {
+            return (
+                <TableHeaderColumn dataField={field.dataField}
+                  width={field.width}
+                  headerAlign='left'
+                  dataAlign='center'
+                  dataFormat={ table.columnFormatter.bind(this) }
+                  formatExtraData={ field} >
+                  {field.name}
+                </TableHeaderColumn>
+            );
+        }.bind(this));
 
         return (
            <div className="tabs-container">
@@ -50,11 +96,8 @@ class HubAccountGeneral extends React.Component {
                <Row className="show-grid">
                  <Col md={ 12 }>
                    <BootstrapTable data={this.state.data} >
-                     <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
-                     <TableHeaderColumn dataField='SMSCOp'>SMSC Operator</TableHeaderColumn>
-                     <TableHeaderColumn dataField='TPOA' dataFormat={ this.dataFormatter.bind(this) } formatExtraData={ 'TPOA' } >TPOA</TableHeaderColumn>
-                     <TableHeaderColumn dataField='custRouting'>Customer Routing</TableHeaderColumn>
-                     <TableHeaderColumn dataField='delete' dataFormat={ this.deleteDataFormatter.bind(this) } formatExtraData={ 'delete' } ></TableHeaderColumn>
+                     <TableHeaderColumn isKey={ true } hidden dataField='id'>ID</TableHeaderColumn>
+                      {listCols}
                    </BootstrapTable>
                 </Col>
                </Row>
@@ -78,19 +121,6 @@ class HubAccountGeneral extends React.Component {
 
     }
 
-    deleteDataFormatter(cell, row,field,index) {
-        this.currentRow = row;
-        this.currentField = field;
-
-      return (
-          <DeleteRowLink currentRow={this.currentRow.SMSCOp}/>
-      )
-    }
-
-    dataFormatter(cell, row,field,index) {
-      return <InlineEdit type='text' value={cell} onSave={this.handleInlineEditChange.bind(this)}  />
-    }
-
     close() {
       this.setState({ showAddTPOA: false});
     }
@@ -99,7 +129,7 @@ class HubAccountGeneral extends React.Component {
       this.setState({showAddTPOA : true});
     }
 
-    handleInlineEditChange(val) {
+    handleInlineEditChange(val){
 
     }
 
