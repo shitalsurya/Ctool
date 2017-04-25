@@ -29,10 +29,10 @@ class InfoGeneralVolumeSetting extends React.Component {
     render() {
 
         var options = [
-          { "label": "None", "value":"None "},
-          { "label": "Daily", "value":"Daily "},
-          { "label": "Monthly", "value":"Monthly "},
-          { "label": "Counter", "value":"Counter "}
+          { "id": 1, "value":"None "},
+          { "id": 2, "value":"Daily "},
+          { "id": 3, "value":"Monthly "},
+          { "id": 4, "value":"Counter "}
         ];
 
         return (

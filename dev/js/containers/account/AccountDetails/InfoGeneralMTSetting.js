@@ -35,7 +35,7 @@ class InfoGeneralMTSetting extends React.Component {
     render() {
 
       const options = [
-        { "label" : "DEFAULT_ACK" , "value" : "DEFAULT_ACK " }
+        { "id" : 1 , "value" : "DEFAULT_ACK" }
       ];
 
         return (

@@ -35,8 +35,8 @@ class InfoGeneralCommercial extends React.Component {
     render() {
 
       var statusOptions = [
-        {"label" : "UNSIGNED" , "value" : "UNSIGNED "},
-        {"label" : "SIGNED" , "value" : "SIGNED "}
+        { "id" : 1 , "value" : "UNSIGNED"},
+        { "id" : 2 , "value" : "SIGNED"}
       ];
 
         return (

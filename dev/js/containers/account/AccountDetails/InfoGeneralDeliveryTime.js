@@ -13,8 +13,8 @@ class InfoGeneralDeliveryTime extends React.Component {
         super(props, context);
         this.state = {
           deliveryTimeObj : {
-            startTime : '',
-            endTime : ''
+            startTime : 'Some Random Time',
+            endTime : 'Some Random Time'
           }
         }
     }
@@ -26,8 +26,10 @@ class InfoGeneralDeliveryTime extends React.Component {
     render() {
 
       var startOptions = [
+        { "id":1 , "value":"Some Random Time"}
       ];
       var endOptions = [
+        { "id":1 , "value":"Some Random Time"}
       ];
 
         return (
