@@ -3,16 +3,7 @@ import axios from 'axios';
 import * as config from '../../../containers/common/config';
 import {httpRequest} from '../../../containers/common/commonAjaxActions';
 import {getSpndAccount, getDataList} from './accountAjaxActions';
-export function navigateMenus(currentMenu){
-	return function(dispatch){
-		dispatch(navigateMenusRequest(currentMenu))
-	}
-}
-export function navigateMenusRequest(currentMenu){
-	return{
-		  type: currentMenu
-	}
-}
+
 export function initializeData(_list,valField){
   console.log("initializeData==",_list);
   var list = _list.data.map(function (item) {

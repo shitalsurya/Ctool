@@ -55,7 +55,7 @@ export default class Navigation extends React.Component {
         this.context.router.push( 'launchpad' );
     }
     navigateMenus( currentMenu ) {
-      console.log("currentMenu==",types.ACCOUNT_CLOSE );
+      console.log("currentMenu==",currentMenu );
       switch (currentMenu) {
           case types.ACCOUNT_LIST:
             this.context.router.push( 'accounts' );
