@@ -26,12 +26,21 @@ class InfoGeneralTechnical extends React.Component {
         }
     }
 
-    handleInlineEditChange(val){
-
+    handleInlineEditChange(name,val){
+      var info = this.state.techInfoObj;
+      switch (name) {
+        case "techName":
+          info.techName=val;
+          break;
+        case "extPassword":
+          info.extPassword = val;
+          break;
+      }
+      this.setState({techInfoObj:info});
     }
 
     render() {
-
+      console.log("techInfoObj : ", this.state.techInfoObj);
         return (
           <div >
             <Grid fluid={true} className="inner_grid">

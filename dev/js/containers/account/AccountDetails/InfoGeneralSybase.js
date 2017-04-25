@@ -19,12 +19,18 @@ class InfoGeneralSybase extends React.Component {
         }
     }
 
-    handleInlineEditChange(val){
-
+    handleInlineEditChange(name,val){
+      var info = this.state.sybaseInfoObj;
+      switch (name) {
+        case "accMgr":
+          info.accMgr = val;
+          break;
+      }
+      this.setState({sybaseInfoObj : info});
     }
 
     render() {
-
+      console.log("sybaseInfoObj : ",this.state.sybaseInfoObj);
         return (
           <div >
             <Grid fluid={true} className="inner_grid">

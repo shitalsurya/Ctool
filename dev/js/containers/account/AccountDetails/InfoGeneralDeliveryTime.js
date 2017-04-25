@@ -19,12 +19,23 @@ class InfoGeneralDeliveryTime extends React.Component {
         }
     }
 
-    handleInlineEditChange(val){
+    handleInlineEditChange(name,val){
+      var info = this.state.deliveryTimeObj;
+      switch (name) {
+        case "startTime":
+          info.startTime =val;
+          break;
+        case "endTime":
+          info.endTime = val;
+          break;
+        default:
 
+      }
+      this.setState({deliveryTimeObj : info});
     }
 
     render() {
-
+      console.log("deliveryTimeObj : ",this.state.deliveryTimeObj);
       var startOptions = [
         { "id":1 , "value":"Some Random Time"}
       ];

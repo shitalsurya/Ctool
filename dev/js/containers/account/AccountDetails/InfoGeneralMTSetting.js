@@ -28,12 +28,30 @@ class InfoGeneralMTSetting extends React.Component {
         }
     }
 
-    handleInlineEditChange(val){
-
+    handleInlineEditChange(name,val){
+      var info=this.state.mtSettingObj;
+      switch (name) {
+        case "password":
+          info.password =val;
+          break;
+        case "mwNotif":
+          info.mwNotif=val;
+          break;
+        case "smscNotif":
+          info.smscNotif=val;
+          break;
+        case "mobileNotif":
+          info.mobileNotif=val;
+          break;
+        case "ntfPath":
+          info.ntfPath=val;
+          break;
+      }
+      this.setState({mtSettingObj:info});
     }
 
     render() {
-
+      console.log(" mtSettingObj : ",this.state.mtSettingObj);
       const options = [
         { "id" : 1 , "value" : "DEFAULT_ACK" }
       ];

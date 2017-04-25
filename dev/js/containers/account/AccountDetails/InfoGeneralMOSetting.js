@@ -23,12 +23,21 @@ class InfoGeneralMOSetting extends React.Component {
         }
     }
 
-    handleInlineEditChange(val){
-
+    handleInlineEditChange(name,val){
+      var info = this.state.moSettingObj;
+      switch (name) {
+        case "replyAdd":
+          info.replyAdd =val;
+          break;
+        case "pathOut":
+          info.pathOut =val;
+          break;
+      }
+      this.setState({moSettingObj:info});
     }
 
     render() {
-
+      console.log("moSettingObj : ",this.state.moSettingObj);
         return (
           <div >
             <Grid fluid={true} className="inner_grid">

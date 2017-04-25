@@ -21,18 +21,24 @@ class InfoGeneralVolumeSetting extends React.Component {
         }
     }
 
-    handleInlineEditChange(val){
-
+    handleInlineEditChange(name,val){
+      var info = this.state.volSettingObj;
+      switch (name) {
+        case "volType":
+          info.volType = val;
+          break;
+      }
+      this.setState({volSettingObj : info});
     }
 
 
     render() {
-
+      console.log("volSettingObj : ",this.state.volSettingObj);
         var options = [
-          { "id": 1, "value":"None "},
-          { "id": 2, "value":"Daily "},
-          { "id": 3, "value":"Monthly "},
-          { "id": 4, "value":"Counter "}
+          { "id": 1, "value":"None"},
+          { "id": 2, "value":"Daily"},
+          { "id": 3, "value":"Monthly"},
+          { "id": 4, "value":"Counter"}
         ];
 
         return (
