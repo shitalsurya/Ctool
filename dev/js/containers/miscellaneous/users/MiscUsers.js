@@ -4,17 +4,19 @@ import { bindActionCreators } from 'redux';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid, Button, Image,Glyphicon } from 'react-bootstrap';
 import Select from 'react-select';
+import BrandingHeader from './../../common/components/BrandingHeader';
+import Navigation from './../../common/components/Navigation';
 import { getUserList, getUserDetails, updateUserDetails } from './miscUsersActions';
-require( '../../../../scss/style.scss' );
-var userImg = require( "../../../../images/user.png" );
-var showIcon = require( "../../../../images/show-icon.png" );
-var editIcon = require( "../../../../images/edit-icon.png" );
-var updateIcon = require( "../../../../images/update-icon.png" );
-var undoIcon = require( "../../../../images/undo-icon.png" );
-var refreshIcon = require( "../../../../images/refresh-icon.png" );
-var lockIcon = require( "../../../../images/lock.png" );
-var unlockIcon = require( "../../../../images/unlock.png" );
-var errorIcon = require( "../../../../images/error-icon-32.png" );
+require( './../../../../scss/style.scss' );
+var userImg = require( "./../../../../images/user.png" );
+var showIcon = require( "./../../../../images/show-icon.png" );
+var editIcon = require( "./../../../../images/edit-icon.png" );
+var updateIcon = require( "./../../../../images/update-icon.png" );
+var undoIcon = require( "./../../../../images/undo-icon.png" );
+var refreshIcon = require( "./../../../../images/refresh-icon.png" );
+var lockIcon = require( "./../../../../images/lock.png" );
+var unlockIcon = require( "./../../../../images/unlock.png" );
+var errorIcon = require( "./../../../../images/error-icon-32.png" );
 
 class MiscUsers extends React.Component {
   constructor( props, context ) {
@@ -120,8 +122,8 @@ onCellEdit  (row, fieldName, value)  {
     };
     console.log( "this.props.userList==", this.props.userList );
     const options = {
-      onCellEdit: this.onCellEdit.bind(this),
-         clearSearch: true,
+    //  onCellEdit: this.onCellEdit.bind(this),
+    //     clearSearch: true,
          page: 1,  // which page you want to show as default
          sizePerPageList: [ {
            text: '5', value: 5
@@ -154,36 +156,41 @@ onCellEdit  (row, fieldName, value)  {
     ];
 
     return (
-      <div className="content">
-        <div className="col-md-1"></div>
-        <div className="col-md-10 section-content">
-          <div></div>
-          <Grid fluid={ true }>
+        <div>
+          <BrandingHeader/>
+          <Grid fluid={true}>
             <Row>
-              <Col className="line page-heading" md={ 12 }>
-                CTool User Management
+              <Col md={2}>
+                <Navigation submenus={this.state.submenus}></Navigation>
               </Col>
-            </Row>
-          </Grid>
-          <div className="list-container">
-            <div className="controls-container">
-              <BootstrapTable data ={ this.users } pagination={ true }  search={ true }
-              remote={ true }
-                      cellEdit={ cellEditProp }
-               options={ options }>
-                <TableHeaderColumn row='0' colSpan='2' dataField='id'>{12}</TableHeaderColumn>
-                  <TableHeaderColumn row='2' colSpan='2' dataField='id'>{12}</TableHeaderColumn>
-                  <TableHeaderColumn  row='1' dataField='id' dataSort={true} isKey>User ID</TableHeaderColumn>
-                  <TableHeaderColumn row='1'  dataField='login' dataSort={true} >User Login</TableHeaderColumn>
-                  <TableHeaderColumn row='1'  dataField='name' dataSort={true} >User Name</TableHeaderColumn>
-                  <TableHeaderColumn row='1'  dataField='live' dataSort={true} >User Status</TableHeaderColumn>
-                  <TableHeaderColumn row='1'  dataField='insertdate' dataSort={true} >Created On</TableHeaderColumn>
-              </BootstrapTable>
+              <Col md={10}>
+                <Grid fluid={ true }>
+                  <Row>
+                    <Col className="line page-heading" md={ 12 }>
+                      CTool User Management
+                    </Col>
+                  </Row>
+                </Grid>
+                <div className="list-container">
+                  <div className="controls-container">
+                    <BootstrapTable data ={ this.users } pagination={ true }
+                      //search={ true }
+                      //remote={ true }
+                      //    cellEdit={ cellEditProp }
+                      options={ options }>
+                      <TableHeaderColumn   dataField='id' dataSort={true} isKey>User ID</TableHeaderColumn>
+                      <TableHeaderColumn   dataField='login' dataSort={true} >User Login</TableHeaderColumn>
+                      <TableHeaderColumn   dataField='name' dataSort={true} >User Name</TableHeaderColumn>
+                      <TableHeaderColumn   dataField='live' dataSort={true} >User Status</TableHeaderColumn>
+                      <TableHeaderColumn   dataField='insertdate' dataSort={true} >Created On</TableHeaderColumn>
+                </BootstrapTable>
+              </div>
             </div>
-          </div>
-        </div>
-        <div className="col-md-1"></div>
-      </div>
+          </Col>
+        </Row>
+      </Grid>
+
+    </div>
 
     );
   }

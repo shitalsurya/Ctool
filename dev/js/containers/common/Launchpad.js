@@ -62,7 +62,7 @@ export default class Launchpad extends React.Component {
             </Col>
             <Col xs={6} md={3}>
               <Thumbnail>
-                <a href="">
+                <a onClick={ this.navigateRoutes.bind( this, types.MISCELLENEOUS )}>
                   <span className="misc-icon"></span>
                   <h3>Miscelleneous</h3>
                 </a>
@@ -123,6 +123,9 @@ export default class Launchpad extends React.Component {
       break;
       case types.CONNECTIONS:
         this.context.router.push( 'connections' );
+      break;
+      case types.MISCELLENEOUS:
+        this.context.router.push( 'miscUsers' );
       break;
     default:
 

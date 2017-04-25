@@ -11,6 +11,8 @@ export const ACCOUNT_CLOSE = 'ACCOUNT_CLOSE';
 export const CONNECTIONS = 'CONNECTIONS';
 
 //Miscelleneous
+
+export const MISCELLENEOUS = 'MISCELLENEOUS';
 export const TOOLBOX_SEARCH = 'TOOLBOX_SEARCH';
 
 //Users

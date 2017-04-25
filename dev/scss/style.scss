@@ -132,7 +132,7 @@ background-color: #fff;
 zoom: 1;
 border-radius: 3px;
 font-family: Arial;
-width: 985px;
+//width: 985px;
 }
 
 .section-content{
@@ -577,12 +577,12 @@ color:#333 !important;
 	border-style: hidden;
 	background-color: inherit;
 }
-#pageDropDown::before {
-	content: "Show ";
-}
-#pageDropDown::after {
-	content: " records per page";
-}
+// #pageDropDown::before {
+// 	content: "Show ";
+// }
+// #pageDropDown::after {
+// 	content: " records per page";
+// }
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
 	background-color: white;
 	color: #337ab7;
