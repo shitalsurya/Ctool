@@ -8,21 +8,114 @@ import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,
 import AddDedicatedMORouting from './HubAccountMODedicated';
 import AddParsedMORouting from './HubAccountMOParsed';
 import AddMORouting from './HubAccountMORoutingAdd';
-import InlineEdit from './../common/components/InlineEdit';
-import DeleteRowLink from './../common/components/DeleteRow';
+import * as table from './../common/Functions/customTable';
 require('../../../scss/style.scss');
+
+class NestedTable extends React.Component {
+    constructor(props, context) {
+      super(props, context);
+    }
+
+    updateValue(name,val,currentRow){
+      console.log("name==",name);
+      currentRow[name]=val;
+      console.log("currentRow==",currentRow);
+    }
+
+    render() {
+      var fields = [
+        {
+            name:'SMSC',
+            dataField:'smsc',
+            type:'text'
+        },
+        {
+            name:'Service Number',
+            dataField:'serviceNo',
+            type:'text',
+            width: '150px'
+        },
+        {
+            name:'Criteria',
+            dataField:'criteria',
+            type:'text'
+        },
+        {
+            name:'Return TPDA',
+            dataField:'returnTPDA',
+            type:'text',
+            width: '150px'
+        },
+        {
+          dataField:'deleteRow',
+          type:'delete',
+          rowId:'smsc',
+          width:'60px'
+        }
+      ];
+
+      if (this.props.data) {
+        var listCols = fields.map(function (field) {
+              return (
+                  <TableHeaderColumn dataField={field.dataField}
+                    width={field.width}
+                    headerAlign='left'
+                    dataAlign='center'
+                    dataFormat={ table.columnFormatter.bind(this) }
+                    formatExtraData={ field} >
+                    {field.name}
+                  </TableHeaderColumn>
+              );
+          }.bind(this));
+
+        return (
+          <BootstrapTable data={this.props.data} >
+            <TableHeaderColumn isKey={ true } hidden dataField='id'>ID</TableHeaderColumn>
+             {listCols}
+          </BootstrapTable>
+        );
+      }
+      else {
+        return (<p>?</p>);
+      }
+    }
+
+}
 
 class HubAccountMORouting extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-          groupById : 'id',
           data : [
-
+            {
+              "countryId":"1",
+              "country":"Australia",
+              "expand": [
+                {
+                  "smsc" : 'A1-MOBILKOM 436644967491',
+                  "serviceNo" : '1515',
+                  "criteria" : 'BEGIN_BY',
+                  "returnTPDA" : '1515'
+                }
+              ]
+            }
           ],
+          groupBy:  {"label": "country", "value":"country"},
+          groupById:'countryId',
           showAddDedicated : false,
           showAddParsed : false,
         }
+    }
+
+    isExpandableRow(row) {
+        if (typeof (row.expand)!='undefined') return true;
+        else return false;
+    }
+
+    expandComponent(row) {
+      return (
+          <NestedTable data={ row.expand }  />
+      );
     }
 
     render() {
@@ -53,14 +146,18 @@ class HubAccountMORouting extends React.Component {
                </Row>
 
                <Row className="show-grid">
+
+               </Row>
+
+               <Row className="show-grid">
                  <Col md={ 12 }>
-                   <BootstrapTable data={this.state.data} >
+                   <BootstrapTable data={this.state.data}
+                     tableBodyClass='master-body-class'
+                     tableHeaderClass='hide-header'
+                     expandableRow={ this.isExpandableRow }
+                     expandComponent={ this.expandComponent.bind(this) }>
                      <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
-                     <TableHeaderColumn dataField='SMSC'>SMSC</TableHeaderColumn>
-                     <TableHeaderColumn dataField='serviceNo' dataFormat={ this.dataFormatter.bind(this) } formatExtraData={ 'serviceNo' } >Service Number</TableHeaderColumn>
-                     <TableHeaderColumn dataField='criteria' dataFormat={ this.dataFormatter.bind(this) } formatExtraData={ 'criteria' } >Criteria</TableHeaderColumn>
-                     <TableHeaderColumn dataField='returnTPDA' dataFormat={ this.dataFormatter.bind(this) } formatExtraData={ 'returnTPDA' } >Return TPDA</TableHeaderColumn>
-                     <TableHeaderColumn dataField='delete' dataFormat={ this.deleteDataFormatter.bind(this) } formatExtraData={ 'delete' } ></TableHeaderColumn>
+                     <TableHeaderColumn dataField={this.state.groupBy.value} ></TableHeaderColumn>
                    </BootstrapTable>
                  </Col>
                </Row>
@@ -82,16 +179,6 @@ class HubAccountMORouting extends React.Component {
 
     close() {
       this.setState({ showAddDedicated: false, showAddParsed: false});
-    }
-
-    deleteDataFormatter(cell, row,field,index) {
-      return (
-          <DeleteRowLink currentRow={this.currentRow.SMSCOp}/>
-      )
-    }
-
-    dataFormatter(cell, row,field,index) {
-      return <InlineEdit type='text' value={cell} onSave={this.handleInlineEditChange.bind(this)}  />
     }
 
 }

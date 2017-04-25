@@ -1,5 +1,6 @@
 import React from 'react';
 import InlineEdit from './../../common/components/InlineEdit';
+import DeleteRow from './../../common/components/DeleteRow';
 export function columnFormatter(cell, row, field, index) {
   //  this.currentRow = row;
     switch (field.type) {
@@ -72,6 +73,9 @@ export function columnFormatter(cell, row, field, index) {
                 imgSrc
             }
                    />
+            break;
+        case "delete":
+            return <DeleteRow currentRow={row[field.rowId]}/>
             break;
     }
 }

@@ -24,7 +24,7 @@ class InfoGeneralMOSetting extends React.Component {
     }
 
     handleInlineEditChange(val){
-      //<InlineEdit type="text" value={this.state.acctCommName} onSave={this.handleInlineEditChange.bind(this)}  />
+
     }
 
     render() {
@@ -52,7 +52,7 @@ class InfoGeneralMOSetting extends React.Component {
                   Reply Address :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit type="text" value={this.state.moSettingObj.replyAdd} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="replyAdd" type="text" value={this.state.moSettingObj.replyAdd} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -90,7 +90,7 @@ class InfoGeneralMOSetting extends React.Component {
                   MO Spool Path out :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit type="text" value={this.state.moSettingObj.pathOut} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="pathOut" type="text" value={this.state.moSettingObj.pathOut} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>

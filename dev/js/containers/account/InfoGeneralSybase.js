@@ -20,7 +20,7 @@ class InfoGeneralSybase extends React.Component {
     }
 
     handleInlineEditChange(val){
-      //<InlineEdit type="text" value={this.state.acctCommName} onSave={this.handleInlineEditChange.bind(this)}  />
+
     }
 
     render() {
@@ -48,7 +48,7 @@ class InfoGeneralSybase extends React.Component {
                   Account Manager :
                 </Col>
                 <Col md={ 8 } >
-                  <InlineEdit type="text" value={this.state.sybaseInfoObj.accMgr} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="accMgr" type="text" value={this.state.sybaseInfoObj.accMgr} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
