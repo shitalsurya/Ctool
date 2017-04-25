@@ -34,6 +34,10 @@ class InfoGeneralMTSetting extends React.Component {
 
     render() {
 
+      const options = [
+        { "label" : "DEFAULT_ACK" , "value" : "DEFAULT_ACK " }
+      ]
+
         return (
           <div >
             <Grid fluid={true} className="inner_grid">
@@ -114,7 +118,7 @@ class InfoGeneralMTSetting extends React.Component {
                       MW NOTIF :
                     </Col>
                     <Col md={ 7 }>
-                      <InlineEdit name="mwNotif" type="text" value={this.state.mtSettingObj.mwNotif} onSave={this.handleInlineEditChange.bind(this)}  />
+                      <InlineEdit name="mwNotif" type="select" optioins={options} value={this.state.mtSettingObj.mwNotif} onSave={this.handleInlineEditChange.bind(this)}  />
                     </Col>
                   </Row>
                   <Row className="show-grid">
@@ -122,7 +126,7 @@ class InfoGeneralMTSetting extends React.Component {
                       SMSC NOTIF :
                     </Col>
                     <Col md={ 7 }>
-                      <InlineEdit name="smscNotif" type="text" value={this.state.mtSettingObj.smscNotif} onSave={this.handleInlineEditChange.bind(this)}  />
+                      <InlineEdit name="smscNotif" type="select" options={options} value={this.state.mtSettingObj.smscNotif} onSave={this.handleInlineEditChange.bind(this)}  />
                     </Col>
                   </Row>
                   <Row className="show-grid">
@@ -130,7 +134,7 @@ class InfoGeneralMTSetting extends React.Component {
                       MOBILE NOTIF :
                     </Col>
                     <Col md={ 7 }>
-                      <InlineEdit name="mobileNotif" type="text" value={this.state.mtSettingObj.mobileNotif} onSave={this.handleInlineEditChange.bind(this)}  />
+                      <InlineEdit name="mobileNotif" type="select" options={options} value={this.state.mtSettingObj.mobileNotif} onSave={this.handleInlineEditChange.bind(this)}  />
                     </Col>
                   </Row>
                 </Col>

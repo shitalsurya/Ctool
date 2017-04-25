@@ -10,7 +10,7 @@ export function initializeData(_list,valField){
         return (
           {
             "label":item.name,
-            "value":item[valField],
+            "value":item[valField] + " ",
           }
         );
     }.bind(this));

@@ -34,6 +34,11 @@ class InfoGeneralCommercial extends React.Component {
 
     render() {
 
+        var statusOptions = [
+          {"label" : "UNSIGNED" , "value" : "UNSIGNED "},
+          {"label" : "SIGNED" , "value" : "SIGNED "}
+        ]
+
         return (
           <div >
             <Grid fluid={true} className="inner_grid">
@@ -119,7 +124,7 @@ class InfoGeneralCommercial extends React.Component {
                   Legal Status :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit name="status" type="text" value={this.state.commInfoObj.status} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="status" type="select" options={statusOptions} value={this.state.commInfoObj.status} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
