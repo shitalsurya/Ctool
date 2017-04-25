@@ -7,12 +7,9 @@ import Select from 'react-select';
 import InlineEdit from './../../common/components/InlineEdit';
 require('./../../../../scss/tabs.scss');
 require('./../../../../scss/style.scss');
-import InlineEdit from './../common/components/InlineEdit';
-require('../../../scss/tabs.scss');
-require('../../../scss/style.scss');
-import BillingLocation from '../../../json/BillingLocation.json';
-import ServiceLevel from '../../../json/ServiceLevel.json';
-import { initializeData } from '../../containers/account/actions/accountActions';
+import BillingLocation from './../../../../json/BillingLocation.json';
+import ServiceLevel from './../../../../json/ServiceLevel.json';
+import { initializeData } from './../actions/accountActions';
 
 class InfoGeneralCommercial extends React.Component {
     constructor(props, context) {
