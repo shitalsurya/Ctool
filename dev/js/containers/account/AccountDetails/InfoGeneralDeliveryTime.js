@@ -25,6 +25,11 @@ class InfoGeneralDeliveryTime extends React.Component {
 
     render() {
 
+      var startOptions = [
+      ];
+      var endOptions = [
+      ];
+
         return (
           <div >
             <Grid fluid={true} className="inner_grid">
@@ -34,7 +39,7 @@ class InfoGeneralDeliveryTime extends React.Component {
                   Preferred Start Time(UTC) :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit name="startTime" type="text" value={this.state.deliveryTimeObj.startTime} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="startTime" type="select" options={startOptions} value={this.state.deliveryTimeObj.startTime} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 8 }/>
               </Row>
@@ -44,7 +49,7 @@ class InfoGeneralDeliveryTime extends React.Component {
                   Preferred End Time(UTC) :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit name="endTime" type="text" value={this.state.deliveryTimeObj.endTime} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="endTime" type="select" options={endOptions} value={this.state.deliveryTimeObj.endTime} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>

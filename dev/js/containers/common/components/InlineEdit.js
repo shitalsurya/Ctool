@@ -71,9 +71,16 @@ export default class InlineEdit extends React.Component {
      handleChange(e){
        switch(this.state.type){
         case "text":
-        case "select":
           var _state = {
               value: e.target.value,
+              showView:false,
+              showButtons : true,
+              showEdit : false,
+          };
+          break;
+        case "select":
+          var _state = {
+              value: e.value,
               showView:false,
               showButtons : true,
               showEdit : false,
@@ -111,12 +118,14 @@ export default class InlineEdit extends React.Component {
           console.log("this.state==",this.state);
        });
      }
-handleMouseOver(e){
-   var labelWidth =parseInt(document.defaultView.getComputedStyle(e.target,null).getPropertyValue("width"))+'px';
-   this.setState({styles: {
-      width:labelWidth
-   },showView:false,showEdit : true,showButtons:false});
-}
+
+     handleMouseOver(e){
+       var labelWidth =parseInt(document.defaultView.getComputedStyle(e.target,null).getPropertyValue("width"))+'px';
+       this.setState({styles: {
+          width:labelWidth
+       },showView:false,showEdit : true,showButtons:false});
+     }
+
      render() {
         return (
           <div className="view-edit-control">
@@ -148,10 +157,11 @@ handleMouseOver(e){
                 <FormGroup id="inline-edit-ctrl">
                   {
                     this.state.select &&
-                      <FormControl componentClass="select" disabled={this.state.showButtons ? false : "disabled"}
-                        value={this.state.value}  onChange={this.handleChange.bind(this)}>
-                        {this.state.options}
-                      </FormControl>
+                    <Select
+                          placeholder={this.state.value}
+                          options={this.state.options}
+                          value={this.state.value}
+                          onChange={this.handleChange.bind(this)}  />
                   }
                   {
                     this.state.text &&
@@ -190,15 +200,15 @@ handleMouseOver(e){
     }
 
     componentWillMount() {
-      var _options = this.state.options.map(function (field) {
-            return (
-                <option key={field.id}
-                  value={field.value} >
-                  {field.value}
-                </option>
-            );
-        });
-        this.setState({options:_options});
+      // var _options = this.state.options.map(function (field) {
+      //       return (
+      //           <option key={field.id}
+      //             value={field.value} >
+      //             {field.value}
+      //           </option>
+      //       );
+      //   });
+      //   this.setState({options:_options});
 
       switch (this.state.type) {
         case "text":
