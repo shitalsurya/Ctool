@@ -1,17 +1,20 @@
 
-//menus
-export const TOOLBOX_SEARCH = 'TOOLBOX_SEARCH';
+//Account module
+
+export const ACCOUNT_LIST='ACCOUNT_LIST';
+export const ACCOUNT_DETAILS='ACCOUNT_DETAILS';
 export const ACCOUNT_CREATE = 'ACCOUNT_CREATE';
-export const ACCOUNT_MGMT='ACCOUNT_MGMT';
-export const ACCOUNT_SETUP='ACCOUNT_SETUP';
-export const MISC_USERS = 'MISC_USERS';
 export const ACCOUNT_SPND = 'ACCOUNT_SPND';
-export const CONNECTIONS = 'CONNECTIONS';
-export const ACCOUNT_REAC = 'ACCOUNT_REAC';
 export const ACCOUNT_CLOSE = 'ACCOUNT_CLOSE';
 
+//Account module
+export const CONNECTIONS = 'CONNECTIONS';
+
 //Miscelleneous
+export const TOOLBOX_SEARCH = 'TOOLBOX_SEARCH';
+
 //Users
+export const MISC_USERS = 'MISC_USERS';
 export const MISC_USERLIST_REQUEST = 'MISC_USERLIST_REQUEST';
 export const MISC_USERLIST_RESPONSE = 'MISC_USERLIST_RESPONSE';
 export const MISC_USERDETAILS_REQUEST = 'MISC_USERDETAILS_REQUEST';

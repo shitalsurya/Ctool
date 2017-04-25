@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 import Select from 'react-select';
-// import Company from '../../../json/Company.json';
-import Account from '../../../json/Account.json';
+import BrandingHeader from './../common/components/BrandingHeader';
+import Navigation from './../common/components/Navigation';
+// import Company from './../../../../json/Company.json';
+import Account from './../../../json/Account.json';
 import { initializeData, handleCloseAccCompany, setCloseAccountInfo, getCompanyList } from './actions/accountActions';
 import * as types from './actions/accountActionTypes';
-require( '../../../scss/style.scss' );
-require( '../../../scss/datePick.scss' );
+require( './../../../scss/style.scss' );
+require( './../../../scss/datePick.scss' );
 
 class CloseAccount extends React.Component {
   constructor( props, context ) {
@@ -18,6 +20,11 @@ class CloseAccount extends React.Component {
       emptyFlag : false,
       warnFlag : false,
       closeAccInfo : {},
+      submenus:["Accounts",
+                "Create Account",
+                "Suspend Account",
+                "Reactivate Account",
+                "Close Account"]
     };
 
   }
@@ -32,79 +39,89 @@ class CloseAccount extends React.Component {
 
     return (
       <div>
-        <div className="controls-container">
+        <BrandingHeader/>
+        <Grid fluid={true}>
+          <Row>
+            <Col md={2}>
+              <Navigation submenus={this.state.submenus}></Navigation>
+            </Col>
+            <Col md={10}>
+              <div className="controls-container">
 
-          <div className="rec">
-            <div className="page-heading">
-              Close Account
-            </div>
-          </div>
-
-          <div>
-            <Grid fluid={true}>
-
-              <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 3 }>
-                  Company :
-                </Col>
-                <Col md={ 6 } className={this.state.emptyFlag ? "empty" : false}>
-                  <Select
-                        placeholder="Select Company.."
-                        options={this.companyList}
-                        value={this.state.closeAccInfo.company}
-                        onChange={this.handleSelectFieldsChange.bind(this,types.CLOSE_ACC_COMPANY)}  />
-                      <div hidden={this.state.emptyFlag ? false : "hidden"} className="error-msg">Enter Company</div>
-
-                </Col>
-                <Col mdHidden md={ 3 }/>
-              </Row>
-
-              <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 3 }>
-                  Account :
-                </Col>
-                <Col md={ 6 } >
-                  <Select
-                        placeholder="Select Account.."
-                        options={this.accountList}
-                        value={this.state.closeAccInfo.account}
-                        onChange={this.handleSelectFieldsChange.bind(this,types.CLOSE_ACC_ACCOUNT)}
-                        onOpen={this.checkEmpty.bind(this)}  />
-                </Col>
-                <Col mdHidden md={ 3 }/>
-              </Row>
-
-              <Row className="show-grid" hidden={this.state.closeAccInfo.manager ? false : "hidden"}>
-                <Col componentClass={ ControlLabel } md={ 3 }>
-                  Account Manager :
-                </Col>
-                <Col md={ 6 }>
-                    <FormControl.Static>
-                        {this.state.closeAccInfo.manager}
-                    </FormControl.Static>
-                </Col>
-                <Col mdHidden md={ 3 }/>
-              </Row>
-
-              <Row className="show-grid" hidden={this.state.warnFlag ? false : "hidden"}>
-                <Col md={ 12 } className="error-msg">
-                  WARNING : All Routing will be removed when the account is closed !
-                  Please review the account details before proceeding.
-                </Col>
-              </Row>
-
-              <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 5 } >
-                    <Button bsStyle="primary" onClick={this.handleSubmitClose.bind(this)}>
+                <div className="rec">
+                  <div className="page-heading">
                     Close Account
-                  </Button>
-                </Col>
-                <Col mdHidden md={ 3 }/>
-              </Row>
+                  </div>
+                </div>
 
-            </Grid>
-          </div>
-        </div>
+                <div>
+                  <Grid fluid={true}>
+
+                    <Row className="show-grid">
+                      <Col componentClass={ ControlLabel } md={ 3 }>
+                        Company :
+                      </Col>
+                      <Col md={ 6 } className={this.state.emptyFlag ? "empty" : false}>
+                        <Select
+                          placeholder="Select Company.."
+                          options={this.companyList}
+                          value={this.state.closeAccInfo.company}
+                          onChange={this.handleSelectFieldsChange.bind(this,types.CLOSE_ACC_COMPANY)}  />
+                        <div hidden={this.state.emptyFlag ? false : "hidden"} className="error-msg">Enter Company</div>
+
+                      </Col>
+                      <Col mdHidden md={ 3 }/>
+                    </Row>
+
+                    <Row className="show-grid">
+                      <Col componentClass={ ControlLabel } md={ 3 }>
+                        Account :
+                      </Col>
+                      <Col md={ 6 } >
+                        <Select
+                          placeholder="Select Account.."
+                          options={this.accountList}
+                          value={this.state.closeAccInfo.account}
+                          onChange={this.handleSelectFieldsChange.bind(this,types.CLOSE_ACC_ACCOUNT)}
+                          onOpen={this.checkEmpty.bind(this)}  />
+                      </Col>
+                      <Col mdHidden md={ 3 }/>
+                    </Row>
+
+                    <Row className="show-grid" hidden={this.state.closeAccInfo.manager ? false : "hidden"}>
+                      <Col componentClass={ ControlLabel } md={ 3 }>
+                        Account Manager :
+                      </Col>
+                      <Col md={ 6 }>
+                        <FormControl.Static>
+                          {this.state.closeAccInfo.manager}
+                        </FormControl.Static>
+                      </Col>
+                      <Col mdHidden md={ 3 }/>
+                    </Row>
+
+                    <Row className="show-grid" hidden={this.state.warnFlag ? false : "hidden"}>
+                      <Col md={ 12 } className="error-msg">
+                        WARNING : All Routing will be removed when the account is closed !
+                        Please review the account details before proceeding.
+                      </Col>
+                    </Row>
+
+                    <Row className="show-grid">
+                      <Col componentClass={ ControlLabel } md={ 5 } >
+                        <Button bsStyle="primary" onClick={this.handleSubmitClose.bind(this)}>
+                          Close Account
+                        </Button>
+                      </Col>
+                      <Col mdHidden md={ 3 }/>
+                    </Row>
+
+                  </Grid>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Grid>
       </div>
     );
   }

@@ -53,7 +53,7 @@ class Connections extends React.Component {
                         </a>
                       </span>
                       <span className="list-group-item">
-                        <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_SETUP )} >
+                        <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_LIST )} >
                           <span className="glyphicon glyphicon-th-list"></span>
                           <span> Connections </span>
                         </a>

@@ -35,7 +35,7 @@ export default class Launchpad extends React.Component {
           <Row className="dashboard-menu first">
             <Col xs={6} md={3}>
               <Thumbnail>
-                <a onClick={ this.navigateRoutes.bind( this, types.ACCOUNT_SETUP )}>
+                <a onClick={ this.navigateRoutes.bind( this, types.ACCOUNT_LIST )}>
                   <span className="accounts-icon"></span>
                   <h3>Accounts</h3>
                 </a>
@@ -103,19 +103,7 @@ export default class Launchpad extends React.Component {
   //  this.checkCurrentRoute( nextProps.route );
 
   }
-  checkCurrentRoute(_route){
-      console.log("_route==",_route);
-    switch (_route) {
-        case types.ACCOUNT_SETUP:
-          this.context.router.push( 'dashboard' );
-        break;
-        case types.CONNECTIONS:
-          this.context.router.push( 'connections' );
-        break;
-      default:
 
-    }
-  }
   componentWillUpdate( prevProps, prevState ) {
     console.log( "prevProps ==", prevProps );
     if ( prevProps.token ) {
@@ -130,7 +118,7 @@ export default class Launchpad extends React.Component {
   navigateRoutes( _route ) {
     console.log("_route==",_route);
   switch (_route) {
-      case types.ACCOUNT_SETUP:
+      case types.ACCOUNT_LIST:
         this.context.router.push( 'accounts' );
       break;
       case types.CONNECTIONS:

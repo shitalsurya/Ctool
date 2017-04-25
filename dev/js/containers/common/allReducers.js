@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux';
+import routeReducer from './routeReducer'
 import authReducer from '../../containers/login/loginReducer';
 import accountReducer from '../../containers/account/reducers/account.js';
 import miscUsers from '../../containers/miscellaneous/users/miscUserReducer';
@@ -9,6 +10,7 @@ import miscUsers from '../../containers/miscellaneous/users/miscUserReducer';
  * */
 
 const allReducers = combineReducers({
+    route: routeReducer,
     Auth: authReducer,
     Account:accountReducer,
     MiscUsers:miscUsers

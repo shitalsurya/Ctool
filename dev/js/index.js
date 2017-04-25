@@ -5,9 +5,14 @@ import {Provider} from 'react-redux';
 import createLogger from 'redux-logger';
 import allReducers from './containers/common/allReducers';
 import Login from './containers/Login/Login';
-import Accounts from './containers/common/Accounts';
 import Launchpad from './containers/common/Launchpad';
 import Connections from './containers/common/Connections';
+import AccountList from './containers/account/AccountList/AccountList';
+import AccountDetails from './containers/account/AccountDetails/AccountDetails';
+import CreateAccount from './containers/account/CreateAccount/CreateAccount';
+import ReactivateAccount from './containers/account/ReactivateAccount';
+import SuspendAccount from './containers/account/SuspendAccount';
+import CloseAccount from './containers/account/CloseAccount';
 import Poc from './containers/common/POC';
 import thunkMiddleware from 'redux-thunk';
 import {compose, createStore, applyMiddleware } from 'redux';
@@ -44,7 +49,12 @@ ReactDOM.render(
 				{ /* Routes */ }
 				<Route path="launchpad" component={Launchpad}/>
 				<Route path="poc" component={Poc}/>
-				<Route path="accounts" component={Accounts}/>
+				<Route path="accounts" component={AccountList}/>
+				<Route path="accountDetails" component={AccountDetails}/>
+				<Route path="createAccount" component={CreateAccount}/>
+				<Route path="reactivateAccount" component={ReactivateAccount}/>
+				<Route path="suspendAccount" component={SuspendAccount}/>
+				<Route path="closeAccount" component={CloseAccount}/>
 				<Route path="connections" component={Connections}/>
 			</Router>
 

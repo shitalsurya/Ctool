@@ -848,3 +848,10 @@ padding:6px !important;
 // padding-right:8px !important;
 // padding-top:6px !important;
 }
+.display-icon::after {
+	font-family: 'SAP-icons';
+	content: "\e1e9";
+}
+.display-icon {
+	font-size: 20px;
+}
