@@ -22,8 +22,7 @@ class AccountCommDetails extends React.Component {
   //  this.accountCommInfo = this.props.accountObj || [];
     this.state={
         emptyFlag : true,
-        toggleFlag : true,
-      accountCommInfo:this.props.accountObj || []
+        accountCommInfo:this.props.accountObj || []
     };
   //  this.accountCommInfo.revSharing = this.props.accountObj.revSharing || "No";
   }
@@ -71,7 +70,7 @@ class AccountCommDetails extends React.Component {
                <Col componentClass={ ControlLabel } md={ 2 }>
                  Account Manager:
                </Col>
-               <Col md={ 6 } className={this.state.accountCommInfo.acctManager || this.state.emptyFlag ? false : "empty"}>
+               <Col md={ 6 } >
                  <Select
                        placeholder="Select account manager.."
                        options={this.userList}
@@ -140,12 +139,12 @@ class AccountCommDetails extends React.Component {
                   <label>
                       <Toggle
                           icons={{
-                           checked:'on',
-                           unchecked: 'off',
+                           checked:'Yes',
+                           unchecked: 'No',
                           }}
-                          defaultChecked={this.state.toggleFlag}
-                          value={this.state.accountCommInfo.toggleFlag}
-                          onChange={this.toggleOnChange.bind(this)} />
+                          defaultChecked={this.state.accountCommInfo.revSharing == "No" ? false : true}
+                          value={this.state.accountCommInfo.revSharing}
+                          onChange={this.handleRevSharingChanged.bind(this)} />
                     </label>
                 </Col>
                 <Col mdHidden md={ 4 } />
@@ -173,22 +172,25 @@ class AccountCommDetails extends React.Component {
     )
   }
 
-  handleRevSharingChanged( event, value ) {
+  handleRevSharingChanged( event ) {
+    debugger;
+    var info = this.state.accountCommInfo;
+    switch (event.target.value) {
+      case "No":
+        info.revSharing = "Yes"
+        break;
+      case "Yes":
+        info.revSharing = "No"
+        break;
+    }
+    this.setState({accountCommInfo : info});
   //  this.accountCommInfo.revSharing = value;
-  }
-
-  toggleOnChange(){
-    console.log( this.state.toggleFlag );
-    this.setState({
-       toggleFlag: !this.state.toggleFlag,
-     });
-    this.state.accountCommInfo.toggleFlag = !this.state.toggleFlag;
   }
 
   goToTechnicalDetails() {
     // this.props.goToTechnicalDetails( this.state.accountCommInfo );
     var accountObjCheck = this.state.accountCommInfo;
-     if(accountObjCheck.acctManager && accountObjCheck.company && accountObjCheck.billingLocation
+     if(accountObjCheck.company && accountObjCheck.billingLocation
       && accountObjCheck.serviceLevel && accountObjCheck.trafficType){
         this.props.goToTechnicalDetails( this.state.accountCommInfo );
       }
@@ -229,6 +231,9 @@ class AccountCommDetails extends React.Component {
     };
    this.TrafficType = initializeData(TrafficType,'value');
     //this.refs.requesterName.getInputNode().value = sessionStorage.getItem( "Username" ) || "";
+    var info = this.state.accountCommInfo;
+    info.revSharing = "No";
+    this.setState({accountCommInfo : info});
   }
 
   componentWillReceiveProps( nextProps ) {
