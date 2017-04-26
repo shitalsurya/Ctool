@@ -28,11 +28,32 @@ class InfoGeneralCommercial extends React.Component {
         };
     }
 
-    handleInlineEditChange(val){
-
+    handleInlineEditChange(name,val){
+      console.log("name : ",name, "  val : ",val);
+      var info = this.state.commInfoObj;
+      switch (name) {
+        case "billing":
+          info.billing = val;
+          break;
+        case "serviceLevel":
+          info.serviceLevel = val;
+          break;
+        case "status":
+          info.status = val;
+          break;
+        case "comment":
+          info.comment = val;
+          break;
+      }
+      this.setState({commInfoObj : info});
     }
 
     render() {
+      console.log("commInfoObj : ", this.state.commInfoObj);
+      var statusOptions = [
+        { "id" :1 , "value" : "UNSIGNED"},
+        { "id" :2 , "value" : "SIGNED"}
+      ];
 
         return (
           <div >
@@ -119,7 +140,7 @@ class InfoGeneralCommercial extends React.Component {
                   Legal Status :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit name="status" type="text" value={this.state.commInfoObj.status} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="status" type="select" options={statusOptions} value={this.state.commInfoObj.status} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>

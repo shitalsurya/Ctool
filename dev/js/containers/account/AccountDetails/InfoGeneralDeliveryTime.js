@@ -13,17 +13,35 @@ class InfoGeneralDeliveryTime extends React.Component {
         super(props, context);
         this.state = {
           deliveryTimeObj : {
-            startTime : '',
-            endTime : ''
+            startTime : 'Some Random Time',
+            endTime : 'Some Random Time'
           }
         }
     }
 
-    handleInlineEditChange(val){
+    handleInlineEditChange(name,val){
+      var info = this.state.deliveryTimeObj;
+      switch (name) {
+        case "startTime":
+          info.startTime =val;
+          break;
+        case "endTime":
+          info.endTime = val;
+          break;
+        default:
 
+      }
+      this.setState({deliveryTimeObj : info});
     }
 
     render() {
+      console.log("deliveryTimeObj : ",this.state.deliveryTimeObj);
+      var startOptions = [
+        { "id":1 , "value":"Some Random Time"}
+      ];
+      var endOptions = [
+        { "id":1 , "value":"Some Random Time"}
+      ];
 
         return (
           <div >
@@ -34,7 +52,7 @@ class InfoGeneralDeliveryTime extends React.Component {
                   Preferred Start Time(UTC) :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit name="startTime" type="text" value={this.state.deliveryTimeObj.startTime} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="startTime" type="select" options={startOptions} value={this.state.deliveryTimeObj.startTime} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 8 }/>
               </Row>
@@ -44,7 +62,7 @@ class InfoGeneralDeliveryTime extends React.Component {
                   Preferred End Time(UTC) :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit name="endTime" type="text" value={this.state.deliveryTimeObj.endTime} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="endTime" type="select" options={endOptions} value={this.state.deliveryTimeObj.endTime} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
