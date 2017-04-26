@@ -565,6 +565,7 @@ font-size: 14px;
 }
 .list-group > a{
 	margin-left: 35px;
+  color: #777;
 }
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
 color:#333 !important;
@@ -854,4 +855,8 @@ padding:6px !important;
 }
 .display-icon {
 	font-size: 20px;
+}
+.list-group > a.activeStyle {
+    color : black;
+    font: message-box;
 }

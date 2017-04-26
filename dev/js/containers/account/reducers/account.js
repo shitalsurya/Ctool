@@ -75,6 +75,10 @@ export default function(state = {
             return Object.assign({}, state, {
                 target: action.type
             });
+        case types.ACTIVE_NAV_ITEM:
+        return Object.assign({}, state, {
+            data: action.payload
+        });
 
             return state;
     }

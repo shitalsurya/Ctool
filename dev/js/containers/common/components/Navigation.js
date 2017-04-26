@@ -1,9 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import * as types from './../../common/commonActionTypes';
 import { Nav,NavItem } from 'react-bootstrap';
 import {Form, FormControl, InputGroup,FormGroup, Glyphicon, Modal, Button} from 'react-bootstrap';
+import { handleActiveNav } from '../../account/actions/accountActions';
 require('./../../../../scss/style.scss');
-export default class Navigation extends React.Component {
+class Navigation extends React.Component {
     constructor(props, context) {
         super(props, context);
             this.state={
@@ -34,16 +37,20 @@ export default class Navigation extends React.Component {
                   </a>
                 </span>
 
-                <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_CREATE )} className="list-group-item">
+                <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_CREATE )}
+                    className={"list-group-item " + (this.props.account.data == "ACCOUNT_CREATE" ? "activeStyle" : "")}>
                   <i className="fa fa-comment-o"></i> { this.state.submenus[1]}
                 </a>
-                <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_SPND )}  className="list-group-item">
+                <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_SPND )}
+                    className={"list-group-item " + (this.props.account.data == "ACCOUNT_SPND" ? "activeStyle" : "")}>
                   <i className="fa fa-comment-o"></i>{ this.state.submenus[2]}
                 </a>
-                <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_REAC )}  className="list-group-item">
+                <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_REAC )}
+                    className={"list-group-item " + (this.props.account.data == "ACCOUNT_REAC" ? "activeStyle" : "")}>
                   <i className="fa fa-comment-o"></i>{ this.state.submenus[3]}
                 </a>
-                <a onClick={this.navigateMenus.bind( this, types.ACCOUNT_CLOSE )}  className="list-group-item">
+                <a onClick={this.navigateMenus.bind( this, types.ACCOUNT_CLOSE )}
+                    className={"list-group-item " + (this.props.account.data == "ACCOUNT_CLOSE" ? "activeStyle" : "")}>
                   <i className="fa fa-comment-o"></i>{ this.state.submenus[4]}
                 </a>
               </div>
@@ -56,6 +63,7 @@ export default class Navigation extends React.Component {
     }
     navigateMenus( currentMenu ) {
       console.log("currentMenu==",currentMenu );
+      this.props.handleActiveNav(currentMenu);
       switch (currentMenu) {
           case types.ACCOUNT_LIST:
             this.context.router.push( 'accounts' );
@@ -83,6 +91,21 @@ export default class Navigation extends React.Component {
     }
 
 }
+
 Navigation.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
+
+function mapStateToProps( state ) {
+  return {
+    account : state.Account
+  };
+}
+
+function mapDispatchToProps( dispatch ) {
+  return bindActionCreators( {
+    handleActiveNav : handleActiveNav
+  }, dispatch );
+}
+
+export default connect( mapStateToProps, mapDispatchToProps )(Navigation);

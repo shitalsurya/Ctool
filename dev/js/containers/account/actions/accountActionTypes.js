@@ -93,3 +93,6 @@ export const REACTIVATE_ACC_INFO = 'REACTIVATE_ACC_INFO';
 export const CLOSE_ACC_COMPANY = 'CLOSE_ACC_COMPANY';
 export const CLOSE_ACC_ACCOUNT = 'CLOSE_ACC_ACCOUNT';
 export const CLOSE_ACC_INFO = 'CLOSE_ACC_INFO';
+
+//Navigation
+export const ACTIVE_NAV_ITEM = 'ACTIVE_NAV_ITEM';
