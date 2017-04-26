@@ -24,44 +24,57 @@ class InfoGeneralAddContacts extends React.Component {
           ContactInfo : this.props.ContactInfo || [],
         }
     }
-  close() {
+
+    close() {
 
       this.setState({showContact : false});
     }
+
     addContact(){
        this.setState({showContact: true , modalHeading:'Account Contacts' });
 
     }
+
     componentWillMount(){
         this.companyList = initializeData(Contact,'name');
 
     }
+
     deleteDataFormatter(cell, row,field,index) {
-     this.currentRow = row;
-     this.currentField = field;
+       this.currentRow = row;
+       this.currentField = field;
 
-   return (
-       <DeleteRowLink currentRow={this.currentRow.name}/>
-   )
- }
+       return (
+           <DeleteRowLink currentRow={this.currentRow.name}/>
+       )
+     }
 
-handleModalChange(target, value){
-      var contactinfo = this.state.ContactInfo;
-      switch(target) {
-        case types.ADDCONTACT_EXISTINGCOMPANY :
-          var _data = Contact.data.filter(function (header, item) {
-          if(header.name === value.value)
-            return header;
-          }.bind(this));
+     buttonFormatter(){
+       debugger;
+       return <Button bsStyle="primary" onClick={this.addContact.bind(this)}>Add New Contact</Button>
+     }
 
-          contactinfo = _data[0];
-            console.log(contactinfo);
-          break;
-        }
-        this.setState({ ContactInfo: contactinfo,data : [contactinfo]});
+     handleModalChange(target, value){
+        var contactinfo = this.state.ContactInfo;
+        switch(target) {
+          case types.ADDCONTACT_EXISTINGCOMPANY :
+            var _data = Contact.data.filter(function (header, item) {
+            if(header.name === value.value)
+              return header;
+            }.bind(this));
 
+            contactinfo = _data[0];
+              console.log(contactinfo);
+            break;
+          }
+          this.setState({ ContactInfo: contactinfo,data : [contactinfo]});
       }
-    render() {
+
+      render() {
+
+        const addButtonData=[{
+          'name' : 'addButton'
+        }]
 
         return (
           <div >
@@ -91,15 +104,23 @@ handleModalChange(target, value){
                      <TableHeaderColumn dataField='email'>Email</TableHeaderColumn>
                      <TableHeaderColumn dataField='delete' dataFormat={ this.deleteDataFormatter.bind(this) } formatExtraData={ 'delete' } ></TableHeaderColumn>
                    </BootstrapTable>
+                   <BootstrapTable data={addButtonData}
+                     tableBodyClass='master-body-class'
+                     tableHeaderClass='hide-header'>
+                     <TableHeaderColumn isKey={ true } hidden dataField='id'>ID</TableHeaderColumn>
+                     <TableHeaderColumn columnClassName="center" dataFormat={ this.buttonFormatter.bind(this) }></TableHeaderColumn>
+                   </BootstrapTable>
                  </Col>
                </Row>
 
-               <Row className="show-grid">
-                 <Col componentClass={ ControlLabel } md={ 3 }>
-                 <Button bsStyle="primary" onClick={this.addContact.bind(this)}>Add New Contact</Button>
-                 </Col>
-                 <Col mdHidden md={ 2 }/>
-               </Row>
+               {/*
+                 <Row className="show-grid">
+                   <Col componentClass={ ControlLabel } md={ 3 }>
+                   <Button bsStyle="primary" onClick={this.addContact.bind(this)}>Add New Contact</Button>
+                   </Col>
+                   <Col mdHidden md={ 2 }/>
+                 </Row>
+               */}
             </Grid>
 
             <ModalAddContact  showContact={this.state.showContact} close={this.close.bind(this)}/>
@@ -109,7 +130,7 @@ handleModalChange(target, value){
 
     componentWillReceiveProps(nextProps) {
 
-      }
+    }
 
 }
 
