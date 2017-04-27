@@ -18,7 +18,7 @@ class AccountInterfaces extends React.Component {
       //  this.state.accountInterfacesInfo=this.props.accountObj || [];
         this.state={
           emptyFlag : true,
-          interfaceFlag : '',
+          emptyValFlag : true,
           accountInterfacesInfo:this.props.accountObj || []
         };
         console.log("this.state.accountInterfacesInfo==",this.state.accountInterfacesInfo);
@@ -60,17 +60,7 @@ class AccountInterfaces extends React.Component {
           case types.ACCOUNT_INTERFACE_CHANGE:
               info.accInterface = value.value;
               info.interfaceVal=[];
-              switch (info.accInterface) {
-                case "HTTP":
-                  this.setState({interfaceFlag : "HTTP"});
-                  break;
-                case "SMTP":
-                  this.setState({interfaceFlag : "SMTP"});
-                  break;
-                case "SMPP":
-                  this.setState({interfaceFlag : "SMPP"});
-                  break;
-              }
+              this.setState({emptyValFlag : true});
               break;
       }
       console.log("handleSelectFieldsChange info==",info);
@@ -91,12 +81,40 @@ class AccountInterfaces extends React.Component {
     handleInterfaceDetailsNext(){
       console.log(this.state.accountInterfacesInfo);
       var accountObjCheck = this.state.accountInterfacesInfo;
-       if(accountObjCheck.techName && accountObjCheck.ExstAccts
+       if(accountObjCheck.techName && accountObjCheck.commName && accountObjCheck.ExstAccts
         && accountObjCheck.accInterface ){
-          this.StoreTextFieldsData();
-          this.props.handleInterfaceDetailsNext(this.accountInfo);
+          var _interfaceVal = accountObjCheck.interfaceVal;
+          switch(accountObjCheck.accInterface)
+          {
+            case "HTTP":
+              if(_interfaceVal.defTPOA && ((_interfaceVal.moEnabled && _interfaceVal.rplAdd) || (!_interfaceVal.moEnabled))) {
+                this.StoreTextFieldsData();
+                this.props.handleInterfaceDetailsNext(this.accountInfo);
+              }
+              else
+                this.setState({emptyValFlag:false});
+              break;
+            case "SMTP":
+              if(_interfaceVal.defTPOA && _interfaceVal.rplAdd) {
+                this.StoreTextFieldsData();
+                this.props.handleInterfaceDetailsNext(this.accountInfo);
+              }
+              else
+                this.setState({emptyValFlag:false});
+              break;
+            case "SMPP":
+              if(_interfaceVal.defTPOA && _interfaceVal.ipAdd) {
+                this.StoreTextFieldsData();
+                this.props.handleInterfaceDetailsNext(this.accountInfo);
+              }
+              else
+                this.setState({emptyValFlag:false});
+              break;
+          }
         }
         else {
+          if(accountObjCheck.accInterface)
+            this.setState({emptyValFlag:false});
           this.setState({emptyFlag:false});
       }
     }
@@ -127,7 +145,7 @@ class AccountInterfaces extends React.Component {
                   <Col componentClass={ ControlLabel } md={ 3 }>
                     Commercial name:
                   </Col>
-                  <Col md={ 6 }>
+                  <Col md={ 6 } className={this.state.accountInterfacesInfo.commName || this.state.emptyFlag ? false : "empty"}>
                   <FormControl
                        type="text"
                        name="commName"
@@ -167,7 +185,7 @@ class AccountInterfaces extends React.Component {
             </div>
 
             {
-              this.state.interfaceFlag === "HTTP" &&
+              this.state.accountInterfacesInfo.accInterface === "HTTP" &&
               <div>
                 <div className="controls-container" >
                    <div className="rec">
@@ -178,7 +196,7 @@ class AccountInterfaces extends React.Component {
                           <Col componentClass={ ControlLabel } md={ 3 }>
                              Default TPOA:
                           </Col>
-                          <Col md={ 6 }>
+                          <Col md={ 6 } className={this.state.accountInterfacesInfo.interfaceVal.defTPOA || this.state.emptyValFlag ? false : "empty"}>
                             <FormControl
                                type="text"
                                name="defTPOA"
@@ -213,7 +231,7 @@ class AccountInterfaces extends React.Component {
                         <Col componentClass={ ControlLabel } md={ 3 }>
                           Reply Address:
                         </Col>
-                        <Col md={ 6 }>
+                        <Col md={ 6 } className={this.state.accountInterfacesInfo.interfaceVal.rplAdd || this.state.emptyValFlag ? false : "empty"}>
                           <FormControl
                              type="text"
                              name="rplAdd"
@@ -230,7 +248,7 @@ class AccountInterfaces extends React.Component {
             }
 
             {
-              this.state.interfaceFlag === "SMTP" &&
+              this.state.accountInterfacesInfo.accInterface === "SMTP" &&
               <div>
                 <div className="controls-container" >
                    <div className="rec">
@@ -241,7 +259,7 @@ class AccountInterfaces extends React.Component {
                           <Col componentClass={ ControlLabel } md={ 3 }>
                              Default TPOA:
                           </Col>
-                          <Col md={ 6 }>
+                          <Col md={ 6 } className={this.state.accountInterfacesInfo.interfaceVal.defTPOA || this.state.emptyValFlag ? false : "empty"}>
                             <FormControl
                                type="text"
                                name="defTPOA"
@@ -263,7 +281,7 @@ class AccountInterfaces extends React.Component {
                         <Col componentClass={ ControlLabel } md={ 3 }>
                           SMTP Reply Address:
                         </Col>
-                        <Col md={ 6 }>
+                        <Col md={ 6 } className={this.state.accountInterfacesInfo.interfaceVal.rplAdd || this.state.emptyValFlag ? false : "empty"}>
                           <FormControl
                              type="text"
                              name="rplAdd"
@@ -279,7 +297,7 @@ class AccountInterfaces extends React.Component {
             }
 
             {
-              this.state.interfaceFlag === "SMPP" &&
+              this.state.accountInterfacesInfo.accInterface === "SMPP" &&
               <div>
                 <div className="controls-container" >
                    <div className="rec">
@@ -290,7 +308,7 @@ class AccountInterfaces extends React.Component {
                            <Col componentClass={ ControlLabel } md={ 3 }>
                              SMPP Client IP Address(es):
                            </Col>
-                           <Col md={ 6 }>
+                           <Col md={ 6 } className={this.state.accountInterfacesInfo.interfaceVal.ipAdd || this.state.emptyValFlag ? false : "empty"}>
                              <FormControl
                                 type="text"
                                 name="ipAdd"
@@ -305,7 +323,7 @@ class AccountInterfaces extends React.Component {
                           <Col componentClass={ ControlLabel } md={ 3 }>
                              Default TPOA:
                           </Col>
-                          <Col md={ 6 }>
+                          <Col md={ 6 } className={this.state.accountInterfacesInfo.interfaceVal.defTPOA || this.state.emptyValFlag ? false : "empty"}>
                             <FormControl
                                type="text"
                                name="defTPOA"
