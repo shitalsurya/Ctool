@@ -40,7 +40,7 @@ class AccountInterfaces extends React.Component {
           info.interfaceVal.rplAdd = e.target.value;
           break;
         case "moEnabled":
-          info.interfaceVal.moEnabled = e.target.checked;
+          info.interfaceVal.moEnabled = e.target.checked ? "Yes" : "No";
           if(!e.target.checked)
             info.interfaceVal.rplAdd = '';
           break;
@@ -60,6 +60,7 @@ class AccountInterfaces extends React.Component {
           case types.ACCOUNT_INTERFACE_CHANGE:
               info.accInterface = value.value;
               info.interfaceVal=[];
+              info.interfaceVal.moEnabled="No"
               this.setState({emptyValFlag : true});
               break;
       }
@@ -87,7 +88,7 @@ class AccountInterfaces extends React.Component {
           switch(accountObjCheck.accInterface)
           {
             case "HTTP":
-              if(_interfaceVal.defTPOA && ((_interfaceVal.moEnabled && _interfaceVal.rplAdd) || (!_interfaceVal.moEnabled))) {
+              if(_interfaceVal.defTPOA && ((_interfaceVal.moEnabled=="Yes" && _interfaceVal.rplAdd) || (_interfaceVal.moEnabled=="No"))) {
                 this.StoreTextFieldsData();
                 this.props.handleInterfaceDetailsNext(this.accountInfo);
               }
@@ -189,7 +190,7 @@ class AccountInterfaces extends React.Component {
               <div>
                 <div className="controls-container" >
                    <div className="rec">
-                     <span>MT Interfces</span>
+                     <span>MT Interfaces</span>
                    </div>
                    <Grid fluid={true}>
                        <Row className="show-grid">
@@ -211,7 +212,7 @@ class AccountInterfaces extends React.Component {
 
                 <div className="controls-container" >
                   <div className="rec">
-                    <span>MO Interfces</span>
+                    <span>MO Interfaces</span>
                   </div>
                   <Grid fluid={true}>
                     <Row className="show-grid">
@@ -227,7 +228,7 @@ class AccountInterfaces extends React.Component {
                         </Col>
                         <Col mdHidden md={ 3 } />
                     </Row>
-                    <Row className="show-grid" hidden={this.state.accountInterfacesInfo.interfaceVal.moEnabled ? false : "hidden"}>
+                    <Row className="show-grid" hidden={this.state.accountInterfacesInfo.interfaceVal.moEnabled==="Yes" ? false : "hidden"}>
                         <Col componentClass={ ControlLabel } md={ 3 }>
                           Reply Address:
                         </Col>
@@ -252,7 +253,7 @@ class AccountInterfaces extends React.Component {
               <div>
                 <div className="controls-container" >
                    <div className="rec">
-                     <span>MT Interfces</span>
+                     <span>MT Interfaces</span>
                    </div>
                    <Grid fluid={true}>
                        <Row className="show-grid">
@@ -274,7 +275,7 @@ class AccountInterfaces extends React.Component {
 
                 <div className="controls-container" >
                   <div className="rec">
-                    <span>MO Interfces</span>
+                    <span>MO Interfaces</span>
                   </div>
                   <Grid fluid={true}>
                     <Row className="show-grid" >
@@ -301,7 +302,7 @@ class AccountInterfaces extends React.Component {
               <div>
                 <div className="controls-container" >
                    <div className="rec">
-                     <span>MT Interfces</span>
+                     <span>MT Interfaces</span>
                    </div>
                    <Grid fluid={true}>
                        <Row className="show-grid" >
