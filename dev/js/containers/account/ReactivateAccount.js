@@ -86,7 +86,7 @@ class ReactivateAccount extends React.Component {
                       <Col mdHidden md={ 3 }/>
                     </Row>
 
-                    <Row className="show-grid">
+                    <Row className="show-grid" hidden={this.state.reactivateAccInfo.date ? false : "hidden"}>
                       <Col componentClass={ ControlLabel } md={ 3 }>
                         Suspended On :
                       </Col>
@@ -121,6 +121,7 @@ handleSubmitReactivateAcc(){
   this.props.setReactivateAccountInfo(this.state.reactivateAccInfo);
   console.log(this.state.reactivateAccInfo);
   this.setState({reactivateAccInfo : {} });
+  this.accountList = [];
 }
 
 handleSelectFieldsChange(target,value) {
@@ -128,6 +129,7 @@ handleSelectFieldsChange(target,value) {
     var info = this.state.reactivateAccInfo;
     switch (target) {
       case types.REACTIVATE_ACC_COMPANY:
+        info = {};
         info.company = value.value;
         const reactivateAccObj = {
           "company" :value.value,
@@ -142,7 +144,10 @@ handleSelectFieldsChange(target,value) {
           if(header.account === value.value)
             return header.date;
         }.bind(this));
-        info.date = date[0].date
+        if(date.length)
+          info.date = date[0].date;
+        else
+          info.date = null;
         break;
       }
     this.setState({reactivateAccInfo:info,emptyFlag:false});
