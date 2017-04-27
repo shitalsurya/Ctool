@@ -92,28 +92,6 @@ class MiscUsers extends React.Component {
       this.setState({showEditModal:false});
   }
   render() {
-
-     const options={
-          expandRowBgColor: '#f7f8fa',
-           clearSearch: true,
-           page: 1,  // which page you want to show as default
-           sizePerPageList: [ {
-             text: '5', value: 5
-           }, {
-             text: '10', value: 10
-           }, {
-             text: 'All', value: 50
-           } ], // you can change the dropdown list for size per page
-           sizePerPage: 5,  // which size per page you want to locate as default
-           pageStartIndex: 1, // where to start counting the pages
-           paginationSize: 3,  // the pagination bar size.
-           prePage: '<', // Previous page button text
-           nextPage: '>', // Next page button text
-           firstPage: '<<', // First page button text
-           lastPage: '>>', // Last page button text
-           alwaysShowAllBtns: false, // Always show next and previous button
-          //  withFirstAndLast: false // Hide the going to First and Last page button
-      };
     var fields = [
       {
           name:'User Name',
@@ -161,7 +139,7 @@ class MiscUsers extends React.Component {
                     <BootstrapTable data ={ this.users } pagination={ true }
                       tableHeaderClass='nested-body-class'
                       search={ true }
-                      options={ options }>
+                      options={ tableOptions }>
                       {listCols}
                     </BootstrapTable>
                   </div>

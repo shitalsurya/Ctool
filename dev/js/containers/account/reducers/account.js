@@ -76,10 +76,13 @@ export default function(state = {
                 target: action.type
             });
         case types.ACTIVE_NAV_ITEM:
-        return Object.assign({}, state, {
-            data: action.payload
-        });
-
+          return Object.assign({}, state, {
+              data: action.payload
+          });
+          case types.MISC_ACCOUNT_LIST_REQUEST:
+            return Object.assign({}, state, {});
+          case types.MISC_ACCOUNT_LIST_RESPONSE:
+            return Object.assign({}, state, {acctList:action.payload,target:action.type});
             return state;
     }
 };

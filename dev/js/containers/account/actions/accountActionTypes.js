@@ -96,3 +96,8 @@ export const CLOSE_ACC_INFO = 'CLOSE_ACC_INFO';
 
 //Navigation
 export const ACTIVE_NAV_ITEM = 'ACTIVE_NAV_ITEM';
+
+
+//Account list
+export const MISC_ACCOUNT_LIST_REQUEST = 'MISC_ACCOUNT_LIST_REQUEST';
+export const MISC_ACCOUNT_LIST_RESPONSE = 'MISC_ACCOUNT_LIST_RESPONSE';
