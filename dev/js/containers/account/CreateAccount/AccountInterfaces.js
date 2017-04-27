@@ -17,6 +17,7 @@ class AccountInterfaces extends React.Component {
         super(props, context);
       //  this.state.accountInterfacesInfo=this.props.accountObj || [];
         this.state={
+          emptyFlag : true,
           interfaceFlag : false,
           accountInterfacesInfo:this.props.accountObj || []
         };
@@ -24,20 +25,22 @@ class AccountInterfaces extends React.Component {
     }
 
     handleTextFieldsChange(e){
+      var info=this.state.accountInterfacesInfo;
       switch(e.target.name){
         case "techName":
-          this.state.accountInterfacesInfo.techName = e.target.value;
+          info.techName = e.target.value;
           break;
         case "commName":
-          this.state.accountInterfacesInfo.commName = e.target.value;
+          info.commName = e.target.value;
           break;
         case "mtInterface":
-          this.state.accountInterfacesInfo.mtInterface = e.target.value;
+          info.mtInterface = e.target.value;
           break;
         case "moInterface":
-          this.state.accountInterfacesInfo.moInterface = e.target.value;
+          info.moInterface = e.target.value;
           break;
       }
+      this.setState({accountInterfacesInfo:info});
     }
 
     handleSelectFieldsChange(target, value) {
@@ -73,8 +76,15 @@ class AccountInterfaces extends React.Component {
     }
 
     handleInterfaceDetailsNext(){
-      this.StoreTextFieldsData();
-      this.props.handleInterfaceDetailsNext(this.accountInfo);
+      var accountObjCheck = this.state.accountInterfacesInfo;
+       if(accountObjCheck.techName && accountObjCheck.ExstAccts
+        && accountObjCheck.accInterface ){
+          this.StoreTextFieldsData();
+          this.props.handleInterfaceDetailsNext(this.accountInfo);
+        }
+        else {
+          this.setState({emptyFlag:false});
+      }
     }
 
     render() {
@@ -89,7 +99,7 @@ class AccountInterfaces extends React.Component {
                   <Col componentClass={ ControlLabel } md={ 3 }>
                     Technical name:
                   </Col>
-                  <Col md={ 6 }>
+                  <Col md={ 6 } className={this.state.accountInterfacesInfo.techName || this.state.emptyFlag ? false : "empty"}>
                     <FormControl
                        type="text"
                        name="techName"
@@ -117,7 +127,7 @@ class AccountInterfaces extends React.Component {
                   <Col componentClass={ ControlLabel } md={ 3 }>
                     Existing accounts :
                   </Col>
-                  <Col md={ 6 }>
+                  <Col md={ 6 } className={this.state.accountInterfacesInfo.ExstAccts || this.state.emptyFlag ? false : "empty"}>
                     <Select
                         placeholder="Select account.."
                         options={this.accountList}
@@ -130,7 +140,7 @@ class AccountInterfaces extends React.Component {
                   <Col componentClass={ ControlLabel } md={ 3 }>
                     Interface:
                   </Col>
-                  <Col md={ 6 }>
+                  <Col md={ 6 } className={this.state.accountInterfacesInfo.accInterface || this.state.emptyFlag ? false : "empty"}>
                   <Select
                       placeholder="Select interface.."
                       options={this.interfaceList}
@@ -196,6 +206,7 @@ class AccountInterfaces extends React.Component {
           </div>
         )
     }
+
     componentWillMount(){
       var Interfaces = {
         "data": [

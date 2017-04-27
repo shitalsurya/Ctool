@@ -1,9 +1,9 @@
 
 //Account module
-
 export const ACCOUNT_LIST='ACCOUNT_LIST';
 export const ACCOUNT_DETAILS='ACCOUNT_DETAILS';
 export const ACCOUNT_CREATE = 'ACCOUNT_CREATE';
+export const ACCOUNT_REAC = 'ACCOUNT_REAC';
 export const ACCOUNT_SPND = 'ACCOUNT_SPND';
 export const ACCOUNT_CLOSE = 'ACCOUNT_CLOSE';
 

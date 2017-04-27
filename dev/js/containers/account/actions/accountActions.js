@@ -256,3 +256,15 @@ export function setCloseAccountInfoRequest(_accountInfo){
 			payload:_accountInfo
 	}
 }
+
+export function handleActiveNav(currentMenu){
+	return function(dispatch){
+		dispatch(handleActiveNavRequest(currentMenu))
+	}
+}
+export function handleActiveNavRequest(currentMenu){
+	return{
+		  type: types.ACTIVE_NAV_ITEM,
+			payload:currentMenu
+	}
+}
