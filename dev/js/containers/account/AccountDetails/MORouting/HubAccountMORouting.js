@@ -8,10 +8,10 @@ import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,
 import AddDedicatedMORouting from './HubAccountMODedicated';
 import AddParsedMORouting from './HubAccountMOParsed';
 import AddMORouting from './HubAccountMORoutingAdd';
-import * as table from './../../common/Functions/customTable';
-import InlineEdit from './../../common/components/InlineEdit';
-import DeleteRowLink from './../../common/components/DeleteRow';
-require('./../../../../scss/style.scss');
+import * as table from './../../../common/Functions/customTable';
+import InlineEdit from './../../../common/components/InlineEdit';
+import DeleteRowLink from './../../../common/components/DeleteRow';
+require('./../../../../../scss/style.scss');
 
 class NestedTable extends React.Component {
     constructor(props, context) {

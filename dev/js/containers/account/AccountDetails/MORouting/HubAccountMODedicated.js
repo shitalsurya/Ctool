@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal,Label } from 'react-bootstrap';
 import Select from 'react-select';
-require('./../../../../scss/style.scss');
-import * as types from './../actions/accountActionTypes';
+require('./../../../../../scss/style.scss');
+import * as types from './../../actions/accountActionTypes';
 
 class HubAccountMODedicated extends React.Component {
   constructor(props, context) {

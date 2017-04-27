@@ -2,9 +2,9 @@ import React from 'react';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal,Label } from 'react-bootstrap';
 import Select from 'react-select';
 import Toggle from 'react-toggle';
-require('./../../../../scss/style.scss');
-require('./../../../../scss/react-toggle.scss');
-import * as types from './../actions/accountActionTypes';
+require('./../../../../../scss/style.scss');
+require('./../../../../../scss/react-toggle.scss');
+import * as types from './../../actions/accountActionTypes';
 
 class HubAccountAddMTRouting extends React.Component {
   constructor(props, context) {

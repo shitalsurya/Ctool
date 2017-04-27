@@ -1,20 +1,20 @@
 import React from 'react';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal,Label } from 'react-bootstrap';
 import Select from 'react-select';
-require('./../../../../scss/style.scss');
-import * as types from './../actions/accountActionTypes';
+require('./../../../../../scss/style.scss');
+import * as types from './../../actions/accountActionTypes';
 
-class HubAccountMORoutingAdd extends React.Component {
+class HubAccountMOParsed extends React.Component {
   constructor(props, context) {
       super(props, context);
         this.state={
-             MORouting : {},
-             modalHeading:'Add MO Routing',
+             parsedMO : {},
+             modalHeading:'Add Parsed TPOA Routing',
         }
   }
 
   handleModalChange(target, value){
-    var info = this.state.MORouting;
+    var info = this.state.parsedMO;
     switch(target) {
       case types.TPOA_PARSED_SMSC:
         info.smsc = value.value;
@@ -42,13 +42,13 @@ class HubAccountMORoutingAdd extends React.Component {
   }
 
   addRouting(){
-    console.log(this.state.MORouting);
-    this.setState({MORouting : {}});
+    console.log(this.state.parsedMO);
+    this.setState({parsedMO : []});
     this.props.close();
   }
 
   close() {
-    this.setState({MORouting : {}});
+    this.setState({parsedMO : []});
     this.props.close();
   }
 
@@ -101,7 +101,7 @@ class HubAccountMORoutingAdd extends React.Component {
                       name="smsc"
                       placeholder="Select SMSC.."
                       options={options}
-                      value={this.state.MORouting.smsc || ''}
+                      value={this.state.parsedMO.smsc || ''}
                       onChange={this.handleModalChange.bind(this,types.TPOA_PARSED_SMSC)}
                     />
                   </Col>
@@ -115,7 +115,7 @@ class HubAccountMORoutingAdd extends React.Component {
                       <FormControl
                          type="text"
                          name="serviceNo"
-                         value={this.state.MORouting.serviceNo || ''}
+                         value={this.state.parsedMO.serviceNo || ''}
                          onChange={this.handleModalChange.bind(this,types.TPOA_PARSED_SERVICE)}
                          placeholder="Enter Service Number.." />
                     </Col>
@@ -129,7 +129,7 @@ class HubAccountMORoutingAdd extends React.Component {
                       <FormControl
                          type="text"
                          name="returnTPDA"
-                         value={this.state.MORouting.returnTPDA || ''}
+                         value={this.state.parsedMO.returnTPDA || ''}
                          onChange={this.handleModalChange.bind(this,types.TPOA_PARSED_RETURNED_TPDA)}
                          placeholder="Enter Returned TPDA.." />
                     </Col>
@@ -144,60 +144,56 @@ class HubAccountMORoutingAdd extends React.Component {
                       name="criteria"
                       placeholder="Select Criteria.."
                       options={criteriaOp}
-                      value={this.state.MORouting.criteria || ''}
+                      value={this.state.parsedMO.criteria || ''}
                       onChange={this.handleModalChange.bind(this,types.TPOA_PARSED_CRITERIA)}
                     />
                   </Col>
                   <Col mdHidden md={ 2 } />
                 </Row>
-                {this.props.showParsed &&
-                <div>
-                  <Row className="show-grid">
+                <Row className="show-grid">
+                  <Col componentClass={ ControlLabel } md={ 4 }>
+                    Parsed Field:
+                  </Col>
+                  <Col md={ 6 }>
+                    <Select
+                      name="parsedField"
+                      placeholder="Select Parsed Field.."
+                      options={parsedOp}
+                      value={this.state.parsedMO.parsedField || ''}
+                      onChange={this.handleModalChange.bind(this,types.TPOA_PARSED_PFIELD)}
+                    />
+                  </Col>
+                  <Col mdHidden md={ 2 } />
+                </Row>
+                <Row className="show-grid">
+                  <Col componentClass={ ControlLabel } md={ 4 }>
+                    Keyword Criteria:
+                  </Col>
+                  <Col md={ 6 }>
+                    <Select
+                      name="kwCriteria"
+                      placeholder="Select Keyword Criteria.."
+                      options={kwCriteriaOp}
+                      value={this.state.parsedMO.kwCriteria || ''}
+                      onChange={this.handleModalChange.bind(this,types.TPOA_PARSED_KEYWORD_CRITERIA)}
+                    />
+                  </Col>
+                  <Col mdHidden md={ 2 } />
+                </Row>
+                <Row className="show-grid">
                     <Col componentClass={ ControlLabel } md={ 4 }>
-                      Parsed Field:
+                      Keyword :
                     </Col>
                     <Col md={ 6 }>
-                      <Select
-                        name="parsedField"
-                        placeholder="Select Parsed Field.."
-                        options={parsedOp}
-                        value={this.state.MORouting.parsedField || ''}
-                        onChange={this.handleModalChange.bind(this,types.TPOA_PARSED_PFIELD)}
-                      />
+                      <FormControl
+                         type="text"
+                         name="keyword"
+                         value={this.state.parsedMO.keyword || ''}
+                         onChange={this.handleModalChange.bind(this,types.TPOA_PARSED_KEYWORD)}
+                         placeholder="Enter Keyword.." />
                     </Col>
                     <Col mdHidden md={ 2 } />
-                  </Row>
-                  <Row className="show-grid">
-                    <Col componentClass={ ControlLabel } md={ 4 }>
-                      Keyword Criteria:
-                    </Col>
-                    <Col md={ 6 }>
-                      <Select
-                        name="kwCriteria"
-                        placeholder="Select Keyword Criteria.."
-                        options={kwCriteriaOp}
-                        value={this.state.MORouting.kwCriteria || ''}
-                        onChange={this.handleModalChange.bind(this,types.TPOA_PARSED_KEYWORD_CRITERIA)}
-                      />
-                    </Col>
-                    <Col mdHidden md={ 2 } />
-                  </Row>
-                  <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 4 }>
-                        Keyword :
-                      </Col>
-                      <Col md={ 6 }>
-                        <FormControl
-                           type="text"
-                           name="keyword"
-                           value={this.state.MORouting.keyword || ''}
-                           onChange={this.handleModalChange.bind(this,types.TPOA_PARSED_KEYWORD)}
-                           placeholder="Enter Keyword.." />
-                      </Col>
-                      <Col mdHidden md={ 2 } />
-                  </Row>
-                </div>
-                }
+                </Row>
               </Grid>
             </div>
           </Modal.Body>
@@ -212,4 +208,4 @@ class HubAccountMORoutingAdd extends React.Component {
 
 }
 
-export default HubAccountMORoutingAdd;
+export default HubAccountMOParsed;

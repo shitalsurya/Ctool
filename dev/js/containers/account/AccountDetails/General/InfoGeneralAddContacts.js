@@ -4,14 +4,14 @@ import { bindActionCreators } from 'redux';
 import { Tabs,  TabLink, TabContent } from 'react-tabs-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 import Select from 'react-select';
-import InlineEdit from './../../common/components/InlineEdit';
-require('./../../../../scss/style.scss');
-require('./../../../../scss/tabs.scss');
-import DeleteRowLink from './../../common/components/DeleteRow';
+import InlineEdit from './../../../common/components/InlineEdit';
+require('./../../../../../scss/style.scss');
+require('./../../../../../scss/tabs.scss');
+import DeleteRowLink from './../../../common/components/DeleteRow';
 import ModalAddContact from './AddContact';
-import Contact from './../../../../json/ExistingContact.json';
-import * as types from './../actions/accountActionTypes';
-import { initializeData } from './../actions/accountActions';
+import Contact from './../../../../../json/ExistingContact.json';
+import * as types from './../../actions/accountActionTypes';
+import { initializeData } from './../../actions/accountActions';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 class InfoGeneralAddContacts extends React.Component {
     constructor(props, context) {

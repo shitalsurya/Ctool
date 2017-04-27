@@ -2,11 +2,11 @@ import React from 'react';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal,Label } from 'react-bootstrap';
 import Select from 'react-select';
 import Toggle from 'react-toggle';
-require('./../../../../scss/style.scss');
-require('./../../../../scss/react-toggle.scss');
-import Countries from './../../../../json/Countries.json';
-import * as types from './../actions/accountActionTypes';
-import { initializeData } from './../actions/accountActions';
+require('./../../../../../scss/style.scss');
+require('./../../../../../scss/react-toggle.scss');
+import Countries from './../../../../../json/Countries.json';
+import * as types from './../../actions/accountActionTypes';
+import { initializeData } from './../../actions/accountActions';
 class AddContact extends React.Component {
   constructor(props, context) {
       super(props, context);

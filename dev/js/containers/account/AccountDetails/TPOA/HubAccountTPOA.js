@@ -5,12 +5,12 @@ import { Nav,NavItem } from 'react-bootstrap';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button, Modal } from 'react-bootstrap';
 import Select from 'react-select';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import * as table from './../../common/Functions/customTable';
-import InlineEdit from './../../common/components/InlineEdit';
-import DeleteRowLink from './../../common/components/DeleteRow';
-import TPOAs from './../../../../json/TPOAs.json';
+import * as table from './../../../common/Functions/customTable';
+import InlineEdit from './../../../common/components/InlineEdit';
+import DeleteRowLink from './../../../common/components/DeleteRow';
+import TPOAs from './../../../../../json/TPOAs.json';
 import AddTPOAModal from './HubAccountTPOAAddModal';
-require('./../../../../scss/style.scss');
+require('./../../../../../scss/style.scss');
 
 class HubAccountGeneral extends React.Component {
     constructor(props, context) {
