@@ -6,24 +6,24 @@ import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid, Button, Ima
 import Select from 'react-select';
 import BrandingHeader from './../../common/components/BrandingHeader';
 import Navigation from './../../common/components/Navigation';
+import * as types from './../../common/commonActionTypes';
+import EditUserModal from './EditUserModal';
 import { getUserList, getUserDetails, updateUserDetails } from './miscUsersActions';
+import {
+    ToastContainer,
+    ToastMessage,
+} from "react-toastr";
+const ToastMessageFactory = React.createFactory(ToastMessage.animation);
+import tableOptions from './../../common/Functions/commonFunctions';
 require( './../../../../scss/style.scss' );
-var userImg = require( "./../../../../images/user.png" );
-var showIcon = require( "./../../../../images/show-icon.png" );
-var editIcon = require( "./../../../../images/edit-icon.png" );
-var updateIcon = require( "./../../../../images/update-icon.png" );
-var undoIcon = require( "./../../../../images/undo-icon.png" );
-var refreshIcon = require( "./../../../../images/refresh-icon.png" );
-var lockIcon = require( "./../../../../images/lock.png" );
-var unlockIcon = require( "./../../../../images/unlock.png" );
-var errorIcon = require( "./../../../../images/error-icon-32.png" );
 
 class MiscUsers extends React.Component {
   constructor( props, context ) {
     super( props, context );
     this.users = [];
+    this.currentUser= {};
     this.state = {
-      currentUser: {}
+      showEditModal:false
     }
   }
   componentWillMount() {
@@ -31,130 +31,115 @@ class MiscUsers extends React.Component {
       console.log( "this.props.userList==", this.props.userList );
   }
   componentWillReceiveProps( nextProps ) {
-    this.users = nextProps.userList;
-    console.log( "nextProps.userDetails==", nextProps.userDetails );
-    if ( typeof (nextProps.userDetails) != 'undefined' ) {
-      this.users.forEach( function ( item ) {
-        if ( nextProps.userDetails.id == item.id ) {
-           item.editDetails = false;
-          item.showDetails = true;
-          Object.assign( item, nextProps.userDetails );
-          console.log( "item==", item );
-        } else {
-          item.showDetails = false;
+    switch(nextProps.target){
+      case types.MISC_USERLIST_RESPONSE:
+          this.users = nextProps.userList;
+          console.log( "this.users==", this.users );
+          break;
+      case types.MISC_USERDETAILS_RESPONSE:
+            console.log( "nextProps.userDetails==", nextProps.userDetails);
+            if( nextProps.userDetails.showEditModal==true){
+                this.state.showEditModal =true;
+                this.currentUser =  nextProps.userDetails.details;
+            }
+            else{
+                this.state.showEditModal =false;
+                this.refs.container.error(`Failed to get user details.`, ``, {
+                    closeButton: true,
+                });
+            }
+            break;
+      case types.MISC_UPDATE_USERDETAILS_RESPONSE:
+          console.log("nextProps.userDetails==",nextProps.userDetails);
+          if( nextProps.userDetails.showEditModal==false){
+            this.refs.container.success(`User updated successfully.`, ``, {
+                closeButton: true,
+            });
+              this.state.showEditModal =false;
+            //  this.currentUser =  nextProps.userDetails.details;
+          }
+          else{
+              this.state.showEditModal =true;
+              this.refs.container.error(`Failed to update user.`, ``, {
+                  closeButton: true,
+              });
+          }
+
+          break;
         }
-      }.bind( this ) );
+  }
+  showDetails(row){
+    this.props.getUserDetails(row.id);
+  }
+  actionFormatter(cell, row,field,index) {
+    switch (field) {
+      case 'id':
+      return (
+          <span className="display-icon" title="Display" onClick={this.showDetails.bind(this,row)} ></span>
+      )
+        break;
+      default:
+          return `${cell}`;
+        break;
     }
   }
-  showUserDetails( _id ) {
-    console.log( "_id==", _id );
-    this.props.getUserDetails( _id );
+  updateUserDetails(){
+    console.log( "updateUserDetails this.currentUser==", this.currentUser );
+    this.props.updateUserDetails(this.currentUser);
   }
-  updateUserDetails() {
-    console.log( "updateUserDetails this.currentUser==", this.state.currentUser );
-    this.props.updateUserDetails(this.state.currentUser);
+  close() {
+      console.log("close");
+      this.setState({showEditModal:false});
   }
-  handleSelectChange (name,newValue) {
-  		console.log('State changed to name' + name);
-    //  return function(newValue) {
-        console.log('State changed to ' , newValue);
-       // perform change on this.state for name and newValue
-       var _currentUser = {};
-       _currentUser = this.state.currentUser;
-       _currentUser[name] = newValue.value;
-       this.setState( {
-         currentUser: _currentUser
-       } );
-  // }.bind(this);
-
-  	}
-  handleInputChange( e ) {
-    console.log("e",e.target.name);
-    var _currentUser = {};
-    _currentUser = this.state.currentUser;
-    _currentUser[e.target.name] = e.target.value;
-    this.setState( {
-      currentUser: _currentUser
-    } );
-  }
-  editUserDetails( _id ) {
-
-    console.log( "editUserDetails _id==", _id );
-    this.users.forEach( function ( item ) {
-      if ( _id == item.id ) {
-        item.editDetails = true;
-        item.showDetails = false;
-        console.log( "editUserDetails item==", item );
-        this.setUserDetails( item );
-      } else {
-        item.editDetails = false;
-      }
-    }.bind( this ) );
-  }
-  setUserDetails( _item ) {
-    console.log( "setUserDetails _item==", _item );
-    this.setState( {
-      currentUser: _item
-    } );
-}
-onCellEdit  (row, fieldName, value)  {
-  console.log("row==",row);
-    console.log("fieldName==",fieldName);
-        console.log("value==",value);
-  //  const { data } = this.state;
-  //  let rowIdx;
-  //  const targetRow = data.find((prod, i) => {
-  //    if (prod.id === row.id) {
-  //      rowIdx = i;
-  //      return true;
-  //    }
-  //    return false;
-  //  });
-  //  if (targetRow) {
-  //    targetRow[fieldName] = value;
-  //    data[rowIdx] = targetRow;
-  //    this.setState({ data });
-  //  }
- }
   render() {
-    const cellEditProp = {
-      mode: 'mousehover'
-    };
-    console.log( "this.props.userList==", this.props.userList );
-    const options = {
-    //  onCellEdit: this.onCellEdit.bind(this),
-    //     clearSearch: true,
-         page: 1,  // which page you want to show as default
-         sizePerPageList: [ {
-           text: '5', value: 5
-         }, {
-           text: '10', value: 10
-         }, {
-           text: 'All', value: 50
-         } ], // you can change the dropdown list for size per page
-         sizePerPage: 5,  // which size per page you want to locate as default
-         pageStartIndex: 1, // where to start counting the pages
-         paginationSize: 3,  // the pagination bar size.
-         prePage: '<', // Previous page button text
-         nextPage: '>', // Next page button text
-         firstPage: '<<', // First page button text
-         lastPage: '>>', // Last page button text
-         paginationShowsTotal: this.renderShowsTotal,  // Accept bool or function
-         paginationPosition: 'top',  // default is bottom, top and both is all available
-         // hideSizePerPage: true > You can hide the dropdown for sizePerPage
-         alwaysShowAllBtns: false, // Always show next and previous button
-        //  withFirstAndLast: false // Hide the going to First and Last page button
-    };
 
-    var  homepageOptions= [
-        { value: 'Account', label: 'Account' },
-        { value: 'Connections', label: 'Connections' }
-    ];
-    var roleOptions= [
-        { value: 'Support', label: 'Support' },
-        { value: 'ServiceDesk', label: 'ServiceDesk' }
-    ];
-
+     const options={
+          expandRowBgColor: '#f7f8fa',
+           clearSearch: true,
+           page: 1,  // which page you want to show as default
+           sizePerPageList: [ {
+             text: '5', value: 5
+           }, {
+             text: '10', value: 10
+           }, {
+             text: 'All', value: 50
+           } ], // you can change the dropdown list for size per page
+           sizePerPage: 5,  // which size per page you want to locate as default
+           pageStartIndex: 1, // where to start counting the pages
+           paginationSize: 3,  // the pagination bar size.
+           prePage: '<', // Previous page button text
+           nextPage: '>', // Next page button text
+           firstPage: '<<', // First page button text
+           lastPage: '>>', // Last page button text
+           alwaysShowAllBtns: false, // Always show next and previous button
+          //  withFirstAndLast: false // Hide the going to First and Last page button
+      };
+    var fields = [
+      {
+          name:'User Name',
+          dataField:'name',
+      },
+      {
+          name:'Action',
+          dataField:'id',
+          width:'80px',
+            dataAlign:'center'
+      }
+      ];
+    var listCols = fields.map(function (field) {
+          return (
+              <TableHeaderColumn
+                isKey={ field.dataField == 'id'?true :false }
+                width={field.width}
+                dataAlign={field.dataAlign}
+                dataFormat={ this.actionFormatter.bind(this) }
+                formatExtraData={ field.dataField}
+                dataField={field.dataField}
+              >
+                {field.name}
+              </TableHeaderColumn>
+          );
+      }.bind(this));
     return (
         <div>
           <BrandingHeader/>
@@ -174,31 +159,34 @@ onCellEdit  (row, fieldName, value)  {
                 <div className="list-container">
                   <div className="controls-container">
                     <BootstrapTable data ={ this.users } pagination={ true }
-                      //search={ true }
-                      //remote={ true }
-                      //    cellEdit={ cellEditProp }
+                      tableHeaderClass='nested-body-class'
+                      search={ true }
                       options={ options }>
-                      <TableHeaderColumn   dataField='id' dataSort={true} isKey>User ID</TableHeaderColumn>
-                      <TableHeaderColumn   dataField='login' dataSort={true} >User Login</TableHeaderColumn>
-                      <TableHeaderColumn   dataField='name' dataSort={true} >User Name</TableHeaderColumn>
-                      <TableHeaderColumn   dataField='live' dataSort={true} >User Status</TableHeaderColumn>
-                      <TableHeaderColumn   dataField='insertdate' dataSort={true} >Created On</TableHeaderColumn>
-                </BootstrapTable>
-              </div>
-            </div>
-          </Col>
-        </Row>
-      </Grid>
-
+                      {listCols}
+                    </BootstrapTable>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </Grid>
+          <EditUserModal currentUser={this.currentUser}
+            showEditUser={this.state.showEditModal}
+            updateUser={this.updateUserDetails.bind(this)}
+            close={this.close.bind(this)} />
+          <ToastContainer
+            toastMessageFactory={ ToastMessageFactory }
+            ref="container"
+            className="toast-top-right" />
     </div>
-
     );
   }
 }
+
 function mapStateToProps( state ) {
   return {
     userList: state.MiscUsers.userList,
-    userDetails: state.MiscUsers.userDetails
+    userDetails: state.MiscUsers.userDetails,
+     target: state.MiscUsers.target
   };
 }
 

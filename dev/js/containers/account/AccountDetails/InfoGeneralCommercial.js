@@ -65,10 +65,10 @@ class InfoGeneralCommercial extends React.Component {
                 </Col>
                 <Col md={ 8 }  >
                   <FormControl
-                      className="info_label"
-                      type="text"
-                      name="acctCommName"
-                      value={this.state.commInfoObj.acctCommName} />
+                    className="info_label"
+                    type="text"
+                    name="acctCommName"
+                    value={this.state.commInfoObj.acctCommName} />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -89,10 +89,10 @@ class InfoGeneralCommercial extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
-                      className="info_label"
-                      type="text"
-                      name="opened"
-                      value={this.state.commInfoObj.opened} />
+                    className="info_label"
+                    type="text"
+                    name="opened"
+                    value={this.state.commInfoObj.opened} />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -103,10 +103,10 @@ class InfoGeneralCommercial extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
-                      className="info_label"
-                      type="text"
-                      name="suspended"
-                      value={this.state.commInfoObj.suspended} />
+                    className="info_label"
+                    type="text"
+                    name="suspended"
+                    value={this.state.commInfoObj.suspended} />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -117,10 +117,10 @@ class InfoGeneralCommercial extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                   <FormControl
-                      className="info_label"
-                      type="text"
-                      name="closed"
-                      value={this.state.commInfoObj.closed} />
+                    className="info_label"
+                    type="text"
+                    name="closed"
+                    value={this.state.commInfoObj.closed} />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>

@@ -5,7 +5,13 @@
                 "login":"Adam",
                   "name": "Adam Brito",
                   "live":"Suspended",
-                    "insertdate":"10-SEP-07"
+                    "insertdate":"10-SEP-07",
+                    "expand": [{
+                      "id": 1,
+                      "login":"Adam",
+                        "name": "Adam Brito",
+                        "live":"Suspended"
+                      }]
             },
             {
                 "id": 2,

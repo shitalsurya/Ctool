@@ -570,7 +570,19 @@ font-size: 14px;
 .list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
 color:#333 !important;
 }
-
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+     margin: 0px;
+    float:right;
+    border-radius: 4px;
+}
+.react-bs-table-pagination{
+   margin: 0px;
+}
+.react-bs-table-container .react-bs-table-search-form{
+  margin-bottom: 10px;
+}
 .pagination>li>a, .pagination>li>span {
 	border-style: hidden;
 }

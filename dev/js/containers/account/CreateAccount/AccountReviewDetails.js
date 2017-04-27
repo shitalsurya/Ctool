@@ -181,9 +181,9 @@ class AccountReviewDetails extends React.Component {
               </Grid>
             </div>
             <ToastContainer
-                toastMessageFactory={ ToastMessageFactory }
-                ref="container"
-                className="toast-top-right" />
+              toastMessageFactory={ ToastMessageFactory }
+              ref="container"
+              className="toast-top-right" />
           </div>
         )
     }
