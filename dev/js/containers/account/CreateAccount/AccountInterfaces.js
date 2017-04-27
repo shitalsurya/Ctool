@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button, ButtonToolbar } from 'react-bootstrap';
+import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button, ButtonToolbar, HelpBlock, Checkbox } from 'react-bootstrap';
 import Select from 'react-select';
 import {
     ToastContainer,
@@ -18,7 +18,7 @@ class AccountInterfaces extends React.Component {
       //  this.state.accountInterfacesInfo=this.props.accountObj || [];
         this.state={
           emptyFlag : true,
-          interfaceFlag : false,
+          interfaceFlag : '',
           accountInterfacesInfo:this.props.accountObj || []
         };
         console.log("this.state.accountInterfacesInfo==",this.state.accountInterfacesInfo);
@@ -33,11 +33,19 @@ class AccountInterfaces extends React.Component {
         case "commName":
           info.commName = e.target.value;
           break;
-        case "mtInterface":
-          info.mtInterface = e.target.value;
+        case "defTPOA":
+          info.interfaceVal.defTPOA = e.target.value;
           break;
-        case "moInterface":
-          info.moInterface = e.target.value;
+        case "rplAdd":
+          info.interfaceVal.rplAdd = e.target.value;
+          break;
+        case "moEnabled":
+          info.interfaceVal.moEnabled = e.target.checked;
+          if(!e.target.checked)
+            info.interfaceVal.rplAdd = '';
+          break;
+        case "ipAdd":
+          info.interfaceVal.ipAdd = e.target.value;
           break;
       }
       this.setState({accountInterfacesInfo:info});
@@ -45,22 +53,27 @@ class AccountInterfaces extends React.Component {
 
     handleSelectFieldsChange(target, value) {
       var info=this.state.accountInterfacesInfo;
-      console.log("handleSelectFieldsChange info==",info);
       switch (target) {
           case types.ACCOUNT_EXSTACCTS_CHANGE:
               info.ExstAccts = value.value;
               break;
           case types.ACCOUNT_INTERFACE_CHANGE:
               info.accInterface = value.value;
+              info.interfaceVal=[];
               switch (info.accInterface) {
                 case "HTTP":
-                  this.setState({interfaceFlag : true});
+                  this.setState({interfaceFlag : "HTTP"});
                   break;
-                default:
-                  this.setState({interfaceFlag : false})
+                case "SMTP":
+                  this.setState({interfaceFlag : "SMTP"});
+                  break;
+                case "SMPP":
+                  this.setState({interfaceFlag : "SMPP"});
+                  break;
               }
               break;
       }
+      console.log("handleSelectFieldsChange info==",info);
       this.setState({accountInterfacesInfo:info});
     }
 
@@ -76,6 +89,7 @@ class AccountInterfaces extends React.Component {
     }
 
     handleInterfaceDetailsNext(){
+      console.log(this.state.accountInterfacesInfo);
       var accountObjCheck = this.state.accountInterfacesInfo;
        if(accountObjCheck.techName && accountObjCheck.ExstAccts
         && accountObjCheck.accInterface ){
@@ -152,39 +166,159 @@ class AccountInterfaces extends React.Component {
               </Grid>
             </div>
 
-            <div className="controls-container" hidden={this.state.interfaceFlag ? false : "hidden"}>
-               <div className="rec">
-                 <span>MT Interfces</span>
-               </div>
-               <Grid fluid={true}>
-                   <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 3 }>
-                         Default TPOA:
-                      </Col>
-                      <Col md={ 6 }>
-                        <textarea name="mtInterface" rows="1" cols="10" onChange={this.handleTextFieldsChange.bind(this)}></textarea>
-                      </Col>
-                      <Col mdHidden md={ 3 } />
-                    </Row>
-               </Grid>
-             </div>
+            {
+              this.state.interfaceFlag === "HTTP" &&
+              <div>
+                <div className="controls-container" >
+                   <div className="rec">
+                     <span>MT Interfces</span>
+                   </div>
+                   <Grid fluid={true}>
+                       <Row className="show-grid">
+                          <Col componentClass={ ControlLabel } md={ 3 }>
+                             Default TPOA:
+                          </Col>
+                          <Col md={ 6 }>
+                            <FormControl
+                               type="text"
+                               name="defTPOA"
+                               value={this.state.accountInterfacesInfo.interfaceVal.defTPOA}
+                               onChange={this.handleTextFieldsChange.bind(this)}
+                               placeholder="Enter Default TPOA"/>
+                          </Col>
+                          <Col mdHidden md={ 3 } />
+                        </Row>
+                   </Grid>
+                 </div>
 
-            <div className="controls-container" hidden={this.state.interfaceFlag ? false : "hidden"}>
-              <div className="rec">
-                <span>MO Interfces</span>
+                <div className="controls-container" >
+                  <div className="rec">
+                    <span>MO Interfces</span>
+                  </div>
+                  <Grid fluid={true}>
+                    <Row className="show-grid">
+                        <Col componentClass={ ControlLabel } md={ 3 }>
+                          MO Enabled:
+                        </Col>
+                        <Col md={ 6 }>
+                           <Checkbox
+                                name="moEnabled"
+                                onClick={this.handleTextFieldsChange.bind(this)}>
+                            [*Check this box only if you have a valid Customer MO Reply Address]
+                           </Checkbox>
+                        </Col>
+                        <Col mdHidden md={ 3 } />
+                    </Row>
+                    <Row className="show-grid" hidden={this.state.accountInterfacesInfo.interfaceVal.moEnabled ? false : "hidden"}>
+                        <Col componentClass={ ControlLabel } md={ 3 }>
+                          Reply Address:
+                        </Col>
+                        <Col md={ 6 }>
+                          <FormControl
+                             type="text"
+                             name="rplAdd"
+                             value={this.state.accountInterfacesInfo.interfaceVal.rplAdd}
+                             onChange={this.handleTextFieldsChange.bind(this)}
+                             placeholder="Enter Reply Address"/>
+                           <HelpBlock>(e.g. https://www.tobedecided.com)</HelpBlock>
+                        </Col>
+                        <Col mdHidden md={ 3 } />
+                    </Row>
+                  </Grid>
+                </div>
               </div>
-              <Grid fluid={true}>
-                <Row className="show-grid">
-                    <Col componentClass={ ControlLabel } md={ 3 }>
-                      HTTP URL:
-                    </Col>
-                    <Col md={ 6 }>
-                      <textarea name="moInterface" rows="1" cols="50" onChange={this.handleTextFieldsChange.bind(this)}></textarea>
-                    </Col>
-                    <Col mdHidden md={ 3 } />
-                </Row>
-              </Grid>
-            </div>
+            }
+
+            {
+              this.state.interfaceFlag === "SMTP" &&
+              <div>
+                <div className="controls-container" >
+                   <div className="rec">
+                     <span>MT Interfces</span>
+                   </div>
+                   <Grid fluid={true}>
+                       <Row className="show-grid">
+                          <Col componentClass={ ControlLabel } md={ 3 }>
+                             Default TPOA:
+                          </Col>
+                          <Col md={ 6 }>
+                            <FormControl
+                               type="text"
+                               name="defTPOA"
+                               value={this.state.accountInterfacesInfo.interfaceVal.defTPOA}
+                               onChange={this.handleTextFieldsChange.bind(this)}
+                               placeholder="Enter Default TPOA"/>
+                          </Col>
+                          <Col mdHidden md={ 3 } />
+                        </Row>
+                   </Grid>
+                 </div>
+
+                <div className="controls-container" >
+                  <div className="rec">
+                    <span>MO Interfces</span>
+                  </div>
+                  <Grid fluid={true}>
+                    <Row className="show-grid" >
+                        <Col componentClass={ ControlLabel } md={ 3 }>
+                          SMTP Reply Address:
+                        </Col>
+                        <Col md={ 6 }>
+                          <FormControl
+                             type="text"
+                             name="rplAdd"
+                             value={this.state.accountInterfacesInfo.interfaceVal.rplAdd}
+                             onChange={this.handleTextFieldsChange.bind(this)}
+                             placeholder="Enter Reply Address"/>
+                        </Col>
+                        <Col mdHidden md={ 3 } />
+                    </Row>
+                  </Grid>
+                </div>
+              </div>
+            }
+
+            {
+              this.state.interfaceFlag === "SMPP" &&
+              <div>
+                <div className="controls-container" >
+                   <div className="rec">
+                     <span>MT Interfces</span>
+                   </div>
+                   <Grid fluid={true}>
+                       <Row className="show-grid" >
+                           <Col componentClass={ ControlLabel } md={ 3 }>
+                             SMPP Client IP Address(es):
+                           </Col>
+                           <Col md={ 6 }>
+                             <FormControl
+                                type="text"
+                                name="ipAdd"
+                                value={this.state.accountInterfacesInfo.interfaceVal.ipAdd}
+                                onChange={this.handleTextFieldsChange.bind(this)}
+                                placeholder="Enter Reply Address"/>
+                              <HelpBlock>(comma separated)</HelpBlock>
+                           </Col>
+                           <Col mdHidden md={ 3 } />
+                       </Row>
+                       <Row className="show-grid">
+                          <Col componentClass={ ControlLabel } md={ 3 }>
+                             Default TPOA:
+                          </Col>
+                          <Col md={ 6 }>
+                            <FormControl
+                               type="text"
+                               name="defTPOA"
+                               value={this.state.accountInterfacesInfo.interfaceVal.defTPOA}
+                               onChange={this.handleTextFieldsChange.bind(this)}
+                               placeholder="Enter Default TPOA"/>
+                          </Col>
+                          <Col mdHidden md={ 3 } />
+                        </Row>
+                   </Grid>
+                 </div>
+              </div>
+            }
 
             <div className="button-container">
               <Grid fluid={true}>
