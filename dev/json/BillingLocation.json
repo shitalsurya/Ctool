@@ -1,8 +1,8 @@
 {
     "data": [
-      {"name": "Mobile 365 Inc.", "code": "Mobile 365 Inc."},
-          {"name": "Mobile 365 South Africa.", "code": "Mobile 365 South Africa."},
-            {"name": "Mobileway Australia", "code": "Mobileway Australia"},
-              {"name": "Mobileway China", "code": "Mobileway China"}
+      {"billinglocationname": "Mobile 365 Inc.", "billinglocationid": 1},
+          {"billinglocationname": "Mobile 365 South Africa.", "billinglocationid": 2},
+            {"billinglocationname": "Mobileway Australia", "billinglocationid": 3},
+              {"billinglocationname": "Mobileway China", "billinglocationid": 4}
     ]
 }

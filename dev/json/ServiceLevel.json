@@ -1,6 +1,6 @@
 {
     "data": [
-        {"name": "Standard", "value": "Standard"},
-          {"name": "Premium", "value": "Premium"}
+        {"servicelevelname": "Standard", "servicelevelid": "Standard"},
+          {"servicelevelname": "Premium", "servicelevelid": "Premium"}
     ]
 }

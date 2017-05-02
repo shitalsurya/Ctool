@@ -50,26 +50,26 @@ class Login extends Component {
           </div>
         </div>
       </nav>*/}
- <div className="content">
-				  <div className="col-sm-4"></div>
-          <div className="col-sm-4 login-form">
+      <div className="content">
+        <div className="col-sm-4"></div>
+        <div className="col-sm-4 login-form">
 
-					  <div className="login-container">
-              <span className="logo">Login to CTOOL</span>
+          <div className="login-container">
+            <span className="logo">Login to CTOOL</span>
 						<Grid fluid={ true }>
 						  <Row className="show-grid">
 						    <Col
-						         mdHidden
-						         md={ 1 } />
+                  mdHidden
+                  md={ 1 } />
 						    <Col md={ 10 }>
-						    <FormGroup>
-						      <InputGroup>
-						        <InputGroup.Addon>
-						          <Glyphicon glyph="user" />
-						        </InputGroup.Addon>
-						        <FormControl
-						                     type="text"
-						                     ref="userEmail"
+                  <FormGroup>
+                    <InputGroup>
+                      <InputGroup.Addon>
+                        <Glyphicon glyph="user" />
+                      </InputGroup.Addon>
+                      <FormControl
+                        type="text"
+                        ref="userEmail"
 						                     placeholder="Enter your Username" />
 						      </InputGroup>
 						    </FormGroup>
@@ -140,6 +140,7 @@ class Login extends Component {
   checkAuth( nextProps ) {
     if ( nextProps.error == false ) {
       this.context.router.push( 'launchpad' );
+       sessionStorage.setItem("username",this.refs.userEmail);
     }
     if ( nextProps.error == true ) {
       alert( "failed" );

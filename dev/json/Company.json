@@ -1,8 +1,8 @@
 {
     "data":[
-      {"name": "10 GRAD(37669)", "code": "10 GRAD(37669)"},
-          {"name": "100 BEST(39551)", "code": "100 BEST(39551)"},
-            {"name": "10DUKE (38660)", "code": "10DUKE (38660)"},
-              {"name": "118811 (39258)", "code": "118811 (39258)"}
+      {"companyid": "10 GRAD(37669)", "companyname": "10 GRAD(37669)"},
+          {"companyid": "100 BEST(39551)", "companyname": "100 BEST(39551)"},
+            {"companyid": "10DUKE (38660)", "companyname": "10DUKE (38660)"},
+              {"companyid": "118811 (39258)", "companyname": "118811 (39258)"}
     ]
 }

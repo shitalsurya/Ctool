@@ -730,10 +730,10 @@ font-family: 'SAP-icons';
 
 .empty {
   input{
-    border-color: red;
+    border-color: red !important;
   }
-	.Select, .Select div, .Select input {
-		border-color: red;
+	select{
+		border-color: red !important;
 	}
 }
 

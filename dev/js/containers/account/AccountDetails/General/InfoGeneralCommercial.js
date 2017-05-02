@@ -16,13 +16,20 @@ class InfoGeneralCommercial extends React.Component {
         super(props, context);
         this.state={
           commInfoObj : {
-            acctCommName : '(Live)',
-            billing : 'Mobile 365 Inc',
+            commercialname : '(Live)',
+            billinglocation :12,
             opened : '12 Jan 2017',
             suspended : '',
             closed : '',
-            serviceLevel : 'Standard',
-            status : 'UNSIGNED',
+            servicelevel :
+            {
+             servicelevel : 'Mobile 365 Inc',
+             servicelevelid:12
+           },
+            legalstatus : {
+             legalstatusname : 'SIGNED',
+             legalstatusid:1
+           },
             comment : 'N/A'
           }
         };
@@ -68,7 +75,7 @@ class InfoGeneralCommercial extends React.Component {
                     className="info_label"
                     type="text"
                     name="acctCommName"
-                    value={this.state.commInfoObj.acctCommName} />
+                    value={this.state.commInfoObj.commercialname} />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -78,7 +85,7 @@ class InfoGeneralCommercial extends React.Component {
                   Billing Location :
                 </Col>
                 <Col md={ 8 } >
-                  <InlineEdit name="billing" type="select" options={this.BillingLocation} value={this.state.commInfoObj.billing} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="billing" type="select" options={this.BillingLocation} value={this.state.commInfoObj.billinglocationid} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -130,7 +137,7 @@ class InfoGeneralCommercial extends React.Component {
                   Service Level :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit name="serviceLevel" type="select" options={this.ServiceLevel} value={this.state.commInfoObj.serviceLevel} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="serviceLevel" type="select" options={this.ServiceLevel} value={this.state.commInfoObj.servicelevelid} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -140,7 +147,7 @@ class InfoGeneralCommercial extends React.Component {
                   Legal Status :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit name="status" type="select" options={statusOptions} value={this.state.commInfoObj.status} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="status" type="select" options={statusOptions} value={this.state.commInfoObj.legalstatusid} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>

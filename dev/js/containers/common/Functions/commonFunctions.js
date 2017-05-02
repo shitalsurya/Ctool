@@ -1,3 +1,4 @@
+import React from 'react';
 export const tableOptions={
      expandRowBgColor: '#f7f8fa',
       clearSearch: true,
@@ -19,15 +20,18 @@ export const tableOptions={
       alwaysShowAllBtns: false, // Always show next and previous button
      //  withFirstAndLast: false // Hide the going to First and Last page button
  };
-export function initializeSelectOptions(_list,valField){
-  console.log("initializeSelectOptions==",_list);
-  var list = _list.map(function (item) {
-        return (
-          {
-            "label":item.name,
-            "value":item[valField],
-          }
-        );
+export function initializeSelectOptions(_list,nameField,valField){
+    var obj={};
+    obj[nameField]="Please select..";
+    obj[valField]="";
+    _list.unshift(obj);
+    var _options = _list.map(function (item) {
+    return (
+        <option key={item[valField]}
+          value={item[valField]} >
+          {item[nameField]}
+        </option>
+    );
     }.bind(this));
-    return list;
+    return _options;
 }

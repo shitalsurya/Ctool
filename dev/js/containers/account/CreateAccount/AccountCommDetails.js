@@ -5,7 +5,8 @@ import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,
 import Select from 'react-select';
 import { ToastContainer, ToastMessage} from "react-toastr";
 import * as types from './../actions/accountActionTypes';
-import { initializeData,handleSelectFieldsChange, goToTechnicalDetails } from './../actions/accountActions';
+import { initializeData,handleChange, goToTechnicalDetails } from './../actions/accountActions';
+import {initializeSelectOptions} from './../../common/Functions/commonFunctions';
 import Toggle from 'react-toggle';
 require( './../../../../scss/style.scss' );
 require( './../../../../scss/react-toggle.scss' );
@@ -19,45 +20,24 @@ const ToastMessageFactory = React.createFactory( ToastMessage.animation );
 class AccountCommDetails extends React.Component {
   constructor( props, context ) {
     super( props, context );
-  //  this.accountCommInfo = this.props.accountObj || [];
+
     this.state={
         emptyFlag : true,
-        accountCommInfo:this.props.accountObj || []
+        acctCommInfo:this.props.accountObj || {}
     };
-  //  this.accountCommInfo.revSharing = this.props.accountObj.revSharing || "No";
+
   }
 
-  handleSelectFieldsChange( target,value ) {
-    var info=this.state.accountCommInfo;
-    if(!value)
-       value = "";
-    switch (target) {
-      case types.ACCOUNT_MGR_CHANGE:
-        info.acctManager=value.value;
-        break;
-      case types.ACCOUNT_COMPANY_CHANGE:
-        info.company=value.value;
-        break;
-      case types.ACCOUNT_BILLING_LOCATION:
-          info.billingLocation=value.value;
-        break;
-      case types.ACCOUNT_SERVICE_LEVEL:
-          info.serviceLevel=value.value;
-        break;
-      case types.ACCOUNT_TRAFFIC_TYPE:
-          info.trafficType=value.value;
-        break;
-    }
-    this.setState({accountCommInfo:info});
-  //  this.props.handleSelectFieldsChange( value, target );
-  }
-
-  rearrangeCols(){
-
+  handleChange( e) {
+      console.log("handleChange==",e.target.value);
+    var info = this.state.acctCommInfo;
+    info[e.target.name] = e.target.value;
+    this.setState({acctCommInfo:info},function(){
+      console.log("handleChange==",this.state.acctCommInfo);
+    });
   }
 
   render() {
-
     return (
       <div>
 
@@ -65,90 +45,110 @@ class AccountCommDetails extends React.Component {
           <div className="rec">
             <span>Commercial Information</span>
           </div>
-           <Grid fluid={true}>
-              <Row className="show-grid">
-               <Col componentClass={ ControlLabel } md={ 2 }>
-                 Account Manager:
-               </Col>
-               <Col md={ 6 } >
-                 <Select
-                       placeholder="Select account manager.."
-                       options={this.userList}
-                       value={this.state.accountCommInfo.acctManager}
-                       onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_MGR_CHANGE)} />
-               </Col>
-               <Col mdHidden md={ 4 } />
-              </Row>
-              <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 2 }>
-                  Company:
-                </Col>
-                <Col md={ 6 } className={this.state.accountCommInfo.company || this.state.emptyFlag ? false : "empty"}>
-                  <Select
-                        placeholder="Select company.."
-                        options={this.companyList}
-                        value={this.state.accountCommInfo.company}
-                        onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_COMPANY_CHANGE)} />
-                </Col>
-                <Col mdHidden md={ 4 } />
-              </Row>
-              <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 2 }>
-                  Billing Location:
-                </Col>
-                <Col md={ 6 } className={this.state.accountCommInfo.billingLocation || this.state.emptyFlag ? false : "empty"}>
-                  <Select
-                        placeholder="Select billing location.."
-                        options={this.BillingLocation}
-                        value={this.state.accountCommInfo.billingLocation}
-                        onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_BILLING_LOCATION)} />
-                </Col>
-                <Col mdHidden md={ 4 } />
-              </Row>
-              <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 2 }>
-                  Service Level:
-                </Col>
-                <Col md={ 6 } className={this.state.accountCommInfo.serviceLevel || this.state.emptyFlag ? false : "empty"}>
-                <Select
-                      placeholder="Select service level.."
-                      options={this.ServiceLevel}
-                      value={this.state.accountCommInfo.serviceLevel}
-                      onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_SERVICE_LEVEL)} />
-                </Col>
-                <Col mdHidden md={ 4 } />
-              </Row>
-              <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 2 }>
-                  Traffic Type:
-                </Col>
-                <Col md={ 6 } className={this.state.accountCommInfo.trafficType || this.state.emptyFlag ? false : "empty"}>
-                <Select
-                      placeholder="Select traffic type.."
-                      options={this.TrafficType}
-                      value={this.state.accountCommInfo.trafficType}
-                      onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_TRAFFIC_TYPE)} />
-                </Col>
-                <Col mdHidden md={ 4 } />
-              </Row>
-              <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 2 }>
-                  Revenue Sharing:
-                </Col>
-                <Col md={ 6 }>
-                  <label>
-                      <Toggle
-                          icons={{
+          <Grid fluid={true}>
+            <Row className="show-grid">
+              <Col componentClass={ ControlLabel } md={ 2 }>
+                Requester:
+              </Col>
+              <Col md={ 6 }  >
+                <FormControl
+                  className="info_label"
+                  type="text"
+                  name="requesterName"
+                  value={this.state.acctCommInfo.requesterName} />
+              </Col>
+              <Col mdHidden md={ 4 }/>
+            </Row>
+            <Row className="show-grid">
+              <Col componentClass={ ControlLabel } md={ 2 }>
+                Account Manager:
+              </Col>
+              <Col md={ 6 } >
+                <FormControl componentClass="select"
+                  name="acctManager"
+                  value={this.state.acctCommInfo.acctManager}
+                  onChange={this.handleChange.bind(this)}>
+                  {this.userList}
+                </FormControl>
+              </Col>
+              <Col mdHidden md={ 4 } />
+            </Row>
+            <Row className="show-grid">
+              <Col componentClass={ ControlLabel } md={ 2 }>
+                Company:
+              </Col>
+              <Col md={ 6 } className={this.state.acctCommInfo.company || this.state.emptyFlag ? false : "empty"}>
+                <FormControl componentClass="select"
+                  name="company"
+                  value={this.state.acctCommInfo.company}
+                  onChange={this.handleChange.bind(this)}>
+                  {this.userList}
+                </FormControl>
+              </Col>
+              <Col mdHidden md={ 4 } />
+            </Row>
+            <Row className="show-grid">
+              <Col componentClass={ ControlLabel } md={ 2 }>
+                Billing Location:
+              </Col>
+              <Col md={ 6 } className={this.state.acctCommInfo.billinglocation || this.state.emptyFlag ? false : "empty"}>
+
+                <FormControl componentClass="select"
+                  placeholder="Select billing location.."
+                  name="billinglocation"
+                  value={this.state.acctCommInfo.billinglocation}
+                  onChange={this.handleChange.bind(this)}>
+                  {this.BillingLocation}
+                </FormControl>
+              </Col>
+              <Col mdHidden md={ 4 } />
+            </Row>
+            <Row className="show-grid">
+              <Col componentClass={ ControlLabel } md={ 2 }>
+                Service Level:
+              </Col>
+              <Col md={ 6 } className={this.state.acctCommInfo.servicelevel || this.state.emptyFlag ? false : "empty"}>
+                <FormControl componentClass="select"
+                  name="servicelevel"
+                  value={this.state.acctCommInfo.servicelevel}
+                  onChange={this.handleChange.bind(this)}>
+                  {this.ServiceLevel}
+                </FormControl>
+              </Col>
+              <Col mdHidden md={ 4 } />
+            </Row>
+            <Row className="show-grid">
+              <Col componentClass={ ControlLabel } md={ 2 }>
+                Traffic Type:
+              </Col>
+              <Col md={ 6 } className={this.state.acctCommInfo.traffictype || this.state.emptyFlag ? false : "empty"}>
+                <FormControl componentClass="select"
+                  name="traffictype"
+                  value={this.state.acctCommInfo.traffictype}
+                  onChange={this.handleChange.bind(this)}>
+                  {this.TrafficType}
+                </FormControl>
+              </Col>
+              <Col mdHidden md={ 4 } />
+            </Row>
+            <Row className="show-grid">
+              <Col componentClass={ ControlLabel } md={ 2 }>
+                Revenue Sharing:
+              </Col>
+              <Col md={ 6 }>
+                <label>
+                  <Toggle name="revSharing"
+                    icons={{
                            checked:'Yes',
                            unchecked: 'No',
-                          }}
-                          defaultChecked={this.state.accountCommInfo.revSharing == "No" ? false : true}
-                          value={this.state.accountCommInfo.revSharing}
-                          onChange={this.handleRevSharingChanged.bind(this)} />
-                    </label>
-                </Col>
-                <Col mdHidden md={ 4 } />
-              </Row>
+                    }}
+                    //  defaultChecked={this.state.acctCommInfo.revSharing == "No" ? false : true}
+                    value={this.state.acctCommInfo.revSharing}
+                    onChange={this.handleChange.bind(this)} />
+                </label>
+              </Col>
+              <Col mdHidden md={ 4 } />
+            </Row>
           </Grid>
         </div>
 
@@ -173,66 +173,44 @@ class AccountCommDetails extends React.Component {
   }
 
   handleRevSharingChanged( event ) {
-    debugger;
-    var info = this.state.accountCommInfo;
-    switch (event.target.value) {
-      case "No":
-        info.revSharing = "Yes"
-        break;
-      case "Yes":
-        info.revSharing = "No"
-        break;
-    }
-    this.setState({accountCommInfo : info});
-  //  this.accountCommInfo.revSharing = value;
+    // debugger;
+    // var info = this.state.acctCommInfo;
+    // switch (event.target.value) {
+    //   case "No":
+    //     info.revSharing = "Yes"
+    //     break;
+    //   case "Yes":
+    //     info.revSharing = "No"
+    //     break;
+    // }
+    // this.setState({accountCommInfo : info});
+  //  this.state.acctCommInfo.revSharing = value;
   }
 
   goToTechnicalDetails() {
-    // this.props.goToTechnicalDetails( this.state.accountCommInfo );
-    var accountObjCheck = this.state.accountCommInfo;
-     if(accountObjCheck.company && accountObjCheck.billingLocation
-      && accountObjCheck.serviceLevel && accountObjCheck.trafficType){
-        this.props.goToTechnicalDetails( this.state.accountCommInfo );
+    // this.props.goToTechnicalDetails( this.state.acctCommInfo );
+    var accountObjCheck = this.state.acctCommInfo;
+     if(accountObjCheck.company && accountObjCheck.billinglocation
+      && accountObjCheck.servicelevel && accountObjCheck.traffictype){
+        console.log("error");
+        this.props.goToTechnicalDetails( this.state.acctCommInfo );
       }
       else {
+          console.log("no error");
         this.setState({emptyFlag:false});
     }
   }
 
   componentWillMount() {
-    this.userList = initializeData(Users,'login');
-    this.companyList = initializeData(Company,'code');
+    this.userList = initializeSelectOptions(Users.data,'name','id');
+    this.BillingLocation = initializeSelectOptions(BillingLocation.data,'billinglocationname','billinglocationid');
+    this.companyList = initializeSelectOptions(Company.data,'companyname','companyid');
+    this.ServiceLevel = initializeSelectOptions(ServiceLevel.data,'servicelevelname','servicelevelid');
+    this.TrafficType = initializeSelectOptions(TrafficType.data,'name','value');
 
-    var BillingLocation = {
-      "data": [
-        {"name": "Mobile 365 Inc.", "value": 1},
-        {"name": "Mobile 365 South Africa.", "value": 2},
-        {"name": "Mobileway Australia", "value": 3},
-        {"name": "Mobileway China", "value": 4}
-      ]
-    };
-    this.BillingLocation = initializeData(BillingLocation,'value');
-
-    var ServiceLevel = {
-      "data": [
-        {"name": "Standard", "value": "Standard"},
-        {"name": "Premium", "value": "Premium"}
-      ]
-    };
-    this.ServiceLevel = initializeData(ServiceLevel,'value');
-
-    var TrafficType = {
-      "data": [
-        {"name": "General", "value": "General"},
-        {"name": "Campaign", "value": "Campaign"},
-        {"name": "Low Latency", "value": "Low Latency"},
-        {"name": "Time Sensitive", "value": "Time Sensitive"}
-      ]
-    };
-   this.TrafficType = initializeData(TrafficType,'value');
-    //this.refs.requesterName.getInputNode().value = sessionStorage.getItem( "Username" ) || "";
-    var info = this.state.accountCommInfo;
-    info.revSharing = "No";
+    var info = this.state.acctCommInfo;
+    //  info.revSharing = "No";
+    info.requesterName = sessionStorage.getItem( "username" );
     this.setState({accountCommInfo : info});
   }
 
@@ -251,7 +229,7 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps( dispatch ) {
   return bindActionCreators( {
-    handleSelectFieldsChange: handleSelectFieldsChange,
+    handleChange: handleChange,
     goToTechnicalDetails: goToTechnicalDetails
   }, dispatch );
 }

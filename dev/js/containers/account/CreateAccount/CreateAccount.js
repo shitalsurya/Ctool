@@ -70,6 +70,7 @@ class CreateAccount extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+      console.log("componentWillReceiveProps==",nextProps);
         if(nextProps.showTechnicalDetails){
           this.showTechnicalDetails = nextProps.showTechnicalDetails;
           this.showCommDetails=false;
