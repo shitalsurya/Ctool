@@ -23,7 +23,11 @@ class MiscUsers extends React.Component {
     this.users = [];
     this.currentUser= {};
     this.state = {
-      showEditModal:false
+      showEditModal:false,
+      submenus:[types.MISCELLENEOUS,
+                types.USER_MANAGEMENT,
+                types.COUNTRY_MANAGEMENT
+              ]
     }
   }
   componentWillMount() {

@@ -18,11 +18,11 @@ export default class AccountList extends React.Component {
     constructor(props, context) {
         super(props, context);
           this.state={
-            submenus:["Accounts",
-                      "Create Account",
-                      "Suspend Account",
-                      "Reactivate Account",
-                      "Close Account"]
+            submenus:[types.ACCOUNT_LIST,
+                      types.ACCOUNT_CREATE,
+                      types.ACCOUNT_SPND,
+                      types.ACCOUNT_REAC,
+                      types.ACCOUNT_CLOSE]
         }
     }
 

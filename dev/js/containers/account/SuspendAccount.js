@@ -10,6 +10,7 @@ import Account from '././../../../json/Account.json';
 import { initializeData, handleSuspendAccCompany, setSuspendAccountInfo, getCompanyList } from './actions/accountActions';
 import { DateField, Calendar } from 'react-date-picker';
 import * as types from './actions/accountActionTypes';
+import * as type from '../common/commonActionTypes';
 require( '././../../../scss/style.scss' );
 require( '././../../../scss/datePick.scss' );
 
@@ -20,11 +21,11 @@ class SuspendAccount extends React.Component {
     this.state = {
       emptyFlag : false,
       susAccInfo : {},
-      submenus:["Accounts",
-                "Create Account",
-                "Suspend Account",
-                "Reactivate Account",
-                "Close Account"]
+      submenus:[type.ACCOUNT_LIST,
+                type.ACCOUNT_CREATE,
+                type.ACCOUNT_SPND,
+                type.ACCOUNT_REAC,
+                type.ACCOUNT_CLOSE]
     };
 
   }

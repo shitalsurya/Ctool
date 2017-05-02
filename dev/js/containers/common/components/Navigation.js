@@ -10,11 +10,59 @@ class Navigation extends React.Component {
     constructor(props, context) {
         super(props, context);
             this.state={
-        submenus:this.props.submenus||[]
+        submenus:this.props.submenus||[],
+        submenuHeading:this.props.submenus[0]||"",
+        innerSubmenus:this.props.submenus.slice(1)||[]
     }
     }
 
      render() {
+
+       const submenusVal = function(list){
+         var title;
+         switch (list) {
+           case types.ACCOUNT_LIST:
+             title = "Accounts";
+             break;
+            case types.ACCOUNT_CREATE:
+              title = "Create Account"
+              break;
+            case types.ACCOUNT_SPND:
+              title = "Suspend Account";
+              break;
+            case types.ACCOUNT_REAC:
+              title = "Reactivate Account";
+              break;
+            case types.ACCOUNT_CLOSE:
+              title = "Close Account";
+              break;
+            case types.MISCELLENEOUS:
+              title = "Miscelleneous";
+              break;
+            case types.USER_MANAGEMENT:
+              title = "User Management";
+              break;
+            case types.COUNTRY_MANAGEMENT:
+              title = "Country Management"
+              break;
+           default:
+            title = '';
+         }
+         return title;
+       }
+
+       const menuMapping = function(list, index) {
+         return(
+           <a key={index} onClick={ this.navigateMenus.bind( this, types[list] )}
+               className={this.props.account.data === list ? "list-group-item activeStyle" : "list-group-item"}>
+             <i className="fa fa-comment-o"></i>
+               {
+                 submenusVal(list)
+               }
+           </a>
+         );
+       }.bind(this);
+
         return (
           <div className="row">
             <div className="sidebar">
@@ -33,26 +81,10 @@ class Navigation extends React.Component {
                 <span className="list-group-item">
                   <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_LIST )} >
                     <span className="accounts-icon"></span>
-                    <span> { this.state.submenus[0]} </span>
+                    <span> { submenusVal(this.state.submenuHeading) } </span>
                   </a>
                 </span>
-
-                <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_CREATE )}
-                    className={"list-group-item " + (this.props.account.data == "ACCOUNT_CREATE" ? "activeStyle" : "")}>
-                  <i className="fa fa-comment-o"></i> { this.state.submenus[1]}
-                </a>
-                <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_SPND )}
-                    className={"list-group-item " + (this.props.account.data == "ACCOUNT_SPND" ? "activeStyle" : "")}>
-                  <i className="fa fa-comment-o"></i>{ this.state.submenus[2]}
-                </a>
-                <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_REAC )}
-                    className={"list-group-item " + (this.props.account.data == "ACCOUNT_REAC" ? "activeStyle" : "")}>
-                  <i className="fa fa-comment-o"></i>{ this.state.submenus[3]}
-                </a>
-                <a onClick={this.navigateMenus.bind( this, types.ACCOUNT_CLOSE )}
-                    className={"list-group-item " + (this.props.account.data == "ACCOUNT_CLOSE" ? "activeStyle" : "")}>
-                  <i className="fa fa-comment-o"></i>{ this.state.submenus[4]}
-                </a>
+                {this.state.innerSubmenus.map(menuMapping)}
               </div>
             </div>
           </div>
@@ -82,6 +114,15 @@ class Navigation extends React.Component {
           break;
           case types.ACCOUNT_CLOSE:
             this.context.router.push( 'closeAccount' );
+          break;
+          case types.MISCELLENEOUS:
+            this.context.router.push( 'miscUsers' );
+          break;
+          case types.USER_MANAGEMENT:
+            this.context.router.push( 'miscUsers' );
+          break;
+          case types.COUNTRY_MANAGEMENT:
+            this.context.router.push( 'miscCountry' );
           break;
         }
     //  this.props.navigateMenus(currentMenu)

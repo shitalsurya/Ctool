@@ -26,11 +26,11 @@ export default class AccountDetails extends React.Component {
                 MORouting:"MORouting",
                 MTRouting:"MTRouting"
             },
-            submenus:["Accounts",
-                      "Create Account",
-                      "Suspend Account",
-                      "Reactivate Account",
-                      "Close Account"]
+            submenus:[types.ACCOUNT_LIST,
+                      types.ACCOUNT_CREATE,
+                      types.ACCOUNT_SPND,
+                      types.ACCOUNT_REAC,
+                      types.ACCOUNT_CLOSE]
         }
     }
 

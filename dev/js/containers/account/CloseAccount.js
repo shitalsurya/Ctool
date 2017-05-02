@@ -9,6 +9,7 @@ import Navigation from './../common/components/Navigation';
 import Account from './../../../json/Account.json';
 import { initializeData, handleCloseAccCompany, setCloseAccountInfo, getCompanyList } from './actions/accountActions';
 import * as types from './actions/accountActionTypes';
+import * as type from '../common/commonActionTypes';
 require( './../../../scss/style.scss' );
 require( './../../../scss/datePick.scss' );
 
@@ -20,11 +21,11 @@ class CloseAccount extends React.Component {
       emptyFlag : false,
       warnFlag : false,
       closeAccInfo : {},
-      submenus:["Accounts",
-                "Create Account",
-                "Suspend Account",
-                "Reactivate Account",
-                "Close Account"]
+      submenus:[type.ACCOUNT_LIST,
+                type.ACCOUNT_CREATE,
+                type.ACCOUNT_SPND,
+                type.ACCOUNT_REAC,
+                type.ACCOUNT_CLOSE]
     };
 
   }
