@@ -3,7 +3,7 @@ import routeReducer from './routeReducer'
 import authReducer from '../../containers/login/loginReducer';
 import accountReducer from '../../containers/account/reducers/account.js';
 import miscUsers from '../../containers/miscellaneous/users/miscUserReducer';
-
+import miscCntry from '../../containers/miscellaneous/countries/miscCntryReducer';
 /*
  * We combine all reducers into a single object before updated data is dispatched (sent) to store
  * Your entire applications state (store) is just whatever gets returned from all your reducers
@@ -13,7 +13,8 @@ const allReducers = combineReducers({
     route: routeReducer,
     Auth: authReducer,
     Account:accountReducer,
-    MiscUsers:miscUsers
+    MiscUsers:miscUsers,
+    MiscCntry:miscCntry
 });
 
 export default allReducers

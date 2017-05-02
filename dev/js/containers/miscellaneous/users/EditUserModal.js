@@ -45,7 +45,7 @@ export default class EditUserModal extends React.Component {
         </Modal.Header>
         <Modal.Body>
           <div>
-            <Grid fluid="true">
+            <Grid fluid={true}>
               <Row className="show-grid">
                 <Col
                   componentClass={ ControlLabel }
