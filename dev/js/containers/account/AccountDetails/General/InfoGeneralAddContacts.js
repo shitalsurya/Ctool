@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { Tabs,  TabLink, TabContent } from 'react-tabs-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 import Select from 'react-select';
-import InlineEdit from './../../../common/components/InlineEdit';
 require('./../../../../../scss/style.scss');
 require('./../../../../../scss/tabs.scss');
 import DeleteRowLink from './../../../common/components/DeleteRow';
@@ -50,7 +49,6 @@ class InfoGeneralAddContacts extends React.Component {
      }
 
      buttonFormatter(){
-       debugger;
        return <Button bsStyle="primary" onClick={this.addContact.bind(this)}>Add New Contact</Button>
      }
 
