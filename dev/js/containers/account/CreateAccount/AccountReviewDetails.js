@@ -17,7 +17,8 @@ class AccountReviewDetails extends React.Component {
         super(props, context);
         this.Countries=[];
         this.state={
-          interfaceFlag : false,
+          mtFlag : false,
+          moFlag : false,
           accountInfo:this.props.accountObj || []
         };
         console.log("AccountReviewDetails accountInfo==",this.state.accountInfo);
@@ -113,25 +114,43 @@ class AccountReviewDetails extends React.Component {
         },
 
         {
-          'title' : 'MT Interfces',
+          'title' : 'MT Interfaces',
           'infoList' : [
             {
               'subtitle' : 'Default TPOA',
-              'value' : 'mtInterface'
+              'value' : 'defTPOA'
+            },
+            {
+              'subtitle' : 'SMPP Client IP Address(es)',
+              'value' : 'ipAdd',
+              'hidden' : this.state.smppFlag
             }
           ],
-          'hidden' : !this.state.interfaceFlag
+          'hidden' : this.state.mtFlag,
+          'interface' : true
         },
 
         {
-          'title' : 'MO Interfces',
+          'title' : 'MO Interfaces',
           'infoList' : [
             {
-              'subtitle' : 'HTTP URL',
-              'value' : 'moInterface'
+              'subtitle' : 'MO Enabled',
+              'value' : 'moEnabled',
+              'hidden' : this.state.httpFlag
+            },
+            {
+              'subtitle' : 'Reply Address',
+              'value' : 'rplAdd',
+              'hidden' : this.state.enableFlag
+            },
+            {
+              'subtitle' : 'SMTP Reply Address',
+              'value' : 'rplAdd',
+              'hidden' : this.state.smtpFlag
             }
           ],
-          'hidden' : !this.state.interfaceFlag
+          'hidden' : this.state.moFlag,
+          'interface' : true
         }
       ];
 
@@ -142,7 +161,12 @@ class AccountReviewDetails extends React.Component {
               <span>{list.title}</span>
             </div>
             <Grid fluid={true}>
-              {list.infoList.map(gridRowMapping)}
+              { !list.interface &&
+                list.infoList.map(gridRowMapping)
+              }
+              { list.interface &&
+                list.infoList.map(gridRowInterfaceMapping)
+              }
             </Grid>
           </div>
         );
@@ -150,13 +174,30 @@ class AccountReviewDetails extends React.Component {
 
       const gridRowMapping = function(list, index) {
           return (
-            <Row key={index} className="show-grid">
+            <Row key={index} className="show-grid" hidden={list.hidden ? "hidden" : false}>
                 <Col
                     componentClass={ ControlLabel }
                     md={ 3 }> {list.subtitle}:
                 </Col>
                 <Col md={ 6 }>
                   {this.state.accountInfo[list.value]}
+                </Col>
+                <Col
+                    mdHidden
+                    md={ 3 } />
+            </Row>
+          )
+      }.bind(this);
+
+      const gridRowInterfaceMapping = function(list, index) {
+          return (
+            <Row key={index} className="show-grid" hidden={list.hidden ? "hidden" : false}>
+                <Col
+                    componentClass={ ControlLabel }
+                    md={ 3 }> {list.subtitle}:
+                </Col>
+                <Col md={ 6 }>
+                  {this.state.accountInfo.interfaceVal[list.value]}
                 </Col>
                 <Col
                     mdHidden
@@ -189,10 +230,21 @@ class AccountReviewDetails extends React.Component {
     }
 
     componentWillMount() {
-      if(this.state.accountInfo.accInterface == "HTTP")
-        this.setState({interfaceFlag:true});
-      else
-        this.setState({interfaceFlag:false});
+      this.setState({httpFlag:true,smppFlag:true,smtpFlag:true,enableFlag:true});
+      var info=this.state.accountInfo;
+      switch(info.accInterface){
+        case "HTTP":
+            debugger;
+            let _flag = info.interfaceVal.moEnabled==="Yes" ? false : true;
+            this.setState({mtFlag:false,moFlag:false,httpFlag:false,enableFlag:_flag});
+          break;
+        case "SMPP":
+          this.setState({mtFlag:false,moFlag:true,smppFlag:false});
+          break;
+        case "SMTP":
+          this.setState({mtFlag:false,moFlag:false,smtpFlag:false});
+          break;
+      }
     }
 
     componentWillReceiveProps(nextProps){

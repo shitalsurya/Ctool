@@ -115,6 +115,8 @@ class SuspendAccount extends React.Component {
                           dateFormat="DD-MM-YYYY"
                           value={this.state.susAccInfo.date}
                           onChange={onChange}
+                          updateOnDateClick={true}
+                          collapseOnDateClick={true}
                           placeholder="Select Date.."
                         />
                       </Col>
@@ -143,7 +145,7 @@ class SuspendAccount extends React.Component {
   handleSubmitSuspend(){
     this.props.setSuspendAccountInfo(this.state.susAccInfo);
     console.log(this.state.susAccInfo);
-    this.setState({susAccInfo : {}});
+    this.setState({susAccInfo : { "date" : ''}});
     this.accountList = [];
   }
 
