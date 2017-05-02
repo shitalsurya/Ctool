@@ -173,7 +173,6 @@ class AccountCommDetails extends React.Component {
   }
 
   handleRevSharingChanged( event ) {
-    debugger;
     var info = this.state.accountCommInfo;
     switch (event.target.value) {
       case "No":

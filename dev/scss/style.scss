@@ -875,3 +875,9 @@ padding:6px !important;
     color : black;
     font: message-box;
 }
+.info_label {
+  border: none;
+  cursor: default;
+  box-shadow: none;
+  pointer-events: none;
+}

@@ -1,0 +1,15 @@
+{
+  "id":1,
+  "countryName":"India",
+  "continent":"Asia",
+  "countryNoCode" : 91,
+  "countryCode":"IN",
+  "msisdnLen":12,
+  "minLen":12,
+  "maxLen":12,
+  "defLookup":"Local-Numbering-Plan",
+  "enableCNL":"Yes",
+  "CNLOptions":"Local-Numbering-Plan",
+  "msgBodyRemoval":"No",
+  "lastUpdated":"22-11-2016"
+}
