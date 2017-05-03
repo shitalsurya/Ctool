@@ -67,30 +67,10 @@ class Navigation extends React.Component {
     }
 
     componentWillMount() {
-      if(this.state.submenus.length) {
-        this.menuHeading = this.state.submenus[0];
-        this.submenuContent = this.state.submenus.slice(1);
-      }
-      switch (this.menuHeading) {
-        case types.ACCOUNT_LIST:
-          this.icon="accounts-icon";
-          break;
-        case types.CONNECTIONS:
-          this.icon="connections-icon"
-          break;
-        case types.OPERATORS:
-          this.icon="operators-icon"
-          break;
-        case types.MISCELLENEOUS:
-          this.icon="misc-icon";
-          break;
-        case types.CTOOL_USERS:
-          this.icon="user-icon"
-          break;
-        case types.TOOLBOX:
-          this.icon="toolbox-icon"
-          break;
-      }
+        var info = this.state.submenus;
+        this.menuHeading = info.head;
+        this.submenuContent = info.subVal;
+        this.icon = info.head_icon
     }
 
 }
