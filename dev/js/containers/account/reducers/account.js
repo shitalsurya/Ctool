@@ -77,7 +77,7 @@ export default function(state = {
             });
         case types.ACTIVE_NAV_ITEM:
           return Object.assign({}, state, {
-              data: action.payload
+              nav: action.payload
           });
           case types.MISC_ACCOUNT_LIST_REQUEST:
             return Object.assign({}, state, {});

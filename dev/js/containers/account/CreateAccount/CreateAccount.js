@@ -11,7 +11,7 @@ import WizardStepper from './../../common/wizardStepper';
 import {handleSelectFieldsChange } from './../actions/accountActions';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 require('./../../../../scss/style.scss');
-
+import * as types from '../../common/commonActionTypes'
 
 
 class CreateAccount extends React.Component {
@@ -24,11 +24,11 @@ class CreateAccount extends React.Component {
             intrStyle : "btn btn-circle inactive-step",
             revwStyle : "btn btn-circle inactive-step"
           },
-          submenus:["Accounts",
-                    "Create Account",
-                    "Suspend Account",
-                    "Reactivate Account",
-                    "Close Account"]
+          submenus:[types.ACCOUNT_LIST,
+                    types.ACCOUNT_CREATE,
+                    types.ACCOUNT_SPND,
+                    types.ACCOUNT_REAC,
+                    types.ACCOUNT_CLOSE]
         };
         this.showCommDetails=true;
         this.showTechnicalDetails = false;

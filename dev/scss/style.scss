@@ -871,7 +871,11 @@ padding:6px !important;
 .display-icon {
 	font-size: 20px;
 }
-.list-group > a.activeStyle {
+.list-group > .activeStyle {
+    color : black;
+    font: message-box;
+}
+.list-group > .activeStyle:hover {
     color : black;
     font: message-box;
 }
