@@ -52,9 +52,10 @@ class Navigation extends React.Component {
        }
 
        const menuMapping = function(list, index) {
+         debugger;
          return(
            <a key={index} onClick={ this.navigateMenus.bind( this, types[list] )}
-               className={this.props.account.data === list ? "list-group-item activeStyle" : "list-group-item"}>
+               className={this.props.navTab === list ? "list-group-item activeStyle" : "list-group-item"}>
              <i className="fa fa-comment-o"></i>
                {
                  submenusVal(list)
@@ -79,7 +80,7 @@ class Navigation extends React.Component {
                   </a>
                 </span>
                 <span className="list-group-item">
-                  <a onClick={ this.navigateMenus.bind( this, types.ACCOUNT_LIST )} >
+                  <a onClick={ this.navigateMenus.bind( this, types[this.state.submenuHeading] )} >
                     <span className="accounts-icon"></span>
                     <span> { submenusVal(this.state.submenuHeading) } </span>
                   </a>
@@ -116,7 +117,7 @@ class Navigation extends React.Component {
             this.context.router.push( 'closeAccount' );
           break;
           case types.MISCELLENEOUS:
-            this.context.router.push( 'miscUsers' );
+            // this.context.router.push( 'miscUsers' );
           break;
           case types.USER_MANAGEMENT:
             this.context.router.push( 'miscUsers' );
@@ -139,7 +140,7 @@ Navigation.contextTypes = {
 
 function mapStateToProps( state ) {
   return {
-    account : state.Account
+    navTab : state.Account.nav
   };
 }
 
