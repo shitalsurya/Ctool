@@ -9,7 +9,7 @@ require('./../../../../../scss/tabs.scss');
 import DeleteRowLink from './../../../common/components/DeleteRow';
 import ModalAddContact from './AddContact';
 import Contact from './../../../../../json/ExistingContact.json';
-import * as types from './../../actions/accountActionTypes';
+import * as types from './../../../common/commonActionTypes';
 import { initializeData } from './../../actions/accountActions';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 class InfoGeneralAddContacts extends React.Component {

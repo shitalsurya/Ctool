@@ -1,6 +1,6 @@
 import React from 'react';
 import Company from './../../../../json/Company.json';
-import * as types from './accountActionTypes';
+import * as types from './../../common/commonActionTypes';
 
 export function getSpndAccount(spndAccObj) {
 

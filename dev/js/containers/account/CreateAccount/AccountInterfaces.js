@@ -8,7 +8,7 @@ import {
     ToastMessage,
 } from "react-toastr";
 import { initializeData, createNewAccount, getMetadata,handleInterfaceDetailsBack,handleInterfaceDetailsNext } from './../actions/accountActions';
-import * as types from './../actions/accountActionTypes';
+import * as types from './../../common/commonActionTypes';
 require('./../../../../scss/style.scss');
 const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 

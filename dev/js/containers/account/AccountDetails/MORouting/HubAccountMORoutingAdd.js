@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal,Label } from 'react-bootstrap';
 import Select from 'react-select';
 require('./../../../../../scss/style.scss');
-import * as types from './../../actions/accountActionTypes';
+import * as types from './../../../common/commonActionTypes';
 
 class HubAccountMORoutingAdd extends React.Component {
   constructor(props, context) {

@@ -1,8 +1,9 @@
-import * as types from '../../../containers/account/actions/accountActionTypes';
+import * as types from './../../common/commonActionTypes';
 export default function(state = {
     data: ""
 }, action = null) {
     switch (action.type) {
+
         case types.ACCOUNT_COMMINFO_NEXT:
             return Object.assign({}, state, {
                 accountInfo: action.payload,
@@ -69,12 +70,11 @@ export default function(state = {
             return Object.assign({}, state, {
                 data: action.payload
             });
-        case types.ACCOUNT_GET_COMPANY_LIST:
-        case types.ACCOUNT_GET_COMPANY_LIST_SUCCESS:
-        case types.ACCOUNT_GET_COMPANY_LIST_FAILURE:
-            return Object.assign({}, state, {
-                target: action.type
-            });
+            case types.GET_COMPANY_LIST_REQUEST:
+        			return Object.assign({}, state, {});
+        		case types.GET_COMPANY_LIST_RESPONSE:
+            console.log("GET_COMPANY_LIST_RESPONSE==",action.payload.data);
+        			return Object.assign({}, state, {companyList:action.payload.data,target:action.type});
         case types.ACTIVE_NAV_ITEM:
           return Object.assign({}, state, {
               nav: action.payload

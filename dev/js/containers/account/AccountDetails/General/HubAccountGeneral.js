@@ -13,7 +13,7 @@ import InfoGeneralMOSetting from './InfoGeneralMOSetting';
 import InfoGeneralDeliveryTime from './InfoGeneralDeliveryTime';
 require('./../../../../../scss/style.scss');
 require('./../../../../../scss/tabs.scss');
-import * as types from './../../actions/accountActionTypes';
+import * as types from './../../../common/commonActionTypes';
 
 class HubAccountGeneral extends React.Component {
     constructor(props, context) {

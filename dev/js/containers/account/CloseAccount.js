@@ -8,8 +8,7 @@ import Navigation from './../common/components/Navigation';
 // import Company from './../../../../json/Company.json';
 import Account from './../../../json/Account.json';
 import { initializeData, handleCloseAccCompany, setCloseAccountInfo, getCompanyList } from './actions/accountActions';
-import * as types from './actions/accountActionTypes';
-import * as type from '../common/commonActionTypes';
+import * as types from '../common/commonActionTypes';
 require( './../../../scss/style.scss' );
 require( './../../../scss/datePick.scss' );
 
@@ -21,11 +20,11 @@ class CloseAccount extends React.Component {
       emptyFlag : false,
       warnFlag : false,
       closeAccInfo : {},
-      submenus:[type.ACCOUNT_LIST,
-                type.ACCOUNT_CREATE,
-                type.ACCOUNT_SPND,
-                type.ACCOUNT_REAC,
-                type.ACCOUNT_CLOSE]
+      submenus:[types.ACCOUNT_LIST,
+                types.ACCOUNT_CREATE,
+                types.ACCOUNT_SPND,
+                types.ACCOUNT_REAC,
+                types.ACCOUNT_CLOSE]
     };
 
   }

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid, Button, Image,Glyphicon } from 'react-bootstrap';
 import Select from 'react-select';
-import * as types from './../actions/accountActionTypes';
+import * as types from './../../common/commonActionTypes';
 import { getHubAcctList} from './../actions/accountListActions';
 import {
     ToastContainer,

@@ -1,9 +1,9 @@
-import * as types from './accountActionTypes';
+import * as types from './../../common/commonActionTypes';
 import axios from 'axios';
 import * as config from '../../../containers/common/config';
 import {httpRequest} from '../../../containers/common/commonAjaxActions';
 import {getSpndAccount, getDataList} from './accountAjaxActions';
-
+import Company from '../../../../json/Company.json';
 export function initializeData(_list,valField){
   console.log("initializeData==",_list);
   var list = _list.data.map(function (item, index) {
@@ -180,29 +180,21 @@ export function setSuspendAccountInfoRequest(_accountInfo){
 	}
 }
 
-export function getCompanyList(){
-	return function (dispatch) {
-		const listType = dispatch(getCompanyListRequest());
-    return getDataList(listType);
-	}
-}
 export function getCompanyListRequest() {
-	return{
-		  type: types.ACCOUNT_GET_COMPANY_LIST
+		return {
+			type: types.GET_COMPANY_LIST_REQUEST
+		}
 	}
-}
+	export function getCompanyListResponse(data) {
+			return {
+				type: types.GET_COMPANY_LIST_RESPONSE,
+				 payload: Company
+			}
+		}
 
-export function getCompanyListRequestSuccess(data) {
-	//	localStorage.setItem("token",data.token);
-	return {
-  		type: types.ACCOUNT_GET_COMPANY_LIST_SUCCESS,
-  		payload: data
-	}
-}
-export function getCompanyListRequestFailure(data) {
-	return {
-  		type: types.ACCOUNT_GET_COMPANY_LIST_FAILURE,
-  		payload: data
+export function getCompanyList() {
+	return function (dispatch,getState) {
+		dispatch(getCompanyListResponse());
 	}
 }
 

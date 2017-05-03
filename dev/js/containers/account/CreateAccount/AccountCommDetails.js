@@ -4,14 +4,14 @@ import { bindActionCreators } from 'redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup, Button, ButtonToolbar } from 'react-bootstrap';
 import Select from 'react-select';
 import { ToastContainer, ToastMessage} from "react-toastr";
-import * as types from './../actions/accountActionTypes';
-import { initializeData,handleChange, goToTechnicalDetails } from './../actions/accountActions';
+import * as types from './../../common/commonActionTypes';
+import {getList} from './../../common/commonActions';
+//import {getUserList,getCompanyList} from './../../common/commonActions';
+import {goToTechnicalDetails } from './../actions/accountActions';
 import {initializeSelectOptions} from './../../common/Functions/commonFunctions';
 import Toggle from 'react-toggle';
 require( './../../../../scss/style.scss' );
 require( './../../../../scss/react-toggle.scss' );
-import Users from './../../../../json/Users.json';
-import Company from './../../../../json/Company.json';
 import BillingLocation from './../../../../json/BillingLocation.json';
 import ServiceLevel from './../../../../json/ServiceLevel.json';
 import TrafficType from './../../../../json/TrafficType.json';
@@ -82,7 +82,7 @@ class AccountCommDetails extends React.Component {
                   name="company"
                   value={this.state.acctCommInfo.company}
                   onChange={this.handleChange.bind(this)}>
-                  {this.userList}
+                  {this.companyList}
                 </FormControl>
               </Col>
               <Col mdHidden md={ 4 } />
@@ -131,7 +131,7 @@ class AccountCommDetails extends React.Component {
               </Col>
               <Col mdHidden md={ 4 } />
             </Row>
-            <Row className="show-grid">
+            {/* <Row className="show-grid">
               <Col componentClass={ ControlLabel } md={ 2 }>
                 Revenue Sharing:
               </Col>
@@ -148,7 +148,7 @@ class AccountCommDetails extends React.Component {
                 </label>
               </Col>
               <Col mdHidden md={ 4 } />
-            </Row>
+            </Row> */}
           </Grid>
         </div>
 
@@ -172,38 +172,24 @@ class AccountCommDetails extends React.Component {
     )
   }
 
-  handleRevSharingChanged( event ) {
-    // var info = this.state.acctCommInfo;
-    // switch (event.target.value) {
-    //   case "No":
-    //     info.revSharing = "Yes"
-    //     break;
-    //   case "Yes":
-    //     info.revSharing = "No"
-    //     break;
-    // }
-    // this.setState({accountCommInfo : info});
-  //  this.state.acctCommInfo.revSharing = value;
-  }
-
   goToTechnicalDetails() {
     // this.props.goToTechnicalDetails( this.state.acctCommInfo );
     var accountObjCheck = this.state.acctCommInfo;
      if(accountObjCheck.company && accountObjCheck.billinglocation
       && accountObjCheck.servicelevel && accountObjCheck.traffictype){
-        console.log("error");
         this.props.goToTechnicalDetails( this.state.acctCommInfo );
       }
       else {
-          console.log("no error");
         this.setState({emptyFlag:false});
     }
   }
 
   componentWillMount() {
-    this.userList = initializeSelectOptions(Users.data,'name','id');
+
+    this.props.getList();
+  //this.props.getUserList();
     this.BillingLocation = initializeSelectOptions(BillingLocation.data,'billinglocationname','billinglocationid');
-    this.companyList = initializeSelectOptions(Company.data,'companyname','companyid');
+
     this.ServiceLevel = initializeSelectOptions(ServiceLevel.data,'servicelevelname','servicelevelid');
     this.TrafficType = initializeSelectOptions(TrafficType.data,'name','value');
 
@@ -214,23 +200,43 @@ class AccountCommDetails extends React.Component {
   }
 
   componentWillReceiveProps( nextProps ) {
-
+    console.log("componentWillReceiveProps==",nextProps);
+      this.userList = initializeSelectOptions(nextProps.Users,'name','id');
+        console.log("this.userList==",this.userList);
+      this.companyList = initializeSelectOptions(nextProps.Company,'companyname','companyid');
+        console.log("this.companyList==",this.companyList);
+    // switch(nextProps.target){
+    //   case types.MISC_USERLIST_RESPONSE:
+    //
+    //
+    //       break;
+    //       case types.GET_COMPANY_LIST_RESPONSE:
+    //
+    //           break;
+    //         }
   }
-
 }
 
 function mapStateToProps( state ) {
   return {
-    data: state.Account.data,
-    target: state.Account.target
+  //  data: state.Account.data,
+  target: state.Common.target,
+  Users:state.Common.userList,
+  Company:state.Common.compList
   };
 }
 
 function mapDispatchToProps( dispatch ) {
   return bindActionCreators( {
-    handleChange: handleChange,
+    getList:getList,
+    //getUserList:getUserList,
+    //  getCompanyList:getCompanyList,
     goToTechnicalDetails: goToTechnicalDetails
   }, dispatch );
 }
-
+// import Users from './../../../../json/Users.json';
+// import Company from './../../../../json/Company.json';
+// import BillingLocation from './../../../../json/BillingLocation.json';
+// import ServiceLevel from './../../../../json/ServiceLevel.json';
+// import TrafficType from './../../../../json/TrafficType.json';
 export default connect( mapStateToProps, mapDispatchToProps )( AccountCommDetails );

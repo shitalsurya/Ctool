@@ -9,8 +9,7 @@ import Navigation from './../common/components/Navigation';
 import Account from '././../../../json/Account.json';
 import { initializeData, handleSuspendAccCompany, setSuspendAccountInfo, getCompanyList } from './actions/accountActions';
 import { DateField, Calendar } from 'react-date-picker';
-import * as types from './actions/accountActionTypes';
-import * as type from '../common/commonActionTypes';
+import * as types from '../common/commonActionTypes';
 require( '././../../../scss/style.scss' );
 require( '././../../../scss/datePick.scss' );
 
@@ -21,11 +20,11 @@ class SuspendAccount extends React.Component {
     this.state = {
       emptyFlag : false,
       susAccInfo : {},
-      submenus:[type.ACCOUNT_LIST,
-                type.ACCOUNT_CREATE,
-                type.ACCOUNT_SPND,
-                type.ACCOUNT_REAC,
-                type.ACCOUNT_CLOSE]
+      submenus:[types.ACCOUNT_LIST,
+                types.ACCOUNT_CREATE,
+                types.ACCOUNT_SPND,
+                types.ACCOUNT_REAC,
+                types.ACCOUNT_CLOSE]
     };
 
   }

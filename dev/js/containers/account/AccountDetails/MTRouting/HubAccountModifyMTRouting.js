@@ -5,7 +5,7 @@ import Toggle from 'react-toggle';
 require('./../../../../../scss/style.scss');
 require('./../../../../../scss/time.scss');
 require('./../../../../../scss/react-toggle.scss');
-import * as types from './../../actions/accountActionTypes';
+import * as types from './../../../common/commonActionTypes';
 import HubAccountAddMTRouting from './HubAccountAddMTRouting';
 import DateTimeField from 'react-bootstrap-datetimepicker';
 class HubAccountModifyMTRouting extends React.Component {

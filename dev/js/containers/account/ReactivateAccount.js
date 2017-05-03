@@ -8,8 +8,7 @@ import BrandingHeader from './../common/components/BrandingHeader';
 import Navigation from './../common/components/Navigation';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 import Select from 'react-select';
-import * as types from './actions/accountActionTypes';
-import * as type from '../common/commonActionTypes';
+import * as types from '../common/commonActionTypes';
 import { initializeData, handleReactivateAccCompany, setReactivateAccountInfo, getCompanyList } from './actions/accountActions';
 
 class ReactivateAccount extends React.Component {
@@ -18,11 +17,11 @@ class ReactivateAccount extends React.Component {
     this.state = {
         emptyFlag : false,
         reactivateAccInfo : {},
-        submenus:[type.ACCOUNT_LIST,
-                  type.ACCOUNT_CREATE,
-                  type.ACCOUNT_SPND,
-                  type.ACCOUNT_REAC,
-                  type.ACCOUNT_CLOSE]
+        submenus:[types.ACCOUNT_LIST,
+                  types.ACCOUNT_CREATE,
+                  types.ACCOUNT_SPND,
+                  types.ACCOUNT_REAC,
+                  types.ACCOUNT_CLOSE]
     };
   }
 

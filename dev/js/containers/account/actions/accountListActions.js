@@ -1,4 +1,4 @@
-import * as types from './accountActionTypes';
+import * as types from './../../common/commonActionTypes';
 import axios from 'axios';
 import * as config from '../../../containers/common/config';
 import {httpRequest} from '../../../containers/common/commonAjaxActions';

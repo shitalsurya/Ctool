@@ -4,7 +4,7 @@ import Select from 'react-select';
 import Toggle from 'react-toggle';
 require('./../../../../../scss/style.scss');
 require('./../../../../../scss/react-toggle.scss');
-import * as types from './../../actions/accountActionTypes';
+import * as types from './../../../common/commonActionTypes';
 
 class HubAccountAddMTRouting extends React.Component {
   constructor(props, context) {

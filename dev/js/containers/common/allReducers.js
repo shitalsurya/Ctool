@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
-import routeReducer from './routeReducer'
+import routeReducer from './routeReducer';
+import commonReducer from './commonReducer';
 import authReducer from '../../containers/login/loginReducer';
 import accountReducer from '../../containers/account/reducers/account.js';
 import miscUsers from '../../containers/miscellaneous/users/miscUserReducer';
@@ -10,6 +11,7 @@ import miscCntry from '../../containers/miscellaneous/countries/miscCntryReducer
  * */
 
 const allReducers = combineReducers({
+    Common: commonReducer,
     route: routeReducer,
     Auth: authReducer,
     Account:accountReducer,
