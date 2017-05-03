@@ -52,7 +52,6 @@ class Navigation extends React.Component {
        }
 
        const menuMapping = function(list, index) {
-         debugger;
          return(
            <a key={index} onClick={ this.navigateMenus.bind( this, types[list] )}
                className={this.props.navTab === list ? "list-group-item activeStyle" : "list-group-item"}>

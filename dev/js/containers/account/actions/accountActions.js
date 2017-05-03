@@ -258,13 +258,11 @@ export function setCloseAccountInfoRequest(_accountInfo){
 }
 
 export function handleActiveNav(currentMenu){
-  debugger;
 	return function(dispatch){
 		dispatch(handleActiveNavRequest(currentMenu))
 	}
 }
 export function handleActiveNavRequest(currentMenu){
-  debugger;
 	return{
 		  type: types.ACTIVE_NAV_ITEM,
 			payload:currentMenu

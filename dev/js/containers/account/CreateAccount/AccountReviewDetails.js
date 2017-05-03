@@ -234,7 +234,6 @@ class AccountReviewDetails extends React.Component {
       var info=this.state.accountInfo;
       switch(info.accInterface){
         case "HTTP":
-            debugger;
             let _flag = info.interfaceVal.moEnabled==="Yes" ? false : true;
             this.setState({mtFlag:false,moFlag:false,httpFlag:false,enableFlag:_flag});
           break;

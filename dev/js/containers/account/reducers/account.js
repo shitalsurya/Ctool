@@ -76,7 +76,6 @@ export default function(state = {
                 target: action.type
             });
         case types.ACTIVE_NAV_ITEM:
-        debugger;
           return Object.assign({}, state, {
               nav: action.payload
           });
