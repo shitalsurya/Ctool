@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {Form, FormControl, InputGroup,FormGroup, Glyphicon} from 'react-bootstrap';
+import {Form, FormControl, InputGroup,FormGroup, ControlLabel} from 'react-bootstrap';
 import Select from 'react-select';
 import Toggle from 'react-toggle';
 import DateTimeField from 'react-bootstrap-datetimepicker';
@@ -112,7 +112,6 @@ export default class InlineEdit extends React.Component {
        });
      }
 handleMouseOver(e){
-  console.log("handleMouseOver",e.target);
    var labelWidth =parseInt(document.defaultView.getComputedStyle(e.target,null).getPropertyValue("width"))+'px';
    this.setState({styles: {
       width:labelWidth
@@ -121,13 +120,11 @@ handleMouseOver(e){
      render() {
         return (
           <div className="view-edit-control">
-
             {
               this.state.showView &&
-                <FormControl.Static className="inline-view-ctrl"
-                  onMouseOver={this.handleMouseOver.bind(this) }>
-                  {this.state.value}
-                </FormControl.Static>
+                <ControlLabel className="inline-view-ctrl"
+                  onMouseOver={this.handleMouseOver.bind(this) }>  {this.state.value}</ControlLabel>
+
             }
             {
               this.state.showEdit &&

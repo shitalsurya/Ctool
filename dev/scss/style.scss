@@ -862,6 +862,12 @@ iframe  {
    overflow: hidden;
   text-overflow: ellipsis;
 }
+.view-edit-control{
+  .control-label{
+    font-weight: normal;
+    color: blue;
+  }
+}
 .view-edit-control .input-group-addon{
 padding:6px !important;
 // padding-left:8px !important;
