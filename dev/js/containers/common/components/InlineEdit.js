@@ -112,6 +112,7 @@ export default class InlineEdit extends React.Component {
        });
      }
 handleMouseOver(e){
+  console.log("handleMouseOver",e.target);
    var labelWidth =parseInt(document.defaultView.getComputedStyle(e.target,null).getPropertyValue("width"))+'px';
    this.setState({styles: {
       width:labelWidth
@@ -120,20 +121,19 @@ handleMouseOver(e){
      render() {
         return (
           <div className="view-edit-control">
+
             {
               this.state.showView &&
-                <InputGroup >
-                  <FormControl componentClass="label" className="inline-view-ctrl"
-                    onMouseOver={this.handleMouseOver.bind(this) }>
-                    {this.state.value}
-                  </FormControl>
-                </InputGroup>
+                <FormControl.Static className="inline-view-ctrl"
+                  onMouseOver={this.handleMouseOver.bind(this) }>
+                  {this.state.value}
+                </FormControl.Static>
             }
             {
               this.state.showEdit &&
                 <div style={this.state.styles}  onMouseLeave={()=>this.setState({showView:true,showEdit : false,showButtons : false})}>
                   <InputGroup>
-                    <FormControl title={this.state.value} className="inline-view-ctrl" componentClass="label">
+                    <FormControl title={this.state.value} className="inline-edit-ctrl" componentClass="label">
                       {this.state.value}
                     </FormControl>
                     <InputGroup.Addon onClick={this.onEditClick.bind(this)}>

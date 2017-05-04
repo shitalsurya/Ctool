@@ -848,15 +848,19 @@ iframe  {
   padding-left: 10px;
 }
 .inline-view-ctrl{
+  color:blue;
    white-space: nowrap;
    min-width:40px;
-   max-width: 150px;
+   max-width: 400px;
    overflow: hidden;
   text-overflow: ellipsis;
 }
-#inline-edit-ctrl{
-  min-width:65px;
-  //max-width: 150px;
+.inline-edit-ctrl{
+   white-space: nowrap;
+   min-width:40px;
+   max-width: 400px;
+   overflow: hidden;
+  text-overflow: ellipsis;
 }
 .view-edit-control .input-group-addon{
 padding:6px !important;
@@ -885,3 +889,6 @@ padding:6px !important;
   box-shadow: none;
   pointer-events: none;
 }
+
+
+//

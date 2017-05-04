@@ -67,7 +67,7 @@ updateValue(name,val,currentRow){
 
 var fields = [
   {
-      name:'Preference',
+      name:'Pref.',
       dataField:'preference',
       type:'select',
       width:'80px',
@@ -76,7 +76,8 @@ var fields = [
   {
       name:'SMSC',
     dataField:'SMSC',
-    type:'text'
+    type:'text',
+    dataAlign:'left'
   },
 {
       name:'On/Off',
@@ -102,26 +103,14 @@ var fields = [
         name:'Status',
     dataField:'status',
     type:'image',
-      width:'50px'
+      width:'80px'
   },
   {
-        name:'Comment',
+        name:'',
     dataField:'comment',
-    type:'text'
-  },
-{
-      name:'Preferred Start Time',
-    dataField:'prefStartTime',
-    type:'time',
-      width:'125px'
-  },
-  {
-    name:'Preferred End Time',
-    dataField:'prefEndTime',
-    type:'time',
-      width:'125px'
-  }
-];
+    type:'comment',
+    width:'50px'
+  }];
 
     if (this.props.data) {
       var listCols = fields.map(function (field) {
@@ -129,7 +118,7 @@ var fields = [
                 <TableHeaderColumn dataField={field.dataField}
                   width={field.width}
                   headerAlign='left'
-                  dataAlign='center'
+                  dataAlign={field.dataAlign || 'center'}
                   dataFormat={ table.columnFormatter.bind(this) }
                   formatExtraData={ field} >
                   {field.name}

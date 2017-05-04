@@ -1,6 +1,8 @@
 import React from 'react';
+import Toggle from 'react-toggle';
 import InlineEdit from './../../common/components/InlineEdit';
 import DeleteRow from './../../common/components/DeleteRow';
+require('./../components/Inline.scss');
 export function columnFormatter(cell, row, field, index) {
   //  this.currentRow = row;
     switch (field.type) {
@@ -36,22 +38,12 @@ export function columnFormatter(cell, row, field, index) {
                    />
             break;
         case "toggle":
-            var icons;
-            return <InlineEdit name = {
-                field.dataField
-            }
-              row={row}
-              type = "toggle"
-              value = {
-                cell
-              }
-              icons = {
-                field.options
-              }
-              onSave = {
-                this.updateValue.bind(this)
-              }
-                   />
+            return   <Toggle
+              icons={field.options}
+              defaultChecked={cell}
+              value={cell}
+              onChange={this.updateValue.bind(this)}
+                     />
             break;
         case "time":
             return <InlineEdit name = {
@@ -77,5 +69,9 @@ export function columnFormatter(cell, row, field, index) {
         case "delete":
             return <DeleteRow currentRow={row[field.rowId]}/>
             break;
+            case "comment":
+               return   <div id="box" title={cell}></div>
+              //  return    <span className="comments-icon" title={cell} ></span>
+              break;
     }
 }
