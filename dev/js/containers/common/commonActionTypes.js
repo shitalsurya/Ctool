@@ -2,12 +2,12 @@
 export const ACTIVE_NAV_ITEM = 'ACTIVE_NAV_ITEM';
 
 //Account module
-export const ACCOUNT_LIST='ACCOUNT_LIST';
-export const ACCOUNT_DETAILS='ACCOUNT_DETAILS';
-export const ACCOUNT_CREATE = 'ACCOUNT_CREATE';
-export const ACCOUNT_REAC = 'ACCOUNT_REAC';
-export const ACCOUNT_SPND = 'ACCOUNT_SPND';
-export const ACCOUNT_CLOSE = 'ACCOUNT_CLOSE';
+export const ACCOUNT_LIST='Accounts';
+export const ACCOUNT_DETAILS='Account Details';
+export const ACCOUNT_CREATE = 'Create Account';
+export const ACCOUNT_REAC = 'Reactivate Account';
+export const ACCOUNT_SPND = 'Suspend Account';
+export const ACCOUNT_CLOSE = 'Close Account';
 
 
 export const ACCOUNT_MGR_CHANGE='ACCOUNT_MGR_CHANGE';
@@ -111,10 +111,10 @@ export const CLOSE_ACC_INFO = 'CLOSE_ACC_INFO';
 export const CONNECTIONS = 'CONNECTIONS';
 
 //Miscelleneous
-export const MISCELLENEOUS = 'MISCELLENEOUS';
+export const MISCELLENEOUS = 'Miscelleneous';
 export const TOOLBOX_SEARCH = 'TOOLBOX_SEARCH';
-export const USER_MANAGEMENT = 'USER_MANAGEMENT';
-export const COUNTRY_MANAGEMENT = 'COUNTRY_MANAGEMENT';
+export const USER_MANAGEMENT = 'User Management';
+export const COUNTRY_MANAGEMENT = 'Country Management';
 
 //Users
 export const MISC_USERS = 'MISC_USERS';
