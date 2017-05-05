@@ -215,7 +215,6 @@ class AccountReviewDetails extends React.Component {
     }
 
     componentWillMount() {
-      debugger;
       this.setState({httpFlag:true,smppFlag:true,smtpFlag:true,enableFlag:true});
       var info=this.state.accountInfo;
       switch(info.accInterface){
@@ -233,7 +232,6 @@ class AccountReviewDetails extends React.Component {
     }
 
     componentWillReceiveProps(nextProps){
-      debugger;
       switch(nextProps.target){
         case types.ACCOUNT_CREATE_NEW_SUCCESS:
             this.refs.container.success(`Account created successfully.`, ``, {
