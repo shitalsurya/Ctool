@@ -165,7 +165,7 @@ class CloseAccount extends React.Component {
 
   componentWillMount() {
     let Company = this.props.getCompanyList();
-    this.companyList = initializeData(Company,'code');
+  //  this.companyList = initializeData(Company,'code');
   }
 
 }

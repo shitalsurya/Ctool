@@ -160,8 +160,8 @@ class SuspendAccount extends React.Component {
           "company" :value.value,
           "accounts" : Account
         }
-        var updatedAccountList = this.props.handleSuspendAccCompany(spndAccObj);
-        this.accountList = initializeData(updatedAccountList,'account');
+      //  var updatedAccountList = this.props.handleSuspendAccCompany(spndAccObj);
+    //    this.accountList = initializeData(updatedAccountList,'account');
         break;
       case types.SUSPEND_ACC_ACCOUNT:
         info.account = value.value;
@@ -180,7 +180,7 @@ class SuspendAccount extends React.Component {
 
   componentWillMount() {
     let Company = this.props.getCompanyList();
-    this.companyList = initializeData(Company,'code');
+//    this.companyList = initializeData(Company,'code');
   }
 
 }

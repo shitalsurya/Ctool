@@ -6,7 +6,8 @@ import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid, Image,Glyph
 import Select from 'react-select';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import * as types from './../../common/commonActionTypes';
-
+import {tableOptions} from './../../common/Functions/commonFunctions';
+import AdvancedSearch from './../../common/components/AdvancedSearch';
 require('../../../../scss/style.scss');
 import Products from '../../../../json/Products.json';
 
@@ -26,34 +27,7 @@ import Products from '../../../../json/Products.json';
            { value: 'price', label: 'Product Price'}];
            this.searchFilters={};
    }
-   nameSearchTermChanged(e){
-       if(e.target.value!="")
-       this.searchFilters[e.target.name]=e.target.value;
-   }
-   advSearchTermChanged(e){
 
-     if(e.target.value!=""){
-       var _searchCriteria={
-         showNameSearch:false,
-         showAdvSearch:true
-       };
-       if(!this.searchFilters.hasOwnProperty("searchByName")){
-          if(e.target.value!="")
-            this.searchFilters[e.target.name]=e.target.value;
-       }
-
-     }
-     else{
-       var _searchCriteria={
-         showNameSearch:true,
-         showAdvSearch:false
-       };
-     }
-     this.setState({currentSearchCriteria:_searchCriteria})
-   }
-   handleSearch(){
-     console.log("Search with:",this.searchFilters);
-   }
   renderShowsTotal(start, to, total) {
     return (
       <p style={ { color: 'blue' } }>
@@ -123,53 +97,29 @@ import Products from '../../../../json/Products.json';
 
     return (
 
-        <div className="tabs-container">
+        <div>
           <Grid fluid={ true }>
             <Row className="show-grid">
               <Col componentClass={ ControlLabel } md={ 1 }>
-                Display Columns:
               </Col>
               <Col md={ 5 }>
-                <Select
-                  multi={true}
-                  name="homepage"
-                  placeholder="Select User Homepage.."
-                  value={this.state.selectedCols}
-                  onChange={this.handleChange.bind(this)}
-                  options={this.masterCols} />
+
               </Col>
             </Row>
             <Row className="show-grid">
-              <Col md={ 12 }>
-                <div className="input-group" id="adv-search">
-                  <input type="text" name="searchByName" onChange={this.nameSearchTermChanged.bind(this)} className="form-control" placeholder="Search for snippets" />
-                  <div className="input-group-btn">
-                    <div className="btn-group" role="group">
-                      <div className="dropdown dropdown-lg">
-                        {this.state.currentSearchCriteria.showNameSearch &&	<button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span className="caret"></span></button>}
-                        {this.state.currentSearchCriteria.showAdvSearch && <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span className="caret"></span></button>}
-                        <div className="dropdown-menu dropdown-menu-right" role="menu">
-                          <form className="form-horizontal" role="form">
-                            <div className="form-group">
-                              <label htmlFor="contain">Price</label>
-                              <input className="form-control" name="searchByPrice"  onChange={this.advSearchTermChanged.bind(this)} type="text" />
-                            </div>
-                            <button type="button" onClick={this.handleSearch.bind(this)} className="btn btn-primary"><span className="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                          </form>
-                        </div>
-                      </div>
-                      <button type="button" className="btn btn-primary"><span className="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                    </div>
-                  </div>
-                </div>
+              <Col componentClass={ ControlLabel } md={ 4 }>
+                Search Hub Accounts:
+              </Col>
+              <Col md={ 8 }>
+                <AdvancedSearch/>
               </Col>
             </Row>
             <Row className="show-grid">
               <Col md={ 12 }>
                 {/*  <Button onClick={this.navigateMenus.bind(this)}>Show</Button>*/}
-                <BootstrapTable data={this.data } pagination={ true }  options={ options }>
-                    <TableHeaderColumn dataField='id' dataSort={true} isKey>Product ID</TableHeaderColumn>
-                    {this.state.listComp}
+                <BootstrapTable data={this.data } pagination={ true }  options={ tableOptions }>
+                  <TableHeaderColumn dataField='id' dataSort={true} isKey>Product ID</TableHeaderColumn>
+                  {this.state.listComp}
                 </BootstrapTable>
               </Col>
             </Row>

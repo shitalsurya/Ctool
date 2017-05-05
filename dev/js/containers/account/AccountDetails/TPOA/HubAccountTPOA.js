@@ -67,7 +67,7 @@ class HubAccountGeneral extends React.Component {
                 <TableHeaderColumn dataField={field.dataField}
                   width={field.width}
                   headerAlign='left'
-                  dataAlign='center'
+                  dataAlign='left'
                   dataFormat={ table.columnFormatter.bind(this) }
                   formatExtraData={ field} >
                   {field.name}

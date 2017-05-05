@@ -155,7 +155,7 @@ handleSelectFieldsChange(target,value) {
 
     componentWillMount() {
       let Company = this.props.getCompanyList();
-      this.companyList = initializeData(Company,'code');
+    //  this.companyList = initializeData(Company,'code');
     }
 }
 

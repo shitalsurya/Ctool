@@ -37,29 +37,25 @@ export default class AccountList extends React.Component {
                 <Col md={2}>
                   <Navigation submenus={this.state.submenus}></Navigation>
                 </Col>
+
                 <Col md={10}>
-                  <Tabs className="tabs" >
-                    <div className="links">
-                      {/*<TabLink to="Companies"  className="tab-link">Companies</TabLink>*/}
-                      <TabLink to="OpenAccounts" default className="tab-link">Open accounts</TabLink>
-                      <TabLink to="CloseAccounts" className="tab-link">Close accounts</TabLink>
-                    </div>
-                    <div className="content" >
-                      <TabContent for="Companies">
-                        <CompaniesList/>
-                      </TabContent>
-                      <TabContent for="OpenAccounts">
-                        <OpenAccountsList/>
-                      </TabContent>
-                      <TabContent for="CloseAccounts">
+                  <div className="controls-container">
 
-                      </TabContent>
+                    <div className="rec">
+                      <div className="page-heading">
+                        Account Management
+                      </div>
                     </div>
-                  </Tabs>
 
-                </Col>
-              </Row>
-            </Grid>
+                    <div>
+                      <CompaniesList/>
+                    </div>
+                  </div>
+
+
+                  </Col>
+                </Row>
+              </Grid>
 
           </div>
       );
