@@ -357,7 +357,7 @@ class AccountInterfaces extends React.Component {
 
     componentWillReceiveProps (nextProps) {
       console.log("componentWillReceiveProps==",nextProps);
-      this.accountList = initializeSelectOptions(nextProps.AcctList,'acctName','acctId');
+      this.accountList = initializeSelectOptions(nextProps.AcctList,'customername','customerid');
       console.log("this.accountList==",this.accountList);
     }
 
