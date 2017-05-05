@@ -4,6 +4,7 @@ import * as config from '../../../containers/common/config';
 import {httpRequest} from '../../../containers/common/commonAjaxActions';
 import {getSpndAccount, getDataList} from './accountAjaxActions';
 import Company from '../../../../json/Company.json';
+import ExContact from '../../../../json/ExistingContact.json';
 export function initializeData(_list,valField){
   console.log("initializeData==",_list);
   var list = _list.data.map(function (item, index) {
@@ -103,54 +104,21 @@ export function createNewAccount(_accountInfo) {
 	}
 }
 
-	export function CreateNewAccountRequest() {
-		return{
-			type: types.ACCOUNT_CREATE_NEW,
-		}
-	}
-	export function CreateNewAccountSuccess(data) {
-	//	localStorage.setItem("token",data.token);
-		return {
-			type: types.ACCOUNT_CREATE_NEW_SUCCESS,
-			payload: data
-		}
-	}
-	export function CreateNewAccountFailure(data) {
-		return {
-			type: types.ACCOUNT_CREATE_NEW_FAILURE,
-			payload: data
-		}
-	}
-export function getMetadata(){
-	return function (dispatch,getState) {
-		dispatch(getMetadataRequest());
-
-		var request = {
-								url:config.getUrl('GetCountryList'),
-								method:'GET',
-								successCallback:getMetadataRequestSuccess,
-								failureCallback:getMetadataRequestFailure
-							};
-		return httpRequest(dispatch,getState,request);
-
-	}
-}
-export function getMetadataRequest() {
+export function CreateNewAccountRequest() {
 	return{
-		type: types.ACCOUNT_GET_COUNTRY_LIST
+		type: types.ACCOUNT_CREATE_NEW,
 	}
 }
-
-export function getMetadataRequestSuccess(data) {
-	//	localStorage.setItem("token",data.token);
+export function CreateNewAccountSuccess(data) {
+   //	localStorage.setItem("token",data.token);
 	return {
-		type: types.ACCOUNT_GET_COUNTRY_LIST_SUCCESS,
+		type: types.ACCOUNT_CREATE_NEW_SUCCESS,
 		payload: data
 	}
 }
-export function getMetadataRequestFailure(data) {
+export function CreateNewAccountFailure(data) {
 	return {
-		type: types.ACCOUNT_GET_COUNTRY_LIST_FAILURE,
+		type: types.ACCOUNT_CREATE_NEW_FAILURE,
 		payload: data
 	}
 }
@@ -185,13 +153,12 @@ export function getCompanyListRequest() {
 			type: types.GET_COMPANY_LIST_REQUEST
 		}
 	}
-	export function getCompanyListResponse(data) {
-			return {
-				type: types.GET_COMPANY_LIST_RESPONSE,
-				 payload: Company
-			}
+export function getCompanyListResponse(data) {
+		return {
+			type: types.GET_COMPANY_LIST_RESPONSE,
+			 payload: Company
 		}
-
+}
 export function getCompanyList() {
 	return function (dispatch,getState) {
 		dispatch(getCompanyListResponse());
@@ -258,5 +225,22 @@ export function handleActiveNavRequest(currentMenu){
 	return{
 		  type: types.ACTIVE_NAV_ITEM,
 			payload:currentMenu
+	}
+}
+
+export function getExContactListRequest() {
+		return {
+			type: types.GET_EX_CONTACT_LIST_REQUEST
+		}
+	}
+export function getExContactListResponse(data) {
+		return {
+			type: types.GET_EX_CONTACT_LIST_RESPONSE,
+			 payload: ExContact
+		}
+}
+export function getExContactList() {
+	return function (dispatch,getState) {
+		dispatch(getExContactListResponse());
 	}
 }
