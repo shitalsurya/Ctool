@@ -36,7 +36,6 @@ class EditCountryModal extends React.Component {
   }
 
   handleInlineEditChange(name,val){
-    debugger;
     this.currentCntry = this.state.currentCntry;
     console.log( "handleInlineEditChange this.currentCntry==", this.currentCntry );
     console.log("handleInlineEditChange name==",name);
@@ -244,7 +243,6 @@ class EditCountryModal extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    debugger;
     switch (nextProps.target) {
       case types.MISC_UPDATE_COUNTRYDETAILS_RESPONSE:
         console.log("nextProps.countryDetails==",nextProps.countryDetails);
@@ -266,7 +264,6 @@ class EditCountryModal extends React.Component {
 }
 
 function mapStateToProps( state ) {
-  debugger;
   return {
     target: state.MiscCntry.target,
     countryDetails: state.MiscCntry.countryDetails
@@ -274,7 +271,6 @@ function mapStateToProps( state ) {
 }
 
 function mapDispatchToProps( dispatch ) {
-  debugger;
   return bindActionCreators( {
       updateCountryDetails : updateCountryDetails
   }, dispatch );
