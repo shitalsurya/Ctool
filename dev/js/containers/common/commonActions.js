@@ -3,6 +3,7 @@ import axios from 'axios';
 import {getUserListResponse} from './../miscellaneous/users/miscUsersActions';
 import {getCountryListResponse} from './../miscellaneous/countries/miscCntryActions';
 import {getCompanyListResponse,getExContactListResponse} from './../account/actions/accountActions';
+import {getHubAcctListResponse} from '../account/actions/accountListActions';
 import * as config from './config';
 		export function getList(category) {
 		  return function(dispatch) {
@@ -14,6 +15,9 @@ import * as config from './config';
 					case "contacts":
 						dispatch(getCountryListResponse())
 						dispatch(getExContactListResponse())
+						break;
+					case "interface":
+						dispatch(getHubAcctListResponse())
 						break;
 				}
 		  }

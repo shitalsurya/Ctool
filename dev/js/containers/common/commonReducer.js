@@ -20,7 +20,11 @@ export default function (state = {}, action = null) {
 		case types.GET_EX_CONTACT_LIST_RESPONSE:
 			console.log("GET_EX_CONTACT_LIST_RESPONSE==",action.payload.data);
 			return Object.assign({}, state, {exContactList:action.payload.data,target:action.type});
-	default:
+		case types.MISC_ACCOUNT_LIST_REQUEST:
+			return Object.assign({}, state, {});
+		case types.MISC_ACCOUNT_LIST_RESPONSE:
+			return Object.assign({}, state, {acctList:action.payload,target:action.type});
+		default:
 			return state;
 	}
 };

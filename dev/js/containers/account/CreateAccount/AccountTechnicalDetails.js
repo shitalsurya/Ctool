@@ -167,15 +167,15 @@ class AccountTechnicalDetails extends React.Component {
 
     componentWillMount(){
         this.props.getList("contacts");
-        var Companies = {
-          "data":[
-            {"name": "10 GRAD(37669)", "value": "10 GRAD(37669)"},
-            {"name": "100 BEST(39551)", "value": "100 BEST(39551)"},
-            {"name": "10DUKE (38660)", "value": "10DUKE (38660)"},
-            {"name": "118811 (39258)", "value": "118811 (39258)"}
-          ]
-        };
-        this.contactsList = initializeData(Companies,'value');
+        // var Companies = {
+        //   "data":[
+        //     {"name": "10 GRAD(37669)", "value": "10 GRAD(37669)"},
+        //     {"name": "100 BEST(39551)", "value": "100 BEST(39551)"},
+        //     {"name": "10DUKE (38660)", "value": "10DUKE (38660)"},
+        //     {"name": "118811 (39258)", "value": "118811 (39258)"}
+        //   ]
+        // };
+        // this.contactsList = initializeData(Companies,'value');
     }
 
     // componentDidMount(){

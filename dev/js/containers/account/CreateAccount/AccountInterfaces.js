@@ -7,8 +7,10 @@ import {
     ToastContainer,
     ToastMessage,
 } from "react-toastr";
-import { initializeData, createNewAccount, getMetadata,handleInterfaceDetailsBack,handleInterfaceDetailsNext } from './../actions/accountActions';
+import { initializeData,  handleInterfaceDetailsBack,handleInterfaceDetailsNext } from './../actions/accountActions';
 import * as types from './../../common/commonActionTypes';
+import {getList} from './../../common/commonActions';
+import {initializeSelectOptions} from './../../common/Functions/commonFunctions';
 require('./../../../../scss/style.scss');
 const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
@@ -18,54 +20,33 @@ class AccountInterfaces extends React.Component {
       //  this.state.accountInterfacesInfo=this.props.accountObj || [];
         this.state={
           emptyFlag : true,
-          emptyValFlag : true,
+          emptyValFlag :true,
           accountInterfacesInfo:this.props.accountObj || []
         };
         console.log("this.state.accountInterfacesInfo==",this.state.accountInterfacesInfo);
     }
 
-    handleTextFieldsChange(e){
-      var info=this.state.accountInterfacesInfo;
-      switch(e.target.name){
-        case "techName":
-          info.techName = e.target.value;
-          break;
-        case "commName":
-          info.commName = e.target.value;
-          break;
-        case "defTPOA":
-          info.interfaceVal.defTPOA = e.target.value;
-          break;
-        case "rplAdd":
-          info.interfaceVal.rplAdd = e.target.value;
-          break;
-        case "moEnabled":
-          info.interfaceVal.moEnabled = e.target.checked ? "Yes" : "No";
-          if(!e.target.checked)
-            info.interfaceVal.rplAdd = '';
-          break;
-        case "ipAdd":
-          info.interfaceVal.ipAdd = e.target.value;
-          break;
+    handleChange(e){
+      console.log("handleChange==",e.target.value);
+      var info = this.state.accountInterfacesInfo;
+      if(e.target.name === "accInterface"){
+        info[e.target.name] = e.target.value;
+        info.moEnabled="No";
+        info.defTPOA='';
+        info.rplAdd='';
+        this.setState({emptyValFlag:true});
       }
-      this.setState({accountInterfacesInfo:info});
-    }
-
-    handleSelectFieldsChange(target, value) {
-      var info=this.state.accountInterfacesInfo;
-      switch (target) {
-          case types.ACCOUNT_EXSTACCTS_CHANGE:
-              info.ExstAccts = value.value;
-              break;
-          case types.ACCOUNT_INTERFACE_CHANGE:
-              info.accInterface = value.value;
-              info.interfaceVal=[];
-              info.interfaceVal.moEnabled="No"
-              this.setState({emptyValFlag : true});
-              break;
+      else if (e.target.name == "moEnabled") {
+        info[e.target.name] = e.target.checked ? "Yes" : "No";
+        if(!e.target.checked)
+          info.rplAdd = '';
       }
-      console.log("handleSelectFieldsChange info==",info);
-      this.setState({accountInterfacesInfo:info});
+      else{
+        info[e.target.name] = e.target.value;
+      }
+      this.setState({accountInterfacesInfo:info},function(){
+        console.log("handleChange==",this.state.accountInterfacesInfo);
+      });
     }
 
     handleInterfaceDetailsBack(){
@@ -84,11 +65,10 @@ class AccountInterfaces extends React.Component {
       var accountObjCheck = this.state.accountInterfacesInfo;
        if(accountObjCheck.techName && accountObjCheck.commName && accountObjCheck.ExstAccts
         && accountObjCheck.accInterface ){
-          var _interfaceVal = accountObjCheck.interfaceVal;
           switch(accountObjCheck.accInterface)
           {
             case "HTTP":
-              if(_interfaceVal.defTPOA && ((_interfaceVal.moEnabled=="Yes" && _interfaceVal.rplAdd) || (_interfaceVal.moEnabled=="No"))) {
+              if(accountObjCheck.defTPOA && ((accountObjCheck.moEnabled=="Yes" && accountObjCheck.rplAdd) || (accountObjCheck.moEnabled=="No"))) {
                 this.StoreTextFieldsData();
                 this.props.handleInterfaceDetailsNext(this.accountInfo);
               }
@@ -96,7 +76,7 @@ class AccountInterfaces extends React.Component {
                 this.setState({emptyValFlag:false});
               break;
             case "SMTP":
-              if(_interfaceVal.defTPOA && _interfaceVal.rplAdd) {
+              if(accountObjCheck.defTPOA && accountObjCheck.rplAdd) {
                 this.StoreTextFieldsData();
                 this.props.handleInterfaceDetailsNext(this.accountInfo);
               }
@@ -104,7 +84,7 @@ class AccountInterfaces extends React.Component {
                 this.setState({emptyValFlag:false});
               break;
             case "SMPP":
-              if(_interfaceVal.defTPOA && _interfaceVal.ipAdd) {
+              if(accountObjCheck.defTPOA && accountObjCheck.rplAdd) {
                 this.StoreTextFieldsData();
                 this.props.handleInterfaceDetailsNext(this.accountInfo);
               }
@@ -137,7 +117,7 @@ class AccountInterfaces extends React.Component {
                        type="text"
                        name="techName"
                        value={this.state.accountInterfacesInfo.techName}
-                       onChange={this.handleTextFieldsChange.bind(this)}
+                       onChange={this.handleChange.bind(this)}
                        placeholder="Enter technical name"/>
                   </Col>
                   <Col mdHidden md={ 3 } />
@@ -151,7 +131,7 @@ class AccountInterfaces extends React.Component {
                        type="text"
                        name="commName"
                        value={this.state.accountInterfacesInfo.commName}
-                       onChange={this.handleTextFieldsChange.bind(this)}
+                       onChange={this.handleChange.bind(this)}
                        placeholder="Enter commercial name"/>
                   </Col>
                   <Col mdHidden md={ 3 } />
@@ -161,24 +141,27 @@ class AccountInterfaces extends React.Component {
                     Existing accounts :
                   </Col>
                   <Col md={ 6 } className={this.state.accountInterfacesInfo.ExstAccts || this.state.emptyFlag ? false : "empty"}>
-                    <Select
-                        placeholder="Select account.."
-                        options={this.accountList}
-                        value={this.state.accountInterfacesInfo.ExstAccts}
-                        onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_EXSTACCTS_CHANGE)} />
+                    <FormControl componentClass="select"
+                      name="ExstAccts"
+                      value={this.state.accountInterfacesInfo.ExstAccts}
+                      onChange={this.handleChange.bind(this)}>
+                      {this.accountList}
+                    </FormControl>
                   </Col>
                   <Col mdHidden md={ 3 } />
                 </Row>
+
                 <Row className="show-grid">
                   <Col componentClass={ ControlLabel } md={ 3 }>
                     Interface:
                   </Col>
                   <Col md={ 6 } className={this.state.accountInterfacesInfo.accInterface || this.state.emptyFlag ? false : "empty"}>
-                  <Select
-                      placeholder="Select interface.."
-                      options={this.interfaceList}
+                    <FormControl componentClass="select"
+                      name="accInterface"
                       value={this.state.accountInterfacesInfo.accInterface}
-                      onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_INTERFACE_CHANGE)} />
+                      onChange={this.handleChange.bind(this)}>
+                      {this.interfaceList}
+                    </FormControl>
                   </Col>
                   <Col mdHidden md={ 3 } />
                 </Row>
@@ -197,12 +180,12 @@ class AccountInterfaces extends React.Component {
                           <Col componentClass={ ControlLabel } md={ 3 }>
                              Default TPOA:
                           </Col>
-                          <Col md={ 6 } className={this.state.accountInterfacesInfo.interfaceVal.defTPOA || this.state.emptyValFlag ? false : "empty"}>
+                          <Col md={ 6 } className={this.state.accountInterfacesInfo.defTPOA || this.state.emptyValFlag ? false : "empty"}>
                             <FormControl
                                type="text"
                                name="defTPOA"
-                               value={this.state.accountInterfacesInfo.interfaceVal.defTPOA}
-                               onChange={this.handleTextFieldsChange.bind(this)}
+                               value={this.state.accountInterfacesInfo.defTPOA}
+                               onChange={this.handleChange.bind(this)}
                                placeholder="Enter Default TPOA"/>
                           </Col>
                           <Col mdHidden md={ 3 } />
@@ -222,22 +205,22 @@ class AccountInterfaces extends React.Component {
                         <Col md={ 6 }>
                            <Checkbox
                                 name="moEnabled"
-                                onClick={this.handleTextFieldsChange.bind(this)}>
+                                onClick={this.handleChange.bind(this)}>
                             [*Check this box only if you have a valid Customer MO Reply Address]
                            </Checkbox>
                         </Col>
                         <Col mdHidden md={ 3 } />
                     </Row>
-                    <Row className="show-grid" hidden={this.state.accountInterfacesInfo.interfaceVal.moEnabled==="Yes" ? false : "hidden"}>
+                    <Row className="show-grid" hidden={this.state.accountInterfacesInfo.moEnabled==="Yes" ? false : "hidden"}>
                         <Col componentClass={ ControlLabel } md={ 3 }>
                           Reply Address:
                         </Col>
-                        <Col md={ 6 } className={this.state.accountInterfacesInfo.interfaceVal.rplAdd || this.state.emptyValFlag ? false : "empty"}>
+                        <Col md={ 6 } className={this.state.accountInterfacesInfo.rplAdd || this.state.emptyValFlag ? false : "empty"}>
                           <FormControl
                              type="text"
                              name="rplAdd"
-                             value={this.state.accountInterfacesInfo.interfaceVal.rplAdd}
-                             onChange={this.handleTextFieldsChange.bind(this)}
+                             value={this.state.accountInterfacesInfo.rplAdd}
+                             onChange={this.handleChange.bind(this)}
                              placeholder="Enter Reply Address"/>
                            <HelpBlock>(e.g. https://www.tobedecided.com)</HelpBlock>
                         </Col>
@@ -260,12 +243,12 @@ class AccountInterfaces extends React.Component {
                           <Col componentClass={ ControlLabel } md={ 3 }>
                              Default TPOA:
                           </Col>
-                          <Col md={ 6 } className={this.state.accountInterfacesInfo.interfaceVal.defTPOA || this.state.emptyValFlag ? false : "empty"}>
+                          <Col md={ 6 } className={this.state.accountInterfacesInfo.defTPOA || this.state.emptyValFlag ? false : "empty"}>
                             <FormControl
                                type="text"
                                name="defTPOA"
-                               value={this.state.accountInterfacesInfo.interfaceVal.defTPOA}
-                               onChange={this.handleTextFieldsChange.bind(this)}
+                               value={this.state.accountInterfacesInfo.defTPOA}
+                               onChange={this.handleChange.bind(this)}
                                placeholder="Enter Default TPOA"/>
                           </Col>
                           <Col mdHidden md={ 3 } />
@@ -282,12 +265,12 @@ class AccountInterfaces extends React.Component {
                         <Col componentClass={ ControlLabel } md={ 3 }>
                           SMTP Reply Address:
                         </Col>
-                        <Col md={ 6 } className={this.state.accountInterfacesInfo.interfaceVal.rplAdd || this.state.emptyValFlag ? false : "empty"}>
+                        <Col md={ 6 } className={this.state.accountInterfacesInfo.rplAdd || this.state.emptyValFlag ? false : "empty"}>
                           <FormControl
                              type="text"
                              name="rplAdd"
-                             value={this.state.accountInterfacesInfo.interfaceVal.rplAdd}
-                             onChange={this.handleTextFieldsChange.bind(this)}
+                             value={this.state.accountInterfacesInfo.rplAdd}
+                             onChange={this.handleChange.bind(this)}
                              placeholder="Enter Reply Address"/>
                         </Col>
                         <Col mdHidden md={ 3 } />
@@ -309,12 +292,12 @@ class AccountInterfaces extends React.Component {
                            <Col componentClass={ ControlLabel } md={ 3 }>
                              SMPP Client IP Address(es):
                            </Col>
-                           <Col md={ 6 } className={this.state.accountInterfacesInfo.interfaceVal.ipAdd || this.state.emptyValFlag ? false : "empty"}>
+                           <Col md={ 6 } className={this.state.accountInterfacesInfo.rplAdd || this.state.emptyValFlag ? false : "empty"}>
                              <FormControl
                                 type="text"
-                                name="ipAdd"
-                                value={this.state.accountInterfacesInfo.interfaceVal.ipAdd}
-                                onChange={this.handleTextFieldsChange.bind(this)}
+                                name="rplAdd"
+                                value={this.state.accountInterfacesInfo.rplAdd}
+                                onChange={this.handleChange.bind(this)}
                                 placeholder="Enter Reply Address"/>
                               <HelpBlock>(comma separated)</HelpBlock>
                            </Col>
@@ -324,12 +307,12 @@ class AccountInterfaces extends React.Component {
                           <Col componentClass={ ControlLabel } md={ 3 }>
                              Default TPOA:
                           </Col>
-                          <Col md={ 6 } className={this.state.accountInterfacesInfo.interfaceVal.defTPOA || this.state.emptyValFlag ? false : "empty"}>
+                          <Col md={ 6 } className={this.state.accountInterfacesInfo.defTPOA || this.state.emptyValFlag ? false : "empty"}>
                             <FormControl
                                type="text"
                                name="defTPOA"
-                               value={this.state.accountInterfacesInfo.interfaceVal.defTPOA}
-                               onChange={this.handleTextFieldsChange.bind(this)}
+                               value={this.state.accountInterfacesInfo.defTPOA}
+                               onChange={this.handleChange.bind(this)}
                                placeholder="Enter Default TPOA"/>
                           </Col>
                           <Col mdHidden md={ 3 } />
@@ -361,6 +344,7 @@ class AccountInterfaces extends React.Component {
     }
 
     componentWillMount(){
+      this.props.getList("interface");
       var Interfaces = {
         "data": [
             {"name": "HTTP", "value": "HTTP"},
@@ -368,34 +352,31 @@ class AccountInterfaces extends React.Component {
             {"name": "SMTP", "value": "SMTP"}
         ]
       };
-      this.interfaceList = initializeData(Interfaces,'value');
-
-      var Accounts = {
-        "data": [
-            {"name": "Mobile 365 Inc.", "value": 1},
-            {"name": "Mobile 365 South Africa.", "value": 2},
-            {"name": "Mobileway Australia", "value": 3},
-            {"name": "Mobileway China", "value": 4}
-        ]
-      };
-      this.accountList = initializeData(Accounts,'value');
+      this.interfaceList = initializeSelectOptions(Interfaces.data,'name','value');
     }
 
     componentWillReceiveProps (nextProps) {
-
+      console.log("componentWillReceiveProps==",nextProps);
+      this.accountList = initializeSelectOptions(nextProps.AcctList,'acctName','acctId');
+      console.log("this.accountList==",this.accountList);
     }
 
 }
 
 function mapStateToProps(state) {
-    return { data: state.Account.data };
+    return {
+      // data: state.Account.data,
+      target : state.Common.target,
+      AcctList : state.Common.acctList
+    };
 }
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({
-          handleInterfaceDetailsBack:handleInterfaceDetailsBack,
-          handleInterfaceDetailsNext:handleInterfaceDetailsNext
-        }, dispatch);
+  return bindActionCreators({
+    getList:getList,
+    handleInterfaceDetailsBack:handleInterfaceDetailsBack,
+    handleInterfaceDetailsNext:handleInterfaceDetailsNext
+  }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountInterfaces);
