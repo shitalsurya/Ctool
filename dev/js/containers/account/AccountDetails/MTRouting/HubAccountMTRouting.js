@@ -113,9 +113,10 @@ var fields = [
   }];
 
     if (this.props.data) {
-      var listCols = fields.map(function (field) {
+      var listCols = fields.map(function (field,index) {
             return (
                 <TableHeaderColumn dataField={field.dataField}
+                  key={index}
                   width={field.width}
                   headerAlign='left'
                   dataAlign={field.dataAlign || 'center'}

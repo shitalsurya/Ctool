@@ -54,9 +54,10 @@ import Products from '../../../../json/Products.json';
   }
   rearrangeCols(){
 
-	  var list = this.state.selectedCols.map(function (field) {
+	  var list = this.state.selectedCols.map(function (field,index) {
           return (
         		  <TableHeaderColumn
+                  key={index}
                   dataField={field.value}
                   dataSort={true}>
                 {field.label}
