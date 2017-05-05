@@ -9,56 +9,19 @@ require('./../../../../scss/style.scss');
 class Navigation extends React.Component {
     constructor(props, context) {
         super(props, context);
-            this.state={
-        submenus:this.props.submenus||[],
-        submenuHeading:this.props.submenus[0]||"",
-        innerSubmenus:this.props.submenus.slice(1)||[]
-    }
+        this.state={
+          submenus:this.props.submenus||[],
+        }
     }
 
      render() {
 
-       const submenusVal = function(list){
-         var title;
-         switch (list) {
-           case types.ACCOUNT_LIST:
-             title = "Accounts";
-             break;
-            case types.ACCOUNT_CREATE:
-              title = "Create Account"
-              break;
-            case types.ACCOUNT_SPND:
-              title = "Suspend Account";
-              break;
-            case types.ACCOUNT_REAC:
-              title = "Reactivate Account";
-              break;
-            case types.ACCOUNT_CLOSE:
-              title = "Close Account";
-              break;
-            case types.MISCELLENEOUS:
-              title = "Miscelleneous";
-              break;
-            case types.USER_MANAGEMENT:
-              title = "User Management";
-              break;
-            case types.COUNTRY_MANAGEMENT:
-              title = "Country Management"
-              break;
-           default:
-            title = '';
-         }
-         return title;
-       }
-
        const menuMapping = function(list, index) {
          return(
-           <a key={index} onClick={ this.navigateMenus.bind( this, types[list] )}
+           <a key={index} onClick={ this.navigateMenus.bind( this, list )}
                className={this.props.navTab === list ? "list-group-item activeStyle" : "list-group-item"}>
              <i className="fa fa-comment-o"></i>
-               {
-                 submenusVal(list)
-               }
+               { list }
            </a>
          );
        }.bind(this);
@@ -79,56 +42,35 @@ class Navigation extends React.Component {
                   </a>
                 </span>
                 <span className="list-group-item">
-                  <a onClick={ this.navigateMenus.bind( this, types[this.state.submenuHeading] )} >
-                    <span className="accounts-icon"></span>
-                    <span> { submenusVal(this.state.submenuHeading) } </span>
+                  <a onClick={ this.navigateMenus.bind( this, this.menuHeading )} >
+                    <span className={this.icon}></span>
+                    <span> { this.menuHeading } </span>
                   </a>
                 </span>
-                {this.state.innerSubmenus.map(menuMapping)}
+                {this.submenuContent.map(menuMapping)}
               </div>
             </div>
           </div>
         );
     }
+
     goToLaunchpad() {
         this.context.router.push( 'launchpad' );
     }
+
     navigateMenus( currentMenu ) {
       console.log("currentMenu==",currentMenu );
       this.props.handleActiveNav(currentMenu);
-      switch (currentMenu) {
-          case types.ACCOUNT_LIST:
-            this.context.router.push( 'accounts' );
-          break;
-          case types.ACCOUNT_DETAILS:
-            this.context.router.push( 'accountDetails' );
-          break;
-          case types.ACCOUNT_CREATE:
-            this.context.router.push( 'createAccount' );
-          break;
-          case types.ACCOUNT_REAC:
-            this.context.router.push( 'reactivateAccount' );
-          break;
-          case types.ACCOUNT_SPND:
-            this.context.router.push( 'suspendAccount' );
-          break;
-          case types.ACCOUNT_CLOSE:
-            this.context.router.push( 'closeAccount' );
-          break;
-          case types.MISCELLENEOUS:
-            // this.context.router.push( 'miscUsers' );
-          break;
-          case types.USER_MANAGEMENT:
-            this.context.router.push( 'miscUsers' );
-          break;
-          case types.COUNTRY_MANAGEMENT:
-            this.context.router.push( 'miscCountry' );
-          break;
-        }
+      let routeString = currentMenu.replace(" ","");
+      this.context.router.push(routeString);
     //  this.props.navigateMenus(currentMenu)
     }
-    componentWillMount() {
 
+    componentWillMount() {
+        var info = this.state.submenus;
+        this.menuHeading = info.head;
+        this.submenuContent = info.subVal;
+        this.icon = info.head_icon
     }
 
 }

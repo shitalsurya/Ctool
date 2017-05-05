@@ -4,8 +4,6 @@ import InlineEdit from './../../common/components/InlineEdit';
 import Toggle from 'react-toggle';
 require('./../../../../scss/style.scss');
 require('./../../../../scss/react-toggle.scss');
-import Countries from '../../../../json/Countries.json';
-import { initializeData } from '../../account/actions/accountActions';
 
 export default class EditCountryModal extends React.Component {
   constructor(props, context) {
@@ -45,7 +43,7 @@ export default class EditCountryModal extends React.Component {
     ];
 
     return (
-      <Modal show={this.props.showEditUser} onHide={this.close.bind(this)}>
+      <Modal show={this.props.showEditCountry} onHide={this.close.bind(this)}>
         <Modal.Header closeButton>
           <Modal.Title>{this.state.modalHeading}</Modal.Title>
         </Modal.Header>
@@ -69,7 +67,7 @@ export default class EditCountryModal extends React.Component {
                   Name:
                 </Col>
                 <Col md={ 6 }>
-                  <InlineEdit name="countryName" type="select" options={this.countryList} value={this.props.currentCntry.countryName} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="countryName" type="text" value={this.props.currentCntry.countryName} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
               </Row>
               <Row className="show-grid">
@@ -212,6 +210,6 @@ export default class EditCountryModal extends React.Component {
   }
 
   componentWillMount(){
-    this.countryList = initializeData(Countries,'countryName');
+
   }
 }

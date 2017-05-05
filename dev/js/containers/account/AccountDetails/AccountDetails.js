@@ -26,11 +26,16 @@ export default class AccountDetails extends React.Component {
                 MORouting:"MORouting",
                 MTRouting:"MTRouting"
             },
-            submenus:[types.ACCOUNT_LIST,
-                      types.ACCOUNT_CREATE,
-                      types.ACCOUNT_SPND,
-                      types.ACCOUNT_REAC,
-                      types.ACCOUNT_CLOSE]
+            submenus:{
+              head: types.ACCOUNT_LIST,
+              head_icon : "accounts-icon",
+              subVal:[
+                types.ACCOUNT_CREATE,
+                types.ACCOUNT_SPND,
+                types.ACCOUNT_REAC,
+                types.ACCOUNT_CLOSE
+              ]
+            }
         }
     }
 

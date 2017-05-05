@@ -51,14 +51,14 @@ ReactDOM.render(
 				{ /* Routes */ }
 				<Route path="launchpad" component={Launchpad}/>
 				<Route path="poc" component={Poc}/>
-				<Route path="accounts" component={AccountList}/>
-				<Route path="accountDetails" component={AccountDetails}/>
-				<Route path="createAccount" component={CreateAccount}/>
-				<Route path="reactivateAccount" component={ReactivateAccount}/>
-				<Route path="suspendAccount" component={SuspendAccount}/>
-				<Route path="closeAccount" component={CloseAccount}/>
-				<Route path="miscUsers" component={MiscUsers}/>
-				<Route path="miscCountry" component={MiscCountry}/>
+				<Route path="Accounts" component={AccountList}/>
+				<Route path="AccountDetails" component={AccountDetails}/>
+				<Route path="CreateAccount" component={CreateAccount}/>
+				<Route path="ReactivateAccount" component={ReactivateAccount}/>
+				<Route path="SuspendAccount" component={SuspendAccount}/>
+				<Route path="CloseAccount" component={CloseAccount}/>
+				<Route path="UserManagement" component={MiscUsers}/>
+				<Route path="CountryManagement" component={MiscCountry}/>
 				<Route path="connections" component={Connections}/>
 			</Router>
 

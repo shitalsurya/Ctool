@@ -20,11 +20,16 @@ class CloseAccount extends React.Component {
       emptyFlag : false,
       warnFlag : false,
       closeAccInfo : {},
-      submenus:[types.ACCOUNT_LIST,
-                types.ACCOUNT_CREATE,
-                types.ACCOUNT_SPND,
-                types.ACCOUNT_REAC,
-                types.ACCOUNT_CLOSE]
+      submenus:{
+        head: type.ACCOUNT_LIST,
+        head_icon : "accounts-icon",
+        subVal:[
+          type.ACCOUNT_CREATE,
+          type.ACCOUNT_SPND,
+          type.ACCOUNT_REAC,
+          type.ACCOUNT_CLOSE
+        ]
+      }
     };
 
   }

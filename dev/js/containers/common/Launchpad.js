@@ -119,13 +119,13 @@ export default class Launchpad extends React.Component {
     console.log("_route==",_route);
   switch (_route) {
       case types.ACCOUNT_LIST:
-        this.context.router.push( 'accounts' );
+        this.context.router.push( 'Accounts' );
       break;
       case types.CONNECTIONS:
         this.context.router.push( 'connections' );
       break;
       case types.MISCELLENEOUS:
-        this.context.router.push( 'miscUsers' );
+        this.context.router.push( 'UserManagement' );
       break;
     default:
 

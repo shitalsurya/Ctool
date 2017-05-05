@@ -24,10 +24,14 @@ class MiscCntry extends React.Component {
     this.currentCntry= {};
     this.state = {
       showEditModal:false,
-      submenus:[types.MISCELLENEOUS,
-                types.USER_MANAGEMENT,
-                types.COUNTRY_MANAGEMENT
-              ]
+      submenus:{
+        head: types.MISCELLENEOUS,
+        head_icon : "misc-icon",
+        subVal:[
+          types.USER_MANAGEMENT,
+          types.COUNTRY_MANAGEMENT
+        ]
+      }
     }
   }
   componentWillMount() {
@@ -49,7 +53,7 @@ class MiscCntry extends React.Component {
         }
         else{
             this.state.showEditModal =false;
-            this.refs.container.error(`Failed to get user details.`, ``, {
+            this.refs.container.error(`Failed to get country details.`, ``, {
                 closeButton: true,
             });
         }
@@ -57,15 +61,15 @@ class MiscCntry extends React.Component {
       case types.MISC_UPDATE_COUNTRYDETAILS_RESPONSE:
         console.log("nextProps.countryDetails==",nextProps.countryDetails);
         if( nextProps.countryDetails.showEditModal==false){
-          this.refs.container.success(`User updated successfully.`, ``, {
+          this.refs.container.success(`Country updated successfully.`, ``, {
               closeButton: true,
           });
             this.state.showEditModal =false;
-          //  this.currentUser =  nextProps.userDetails.details;
+          //  this.currentCntry =  nextProps.countryDetails.details;
         }
         else{
             this.state.showEditModal =true;
-            this.refs.container.error(`Failed to update user.`, ``, {
+            this.refs.container.error(`Failed to update country.`, ``, {
                 closeButton: true,
           });
         }
@@ -160,7 +164,7 @@ class MiscCntry extends React.Component {
           </Grid>
 
           <EditCountryModal currentCntry={this.currentCntry}
-            showEditUser={this.state.showEditModal}
+            showEditCountry={this.state.showEditModal}
             updateCountry={this.updateCountryDetails.bind(this)}
             close={this.close.bind(this)} />
 
