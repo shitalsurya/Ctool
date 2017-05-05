@@ -9,48 +9,27 @@ import {
 } from "react-toastr";
 import { initializeData,handleTechDetailsNext, getMetadata,handleTechDetailsBack } from './../actions/accountActions';
 import * as types from './../../common/commonActionTypes';
+import {getList} from './../../common/commonActions';
+import {initializeSelectOptions} from './../../common/Functions/commonFunctions';
 require('./../../../../scss/style.scss');
 const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
 class AccountTechnicalDetails extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.Countries=[];
         this.state={
           accountTechDetailsInfo:this.props.accountObj || []
         };
         console.log("this.state.accountTechDetailsInfo==",this.state.accountTechDetailsInfo);
     }
 
-    handleTextFieldsChange(e){
-      switch(e.target.name){
-        case "name":
-          this.state.accountTechDetailsInfo.name = e.target.value;
-          break;
-        case "email":
-          this.state.accountTechDetailsInfo.email = e.target.value;
-          break;
-        case "MobNo":
-          this.state.accountTechDetailsInfo.MobNo = e.target.value;
-          break;
-        case "DirectNo":
-          this.state.accountTechDetailsInfo.DirectNo = e.target.value;
-          break;
-      }
-    }
-
-    handleSelectFieldsChange(target, value) {
-      var info=this.state.accountTechDetailsInfo;
-      console.log("handleSelectFieldsChange info==",info);
-      switch (target) {
-        case types.ACCOUNT_COMPANY_CONTACT:
-          info.exstContacts = value.value;
-          break;
-        case types.ACCOUNT_COUNTRY_CHANGE:
-          info.country = value.value;
-          break;
-      }
-      this.setState({accountTechDetailsInfo:info});
+    handleChange(e){
+      console.log("handleChange==",e.target.value);
+      var info = this.state.accountTechDetailsInfo;
+      info[e.target.name] = e.target.value;
+      this.setState({accountTechDetailsInfo:info},function(){
+        console.log("handleChange==",this.state.accountTechDetailsInfo);
+      });
     }
 
     handleTechDetailsBack(){
@@ -72,7 +51,6 @@ class AccountTechnicalDetails extends React.Component {
     render() {
         return (
           <div>
-
             <div className="controls-container">
               <div className="rec">
                 <span>Technical Details</span>
@@ -83,14 +61,16 @@ class AccountTechnicalDetails extends React.Component {
                     Existing company contacts:
                   </Col>
                   <Col md={ 6 }>
-                    <Select
-                        placeholder="Select contacts.."
-                        options={this.contactsList}
-                        value={this.state.accountTechDetailsInfo.exstContacts}
-                        onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_COMPANY_CONTACT)} />
+                    <FormControl componentClass="select"
+                      name="exstContacts"
+                      value={this.state.accountTechDetailsInfo.exstContacts}
+                      onChange={this.handleChange.bind(this)}>
+                      {this.exContactList}
+                    </FormControl>
                   </Col>
                   <Col mdHidden md={ 3 } />
                 </Row>
+
                 <Row className="show-grid">
                   <Col componentClass={ ControlLabel } md={ 3 }>
                     Name:
@@ -100,7 +80,7 @@ class AccountTechnicalDetails extends React.Component {
                         type="text"
                         name="name"
                         value={this.state.accountTechDetailsInfo.name}
-                        onChange={this.handleTextFieldsChange.bind(this)}
+                        onChange={this.handleChange.bind(this)}
                         placeholder="Enter your name" />
                   </Col>
                   <Col mdHidden md={ 3 } />
@@ -114,7 +94,7 @@ class AccountTechnicalDetails extends React.Component {
                         type="email"
                         name="email"
                         value={this.state.accountTechDetailsInfo.email}
-                        onChange={this.handleTextFieldsChange.bind(this)}
+                        onChange={this.handleChange.bind(this)}
                         placeholder="Enter your email" />
                   </Col>
                   <Col mdHidden md={ 3 } />
@@ -124,11 +104,12 @@ class AccountTechnicalDetails extends React.Component {
                     Country:
                   </Col>
                   <Col md={ 6 }>
-                    <Select
-                        placeholder="Select country.."
-                        options={this.Countries}
-                        value={this.state.accountTechDetailsInfo.country}
-                        onChange={this.handleSelectFieldsChange.bind(this,types.ACCOUNT_COUNTRY_CHANGE)} />
+                    <FormControl componentClass="select"
+                      name="country"
+                      value={this.state.accountTechDetailsInfo.country}
+                      onChange={this.handleChange.bind(this)}>
+                      {this.Countries}
+                    </FormControl>
                   </Col>
                   <Col mdHidden md={ 3 } />
                 </Row>
@@ -141,7 +122,7 @@ class AccountTechnicalDetails extends React.Component {
                         type="text"
                         name="MobNo"
                         value={this.state.accountTechDetailsInfo.MobNo}
-                        onChange={this.handleTextFieldsChange.bind(this)}
+                        onChange={this.handleChange.bind(this)}
                         placeholder="Enter your mobile phone number"/>
                   </Col>
                   <Col mdHidden md={ 3 } />
@@ -155,7 +136,7 @@ class AccountTechnicalDetails extends React.Component {
                         type="text"
                         name="DirectNo"
                         value={this.state.accountTechDetailsInfo.DirectNo}
-                        onChange={this.handleTextFieldsChange.bind(this)}
+                        onChange={this.handleChange.bind(this)}
                         placeholder="Enter your direct phone number"/>
                    </Col>
                    <Col mdHidden md={ 3 } />
@@ -185,17 +166,7 @@ class AccountTechnicalDetails extends React.Component {
     }
 
     componentWillMount(){
-        var countryList = localStorage.getItem("countryList");
-        if(countryList){
-          console.log("get from cache");
-          this.Countries = initializeData(JSON.parse(countryList),'code');
-          console.log("this.Countries==",this.Countries);
-        }
-        else{
-          console.log("get from backend");
-          this.props.getMetadata();
-        }
-
+        this.props.getList("contacts");
         var Companies = {
           "data":[
             {"name": "10 GRAD(37669)", "value": "10 GRAD(37669)"},
@@ -207,41 +178,39 @@ class AccountTechnicalDetails extends React.Component {
         this.contactsList = initializeData(Companies,'value');
     }
 
-    componentDidMount(){
-      // this.refs.name.getInputNode().value = this.props.accountObj.name||"";
-      // this.refs.email.getInputNode().value = this.props.accountObj.email||"";
-      // this.refs.MobNo.getInputNode().value = this.props.accountObj.MobNo||"";
-      // this.refs.DirectNo.getInputNode().value = this.props.accountObj.DirectNo||"";
-      // this.refs.techName.getInputNode().value = this.props.accountObj.techName||"";
-      // this.refs.commName.getInputNode().value = this.props.accountObj.commName||"";
-    }
+    // componentDidMount(){
+    //   // this.refs.name.getInputNode().value = this.props.accountObj.name||"";
+    //   // this.refs.email.getInputNode().value = this.props.accountObj.email||"";
+    //   // this.refs.MobNo.getInputNode().value = this.props.accountObj.MobNo||"";
+    //   // this.refs.DirectNo.getInputNode().value = this.props.accountObj.DirectNo||"";
+    //   // this.refs.techName.getInputNode().value = this.props.accountObj.techName||"";
+    //   // this.refs.commName.getInputNode().value = this.props.accountObj.commName||"";
+    // }
 
     componentWillReceiveProps (nextProps) {
       console.log("componentWillReceiveProps==",nextProps);
-        switch(nextProps.target){
-          case types.ACCOUNT_GET_COUNTRY_LIST_SUCCESS:
-            if(JSON.stringify(nextProps.data)!=""){
-              localStorage.setItem("countryList",JSON.stringify(nextProps.data));
-              this.Countries = initializeData(nextProps.data,'code');
-            }
-              break;
-          case types.ACCOUNT_GET_COUNTRY_LIST_FAILURE:
-              alert("Failed to get countries");
-              break;
-        }
+      this.Countries = initializeSelectOptions(nextProps.Countries,'countryName','countryCode');
+      console.log("this.Countries==",this.Countries);
+      this.exContactList = initializeSelectOptions(nextProps.exContactList,'name','contactnumber');
+      console.log("this.exContactList==",this.exContactList);
     }
-
 }
 
 function mapStateToProps(state) {
-    return { data: state.Account.data,target:state.Account.target};
+    return {
+      // data: state.Account.data,
+      target:state.Common.target,
+      Countries:state.Common.countryList,
+      exContactList:state.Common.exContactList
+    };
 }
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({
-          handleTechDetailsNext: handleTechDetailsNext,
-          handleTechDetailsBack:handleTechDetailsBack,
-          getMetadata:getMetadata}, dispatch);
+  	return bindActionCreators({
+            getList:getList,
+            handleTechDetailsNext: handleTechDetailsNext,
+            handleTechDetailsBack:handleTechDetailsBack,
+    }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountTechnicalDetails);

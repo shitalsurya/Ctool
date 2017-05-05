@@ -186,7 +186,7 @@ class AccountCommDetails extends React.Component {
 
   componentWillMount() {
 
-    this.props.getList();
+    this.props.getList("accounts");
   //this.props.getUserList();
     this.BillingLocation = initializeSelectOptions(BillingLocation.data,'billinglocationname','billinglocationid');
 
