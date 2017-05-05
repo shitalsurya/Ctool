@@ -489,15 +489,21 @@ font-size: 14px;
 }
 
 #adv-search-panel{
+      margin-bottom: 15px;
+        margin-right: -15px;
+      input:first-child{
+        width: 88% !important;
+        border-radius: 0px !important;
+      }
   button{
         border-radius: 0px !important;
         border: 1px solid #ccc !important;
   }
+  .form-control-static {
+    padding-top: 0px  !important;
+  }
 }
-.search-box{
-  width: 89% !important;
-  border-radius: 0px !important;
-}
+
 
 .sap-caret::after {
 	font-family: 'SAP-icons';

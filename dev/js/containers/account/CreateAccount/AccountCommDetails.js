@@ -6,7 +6,7 @@ import Select from 'react-select';
 import { ToastContainer, ToastMessage} from "react-toastr";
 import * as types from './../../common/commonActionTypes';
 import {getList} from './../../common/commonActions';
-//import {getUserList,getCompanyList} from './../../common/commonActions';
+
 import {goToTechnicalDetails } from './../actions/accountActions';
 import {initializeSelectOptions} from './../../common/Functions/commonFunctions';
 import Toggle from 'react-toggle';
@@ -234,9 +234,4 @@ function mapDispatchToProps( dispatch ) {
     goToTechnicalDetails: goToTechnicalDetails
   }, dispatch );
 }
-// import Users from './../../../../json/Users.json';
-// import Company from './../../../../json/Company.json';
-// import BillingLocation from './../../../../json/BillingLocation.json';
-// import ServiceLevel from './../../../../json/ServiceLevel.json';
-// import TrafficType from './../../../../json/TrafficType.json';
 export default connect( mapStateToProps, mapDispatchToProps )( AccountCommDetails );

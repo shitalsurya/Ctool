@@ -53,7 +53,7 @@ export default class AccountList extends React.Component {
                     </div>
 
                     <div>
-                      <CompaniesList/>
+                      <OpenAccountsList/>
                     </div>
                   </div>
 

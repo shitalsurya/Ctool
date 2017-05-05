@@ -36,13 +36,34 @@ class OpenAccountsList extends React.Component {
     console.log("_row==",_row);
     this.context.router.push( 'accountDetails' );
   }
-  actionFormatter(cell, row,field,index) {
+  dataFormatter(cell, row,field,index) {
     switch (field) {
-      case 'acctId':
+      case 'customername':
       return (
-          <span className="display-icon" title="Display" onClick={this.showAccountDetails.bind(this,row)} ></span>
+         <Button bsStyle="link"  title="show" onClick={this.showAccountDetails.bind(this,row)} >{cell}</Button>
       )
         break;
+        case 'company':
+        return (
+          <FormControl.Static>
+            {row[field].companyname}
+          </FormControl.Static>)
+          break;
+      case 'action':
+        console.log("row==",row);
+        switch(row.status){
+          case "Suspended":
+          return (
+            <div>
+              <span className="reactivate-icon" title="Reactivate" >Rea</span>
+              <span className="close-icon" title="Close" >Cl</span>
+            </div>
+
+          )
+          break;
+        }
+
+          break;
       default:
           return `${cell}`;
         break;
@@ -54,12 +75,26 @@ class OpenAccountsList extends React.Component {
 
     var fields = [
       {
+          name:'Id',
+          dataField:'customerid',
+            width:'50px',
+      },
+      {
           name:'Hub Account Name',
-          dataField:'acctName',
+          dataField:'customername',
+      },
+      {
+          name:'Company Name',
+          dataField:'company',
+      },
+      {
+          name:'Status',
+          dataField:'status',
+            width:'80px',
       },
       {
           name:'Action',
-          dataField:'acctId',
+          dataField:'action',
           width:'80px',
             dataAlign:'center'
       }
@@ -67,10 +102,10 @@ class OpenAccountsList extends React.Component {
     var listCols = fields.map(function (field) {
           return (
               <TableHeaderColumn
-                isKey={ field.dataField == 'acctId'?true :false }
+                isKey={ field.dataField == 'customerid'?true :false }
                 width={field.width}
                 dataAlign={field.dataAlign}
-                dataFormat={ this.actionFormatter.bind(this) }
+                dataFormat={ this.dataFormatter.bind(this) }
                 formatExtraData={ field.dataField}
                 dataField={field.dataField}
               >
@@ -80,8 +115,7 @@ class OpenAccountsList extends React.Component {
       }.bind(this));
     return (
         <div>
-          <div className="tabs-container">
-            <Grid fluid={ true }>
+          <Grid fluid={ true }>
               <Row className="show-grid">
                 <Col md={ 12 }>
                   <BootstrapTable data ={ this.accounts } pagination={ true }
@@ -94,7 +128,6 @@ class OpenAccountsList extends React.Component {
               </Row>
             </Grid>
           </div>
-        </div>
     );
   }
 }
