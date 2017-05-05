@@ -40,6 +40,10 @@ class AccountReviewDetails extends React.Component {
           'title' : 'Commercial Information',
           'infoList' : [
             {
+              'subtitle' : 'Requester',
+              'value' : 'requesterName'
+            },
+            {
               'subtitle' : 'Account Manager',
               'value' : 'acctManager'
             },
@@ -49,15 +53,15 @@ class AccountReviewDetails extends React.Component {
             },
             {
               'subtitle' : 'Billing Location',
-              'value' : 'billingLocation'
+              'value' : 'billinglocation'
             },
             {
               'subtitle' : 'Service Level',
-              'value' : 'serviceLevel'
+              'value' : 'servicelevel'
             },
             {
               'subtitle' : 'Traffic Type',
-              'value' : 'trafficType'
+              'value' : 'traffictype'
             }
           ]
         },
@@ -79,7 +83,7 @@ class AccountReviewDetails extends React.Component {
             },
             {
               'subtitle' : 'Country',
-              'value' : '-'
+              'value' : 'country'
             },
             {
               'subtitle' : 'Mobile Phone Number',
@@ -123,7 +127,7 @@ class AccountReviewDetails extends React.Component {
             },
             {
               'subtitle' : 'SMPP Client IP Address(es)',
-              'value' : 'ipAdd',
+              'value' : 'rplAdd',
               'hidden' : this.state.smppFlag
             }
           ],
@@ -162,11 +166,8 @@ class AccountReviewDetails extends React.Component {
               <span>{list.title}</span>
             </div>
             <Grid fluid={true}>
-              { !list.interface &&
+              {
                 list.infoList.map(gridRowMapping)
-              }
-              { list.interface &&
-                list.infoList.map(gridRowInterfaceMapping)
               }
             </Grid>
           </div>
@@ -182,23 +183,6 @@ class AccountReviewDetails extends React.Component {
                 </Col>
                 <Col md={ 6 }>
                   {this.state.accountInfo[list.value]}
-                </Col>
-                <Col
-                    mdHidden
-                    md={ 3 } />
-            </Row>
-          )
-      }.bind(this);
-
-      const gridRowInterfaceMapping = function(list, index) {
-          return (
-            <Row key={index} className="show-grid" hidden={list.hidden ? "hidden" : false}>
-                <Col
-                    componentClass={ ControlLabel }
-                    md={ 3 }> {list.subtitle}:
-                </Col>
-                <Col md={ 6 }>
-                  {this.state.accountInfo.interfaceVal[list.value]}
                 </Col>
                 <Col
                     mdHidden
@@ -231,12 +215,13 @@ class AccountReviewDetails extends React.Component {
     }
 
     componentWillMount() {
+      debugger;
       this.setState({httpFlag:true,smppFlag:true,smtpFlag:true,enableFlag:true});
       var info=this.state.accountInfo;
       switch(info.accInterface){
         case "HTTP":
-            let _flag = info.interfaceVal.moEnabled==="Yes" ? false : true;
-            this.setState({mtFlag:false,moFlag:false,httpFlag:false,enableFlag:_flag});
+          var _flag = info.moEnabled === "Yes" ? false : true;
+          this.setState({mtFlag:false,moFlag:false,httpFlag:false,enableFlag:_flag});
           break;
         case "SMPP":
           this.setState({mtFlag:false,moFlag:true,smppFlag:false});
@@ -248,6 +233,7 @@ class AccountReviewDetails extends React.Component {
     }
 
     componentWillReceiveProps(nextProps){
+      debugger;
       switch(nextProps.target){
         case types.ACCOUNT_CREATE_NEW_SUCCESS:
             this.refs.container.success(`Account created successfully.`, ``, {
