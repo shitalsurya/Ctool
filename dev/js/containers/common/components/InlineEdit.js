@@ -288,7 +288,7 @@ export default class InlineEdit extends React.Component {
     componentWillMount() {
       var _options = this.state.options.map(function (field) {
             return (
-                <option key={field.id}
+                <option key={field.value}
                   value={field.value} >
                   {field.value}
                 </option>
