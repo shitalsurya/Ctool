@@ -6,8 +6,6 @@ import InlineEdit from './../../common/components/InlineEdit';
 import Toggle from 'react-toggle';
 require('./../../../../scss/style.scss');
 require('./../../../../scss/react-toggle.scss');
-// import Countries from '../../../../json/Countries.json';
-import { initializeData } from '../../account/actions/accountActions';
 import BrandingHeader from './../../common/components/BrandingHeader';
 import Navigation from './../../common/components/Navigation';
 import * as types from './../../common/commonActionTypes';

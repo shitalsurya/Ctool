@@ -12,14 +12,12 @@ export default function (state = {}, action = null) {
 				var _data={};
 				if(typeof(action.payload)!='undefined'){
 					_data = {
-						details:action.payload,
-						showEditModal: true
+						details:action.payload
 					}
 				}
 				else {
 					_data = {
-						details:"No data available.",
-						showEditModal: false
+						details:"No data available."
 					}
 				}
 				return Object.assign({}, state, {userDetails:_data,target:action.type});
@@ -29,14 +27,12 @@ export default function (state = {}, action = null) {
 					var _data={};
 					if(typeof(action.payload)!='undefined'){
 						_data = {
-							details:action.payload,
-							showEditModal: false
+							details:action.payload
 						}
 					}
 					else {
 						_data = {
-							details:"Failed to update user details.",
-							showEditModal: true
+							details:"Failed to update user details."
 						}
 					}
 					return Object.assign({}, state, {userDetails:_data,target:action.type});

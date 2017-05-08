@@ -7,8 +7,7 @@ import Select from 'react-select';
 import BrandingHeader from './../../common/components/BrandingHeader';
 import Navigation from './../../common/components/Navigation';
 import * as types from './../../common/commonActionTypes';
-import EditCountryModal from './EditCountryModal';
-import { getCountryList, getCntryDetails, updateCountryDetails } from './miscCntryActions';
+import { getCountryList, getCntryDetails } from './miscCntryActions';
 import {
     ToastContainer,
     ToastMessage,
@@ -41,24 +40,24 @@ class MiscCntry extends React.Component {
   componentWillReceiveProps( nextProps ) {
     switch (nextProps.target) {
       case types.MISC_COUNTRYLIST_RESPONSE:
-        this.country = nextProps.countryList;
-        console.log( "this.country==", this.country );
-        break;
+          this.country = nextProps.countryList;
+          console.log( "this.country==", this.country );
+          break;
       case types.MISC_COUNTRYDETAILS_RESPONSE:
-        console.log( "nextProps.countryDetails==", nextProps.countryDetails);
-        if( nextProps.countryDetails != {}){
-            // this.state.showEditModal =true;
-            this.currentCntry =  nextProps.countryDetails.details;
-            var _currentCntry=this.currentCntry;
-            this.context.router.push( {pathname:'editCountry',state:{currentCntry:_currentCntry}} );
-        }
-        else{
-            // this.state.showEditModal =false;
-            this.refs.container.error(`Failed to get country details.`, ``, {
-                closeButton: true,
-            });
-        }
-        break;
+          console.log( "nextProps.countryDetails==", nextProps.countryDetails);
+          if( nextProps.countryDetails != {}){
+              // this.state.showEditModal =true;
+              this.currentCntry =  nextProps.countryDetails.details;
+              var _currentCntry=this.currentCntry;
+              this.context.router.push( {pathname:'editCountry',state:{currentCntry:_currentCntry}} );
+          }
+          else{
+              // this.state.showEditModal =false;
+              this.refs.container.error(`Failed to get country details.`, ``, {
+                  closeButton: true,
+              });
+          }
+          break;
       // case types.MISC_UPDATE_COUNTRYDETAILS_RESPONSE:
       //   console.log("nextProps.countryDetails==",nextProps.countryDetails);
       //   if( nextProps.countryDetails.showEditModal==false){
@@ -90,7 +89,7 @@ class MiscCntry extends React.Component {
         break;
       default:
         return(
-          <a onClick={this.showDetails.bind(this,row)}>{cell}</a>
+          <a className="hand_pointer" onClick={this.showDetails.bind(this,row)}>{cell}</a>
         )
           // return `${cell}`;
         break;

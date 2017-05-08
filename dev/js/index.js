@@ -16,6 +16,7 @@ import CloseAccount from './containers/account/CloseAccount';
 import MiscUsers from './containers/miscellaneous/users/MiscUsers';
 import MiscCountry from './containers/miscellaneous/countries/MiscCntry';
 import EditCountry from './containers/miscellaneous/countries/EditCountryModal';
+import EditUser from './containers/miscellaneous/users/EditUserModal';
 import Poc from './containers/common/POC';
 import thunkMiddleware from 'redux-thunk';
 import {compose, createStore, applyMiddleware } from 'redux';
@@ -62,6 +63,7 @@ ReactDOM.render(
 				<Route path="CountryManagement" component={MiscCountry}/>
 				<Route path="connections" component={Connections}/>
 				<Route path="editCountry" component={EditCountry}/>
+				<Route path="editUser" component={EditUser}/>
 			</Router>
 
     </Provider>,
