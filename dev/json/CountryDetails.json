@@ -7,9 +7,10 @@
   "msisdnLen":12,
   "minLen":12,
   "maxLen":12,
+  "LookupOptions":["NRS","Local-Numbering-Plan"],
   "defLookup":"Local-Numbering-Plan",
   "enableCNL":"Yes",
-  "CNLOptions":"Local-Numbering-Plan",
+  "CNLOptions":["Local-Numbering-Plan"],
   "msgBodyRemoval":"No",
   "lastUpdated":"22-11-2016"
 }

@@ -164,6 +164,14 @@ class EditCountryModal extends React.Component {
                     </Row>
                     <Row className="show-grid">
                       <Col componentClass={ ControlLabel } md={ 4 }>
+                        Number Lookup Option(s):
+                      </Col>
+                      <Col md={ 6 }>
+                        <InlineEdit name="LookupOptions" type="multiSelect" options={lookupOptions} value={info.LookupOptions} onSave={this.handleInlineEditChange.bind(this)}  />
+                      </Col>
+                    </Row>
+                    <Row className="show-grid">
+                      <Col componentClass={ ControlLabel } md={ 4 }>
                         Default Number Lookup:
                       </Col>
                       <Col md={ 6 }>
@@ -191,7 +199,7 @@ class EditCountryModal extends React.Component {
                         CNL Option(s):
                       </Col>
                       <Col md={ 6 }>
-                        <InlineEdit name="CNLOptions" type="select" options={lookupOptions} value={info.CNLOptions} onSave={this.handleInlineEditChange.bind(this)}  />
+                        <InlineEdit name="CNLOptions" type="multiSelect" options={lookupOptions} value={info.CNLOptions} onSave={this.handleInlineEditChange.bind(this)}  />
                       </Col>
                     </Row>
                     <Row className="show-grid">
