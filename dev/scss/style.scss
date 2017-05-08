@@ -517,15 +517,13 @@ font-size: 14px;
 	font-family: 'SAP-icons';
 	content: "\e00d";
 }
-.sap-search {
+.sap-search,.sap-clear {
 	font-size: 15px;
+  margin:5px;
 }
 .sap-clear::after {
 	font-family: 'SAP-icons';
 	content: "\e03e";
-}
-.sap-clear {
-	font-size: 15px;
 }
 /*menus thumbnail*/
 .thumbnail .caption h3 {
@@ -887,12 +885,21 @@ padding:6px !important;
 // padding-right:8px !important;
 // padding-top:6px !important;
 }
-.display-icon::after {
+.reactivate-icon::after {
 	font-family: 'SAP-icons';
-	content: "\e1e9";
+	content: "\e010";
 }
-.display-icon {
+.suspend-icon::after {
+	font-family: 'SAP-icons';
+	content: "\e09c";
+}
+.close-icon::after {
+	font-family: 'SAP-icons';
+	content: "\e1c7";
+}
+.reactivate-icon,.suspend-icon,.close-icon {
 	font-size: 20px;
+  margin:5px;
 }
 .list-group > .activeStyle {
     color : black;

@@ -36,11 +36,13 @@ class EditUserModal extends React.Component {
   handleInlineEditChange(name,val){
     this.currentUser = this.state.currentUser;
     console.log( "handleInlineEditChange this.currentUser==", this.currentUser );
-    console.log("handleInlineEditChange name==",name);
-    console.log("handleInlineEditChange val==",val);
-    this.currentUser[name]=val;
-    console.log( "after this.currentUser==", this.currentUser );
-    this.props.updateUserDetails(this.currentUser);
+    console.log("handleInlineEditChange prev==",this.currentUser[name]);
+    console.log("handleInlineEditChange new==",val);
+    if(this.currentUser[name]!==val){
+      this.currentUser[name]=val;
+      console.log( "after this.currentUser==", this.currentUser );
+      this.props.updateUserDetails(this.currentUser);
+    }
   }
 
   render(){

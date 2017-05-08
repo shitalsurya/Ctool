@@ -1,39 +1,40 @@
-import * as types from './accountActionTypes';
+import * as types from './../../common/commonActionTypes';
 import axios from 'axios';
 import * as config from '../../../containers/common/config';
 import {httpRequest} from '../../../containers/common/commonAjaxActions';
-var commInfo = {
-	acctCommName : '(Live)',
-	billing : 'Mobile 365 Inc',
+var commInfo =  {
+	commercialname : '(Live)',
+	billinglocation:{
+	 billinglocationname : 'Mobile 365 Inc',
+	 billinglocationid:12
+ },
 	opened : '12 Jan 2017',
 	suspended : '',
 	closed : '',
-	serviceLevel : 'Standard',
-	status : 'UNSIGNED',
+	servicelevel :
+	{
+	 servicelevel : 'Mobile 365 Inc',
+	 servicelevelid:12
+ },
+	legalstatus : {
+	 legalstatusname : 'SIGNED',
+	 legalstatusid:1
+ },
 	comment : 'N/A'
-};
-	export function getHubAcctCommercialInfo() {
+}
+	export function getHubAccountCommercialInfo() {
 		return function (dispatch,getState) {
-			dispatch(getHubAcctCommercialInfoResponse());
-			// dispatch(loginUserRequest());
-			// var request = {
-			// 						url:config.getUrl('UserAuth'),
-			// 							method:'POST',
-			// 						data:{username, password},
-			// 						successCallback:loginUserResponse,
-			// 						failureCallback:loginUserResponse
-			// 					};
-			// return httpRequest(dispatch,getState,request);
+			dispatch(getHubAccountCommercialInfoResponse());
 		}
 	}
-	export function getHubAcctCommercialInfoRequest() {
+	export function getHubAccountCommercialInfoRequest() {
 		  return {
-		    type: types.MISC_ACCOUNT_LIST_REQUEST
+		    type: types.GET_ACCT_GENERAL_COMM_INFO_REQUEST
 		  }
 		}
-		export function getHubAcctCommercialInfoResponse(data) {
+		export function getHubAccountCommercialInfoResponse(data) {
 			  return {
-			    type: types.MISC_ACCOUNT_LIST_RESPONSE,
+			    type: types.GET_ACCT_GENERAL_COMM_INFO_RESPONSE,
 					 payload: commInfo
 			  }
 			}

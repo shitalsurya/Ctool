@@ -19,6 +19,8 @@ require('./../../../../scss/style.scss');
 export default class AccountDetails extends React.Component {
     constructor(props, context) {
         super(props, context);
+        this.currentAcct = this.props.location.state.currentAcct;
+        console.log("this.currentAcct==",this.currentAcct);
           this.state={
             accountCaptions:{
                 General:"General",
@@ -53,14 +55,14 @@ export default class AccountDetails extends React.Component {
                 <Col md={10}>
                   <Tabs className="tabs" >
                     <div className="links">
-                      <TabLink to="General"  className="tab-link">{this.state.accountCaptions.General}</TabLink>
+                      <TabLink to="General" default className="tab-link">{this.state.accountCaptions.General}</TabLink>
                       <TabLink to="TPOA" className="tab-link">{this.state.accountCaptions.TPOA }</TabLink>
-                      <TabLink to="MTRouting" default className="tab-link">{this.state.accountCaptions.MTRouting }</TabLink>
+                      <TabLink to="MTRouting"  className="tab-link">{this.state.accountCaptions.MTRouting }</TabLink>
                       <TabLink to="MORouting" className="tab-link">{this.state.accountCaptions.MORouting}</TabLink>
                     </div>
                     <div className="content" >
                       <TabContent for="General">
-                        <HubAccountGeneral/>
+                        <HubAccountGeneral currentAcct={this.currentAcct}/>
                       </TabContent>
                       <TabContent for="TPOA">
                         <HubAccountTPOA/>

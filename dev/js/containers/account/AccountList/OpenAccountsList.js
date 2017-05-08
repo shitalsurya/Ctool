@@ -11,7 +11,7 @@ import {
     ToastMessage,
 } from "react-toastr";
 const ToastMessageFactory = React.createFactory(ToastMessage.animation);
-import {tableOptions} from './../../common/Functions/commonFunctions';
+import AdvancedSearch from './../../common/components/AdvancedSearch';
 require( './../../../../scss/style.scss' );
 
 class OpenAccountsList extends React.Component {
@@ -34,7 +34,8 @@ class OpenAccountsList extends React.Component {
   }
   showAccountDetails(_row){
     console.log("_row==",_row);
-    this.context.router.push( 'accountDetails' );
+    //this.context.router.push( 'accountDetails' );
+     this.context.router.push( {pathname:'accountDetails',state:{currentAcct:_row.customerid}} );
   }
   dataFormatter(cell, row,field,index) {
     switch (field) {
@@ -52,11 +53,26 @@ class OpenAccountsList extends React.Component {
       case 'action':
         console.log("row==",row);
         switch(row.status){
+          case "Active":
+          return (
+            <div>
+              <span className="suspend-icon" title="Suspend" ></span>
+            </div>
+
+          )
+          break;
           case "Suspended":
           return (
             <div>
-              <span className="reactivate-icon" title="Reactivate" >Rea</span>
-              <span className="close-icon" title="Close" >Cl</span>
+              <span className="reactivate-icon" title="Reactivate" ></span>
+              <span className="close-icon" title="Close" ></span>
+            </div>
+
+          )
+          break;
+          case "Closed":
+          return (
+            <div>
             </div>
 
           )
@@ -69,9 +85,54 @@ class OpenAccountsList extends React.Component {
         break;
     }
   }
-
+  filterAccountList(_searchFilter){
+    console.log("_searchFilter==",_searchFilter);
+  }
   render() {
 
+         const createCustomToolBar = function(props) {
+        return (
+          <div>
+            <div className='col-md-3'>
+              <ControlLabel>Search hub accounts:</ControlLabel>
+            </div>
+              <div className='col-md-9'>
+                { props.components.searchPanel }
+              </div>
+            </div>
+            );
+            }
+
+            const advancedSearch = function(props) {
+              console.log(props);
+              return (
+                <AdvancedSearch fields={props} onSearch={this.filterAccountList.bind(this)}/>
+              );
+            }.bind(this);
+const options = {
+  expandRowBgColor: '#f7f8fa',
+  clearSearch: true,
+  //searchPanel:advancedSearch(props),
+  searchPanel: (props) => advancedSearch(props),
+  toolBar: (props) => createCustomToolBar(props),
+  page: 1,  // which page you want to show as default
+  sizePerPageList: [ {
+    text: '5', value: 5
+  }, {
+    text: '10', value: 10
+  }, {
+    text: 'All', value: 50
+  } ], // you can change the dropdown list for size per page
+  sizePerPage: 5,  // which size per page you want to locate as default
+  pageStartIndex: 1, // where to start counting the pages
+  paginationSize: 3,  // the pagination bar size.
+  prePage: '<', // Previous page button text
+  nextPage: '>', // Next page button text
+  firstPage: '<<', // First page button text
+  lastPage: '>>', // Last page button text
+  alwaysShowAllBtns: false, // Always show next and previous button
+  //  withFirstAndLast: false // Hide the going to First and Last page button
+};
 
     var fields = [
       {
@@ -90,7 +151,7 @@ class OpenAccountsList extends React.Component {
       {
           name:'Status',
           dataField:'status',
-            width:'80px',
+            width:'100px',
       },
       {
           name:'Action',
@@ -116,12 +177,12 @@ class OpenAccountsList extends React.Component {
     return (
         <div>
           <Grid fluid={ true }>
-              <Row className="show-grid">
-                <Col md={ 12 }>
-                  <BootstrapTable data ={ this.accounts } pagination={ true }
-                    tableHeaderClass='nested-body-class'
-                    search={ true }
-                    options={ tableOptions }>
+            <Row className="show-grid">
+              <Col md={ 12 }>
+                <BootstrapTable data ={ this.accounts } pagination={ true }
+                  tableHeaderClass='nested-body-class'
+                  search={ true }
+                  options={ options }>
                     {listCols}
                   </BootstrapTable>
                 </Col>

@@ -1,32 +1,7 @@
 import React from 'react';
-import {ControlLabel} from 'react-bootstrap';
-import AdvancedSearch from './../components/AdvancedSearch';
-
-     const createCustomToolBar = function(props) {
-    return (
-      <div>
-        <div className='col-md-3'>
-          <ControlLabel>Search hub accounts:</ControlLabel>
-        </div>
-          <div className='col-md-9'>
-            { props.components.searchPanel }
-          </div>
-        </div>
-        );
-        }
-
-        const advancedSearch = function(props) {
-          console.log(props);
-          return (
-            <AdvancedSearch fields={props}/>
-          );
-        };
         export const tableOptions={
           expandRowBgColor: '#f7f8fa',
           clearSearch: true,
-          //searchPanel:advancedSearch(props),
-          searchPanel: (props) => advancedSearch(props),
-          toolBar: (props) => createCustomToolBar(props),
           page: 1,  // which page you want to show as default
           sizePerPageList: [ {
             text: '5', value: 5

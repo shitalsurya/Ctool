@@ -5,34 +5,20 @@ import { Tabs,  TabLink, TabContent } from 'react-tabs-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 import Select from 'react-select';
 import InlineEdit from './../../../common/components/InlineEdit';
+import {getList} from './../../../common/commonActions';
 require('./../../../../../scss/tabs.scss');
 require('./../../../../../scss/style.scss');
 import BillingLocation from './../../../../../json/BillingLocation.json';
 import ServiceLevel from './../../../../../json/ServiceLevel.json';
-import { initializeData } from './../../actions/accountActions';
+import { initializeSelectOptions } from './../../../common/Functions/commonFunctions';
 
 class InfoGeneralCommercial extends React.Component {
     constructor(props, context) {
         super(props, context);
+        console.log("this.props.infoGenComm==",this.props.infoGenComm);
         this.state={
-          commInfoObj : {
-            commercialname : '(Live)',
-            billinglocation :12,
-            opened : '12 Jan 2017',
-            suspended : '',
-            closed : '',
-            servicelevel :
-            {
-             servicelevel : 'Mobile 365 Inc',
-             servicelevelid:12
-           },
-            legalstatus : {
-             legalstatusname : 'SIGNED',
-             legalstatusid:1
-           },
-            comment : 'N/A'
-          }
-        };
+          commInfoObj : this.props.infoGenComm||{}
+        }
     }
 
     handleInlineEditChange(name,val){
@@ -168,23 +154,33 @@ class InfoGeneralCommercial extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-
+  console.log("componentWillReceiveProps==",nextProps);
+  this.BillingLocation = initializeSelectOptions(nextProps.BillingLocation,'billinglocationname','billinglocationid');
+    console.log("this.BillingLocation==",this.BillingLocation);
     }
 
     componentWillMount(){
-      this.BillingLocation = initializeData(BillingLocation,'code');
-      this.ServiceLevel = initializeData(ServiceLevel,'value');
+      this.currentAcct = this.props.currentAcct;
+      console.log("componentWillMount this.currentAcct ==",this.currentAcct );
+       this.props.getList("InfoGeneralCommercial");
+    //  this.BillingLocation = initializeData(BillingLocation,'code');
+    //  this.ServiceLevel = initializeData(ServiceLevel,'value');
     }
 
 }
 
 function mapStateToProps(state) {
     return {
+    //  target: state.Common.target,
+      BillingLocation:state.Common.billingLocationList,
+      infoGenComm:state.Account.infoGenComm
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ }, dispatch);
+    return bindActionCreators({
+    getList:getList
+   }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoGeneralCommercial);

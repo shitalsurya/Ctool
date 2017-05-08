@@ -18,6 +18,8 @@ import * as types from './../../../common/commonActionTypes';
 class HubAccountGeneral extends React.Component {
     constructor(props, context) {
         super(props, context);
+          this.currentAcct = this.props.currentAcct;
+          console.log("HubAccountGeneral this.currentAcct ==",this.currentAcct );
         this.state = {
           openStatus : {
             CommercialInfo : true,
@@ -51,7 +53,7 @@ class HubAccountGeneral extends React.Component {
                   <Collapse in={this.state.openStatus.CommercialInfo}>
                     <div>
                       <Well>
-                        <InfoGeneralCommercial/>
+                        <InfoGeneralCommercial currentAcct={this.currentAcct}/>
                       </Well>
                     </div>
                   </Collapse>

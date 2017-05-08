@@ -56,6 +56,7 @@ class AdvancedSearch extends React.Component {
   }
   handleSearch(){
     console.log("Search with:",this.state);
+    this.props.onSearch(this.state);
   }
   handleClear(){
 
@@ -197,7 +198,7 @@ class AdvancedSearch extends React.Component {
                       </Col>
                       <Col md={ 1 }>
                         <Toggle
-                          defaultChecked={this.state.isCacheSearch=="Yes"?true:false}
+                          defaultChecked={this.state.isCacheSearch === "Yes" ? true : false }
                           value={this.state.isCacheSearch}
                           icons={{
                                  checked:'Yes',

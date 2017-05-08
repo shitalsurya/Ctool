@@ -8,7 +8,7 @@ var accounts = [{
 		"company":
 		 {"companyid": "10 GRAD(37669)",
 		 "companyname": "10 GRAD(37669)"},
-		 "status":"Suspended"
+		 "status":"Active"
 	},
 	{
 		"customerid":"2",
@@ -32,7 +32,7 @@ var accounts = [{
 				"company":
 				 {"companyid": "10 GRAD(37669)",
 				 "companyname": "10 GRAD(37669)"},
-				 "status":"Suspended"
+				 "status":"Closed"
 			},
 			{
 					"customerid":"5",
@@ -40,7 +40,7 @@ var accounts = [{
 					"company":
 					 {"companyid": "10 GRAD(37669)",
 					 "companyname": "10 GRAD(37669)"},
-					 "status":"Suspended"
+					 "status":"Closed"
 				},
 				{
 						"customerid":"6",
@@ -48,7 +48,7 @@ var accounts = [{
 						"company":
 						 {"companyid": "10 GRAD(37669)",
 						 "companyname": "10 GRAD(37669)"},
-						 "status":"Suspended"
+						 "status":"Active"
 					},
 					{
 							"customerid":"7",
@@ -56,7 +56,7 @@ var accounts = [{
 							"company":
 							 {"companyid": "10 GRAD(37669)",
 							 "companyname": "10 GRAD(37669)"},
-							 "status":"Suspended"
+							 "status":"Active"
 						},
 						{
 								"customerid":"8",
