@@ -55,17 +55,18 @@ export function getUserDetailsResponse2(data) {
 }
 
 export function getUserDetails(_userId) {
-	switch (_userId) {
+  var userId = _userId%2;
+	switch (userId) {
 		case 1:
 			return function (dispatch,getState) {
 				dispatch(getUserDetailsResponse1());
 			}
 			break;
-			case 2:
-				return function (dispatch,getState) {
-					dispatch(getUserDetailsResponse2());
-				}
-				break;
+		case 0:
+			return function (dispatch,getState) {
+				dispatch(getUserDetailsResponse2());
+			}
+			break;
 		default:
 
 	}
