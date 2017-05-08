@@ -23,7 +23,6 @@ class MiscCntry extends React.Component {
     this.country = [];
     this.currentCntry= {};
     this.state = {
-      showEditModal:false,
       submenus:{
         head: types.MISCELLENEOUS,
         head_icon : "misc-icon",
@@ -47,32 +46,34 @@ class MiscCntry extends React.Component {
         break;
       case types.MISC_COUNTRYDETAILS_RESPONSE:
         console.log( "nextProps.countryDetails==", nextProps.countryDetails);
-        if( nextProps.countryDetails.showEditModal==true){
-            this.state.showEditModal =true;
+        if( nextProps.countryDetails != {}){
+            // this.state.showEditModal =true;
             this.currentCntry =  nextProps.countryDetails.details;
+            var _currentCntry=this.currentCntry;
+            this.context.router.push( {pathname:'editCountry',state:{currentCntry:_currentCntry}} );
         }
         else{
-            this.state.showEditModal =false;
+            // this.state.showEditModal =false;
             this.refs.container.error(`Failed to get country details.`, ``, {
                 closeButton: true,
             });
         }
         break;
-      case types.MISC_UPDATE_COUNTRYDETAILS_RESPONSE:
-        console.log("nextProps.countryDetails==",nextProps.countryDetails);
-        if( nextProps.countryDetails.showEditModal==false){
-          this.refs.container.success(`Country updated successfully.`, ``, {
-              closeButton: true,
-          });
-            this.state.showEditModal =false;
-          //  this.currentCntry =  nextProps.countryDetails.details;
-        }
-        else{
-            this.state.showEditModal =true;
-            this.refs.container.error(`Failed to update country.`, ``, {
-                closeButton: true,
-          });
-        }
+      // case types.MISC_UPDATE_COUNTRYDETAILS_RESPONSE:
+      //   console.log("nextProps.countryDetails==",nextProps.countryDetails);
+      //   if( nextProps.countryDetails.showEditModal==false){
+      //     this.refs.container.success(`Country updated successfully.`, ``, {
+      //         closeButton: true,
+      //     });
+      //       this.state.showEditModal =false;
+      //     //  this.currentCntry =  nextProps.countryDetails.details;
+      //   }
+      //   else{
+      //       this.state.showEditModal =true;
+      //       this.refs.container.error(`Failed to update country.`, ``, {
+      //           closeButton: true,
+      //     });
+      //   }
     }
   }
 
@@ -83,25 +84,23 @@ class MiscCntry extends React.Component {
   actionFormatter(cell, row,field,index) {
     switch (field) {
       case 'id':
-      return (
-          <span className="display-icon" title="Display" onClick={this.showDetails.bind(this,row)} ></span>
-      )
+      // return (
+      //     <span className="display-icon" title="Display" onClick={this.showDetails.bind(this,row)} ></span>
+      // )
         break;
       default:
-          return `${cell}`;
+        return(
+          <a onClick={this.showDetails.bind(this,row)}>{cell}</a>
+        )
+          // return `${cell}`;
         break;
     }
   }
 
-  updateCountryDetails(){
-    console.log( "updateCountryDetails this.currentCntry==", this.currentCntry );
-    this.props.updateCountryDetails(this.currentCntry);
-  }
-
-  close() {
-    console.log("close");
-    this.setState({showEditModal:false});
-  }
+  // updateCountryDetails(){
+  //   console.log( "updateCountryDetails this.currentCntry==", this.currentCntry );
+  //   this.props.updateCountryDetails(this.currentCntry);
+  // }
 
   render() {
 
@@ -109,19 +108,19 @@ class MiscCntry extends React.Component {
       {
           name:'Country Name',
           dataField:'countryName',
-      },
-      {
-          name:'Action',
-          dataField:'id',
-          width:'80px',
-            dataAlign:'center'
       }
+      // {
+      //     name:'Action',
+      //     dataField:'id',
+      //     width:'80px',
+      //       dataAlign:'center'
+      // }
     ];
 
     var listCols = fields.map(function (field) {
           return (
               <TableHeaderColumn
-                isKey={ field.dataField == 'id'?true :false }
+                isKey={ field.dataField == 'countryName'?true :false }
                 width={field.width}
                 dataAlign={field.dataAlign}
                 dataFormat={ this.actionFormatter.bind(this) }
@@ -163,19 +162,18 @@ class MiscCntry extends React.Component {
             </Row>
           </Grid>
 
-          <EditCountryModal currentCntry={this.currentCntry}
-            showEditCountry={this.state.showEditModal}
-            updateCountry={this.updateCountryDetails.bind(this)}
-            close={this.close.bind(this)} />
-
           <ToastContainer
             toastMessageFactory={ ToastMessageFactory }
             ref="container"
             className="toast-top-right" />
-    </div>
+        </div>
     );
   }
 }
+
+MiscCntry.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
 
 function mapStateToProps( state ) {
   return {
@@ -189,7 +187,7 @@ function mapDispatchToProps( dispatch ) {
   return bindActionCreators( {
       getCountryList : getCountryList,
       getCntryDetails : getCntryDetails,
-      updateCountryDetails : updateCountryDetails
+      // updateCountryDetails : updateCountryDetails
   }, dispatch );
 }
 

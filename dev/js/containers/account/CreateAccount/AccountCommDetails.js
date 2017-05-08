@@ -55,7 +55,7 @@ class AccountCommDetails extends React.Component {
                   className="info_label"
                   type="text"
                   name="requesterName"
-                  value={this.state.acctCommInfo.requesterName} />
+                  value={this.state.acctCommInfo.requesterName||''} />
               </Col>
               <Col mdHidden md={ 4 }/>
             </Row>
@@ -189,7 +189,6 @@ class AccountCommDetails extends React.Component {
     this.props.getList("accounts");
   //this.props.getUserList();
     this.BillingLocation = initializeSelectOptions(BillingLocation.data,'billinglocationname','billinglocationid');
-
     this.ServiceLevel = initializeSelectOptions(ServiceLevel.data,'servicelevelname','servicelevelid');
     this.TrafficType = initializeSelectOptions(TrafficType.data,'name','value');
 
