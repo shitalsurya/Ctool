@@ -10,84 +10,121 @@ require('../../../../scss/style.scss');
 class AdvancedSearch extends React.Component {
   constructor(props, context) {
       super(props, context);
-        this.state = {
-          cacheSearch:'No',
-           currentSearchCriteria:{
-             showNameSearch:true,
-             showAdvSearch:false
-           }
-        };
+       if(sessionStorage.getItem("cacheAccListSearch")!=null){
+         var cachedObj = JSON.parse(sessionStorage.getItem("cacheAccListSearch"));
+           console.log("Use from session storage==",cachedObj);
+         this.state={
+           isCacheSearch:cachedObj.cacheSearch,
+           isAdvSearch:cachedObj.isAdvSearch,
+           selectedCompany:cachedObj.selectedCompany,
+             selectedStatus:cachedObj.selectedStatus ,
+             selectedAccount:cachedObj.selectedAccount
+         };
+       }
+       else {
+         this.state = {
+           isCacheSearch:"No",
+           isAdvSearch:false,
+           selectedCompany:[],
+             selectedStatus:"Active",
+             selectedAccount:""
+           };
+           console.log("Use default==",this.state);
+       }
+
       this.companyList=[];
-      this.searchFilters={};
   }
+
   cacheSearchChange(e){
-    console.log("cacheSearchChange==",e);
+    console.log("cacheSearchChange==",e.target.checked);
+      this.setState({isCacheSearch:e.target.checked?"Yes":"No"},function(){
+        if(this.state.isCacheSearch=="Yes"){
+            console.log("this.state==",this.state);
+            sessionStorage.setItem("cacheAccListSearch",JSON.stringify(this.state));
+        }
+        else{
+          sessionStorage.removeItem("cacheAccListSearch");
+        }
+      });
   }
-  nameSearchTermChanged(e){
-      if(e.target.value!="")
-      this.searchFilters[e.target.name]=e.target.value;
-  }
-  advSearchTermChanged(e){
 
-    if(e.target.value!=""){
-      var _searchCriteria={
-        showNameSearch:false,
-        showAdvSearch:true
-      };
-      if(!this.searchFilters.hasOwnProperty("searchByName")){
-         if(e.target.value!="")
-           this.searchFilters[e.target.name]=e.target.value;
-      }
-
-    }
-    else{
-      var _searchCriteria={
-        showNameSearch:true,
-        showAdvSearch:false
-      };
-    }
-    this.setState({currentSearchCriteria:_searchCriteria})
+  handleAccountChange(e){
+    console.log("handleAccountChange==",e.target.value);
+    this.setState({selectedAccount:e.target.value},function(){
+        this.checkAdvSearch();
+    });
   }
   handleSearch(){
-    console.log("Search with:",this.searchFilters);
+    console.log("Search with:",this.state);
   }
   handleClear(){
 
   }
-  handleCompanyChange(val){
-    console.log("handleCompanyChange==",val);
+  handleStatusChange(e){
+    console.log("handleStatusChange==",e);
+    this.setState({  selectedStatus:e.target.value});
+  }
+  handleCompanyChange(obj){
+      console.log("handleCompanyChange==",obj);
+
+    this.setState({
+      selectedCompany:obj
+    },function(){
+        this.checkAdvSearch();
+    });
+    //  var _selectedCompany={};
+    // if(obj.length!=0){
+    //   _selectedCompany = {
+    //   companyid:obj[0].id,
+    //   companyname:obj[0].label
+    //   };
+    // }
+    // else {
+    //   _selectedCompany=null;
+    // }
+
+  }
+  checkAdvSearch(){
+    console.log("checkAdvSearch:",this.state);
+    if(this.state.selectedCompany.length!=0|| this.state.selectedAccount != ""){
+      this.setState({isAdvSearch:true});
+    }
+    else{
+      this.setState({isAdvSearch:false});
+    }
   }
   toggleSearchPanel(){
     this.setState({ open: !this.state.open });
     this.props.getCompanyList();
   }
   componentWillReceiveProps( nextProps ) {
-    console.log("componentWillReceiveProps==",nextProps);
-    if(typeof(nextProps.Company)!='undefined'){
-      this.companyList = initializeTypeAheadData(nextProps.Company,'companyname','companyid');
-        console.log("this.companyList==",this.companyList);
-    }
-
+      console.log("componentWillReceiveProps==",nextProps);
+      if(typeof(nextProps.Company)!='undefined'){
+        this.companyList = initializeTypeAheadData(nextProps.Company,'companyname','companyid');
+          console.log("this.companyList==",this.companyList);
       }
+  }
      render() {
-       console.log("adv props==",this.props.fields);
         return (
           <div id="adv-search-panel">
             <Form inline>
               { this.props.fields.searchField }
-              {/* <FormControl className="search-box"
-                onChange={this.handleChange.bind(this)}
-                type="text"
-                placeholder="Search by hub account name..."
-              /> */}
-              <Button bsStyle="basic" onClick={ this.toggleSearchPanel.bind(this)}>
-                <span title="Click to open advanced search"
-                  className="sap-caret"></span>
-              </Button>
-              <Button bsStyle="basic">
+              {!this.state.isAdvSearch &&
+                <Button bsStyle="basic" onClick={ this.toggleSearchPanel.bind(this)}>
+                  <span title="Click to open advanced search"
+                    className="sap-caret"></span>
+                </Button>
+              }
+              {this.state.isAdvSearch &&
+                <Button bsStyle="info" onClick={ this.toggleSearchPanel.bind(this)}>
+                  <span title="Click to open advanced search"
+                    className="sap-caret"></span>
+                </Button>
+              }
+              {/* <Button bsStyle="basic">
                 <span title="Click to search"
                   className="sap-search"></span>
-              </Button>
+              </Button> */}
             </Form>
             <Collapse in={this.state.open}>
               <div>
@@ -99,8 +136,10 @@ class AdvancedSearch extends React.Component {
                       </Col>
                       <Col md={ 9 }>
                         <Typeahead
-                          onChange={this.handleCompanyChange}
+                          onChange={this.handleCompanyChange.bind(this)}
                           options={this.companyList}
+                          placeholder="Select a company..."
+                          defaultSelected={this.state.selectedCompany}
                         >
                           <span title="Click to open advanced search"
                             className="sap-caret"></span>
@@ -113,7 +152,8 @@ class AdvancedSearch extends React.Component {
                         Hub Account Name:
                       </Col>
                       <Col md={ 9 }>
-                        <FormControl onChange={this.advSearchTermChanged.bind(this)}
+                        <FormControl onChange={this.handleAccountChange.bind(this)}
+                          value={this.state.selectedAccount}
                           type="text"
                         />
                       </Col>
@@ -125,8 +165,9 @@ class AdvancedSearch extends React.Component {
                       </Col>
                       <Col md={ 9 }>
                         <FormControl componentClass="select"
-                          name="acctManager"
-                          value="Active"
+                          name="status"
+                          value={this.state.selectedStatus}
+                          onChange={this.handleStatusChange.bind(this)}
                         >
                           <option key="Active" value="Active" >Active  </option>
                           <option key="Suspended" value="Suspended" >Suspended  </option>
@@ -156,11 +197,12 @@ class AdvancedSearch extends React.Component {
                       </Col>
                       <Col md={ 1 }>
                         <Toggle
+                          defaultChecked={this.state.isCacheSearch=="Yes"?true:false}
+                          value={this.state.isCacheSearch}
                           icons={{
                                  checked:'Yes',
                                  unchecked: 'No',
                           }}
-                          value={this.state.cacheSearch}
                           onChange={this.cacheSearchChange.bind(this)}
                         />
                       </Col>
@@ -180,7 +222,7 @@ class AdvancedSearch extends React.Component {
 }
 function mapStateToProps( state ) {
   return {
-  Company:state.Common.compList
+  Company:state.Common.compList,
   };
 }
 function mapDispatchToProps( dispatch ) {

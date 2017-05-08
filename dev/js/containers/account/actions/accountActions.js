@@ -165,6 +165,24 @@ export function getCompanyList() {
 	}
 }
 
+// export function getMySearchCriteriasRequest() {
+// 		return {
+// 			type: types.GET_COMPANY_LIST_REQUEST
+// 		}
+// 	}
+export function getAdvSearchDataResponse(data) {
+  console.log("getAdvSearchDataResponse");
+		return {
+			type: types.GET_MY_SEARCH_CRITERIAS_RESPONSE,
+			 payload: sessionStorage.getItem("cacheAccListSearch")
+		}
+}
+export function getAdvSearchData() {
+	return function (dispatch,getState) {
+    dispatch(getCompanyList());
+		dispatch(getAdvSearchDataResponse());
+	}
+}
 export function handleReactivateAccCompany(_accountReactivateInfo){
 	return function(dispatch,getState){
 		dispatch(handleReactivateAccCompanyRequest(_accountReactivateInfo));
