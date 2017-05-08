@@ -7,8 +7,7 @@ import Select from 'react-select';
 import BrandingHeader from './../../common/components/BrandingHeader';
 import Navigation from './../../common/components/Navigation';
 import * as types from './../../common/commonActionTypes';
-import EditUserModal from './EditUserModal';
-import { getUserList, getUserDetails, updateUserDetails } from './miscUsersActions';
+import { getUserList, getUserDetails } from './miscUsersActions';
 import {
     ToastContainer,
     ToastMessage,
@@ -23,7 +22,6 @@ class MiscUsers extends React.Component {
     this.users = [];
     this.currentUser= {};
     this.state = {
-      showEditModal:false,
       submenus:{
         head: types.MISCELLENEOUS,
         head_icon : "misc-icon",
@@ -36,86 +34,94 @@ class MiscUsers extends React.Component {
   }
   componentWillMount() {
     this.props.getUserList();
-      console.log( "this.props.userList==", this.props.userList );
+    console.log( "this.props.userList==", this.props.userList );
   }
+
   componentWillReceiveProps( nextProps ) {
-    switch(nextProps.target){
+    switch (nextProps.target){
       case types.MISC_USERLIST_RESPONSE:
           this.users = nextProps.userList;
           console.log( "this.users==", this.users );
           break;
       case types.MISC_USERDETAILS_RESPONSE:
-            console.log( "nextProps.userDetails==", nextProps.userDetails);
-            if( nextProps.userDetails.showEditModal==true){
-                this.state.showEditModal =true;
-                this.currentUser =  nextProps.userDetails.details;
-            }
-            else{
-                this.state.showEditModal =false;
-                this.refs.container.error(`Failed to get user details.`, ``, {
-                    closeButton: true,
-                });
-            }
-            break;
-      case types.MISC_UPDATE_USERDETAILS_RESPONSE:
-          console.log("nextProps.userDetails==",nextProps.userDetails);
-          if( nextProps.userDetails.showEditModal==false){
-            this.refs.container.success(`User updated successfully.`, ``, {
-                closeButton: true,
-            });
-              this.state.showEditModal =false;
-            //  this.currentUser =  nextProps.userDetails.details;
+          console.log( "nextProps.userDetails==", nextProps.userDetails);
+          if( nextProps.userDetails != {}){
+              // this.state.showEditModal =true;
+              this.currentUser =  nextProps.userDetails.details;
+              var _currentUser=this.currentUser;
+              this.context.router.push( {pathname:'editUser',state:{currentUser:_currentUser}} );
           }
           else{
-              this.state.showEditModal =true;
-              this.refs.container.error(`Failed to update user.`, ``, {
+              // this.state.showEditModal =false;
+              this.refs.container.error(`Failed to get user details.`, ``, {
                   closeButton: true,
               });
           }
-
           break;
+      // case types.MISC_UPDATE_USERDETAILS_RESPONSE:
+      //     console.log("nextProps.userDetails==",nextProps.userDetails);
+      //     if( nextProps.userDetails.showEditModal==false){
+      //       this.refs.container.success(`User updated successfully.`, ``, {
+      //           closeButton: true,
+      //       });
+      //         this.state.showEditModal =false;
+      //       //  this.currentUser =  nextProps.userDetails.details;
+      //     }
+      //     else{
+      //         this.state.showEditModal =true;
+      //         this.refs.container.error(`Failed to update user.`, ``, {
+      //             closeButton: true,
+      //         });
+      //     }
+      //
+      //     break;
         }
   }
+
   showDetails(row){
     this.props.getUserDetails(row.id);
   }
+
   actionFormatter(cell, row,field,index) {
     switch (field) {
       case 'id':
-      return (
-          <span className="display-icon" title="Display" onClick={this.showDetails.bind(this,row)} ></span>
-      )
+      // return (
+      //     <span className="display-icon" title="Display" onClick={this.showDetails.bind(this,row)} ></span>
+      // )
         break;
       default:
-          return `${cell}`;
+        return(
+          <a onClick={this.showDetails.bind(this,row)}>{cell}</a>
+        )
+        // return `${cell}`;
         break;
     }
   }
-  updateUserDetails(){
-    console.log( "updateUserDetails this.currentUser==", this.currentUser );
-    this.props.updateUserDetails(this.currentUser);
-  }
-  close() {
-      console.log("close");
-      this.setState({showEditModal:false});
-  }
+
+  // updateUserDetails(){
+  //   console.log( "updateUserDetails this.currentUser==", this.currentUser );
+  //   this.props.updateUserDetails(this.currentUser);
+  // }
+
   render() {
+
     var fields = [
       {
           name:'User Name',
           dataField:'name',
-      },
-      {
-          name:'Action',
-          dataField:'id',
-          width:'80px',
-            dataAlign:'center'
       }
-      ];
+      // {
+      //     name:'Action',
+      //     dataField:'id',
+      //     width:'80px',
+      //       dataAlign:'center'
+      // }
+    ];
+
     var listCols = fields.map(function (field) {
           return (
               <TableHeaderColumn
-                isKey={ field.dataField == 'id'?true :false }
+                isKey={ field.dataField == 'name'?true :false }
                 width={field.width}
                 dataAlign={field.dataAlign}
                 dataFormat={ this.actionFormatter.bind(this) }
@@ -125,7 +131,8 @@ class MiscUsers extends React.Component {
                 {field.name}
               </TableHeaderColumn>
           );
-      }.bind(this));
+    }.bind(this));
+
     return (
         <div>
           <BrandingHeader/>
@@ -155,24 +162,25 @@ class MiscUsers extends React.Component {
               </Col>
             </Row>
           </Grid>
-          <EditUserModal currentUser={this.currentUser}
-            showEditUser={this.state.showEditModal}
-            updateUser={this.updateUserDetails.bind(this)}
-            close={this.close.bind(this)} />
+
           <ToastContainer
             toastMessageFactory={ ToastMessageFactory }
             ref="container"
             className="toast-top-right" />
-    </div>
+        </div>
     );
   }
 }
+
+MiscUsers.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
 
 function mapStateToProps( state ) {
   return {
     userList: state.MiscUsers.userList,
     userDetails: state.MiscUsers.userDetails,
-     target: state.MiscUsers.target
+    target: state.MiscUsers.target
   };
 }
 
@@ -180,7 +188,7 @@ function mapDispatchToProps( dispatch ) {
   return bindActionCreators( {
     getUserList: getUserList,
     getUserDetails: getUserDetails,
-    updateUserDetails:updateUserDetails
+    // updateUserDetails:updateUserDetails
   }, dispatch );
 }
 
