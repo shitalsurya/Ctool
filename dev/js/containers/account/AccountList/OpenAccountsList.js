@@ -12,6 +12,9 @@ import {
 } from "react-toastr";
 const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 import AdvancedSearch from './../../common/components/AdvancedSearch';
+import CloseAccount from '../CloseAccount';
+import ReactivateAccount from '../ReactivateAccount';
+import SuspendAccount from '../SuspendAccount';
 require( './../../../../scss/style.scss' );
 
 class OpenAccountsList extends React.Component {
@@ -19,11 +22,16 @@ class OpenAccountsList extends React.Component {
     super( props, context );
     this.accounts=[];
     this.state = {
+      closeAction : false,
+      reactivateAction : false,
+      suspendAction : false,
     }
   }
+
   componentWillMount() {
     this.props.getHubAcctList();
   }
+
   componentWillReceiveProps( nextProps ) {
     switch(nextProps.target){
       case types.MISC_ACCOUNT_LIST_RESPONSE:
@@ -32,107 +40,138 @@ class OpenAccountsList extends React.Component {
           break;
         }
   }
+
   showAccountDetails(_row){
     console.log("_row==",_row);
     //this.context.router.push( 'accountDetails' );
      this.context.router.push( {pathname:'accountDetails',state:{currentAcct:_row.customerid}} );
   }
+
   dataFormatter(cell, row,field,index) {
     switch (field) {
       case 'customername':
-      return (
-         <Button bsStyle="link"  title="show" onClick={this.showAccountDetails.bind(this,row)} >{cell}</Button>
-      )
+        return (
+           <Button bsStyle="link"  title="show" onClick={this.showAccountDetails.bind(this,row)} >{cell}</Button>
+        )
         break;
-        case 'company':
+      case 'company':
         return (
           <FormControl.Static>
             {row[field].companyname}
           </FormControl.Static>)
-          break;
+        break;
       case 'action':
+
         console.log("row==",row);
         switch(row.status){
           case "Active":
-          return (
-            <div>
-              <span className="suspend-icon" title="Suspend" ></span>
-            </div>
+            let suspend = "Suspend";
+            return (
+              <div>
+                <span className="suspend-icon" title="Suspend" onClick={this.actionFormatter.bind(this,row,suspend)} ></span>
+              </div>
 
-          )
-          break;
+            )
+            break;
           case "Suspended":
-          return (
-            <div>
-              <span className="reactivate-icon" title="Reactivate" ></span>
-              <span className="close-icon" title="Close" ></span>
-            </div>
+            let reactivate = "Reactivate";
+            let close = "Close";
+            return (
+              <div>
+                <span className="reactivate-icon" title="Reactivate" onClick={this.actionFormatter.bind(this,row,reactivate)} ></span>
+                <span className="close-icon" title="Close" onClick={this.actionFormatter.bind(this,row,close)} ></span>
+              </div>
 
-          )
-          break;
+            )
+            break;
           case "Closed":
-          return (
-            <div>
-            </div>
+            return (
+              <div>
+              </div>
 
-          )
-          break;
+            )
+            break;
         }
 
-          break;
+        break;
       default:
-          return `${cell}`;
+        return `${cell}`;
         break;
     }
   }
+
+  actionFormatter(accObj,status){
+    var _info = {};
+    console.log("currentAcct : ",_info," type : ",status);
+    _info.account = accObj.customername;
+    _info.company = accObj.company.companyname;
+    switch (status) {
+      case "Suspend":
+        this.setState({suspendAction:true,info:_info});
+        break;
+      case "Reactivate":
+        this.setState({reactivateAction:true,info:_info});
+        break;
+      case "Close":
+        this.setState({closeAction:true,info:_info});
+        break;
+    }
+  }
+
+  close(){
+    this.setState({closeAction:false,reactivateAction:false,suspendAction:false});
+  }
+
   filterAccountList(_searchFilter){
     console.log("_searchFilter==",_searchFilter);
   }
+
   render() {
 
-         const createCustomToolBar = function(props) {
+     const createCustomToolBar = function(props) {
         return (
           <div>
             <div className='col-md-3'>
               <ControlLabel>Search hub accounts:</ControlLabel>
             </div>
-              <div className='col-md-9'>
-                { props.components.searchPanel }
-              </div>
+            <div className='col-md-9'>
+              { props.components.searchPanel }
             </div>
-            );
-            }
+          </div>
+        );
+     }
 
-            const advancedSearch = function(props) {
-              console.log(props);
-              return (
-                <AdvancedSearch fields={props} onSearch={this.filterAccountList.bind(this)}/>
-              );
-            }.bind(this);
-const options = {
-  expandRowBgColor: '#f7f8fa',
-  clearSearch: true,
-  //searchPanel:advancedSearch(props),
-  searchPanel: (props) => advancedSearch(props),
-  toolBar: (props) => createCustomToolBar(props),
-  page: 1,  // which page you want to show as default
-  sizePerPageList: [ {
-    text: '5', value: 5
-  }, {
-    text: '10', value: 10
-  }, {
-    text: 'All', value: 50
-  } ], // you can change the dropdown list for size per page
-  sizePerPage: 5,  // which size per page you want to locate as default
-  pageStartIndex: 1, // where to start counting the pages
-  paginationSize: 3,  // the pagination bar size.
-  prePage: '<', // Previous page button text
-  nextPage: '>', // Next page button text
-  firstPage: '<<', // First page button text
-  lastPage: '>>', // Last page button text
-  alwaysShowAllBtns: false, // Always show next and previous button
-  //  withFirstAndLast: false // Hide the going to First and Last page button
-};
+    const advancedSearch = function(props) {
+      console.log(props);
+      return (
+        <AdvancedSearch fields={props} onSearch={this.filterAccountList.bind(this)}/>
+      );
+    }.bind(this);
+
+    const options = {
+      expandRowBgColor: '#f7f8fa',
+      clearSearch: true,
+      //searchPanel:advancedSearch(props),
+      searchPanel: (props) => advancedSearch(props),
+      toolBar: (props) => createCustomToolBar(props),
+      page: 1,  // which page you want to show as default
+      sizePerPageList: [ {
+        text: '5', value: 5
+      }, {
+        text: '10', value: 10
+      }, {
+        text: 'All', value: 50
+      } ], // you can change the dropdown list for size per page
+      sizePerPage: 5,  // which size per page you want to locate as default
+      pageStartIndex: 1, // where to start counting the pages
+      paginationSize: 3,  // the pagination bar size.
+      prePage: '<', // Previous page button text
+      nextPage: '>', // Next page button text
+      firstPage: '<<', // First page button text
+      lastPage: '>>', // Last page button text
+      alwaysShowAllBtns: false, // Always show next and previous button
+      //  withFirstAndLast: false // Hide the going to First and Last page button
+    };
 
     var fields = [
       {
@@ -159,7 +198,7 @@ const options = {
           width:'80px',
             dataAlign:'center'
       }
-      ];
+    ];
     var listCols = fields.map(function (field) {
           return (
               <TableHeaderColumn
@@ -174,7 +213,7 @@ const options = {
               </TableHeaderColumn>
           );
       }.bind(this));
-    return (
+    return(
         <div>
           <Grid fluid={ true }>
             <Row className="show-grid">
@@ -184,11 +223,14 @@ const options = {
                   search={ true }
                   options={ options }>
                     {listCols}
-                  </BootstrapTable>
-                </Col>
-              </Row>
-            </Grid>
-          </div>
+                </BootstrapTable>
+              </Col>
+            </Row>
+          </Grid>
+          <CloseAccount closeAction={this.state.closeAction} closeAccInfo={this.state.info} close={this.close.bind(this)}/>
+          <ReactivateAccount reactivateAction={this.state.reactivateAction} reactivateAccInfo={this.state.info} close={this.close.bind(this)}/>
+          <SuspendAccount suspendAction={this.state.suspendAction} susAccInfo={this.state.info} close={this.close.bind(this)}/>
+        </div>
     );
   }
 }

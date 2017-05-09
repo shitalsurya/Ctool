@@ -66,6 +66,14 @@ export default function(state = {
             return Object.assign({}, state, {
                 data: action.payload
             });
+        case types.REACTIVATE_ACC_INFO :
+            return Object.assign({}, state, {
+                data: action.payload
+            });
+        case types.CLOSE_ACC_INFO :
+            return Object.assign({}, state, {
+                data: action.payload
+            });
         case types.GET_COMPANY_LIST_REQUEST:
     			return Object.assign({}, state, {});
     		case types.GET_COMPANY_LIST_RESPONSE:
