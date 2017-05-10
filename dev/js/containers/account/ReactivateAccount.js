@@ -16,11 +16,12 @@ class ReactivateAccount extends React.Component {
     super( props, context );
     this.state = {
       modalHeading:'Reactivate Account',
+      reactivateAccInfo:{}
     };
   }
 
   render() {
-    var reactivateAccInfo = this.props.reactivateAccInfo||{};
+
     return(
       <Modal show={this.props.reactivateAction} onHide={this.handleCancel.bind(this)}>
           <Modal.Header closeButton>
@@ -30,24 +31,36 @@ class ReactivateAccount extends React.Component {
             <div>
               <Grid fluid={true}>
                 <Row className="show-grid">
-                  <Col componentClass={ ControlLabel } md={ 3 }>
+                  <Col componentClass={ ControlLabel } md={ 4 }>
                     Company :
                   </Col>
                   <Col md={ 6 }>
                     <FormControl.Static>
-                      {reactivateAccInfo.company}
+                      {this.state.reactivateAccInfo.company}
                     </FormControl.Static>
                   </Col>
                   <Col mdHidden md={ 3 }/>
                 </Row>
 
                 <Row className="show-grid">
-                  <Col componentClass={ ControlLabel } md={ 3 }>
+                  <Col componentClass={ ControlLabel } md={ 4 }>
                     Account :
                   </Col>
                   <Col md={ 6 } >
                     <FormControl.Static>
-                      {reactivateAccInfo.account}
+                      {this.state.reactivateAccInfo.account}
+                    </FormControl.Static>
+                  </Col>
+                  <Col mdHidden md={ 3 }/>
+                </Row>
+
+                <Row className="show-grid">
+                  <Col componentClass={ ControlLabel } md={ 4 }>
+                    Suspended on :
+                  </Col>
+                  <Col md={ 6 } >
+                    <FormControl.Static>
+                      {this.state.reactivateAccInfo.suspenddate}
                     </FormControl.Static>
                   </Col>
                   <Col mdHidden md={ 3 }/>
@@ -56,21 +69,21 @@ class ReactivateAccount extends React.Component {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.handleReactivateAccount.bind(this,reactivateAccInfo)}>Reactivate Account</Button>
-            <Button onClick={this.handleCancel.bind(this,reactivateAccInfo)}>Cancel</Button>
+            <Button onClick={this.handleReactivateAccount.bind(this)}>Reactivate Account</Button>
+            <Button onClick={this.handleCancel.bind(this)}>Cancel</Button>
           </Modal.Footer>
       </Modal>
       );
   }
 
-  handleReactivateAccount(reactivateAccInfo){
-    this.props.setReactivateAccountInfo(reactivateAccInfo);
-    console.log(reactivateAccInfo);
+  handleReactivateAccount(){
+    this.props.setReactivateAccountInfo(this.state.reactivateAccInfo);
+    console.log(this.state.reactivateAccInfo);
     this.props.close();
   }
 
-  handleCancel(reactivateAccInfo){
-    console.log(reactivateAccInfo);
+  handleCancel(){
+    console.log(this.state.reactivateAccInfo);
     this.props.close();
   }
 
@@ -104,6 +117,11 @@ class ReactivateAccount extends React.Component {
 
   componentWillMount() {
 
+  }
+
+  componentWillReceiveProps(nextProps){
+    var _reactivateAccInfo = nextProps.reactivateAccInfo||{};
+    this.setState({reactivateAccInfo:_reactivateAccInfo});
   }
 }
 

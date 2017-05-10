@@ -17,12 +17,13 @@ class CloseAccount extends React.Component {
     super( props, context );
     this.state = {
       modalHeading:'Close Account',
+      closeAccInfo:{}
     };
 
   }
 
   render() {
-    var closeAccInfo = this.props.closeAccInfo||{};
+
     return (
       <Modal show={this.props.closeAction} onHide={this.handleCancel.bind(this)}>
           <Modal.Header closeButton>
@@ -32,24 +33,36 @@ class CloseAccount extends React.Component {
             <div>
               <Grid fluid={true}>
                 <Row className="show-grid">
-                  <Col componentClass={ ControlLabel } md={ 3 }>
+                  <Col componentClass={ ControlLabel } md={ 4 }>
                     Company :
                   </Col>
                   <Col md={ 6 } >
                     <FormControl.Static>
-                      {closeAccInfo.company}
+                      {this.state.closeAccInfo.company}
                     </FormControl.Static>
                   </Col>
                   <Col mdHidden md={ 3 }/>
                 </Row>
 
                 <Row className="show-grid">
-                  <Col componentClass={ ControlLabel } md={ 3 }>
+                  <Col componentClass={ ControlLabel } md={ 4 }>
                     Account :
                   </Col>
                   <Col md={ 6 } >
                     <FormControl.Static>
-                      {closeAccInfo.account}
+                      {this.state.closeAccInfo.account}
+                    </FormControl.Static>
+                  </Col>
+                  <Col mdHidden md={ 3 }/>
+                </Row>
+
+                <Row className="show-grid">
+                  <Col componentClass={ ControlLabel } md={ 4 }>
+                    Account Manager :
+                  </Col>
+                  <Col md={ 6 } >
+                    <FormControl.Static>
+                      {this.state.closeAccInfo.manager}
                     </FormControl.Static>
                   </Col>
                   <Col mdHidden md={ 3 }/>
@@ -65,26 +78,31 @@ class CloseAccount extends React.Component {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.handleCloseAccount.bind(this,closeAccInfo)}>Close Account</Button>
-            <Button onClick={this.handleCancel.bind(this,closeAccInfo)}>Cancel</Button>
+            <Button onClick={this.handleCloseAccount.bind(this)}>Close Account</Button>
+            <Button onClick={this.handleCancel.bind(this)}>Cancel</Button>
           </Modal.Footer>
       </Modal>
     );
   }
 
-  handleCloseAccount(closeAccInfo){
-    this.props.setCloseAccountInfo(closeAccInfo);
-    console.log(closeAccInfo);
+  handleCloseAccount(){
+    this.props.setCloseAccountInfo(this.state.closeAccInfo);
+    console.log(this.state.closeAccInfo);
     this.props.close();
   }
 
-  handleCancel(closeAccInfo){
-    console.log(closeAccInfo);
+  handleCancel(){
+    console.log(this.state.closeAccInfo);
     this.props.close();
   }
 
   componentWillMount() {
 
+  }
+
+  componentWillReceiveProps(nextProps){
+    var _closeAccInfo = nextProps.closeAccInfo||{};
+    this.setState({closeAccInfo:_closeAccInfo});
   }
 }
 

@@ -16,18 +16,21 @@ require( '././../../../scss/datePick.scss' );
 class SuspendAccount extends React.Component {
   constructor( props, context ) {
     super( props, context );
-
     this.state = {
         modalHeading:'Suspend Account',
+        susAccInfo : {}
     };
 
   }
 
   render() {
-    var susAccInfo = this.props.susAccInfo||{};
-
+    
     const onChange = (dateString, { dateMoment, timestamp }) => {
-      susAccInfo.date = dateString;
+      var _susAccInfo = this.state.susAccInfo;
+      if(_susAccInfo.date <= dateMoment._d){
+        _susAccInfo.date = dateMoment._d;
+      }
+      this.setState({susAccInfo:_susAccInfo});
     }
 
     return (
@@ -39,38 +42,51 @@ class SuspendAccount extends React.Component {
             <div>
               <Grid fluid={true}>
                 <Row className="show-grid">
-                  <Col componentClass={ ControlLabel } md={ 3 }>
+                  <Col componentClass={ ControlLabel } md={ 4 }>
                     Company :
                   </Col>
                   <Col md={ 6 }>
                     <FormControl.Static>
-                      {susAccInfo.company}
+                      {this.state.susAccInfo.company}
                     </FormControl.Static>
                   </Col>
                   <Col mdHidden md={ 3 }/>
                 </Row>
 
                 <Row className="show-grid">
-                  <Col componentClass={ ControlLabel } md={ 3 }>
+                  <Col componentClass={ ControlLabel } md={ 4 }>
                     Account :
                   </Col>
                   <Col md={ 6 } >
                     <FormControl.Static>
-                      {susAccInfo.account}
+                      {this.state.susAccInfo.account}
                     </FormControl.Static>
                   </Col>
                   <Col mdHidden md={ 3 }/>
                 </Row>
 
                 <Row className="show-grid">
-                  <Col componentClass={ ControlLabel } md={ 3 }>
-                    Date :
+                  <Col componentClass={ ControlLabel } md={ 4 }>
+                    Account Manager :
+                  </Col>
+                  <Col md={ 6 } >
+                    <FormControl.Static>
+                      {this.state.susAccInfo.manager}
+                    </FormControl.Static>
+                  </Col>
+                  <Col mdHidden md={ 3 }/>
+                </Row>
+
+                <Row className="show-grid">
+                  <Col componentClass={ ControlLabel } md={ 4 }>
+                    Suspend Date :
                   </Col>
                   <Col md={ 6 }>
                     <DateField
+                      forceValidDate
                       dateFormat="DD-MM-YYYY"
-                      value={susAccInfo.date}
-                      onChange={onChange}
+                      value={this.state.susAccInfo.date}
+                      onChange={onChange.bind(this)}
                       updateOnDateClick={true}
                       collapseOnDateClick={true}
                       placeholder="Select Date.."
@@ -82,21 +98,21 @@ class SuspendAccount extends React.Component {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.handleSuspendAccount.bind(this,susAccInfo)}>Suspend Account</Button>
-            <Button onClick={this.handleCancel.bind(this,susAccInfo)}>Cancel</Button>
+            <Button onClick={this.handleSuspendAccount.bind(this)}>Suspend Account</Button>
+            <Button onClick={this.handleCancel.bind(this)}>Cancel</Button>
           </Modal.Footer>
       </Modal>
     );
   }
 
-  handleSuspendAccount(susAccInfo){
-    this.props.setSuspendAccountInfo(susAccInfo);
-    console.log(susAccInfo);
+  handleSuspendAccount(){
+    this.props.setSuspendAccountInfo(this.state.susAccInfo);
+    console.log(this.state.susAccInfo);
     this.props.close();
   }
 
-  handleCancel(susAccInfo){
-    console.log(susAccInfo);
+  handleCancel(){
+    console.log(this.state.susAccInfo);
     this.props.close();
   }
 
@@ -131,6 +147,12 @@ class SuspendAccount extends React.Component {
 
   componentWillMount() {
 
+  }
+
+  componentWillReceiveProps(nextProps){
+    var _susAccInfo = nextProps.susAccInfo||{};
+    _susAccInfo.date = new Date();
+    this.setState({susAccInfo:_susAccInfo});
   }
 
 }

@@ -107,12 +107,15 @@ class OpenAccountsList extends React.Component {
     _info.company = accObj.company.companyname;
     switch (status) {
       case "Suspend":
+        _info.manager = accObj.accountmanager.accountmanagername;
         this.setState({suspendAction:true,info:_info});
         break;
       case "Reactivate":
+        _info.suspenddate = accObj.suspenddate;
         this.setState({reactivateAction:true,info:_info});
         break;
       case "Close":
+        _info.manager = accObj.accountmanager.accountmanagername;
         this.setState({closeAction:true,info:_info});
         break;
     }
@@ -199,6 +202,7 @@ class OpenAccountsList extends React.Component {
             dataAlign:'center'
       }
     ];
+
     var listCols = fields.map(function (field) {
           return (
               <TableHeaderColumn
@@ -212,7 +216,8 @@ class OpenAccountsList extends React.Component {
                 {field.name}
               </TableHeaderColumn>
           );
-      }.bind(this));
+    }.bind(this));
+
     return(
         <div>
           <Grid fluid={ true }>
@@ -238,7 +243,7 @@ class OpenAccountsList extends React.Component {
 function mapStateToProps( state ) {
   return {
       acctList: state.Account.acctList,
-     target: state.Account.target
+      target: state.Account.target
   };
 }
 
