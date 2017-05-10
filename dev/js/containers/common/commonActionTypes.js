@@ -5,9 +5,9 @@ export const ACTIVE_NAV_ITEM = 'ACTIVE_NAV_ITEM';
 export const ACCOUNT_LIST='Accounts';
 export const ACCOUNT_DETAILS='Account Details';
 export const ACCOUNT_CREATE = 'Create Account';
-export const ACCOUNT_REAC = 'Reactivate Account';
-export const ACCOUNT_SPND = 'Suspend Account';
-export const ACCOUNT_CLOSE = 'Close Account';
+// export const ACCOUNT_REAC = 'Reactivate Account';
+// export const ACCOUNT_SPND = 'Suspend Account';
+// export const ACCOUNT_CLOSE = 'Close Account';
 
 
 export const ACCOUNT_COMMINFO_NEXT='ACCOUNT_COMMINFO_NEXT';
