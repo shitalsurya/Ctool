@@ -45,6 +45,14 @@ class EditCountryModal extends React.Component {
     }
   }
 
+  handleToggleChange(e){
+    debugger;
+    this.currentCntry = this.state.currentCntry;
+    console.log( "handleInlineEditChange this.currentCntry==", this.currentCntry );
+    this.currentCntry[e.target.name] = e.target.checked ? "Yes" : "No";
+    this.props.updateCountryDetails(this.currentCntry);
+  }
+
   render(){
     const info = this.state.currentCntry;
     console.log("render currentCntry==",info);
@@ -185,15 +193,15 @@ class EditCountryModal extends React.Component {
                         Enable CNL:
                       </Col>
                       <Col md={ 6 }>
-                        <InlineEdit
+                        <Toggle
                           name="enableCNL"
-                          type="toggle"
                           icons={{
                              checked: 'Yes',
                              unchecked: 'No',
                           }}
+                          defaultChecked={info.enableCNL == "Yes" ? true : false}
                           value={info.enableCNL}
-                          onSave={this.handleInlineEditChange.bind(this)}  />
+                          onChange={this.handleToggleChange.bind(this)} />
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -209,16 +217,16 @@ class EditCountryModal extends React.Component {
                         Meassage Body Removal:
                       </Col>
                       <Col md={ 6 }>
-                        <InlineEdit
+                        <Toggle
                           name="msgBodyRemoval"
-                          type="toggle"
                           icons={{
                              checked: 'Yes',
                              unchecked: 'No',
                           }}
+                          defaultChecked={info.msgBodyRemoval == "Yes" ? true : false}
                           value={info.msgBodyRemoval}
-                          onSave={this.handleInlineEditChange.bind(this)}  />
-                      </Col>
+                          onChange={this.handleToggleChange.bind(this)} />
+                        </Col>
                     </Row>
                     <Row className="show-grid">
                       <Col componentClass={ ControlLabel } md={ 4 }>
