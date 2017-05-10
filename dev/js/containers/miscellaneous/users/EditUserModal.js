@@ -20,7 +20,7 @@ class EditUserModal extends React.Component {
   constructor(props, context) {
       super(props, context);
         this.state={
-             modalHeading:'CTool Uer Management Details',
+             modalHeading:'CTool User Management Details',
              currentUser: this.props.location.state.currentUser,
              submenus:{
                head: types.MISCELLENEOUS,
