@@ -73,3 +73,24 @@
 .comments-icon {
 	font-size: 20px;
 }
+.bootstrap-tokenizer .token-selected {
+  background-color: #1f8dd6 !important;
+  color: #fff !important;
+  outline: none;
+  text-decoration: none;
+}
+.bootstrap-tokenizer .token-removeable {
+    cursor: pointer;
+    padding-right: 21px;
+}
+.bootstrap-tokenizer .token {
+    background-color: #e7f4ff;
+    border: 0;
+    border-radius: 2px;
+    color: #1f8dd6;
+    display: inline-block;
+    line-height: 1em;
+    margin: 0 3px 3px 0;
+    padding: 4px 7px;
+    position: relative;
+}
