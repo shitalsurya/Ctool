@@ -36,11 +36,13 @@ class EditCountryModal extends React.Component {
   handleInlineEditChange(name,val){
     this.currentCntry = this.state.currentCntry;
     console.log( "handleInlineEditChange this.currentCntry==", this.currentCntry );
-    console.log("handleInlineEditChange name==",name);
-    console.log("handleInlineEditChange val==",val);
-    this.currentCntry[name]=val;
-    console.log( "after this.currentCntry==", this.currentCntry );
-    this.props.updateCountryDetails(this.currentCntry);
+    console.log("handleInlineEditChange prev==",this.currentCntry[name]);
+    console.log("handleInlineEditChange new==",val);
+    if(this.currentCntry[name]!==val){
+      this.currentCntry[name]=val;
+      console.log( "after this.currentCntry==", this.currentCntry );
+      this.props.updateCountryDetails(this.currentCntry);
+    }
   }
 
   render(){
