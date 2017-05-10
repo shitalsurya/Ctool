@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {Form, FormControl, InputGroup,FormGroup, ControlLabel} from 'react-bootstrap';
-import Select from 'react-select';
+import {Typeahead} from 'react-bootstrap-typeahead';
 import Toggle from 'react-toggle';
 import DateTimeField from 'react-bootstrap-datetimepicker';
 import moment from 'moment';
@@ -25,7 +25,8 @@ export default class InlineEdit extends React.Component {
     }
 
     onCancelClick() {
-        console.log("this.state.type==",this.props.value);
+      console.log("this.state.type==",this.props.value);
+
       if(this.state.type=="time")
       {
         var ms=parseInt(this.props.value);
@@ -34,38 +35,75 @@ export default class InlineEdit extends React.Component {
       else{
         var _value = this.props.value;
       }
+
       if(this.state.type == "toggle") {
         var _value = this.state.value;
       }
-      this.setState(
-        {
-         name: this.state.name,
-         showView:true,
-         showEdit : false,
-         showButtons : false,
-         value:_value
-        },function(){
-            this.props.onSave(this.state.name,this.state.value,this.state.row);
-        });
+
+      if(!this.state.mselect){
+        this.setState(
+          {
+           name: this.state.name,
+           showView:true,
+           showEdit : false,
+           showButtons : false,
+           value:_value
+          },function(){
+              this.props.onSave(this.state.name,this.state.value,this.state.row);
+          });
+      }
+      else {
+        var _selected = _value.map(function (field) {
+             return (
+               <option key={field} value={field}>
+                 {field}
+               </option>
+             );
+         });
+        this.setState(
+          {
+           name: this.state.name,
+           mSelectView:true,
+           selected : _selected,
+           mSelectEdit : false,
+           showButtons : false,
+           value:_value
+          },function(){
+              this.props.onSave(this.state.name,this.state.value,this.state.row);
+          });
+      }
     }
 
     onOkClick() {
-
-        var _state = {
-            name: this.state.name,
-            value: this.state.value,
-            showView:true,
-            showEdit : false,
-            showButtons : false
-          };
-        this.setState(_state,function(){
-          this.props.onSave(this.state.name,this.state.value,this.state.row);
-        });
+        if(!this.state.mselect){
+          var _state = {
+              name: this.state.name,
+              value: this.state.value,
+              showView:true,
+              showEdit : false,
+              showButtons : false
+            };
+          this.setState(_state,function(){
+            this.props.onSave(this.state.name,this.state.value,this.state.row);
+          });
+        }
+        else {
+          var _state = {
+              name: this.state.name,
+              value: this.state.value,
+              mSelectView : true,
+              mSelectEdit : false,
+              showButtons : false
+            };
+          this.setState(_state,function(){
+            this.props.onSave(this.state.name,this.state.value,this.state.row);
+          });
+        }
 
     }
 
      onEditClick(){
-        this.setState({showView:false,showEdit : false,showButtons : true});
+        this.setState({showView:false, showEdit : false, showButtons : true, mSelectView : false, mSelectEdit : false});
      }
 
      handleChange(e){
@@ -79,7 +117,19 @@ export default class InlineEdit extends React.Component {
               showEdit : false,
           };
           break;
-
+        case "multiSelect":
+          var _value = [];
+          for (var i in e) {
+            _value.push(e[i].key)
+          }
+          var _state = {
+            selected: e,
+            value : _value,
+            mSelectView : false,
+            showButtons : true,
+            mSelectEdit : false,
+          }
+          break;
         case "time":
           var _state = {
               value:e,
@@ -111,38 +161,87 @@ export default class InlineEdit extends React.Component {
           console.log("this.state==",this.state);
        });
      }
-handleMouseOver(e){
-   var labelWidth =parseInt(document.defaultView.getComputedStyle(e.target,null).getPropertyValue("width"))+'px';
-   this.setState({styles: {
-      width:labelWidth
-   },showView:false,showEdit : true,showButtons:false});
-}
+
+     handleMouseOver(e){
+       var labelWidth =parseInt(document.defaultView.getComputedStyle(e.target,null).getPropertyValue("width"))+'px';
+       if(this.state.showView){
+         this.setState({styles: {
+            width:labelWidth
+         },showView:false,showEdit : true,showButtons:false});
+       }
+       else if(this.state.mSelectView){
+         this.setState({styles: {
+            width:labelWidth
+         },mSelectView:false,mSelectEdit : true,showButtons:false});
+       }
+     }
+
      render() {
+
         return (
           <div className="view-edit-control">
             {
-              this.state.showView &&
-                <ControlLabel className="inline-view-ctrl"
-                  onMouseOver={this.handleMouseOver.bind(this) }>  {this.state.value}</ControlLabel>
-
+              <div>
+                {
+                  this.state.showView &&
+                  <ControlLabel className="inline-view-ctrl"
+                    onMouseOver={this.handleMouseOver.bind(this) }>  {this.state.value}</ControlLabel>
+                }
+                {
+                  this.state.mSelectView &&
+                  <ControlLabel className="inline-view-ctrl"
+                    onMouseOver={this.handleMouseOver.bind(this) }>
+                    {this.state.value.join()}
+                  </ControlLabel>
+                }
+              </div>
             }
             {
-              this.state.showEdit &&
-                <div style={this.state.styles}  onMouseLeave={()=>this.setState({showView:true,showEdit : false,showButtons : false})}>
-                  <InputGroup>
-                    <FormControl title={this.state.value} className="inline-edit-ctrl" componentClass="label">
-                      {this.state.value}
-                    </FormControl>
-                    <InputGroup.Addon onClick={this.onEditClick.bind(this)}>
-                      <span title="Click to edit"
-                        className="edit-button-icon"></span>
-                    </InputGroup.Addon>
-                  </InputGroup>
-                </div>
+              <div>
+                {
+                  this.state.showEdit &&
+                    <div style={this.state.styles}  onMouseLeave={()=>this.setState({showView:true,showEdit : false,showButtons : false})}>
+                      <InputGroup>
+                        <FormControl title={this.state.value} className="inline-edit-ctrl" componentClass="label">
+                          {this.state.value}
+                        </FormControl>
+                        <InputGroup.Addon onClick={this.onEditClick.bind(this)}>
+                          <span title="Click to edit"
+                            className="edit-button-icon"></span>
+                        </InputGroup.Addon>
+                      </InputGroup>
+                    </div>
+                }
+                {
+                  this.state.mSelectEdit &&
+                    <div style={this.state.styles}  onMouseLeave={()=>this.setState({mSelectView:true,mSelectEdit : false,showButtons : false})}>
+                      <InputGroup>
+                        <FormControl title={this.state.value} className="inline-edit-ctrl" componentClass="label">
+                          {this.state.value.join()}
+                        </FormControl>
+                        <InputGroup.Addon onClick={this.onEditClick.bind(this)}>
+                          <span title="Click to edit"
+                            className="edit-button-icon"></span>
+                        </InputGroup.Addon>
+                      </InputGroup>
+                    </div>
+                }
+              </div>
             }
             {
               this.state.showButtons &&
                 <FormGroup id="inline-edit-ctrl">
+                  {
+                    this.state.mselect &&
+                      <Typeahead
+                        clearButton
+                        defaultSelected = {this.state.selected}
+                        labelKey="key"
+                        multiple
+                        options={this.state.options}
+                        onChange={this.handleChange.bind(this)}
+                      />
+                  }
                   {
                     this.state.select &&
                       <FormControl componentClass="select" disabled={this.state.showButtons ? false : "disabled"}
@@ -189,7 +288,7 @@ handleMouseOver(e){
     componentWillMount() {
       var _options = this.state.options.map(function (field) {
             return (
-                <option key={field.id}
+                <option key={field.value}
                   value={field.value} >
                   {field.value}
                 </option>
@@ -210,11 +309,21 @@ handleMouseOver(e){
           this.setState({toggle : true , defaultVal : _defaultVal});
           break;
         case "time":
-        var ms=parseInt(this.state.value);
-        var _time = moment(ms).format("HH:mm A");
-          this.setState({time : true,value:_time});
+          var ms=parseInt(this.state.value);
+          var _time = moment(ms).format("HH:mm A");
+            this.setState({time : true,value:_time});
           break;
-
+        case "multiSelect":
+          // this.setState({mselect : true});
+          var _values = this.state.value.map(function (field) {
+               return (
+                 <option key={field} value={field}>
+                   {field}
+                 </option>
+               );
+           });
+          this.setState({mselect:true,selected:_values,mSelectView:true,showView:false});
+          break;
       }
     }
 

@@ -147,7 +147,18 @@ class EditUserModal extends React.Component {
                         Live:
                       </Col>
                       <Col md={ 6 }>
-                        <InlineEdit name="live" type="text" value={info.live} onSave={this.handleInlineEditChange.bind(this)}  />
+                        <InlineEdit
+                          name="live"
+                          type = "toggle"
+                          value={info.live}
+                          icons={{
+                             checked: 'Yes',
+                             unchecked: 'No',
+                          }}
+                          onSave = {
+                            this.handleInlineEditChange.bind(this)
+                          }
+                        />
                       </Col>
                     </Row>
                     <Row className="show-grid">
