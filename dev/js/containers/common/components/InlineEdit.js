@@ -18,10 +18,12 @@ export default class InlineEdit extends React.Component {
             type : this.props.type || 'text',
             defaultVal : this.props.value,
             options : this.props.options || [],
+            defaultOptionName:this.props.defaultOptionName,
             showView:true,
             showEdit : false,
             showButtons : false,
         };
+        console.log("this.state==",this.state);
     }
 
     onCancelClick() {
@@ -184,15 +186,18 @@ export default class InlineEdit extends React.Component {
               <div>
                 {
                   this.state.showView &&
-                  <ControlLabel className="inline-view-ctrl"
-                    onMouseOver={this.handleMouseOver.bind(this) }>  {this.state.value}</ControlLabel>
+                    <ControlLabel className="inline-view-ctrl"
+                      onMouseOver={this.handleMouseOver.bind(this) }>
+                      {!this.state.select && this.state.value}
+                      {this.state.select && this.state.defaultOptionName}
+                    </ControlLabel>
                 }
                 {
                   this.state.mSelectView &&
-                  <ControlLabel className="inline-view-ctrl"
-                    onMouseOver={this.handleMouseOver.bind(this) }>
-                    {this.state.value.join()}
-                  </ControlLabel>
+                    <ControlLabel className="inline-view-ctrl"
+                      onMouseOver={this.handleMouseOver.bind(this) }>
+                      {this.state.value.join()}
+                    </ControlLabel>
                 }
               </div>
             }
@@ -203,7 +208,8 @@ export default class InlineEdit extends React.Component {
                     <div style={this.state.styles}  onMouseLeave={()=>this.setState({showView:true,showEdit : false,showButtons : false})}>
                       <InputGroup>
                         <FormControl title={this.state.value} className="inline-edit-ctrl" componentClass="label">
-                          {this.state.value}
+                          {!this.state.select && this.state.value}
+                          {this.state.select && this.state.defaultOptionName}
                         </FormControl>
                         <InputGroup.Addon onClick={this.onEditClick.bind(this)}>
                           <span title="Click to edit"
@@ -286,15 +292,19 @@ export default class InlineEdit extends React.Component {
     }
 
     componentWillMount() {
-      var _options = this.state.options.map(function (field) {
-            return (
-                <option key={field.value}
-                  value={field.value} >
-                  {field.value}
-                </option>
-            );
-        });
-        this.setState({options:_options});
+      // console.log("this.state.value==",this.state.value);
+      // if(typeof this.state.value ==="object"){
+      //   this.setState({value:this.state.value.billinglocationid});
+      // }
+      // var _options = this.state.options.map(function (field) {
+      //       return (
+      //           <option key={field.value}
+      //             value={field.value} >
+      //             {field.value}
+      //           </option>
+      //       );
+      //   });
+      //   this.setState({options:_options});
 
       switch (this.state.type) {
         case "text":

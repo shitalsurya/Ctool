@@ -8,7 +8,7 @@ import {getHubAccountCommercialInfo} from '../account/actions/accountGeneralActi
 import BillingLocation from './../../../json/BillingLocation.json';
 
 import * as config from './config';
-		export function getList(category) {
+		export function getList(category,currentAcct) {
 		  return function(dispatch) {
 				switch (category) {
 					case "accounts":
@@ -23,7 +23,7 @@ import * as config from './config';
 						dispatch(getHubAcctListResponse())
 						break;
 					case "InfoGeneralCommercial":
-						dispatch(getHubAccountCommercialInfo())
+						dispatch(getHubAccountCommercialInfo(currentAcct))
 						dispatch(getBillingLocationResponse())
 						break;
 				}

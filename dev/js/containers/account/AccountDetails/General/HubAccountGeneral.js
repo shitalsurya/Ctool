@@ -11,6 +11,8 @@ import InfoGeneralVolumeSetting from './InfoGeneralVolumeSetting';
 import InfoGeneralMTSetting from './InfoGeneralMTSetting';
 import InfoGeneralMOSetting from './InfoGeneralMOSetting';
 import InfoGeneralDeliveryTime from './InfoGeneralDeliveryTime';
+import {getList} from './../../../common/commonActions';
+import { initializeSelectOptions } from './../../../common/Functions/commonFunctions';
 require('./../../../../../scss/style.scss');
 require('./../../../../../scss/tabs.scss');
 import * as types from './../../../common/commonActionTypes';
@@ -19,7 +21,7 @@ class HubAccountGeneral extends React.Component {
     constructor(props, context) {
         super(props, context);
           this.currentAcct = this.props.currentAcct;
-          console.log("HubAccountGeneral this.currentAcct ==",this.currentAcct );
+
         this.state = {
           openStatus : {
             CommercialInfo : true,
@@ -36,7 +38,7 @@ class HubAccountGeneral extends React.Component {
     }
 
     render() {
-
+  console.log("render this.infoGenComm==",this.infoGenComm);
 
         return (
           <div className="tabs-container">
@@ -53,7 +55,7 @@ class HubAccountGeneral extends React.Component {
                   <Collapse in={this.state.openStatus.CommercialInfo}>
                     <div>
                       <Well>
-                        <InfoGeneralCommercial currentAcct={this.currentAcct}/>
+                        <InfoGeneralCommercial/>
                       </Well>
                     </div>
                   </Collapse>
@@ -215,19 +217,23 @@ class HubAccountGeneral extends React.Component {
       }
       this.setState({openStatus : updatedOpenStatus});
     }
-
-    componentWillReceiveProps(nextProps) {
-
-      }
+    componentWillMount(){
+      console.log("componentWillMount this.currentAcct ==",this.currentAcct );
+       this.props.getList("InfoGeneralCommercial",this.currentAcct);
+    }
 
 }
 
 function mapStateToProps(state) {
-    return { data: state.Account.accountCommInfo };
+    return {
+
+     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ }, dispatch);
+    return bindActionCreators({
+      getList:getList
+     }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HubAccountGeneral);

@@ -5,7 +5,7 @@ import { Tabs,  TabLink, TabContent } from 'react-tabs-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 import Select from 'react-select';
 import InlineEdit from './../../../common/components/InlineEdit';
-import {getList} from './../../../common/commonActions';
+
 require('./../../../../../scss/tabs.scss');
 require('./../../../../../scss/style.scss');
 import BillingLocation from './../../../../../json/BillingLocation.json';
@@ -15,10 +15,11 @@ import { initializeSelectOptions } from './../../../common/Functions/commonFunct
 class InfoGeneralCommercial extends React.Component {
     constructor(props, context) {
         super(props, context);
-        console.log("this.props.infoGenComm==",this.props.infoGenComm);
+
         this.state={
           commInfoObj : this.props.infoGenComm||{}
         }
+        console.log("this.state.commInfoObj==",this.state.commInfoObj);
     }
 
     handleInlineEditChange(name,val){
@@ -42,7 +43,9 @@ class InfoGeneralCommercial extends React.Component {
     }
 
     render() {
-      console.log("commInfoObj : ", this.state.commInfoObj);
+        console.log("render commInfoObj : ", this.state.commInfoObj.billinglocation);
+        this.BillingLocation = initializeSelectOptions(this.props.BillingLocation,'billinglocationname','billinglocationid');
+    //  console.log("commInfoObj billinglocation: ", this.state.commInfoObj);
       var statusOptions = [
         { "id" :1 , "value" : "UNSIGNED"},
         { "id" :2 , "value" : "SIGNED"}
@@ -71,7 +74,10 @@ class InfoGeneralCommercial extends React.Component {
                   Billing Location :
                 </Col>
                 <Col md={ 8 } >
-                  <InlineEdit name="billing" type="select" options={this.BillingLocation} value={this.state.commInfoObj.billinglocationid} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="billinglocationid" type="select" options={this.BillingLocation}
+                    defaultOptionName={this.state.commInfoObj.billinglocation.billinglocationname}
+                    value={this.state.commInfoObj.billinglocation.billinglocationid}
+                    onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -153,33 +159,17 @@ class InfoGeneralCommercial extends React.Component {
         )
     }
 
-    componentWillReceiveProps(nextProps) {
-  console.log("componentWillReceiveProps==",nextProps);
-  this.BillingLocation = initializeSelectOptions(nextProps.BillingLocation,'billinglocationname','billinglocationid');
-    console.log("this.BillingLocation==",this.BillingLocation);
-    }
-
-    componentWillMount(){
-      this.currentAcct = this.props.currentAcct;
-      console.log("componentWillMount this.currentAcct ==",this.currentAcct );
-       this.props.getList("InfoGeneralCommercial");
-    //  this.BillingLocation = initializeData(BillingLocation,'code');
-    //  this.ServiceLevel = initializeData(ServiceLevel,'value');
-    }
-
 }
 
 function mapStateToProps(state) {
     return {
-    //  target: state.Common.target,
-      BillingLocation:state.Common.billingLocationList,
-      infoGenComm:state.Account.infoGenComm
+    infoGenComm:state.Account.infoGenComm,
+      BillingLocation:state.Common.billingLocationList
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-    getList:getList
    }, dispatch);
 }
 
