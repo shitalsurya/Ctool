@@ -91,7 +91,7 @@ class MiscUsers extends React.Component {
         break;
       default:
         return(
-          <a className="hand_pointer" onClick={this.showDetails.bind(this,row)}>{cell}</a>
+          <Button bsStyle="link" onClick={this.showDetails.bind(this,row)} >{cell}</Button>
         )
         // return `${cell}`;
         break;

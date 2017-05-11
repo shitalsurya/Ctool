@@ -240,7 +240,6 @@ export default class InlineEdit extends React.Component {
                   {
                     this.state.mselect &&
                       <Typeahead
-                        clearButton
                         defaultSelected = {this.state.selected}
                         labelKey="key"
                         multiple

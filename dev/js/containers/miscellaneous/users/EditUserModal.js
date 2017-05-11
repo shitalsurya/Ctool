@@ -20,7 +20,7 @@ class EditUserModal extends React.Component {
   constructor(props, context) {
       super(props, context);
         this.state={
-             modalHeading:'CTool Uer Management Details',
+             modalHeading:'CTool User Management Details',
              currentUser: this.props.location.state.currentUser,
              submenus:{
                head: types.MISCELLENEOUS,
@@ -43,6 +43,14 @@ class EditUserModal extends React.Component {
       console.log( "after this.currentUser==", this.currentUser );
       this.props.updateUserDetails(this.currentUser);
     }
+  }
+
+  handleToggleChange(e){
+    debugger;
+    this.currentUser = this.state.currentUser;
+    console.log( "handleInlineEditChange this.currentUser==", this.currentUser );
+    this.currentUser[e.target.name] = e.target.checked ? "Yes" : "No";
+    this.props.updateUserDetails(this.currentUser);
   }
 
   render(){
@@ -128,18 +136,15 @@ class EditUserModal extends React.Component {
                         Locked:
                       </Col>
                       <Col md={ 6 }>
-                        <InlineEdit
+                        <Toggle
                           name="locked"
-                          type = "toggle"
-                          value={info.locked}
                           icons={{
                              checked: 'Yes',
                              unchecked: 'No',
                           }}
-                          onSave = {
-                            this.handleInlineEditChange.bind(this)
-                          }
-                        />
+                          defaultChecked={info.locked == "Yes" ? true : false}
+                          value={info.locked}
+                          onChange={this.handleToggleChange.bind(this)} />
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -147,18 +152,15 @@ class EditUserModal extends React.Component {
                         Live:
                       </Col>
                       <Col md={ 6 }>
-                        <InlineEdit
+                        <Toggle
                           name="live"
-                          type = "toggle"
-                          value={info.live}
                           icons={{
                              checked: 'Yes',
                              unchecked: 'No',
                           }}
-                          onSave = {
-                            this.handleInlineEditChange.bind(this)
-                          }
-                        />
+                          defaultChecked={info.live == "Yes" ? true : false}
+                          value={info.live}
+                          onChange={this.handleToggleChange.bind(this)} />
                       </Col>
                     </Row>
                     <Row className="show-grid">

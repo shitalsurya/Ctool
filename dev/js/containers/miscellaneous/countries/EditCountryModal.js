@@ -36,10 +36,20 @@ class EditCountryModal extends React.Component {
   handleInlineEditChange(name,val){
     this.currentCntry = this.state.currentCntry;
     console.log( "handleInlineEditChange this.currentCntry==", this.currentCntry );
-    console.log("handleInlineEditChange name==",name);
-    console.log("handleInlineEditChange val==",val);
-    this.currentCntry[name]=val;
-    console.log( "after this.currentCntry==", this.currentCntry );
+    console.log("handleInlineEditChange prev==",this.currentCntry[name]);
+    console.log("handleInlineEditChange new==",val);
+    if(this.currentCntry[name]!==val){
+      this.currentCntry[name]=val;
+      console.log( "after this.currentCntry==", this.currentCntry );
+      this.props.updateCountryDetails(this.currentCntry);
+    }
+  }
+
+  handleToggleChange(e){
+    debugger;
+    this.currentCntry = this.state.currentCntry;
+    console.log( "handleInlineEditChange this.currentCntry==", this.currentCntry );
+    this.currentCntry[e.target.name] = e.target.checked ? "Yes" : "No";
     this.props.updateCountryDetails(this.currentCntry);
   }
 
@@ -183,15 +193,15 @@ class EditCountryModal extends React.Component {
                         Enable CNL:
                       </Col>
                       <Col md={ 6 }>
-                        <InlineEdit
+                        <Toggle
                           name="enableCNL"
-                          type="toggle"
                           icons={{
                              checked: 'Yes',
                              unchecked: 'No',
                           }}
+                          defaultChecked={info.enableCNL == "Yes" ? true : false}
                           value={info.enableCNL}
-                          onSave={this.handleInlineEditChange.bind(this)}  />
+                          onChange={this.handleToggleChange.bind(this)} />
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -207,16 +217,16 @@ class EditCountryModal extends React.Component {
                         Meassage Body Removal:
                       </Col>
                       <Col md={ 6 }>
-                        <InlineEdit
+                        <Toggle
                           name="msgBodyRemoval"
-                          type="toggle"
                           icons={{
                              checked: 'Yes',
                              unchecked: 'No',
                           }}
+                          defaultChecked={info.msgBodyRemoval == "Yes" ? true : false}
                           value={info.msgBodyRemoval}
-                          onSave={this.handleInlineEditChange.bind(this)}  />
-                      </Col>
+                          onChange={this.handleToggleChange.bind(this)} />
+                        </Col>
                     </Row>
                     <Row className="show-grid">
                       <Col componentClass={ ControlLabel } md={ 4 }>
