@@ -14,7 +14,7 @@ class AdvancedSearch extends React.Component {
          var cachedObj = JSON.parse(sessionStorage.getItem("cacheAccListSearch"));
            console.log("Use from session storage==",cachedObj);
          this.state={
-           isCacheSearch:cachedObj.cacheSearch,
+           isCacheSearch:cachedObj.isCacheSearch,
            isAdvSearch:cachedObj.isAdvSearch,
            selectedCompany:cachedObj.selectedCompany,
              selectedStatus:cachedObj.selectedStatus ,
