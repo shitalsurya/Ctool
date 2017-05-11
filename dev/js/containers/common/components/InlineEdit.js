@@ -90,35 +90,50 @@ export default class InlineEdit extends React.Component {
         return _defaultOptionName;
     }
     onOkClick() {
-        if(!this.state.mselect){
-          var _state = {
-              name: this.state.name,
-              value: this.state.value,
-              showView:true,
-              showEdit : false,
-              showButtons : false,
-            };
-        }
-        else if(this.state.select){
-          var _state = {
-              name: this.state.name,
-              value: this.state.value,
-              showView:true,
-              showEdit : false,
-              showButtons : false,
-              defaultOptionName:this.getNamebyIdForSelect(this.props.options)
-            };
-        }
-        else {
-          var _state = {
-              name: this.state.name,
-              value: this.state.value,
-              mSelectView : true,
-              mSelectEdit : false,
-              showButtons : false
-            };
-        }
+      console.log("onOkClick==",this.state.type);
+        var _state={};
+      switch (this.state.type) {
+        case "select":
+          _state = {
+             name: this.state.name,
+             value: this.state.value,
+             showView:true,
+             showEdit : false,
+             showButtons : false,
+             defaultOptionName:this.getNamebyIdForSelect(this.props.options)
+           };
+          break;
+          case "multiSelect":
+            _state = {
+               name: this.state.name,
+               value: this.state.value,
+               showView:true,
+               showEdit : false,
+               showButtons : false,
+             };
+            break;
+        default:
+        var _state = {
+            name: this.state.name,
+            value: this.state.value,
+            mSelectView : true,
+            mSelectEdit : false,
+            showButtons : false
+          };
+            break;
+      }
+
+        // if(!this.state.mselect){
+        //
+        // }
+        // else if(this.state.select){
+        //
+        // }
+        // else {
+        //
+        // }
         this.setState(_state,function(){
+          console.log("onOkClick this.state==",this.state);
           this.props.onSave(this.state.name,this.state.value,this.state.row);
         });
     }
@@ -310,20 +325,6 @@ export default class InlineEdit extends React.Component {
     }
 
     componentWillMount() {
-      // console.log("this.state.value==",this.state.value);
-      // if(typeof this.state.value ==="object"){
-      //   this.setState({value:this.state.value.billinglocationid});
-      // }
-      // var _options = this.state.options.map(function (field) {
-      //       return (
-      //           <option key={field.value}
-      //             value={field.value} >
-      //             {field.value}
-      //           </option>
-      //       );
-      //   });
-      //   this.setState({options:_options});
-
       switch (this.state.type) {
         case "text":
           this.setState({text : true});

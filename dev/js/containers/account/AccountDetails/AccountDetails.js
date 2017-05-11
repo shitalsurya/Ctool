@@ -62,7 +62,7 @@ export default class AccountDetails extends React.Component {
                         <HubAccountGeneral currentAcct={this.currentAcct}/>
                       </TabContent>
                       <TabContent for="TPOA">
-                        <HubAccountTPOA/>
+                        <HubAccountTPOA currentAcct={this.currentAcct}/>
                       </TabContent>
                       <TabContent for="MORouting">
                         <HubAccountMORouting/>

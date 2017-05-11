@@ -5,6 +5,7 @@ import {getCountryListResponse} from './../miscellaneous/countries/miscCntryActi
 import {getCompanyListResponse,getExContactListResponse} from './../account/actions/accountActions';
 import {getHubAcctListResponse} from '../account/actions/accountListActions';
 import {getHubAccountCommercialInfo} from '../account/actions/accountGeneralActions';
+import {getHubAcctDefaultTPOA,getHubAcctForcedTPOAList} from '../account/actions/accountTPOAActions';
 import BillingLocation from './../../../json/BillingLocation.json';
 
 import * as config from './config';
@@ -22,10 +23,15 @@ import * as config from './config';
 					case "interface":
 						dispatch(getHubAcctListResponse())
 						break;
-					case "InfoGeneralCommercial":
+					case "General":
 						dispatch(getHubAccountCommercialInfo(currentAcct))
 						dispatch(getBillingLocationResponse())
 						break;
+					case "TPOA":
+	 					 dispatch(getHubAcctDefaultTPOA(currentAcct))
+	 					 dispatch(getHubAcctForcedTPOAList(currentAcct))
+	 					 break;
+
 				}
 		  }
 		}

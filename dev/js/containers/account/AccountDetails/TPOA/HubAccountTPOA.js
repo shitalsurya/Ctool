@@ -10,6 +10,7 @@ import InlineEdit from './../../../common/components/InlineEdit';
 import DeleteRowLink from './../../../common/components/DeleteRow';
 import TPOAs from './../../../../../json/TPOAs.json';
 import AddTPOAModal from './HubAccountTPOAAddModal';
+import {getList} from './../../../common/commonActions';
 require('./../../../../../scss/style.scss');
 
 class HubAccountGeneral extends React.Component {
@@ -121,7 +122,10 @@ class HubAccountGeneral extends React.Component {
            </div>
         );
     }
-
+    componentWillMount(){
+      console.log("componentWillMount this.currentAcct ==",this.currentAcct );
+       this.props.getList("TPOA",this.currentAcct);
+    }
     componentWillReceiveProps(nextProps) {
 
     }
@@ -145,7 +149,9 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ }, dispatch);
+    return bindActionCreators({
+        getList:getList
+    }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HubAccountGeneral);

@@ -12,7 +12,6 @@ import InfoGeneralMTSetting from './InfoGeneralMTSetting';
 import InfoGeneralMOSetting from './InfoGeneralMOSetting';
 import InfoGeneralDeliveryTime from './InfoGeneralDeliveryTime';
 import {getList} from './../../../common/commonActions';
-import { initializeSelectOptions } from './../../../common/Functions/commonFunctions';
 require('./../../../../../scss/style.scss');
 require('./../../../../../scss/tabs.scss');
 import * as types from './../../../common/commonActionTypes';
@@ -219,7 +218,7 @@ class HubAccountGeneral extends React.Component {
     }
     componentWillMount(){
       console.log("componentWillMount this.currentAcct ==",this.currentAcct );
-       this.props.getList("InfoGeneralCommercial",this.currentAcct);
+       this.props.getList("General",this.currentAcct);
     }
 
 }
