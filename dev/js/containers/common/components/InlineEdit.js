@@ -24,7 +24,7 @@ export default class InlineEdit extends React.Component {
             showEdit : false,
             showButtons : false,
         };
-        console.log("this.state==",this.state);
+        console.log("InlineEdit this.state==",this.state);
     }
 
     onCancelClick() {
@@ -91,7 +91,15 @@ export default class InlineEdit extends React.Component {
     }
     onOkClick() {
         if(!this.state.mselect){
-
+          var _state = {
+              name: this.state.name,
+              value: this.state.value,
+              showView:true,
+              showEdit : false,
+              showButtons : false,
+            };
+        }
+        else if(this.state.select){
           var _state = {
               name: this.state.name,
               value: this.state.value,
@@ -100,9 +108,6 @@ export default class InlineEdit extends React.Component {
               showButtons : false,
               defaultOptionName:this.getNamebyIdForSelect(this.props.options)
             };
-          this.setState(_state,function(){
-            this.props.onSave(this.state.name,this.state.value,this.state.row);
-          });
         }
         else {
           var _state = {
@@ -112,11 +117,10 @@ export default class InlineEdit extends React.Component {
               mSelectEdit : false,
               showButtons : false
             };
-          this.setState(_state,function(){
-            this.props.onSave(this.state.name,this.state.value,this.state.row);
-          });
         }
-
+        this.setState(_state,function(){
+          this.props.onSave(this.state.name,this.state.value,this.state.row);
+        });
     }
 
      onEditClick(){

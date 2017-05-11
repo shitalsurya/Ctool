@@ -136,3 +136,15 @@ export const GET_BILLINGLOCATION_LIST_RESPONSE = 'GET_BILLINGLOCATION_LIST_RESPO
 //Account General comm info
 export const GET_ACCT_GENERAL_COMM_INFO_REQUEST = 'GET_ACCT_GENERAL_COMM_INFO_REQUEST';
 export const GET_ACCT_GENERAL_COMM_INFO_RESPONSE = 'GET_ACCT_GENERAL_COMM_INFO_RESPONSE';
+
+export const UPDATE_ACCT_GENERAL_COMM_INFO_REQUEST = 'UPDATE_ACCT_GENERAL_COMM_INFO_REQUEST';
+export const UPDATE_ACCT_GENERAL_COMM_INFO_RESPONSE = 'UPDATE_ACCT_GENERAL_COMM_INFO_RESPONSE';
+
+export const SERVICE_LEVEL = [
+    {"servicelevelname": "Standard", "servicelevelid": "1"},
+      {"servicelevelname": "Premium", "servicelevelid": "2"}
+];
+export const LEGAL_STATUS = [
+  { "legalstatusid" :1 , "legalstatusname" : "UNSIGNED"},
+     { "legalstatusid" :2 , "legalstatusname" : "SIGNED"}
+];

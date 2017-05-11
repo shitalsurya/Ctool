@@ -8,9 +8,9 @@ import InlineEdit from './../../../common/components/InlineEdit';
 
 require('./../../../../../scss/tabs.scss');
 require('./../../../../../scss/style.scss');
-import BillingLocation from './../../../../../json/BillingLocation.json';
-import ServiceLevel from './../../../../../json/ServiceLevel.json';
+import {SERVICE_LEVEL,LEGAL_STATUS} from './../../../common/commonActionTypes';
 import { initializeSelectOptions } from './../../../common/Functions/commonFunctions';
+import { updateHubAccountCommercialInfo } from './../../actions/accountGeneralActions';
 
 class InfoGeneralCommercial extends React.Component {
     constructor(props, context) {
@@ -19,37 +19,22 @@ class InfoGeneralCommercial extends React.Component {
         this.state={
           commInfoObj : this.props.infoGenComm||{}
         }
-        console.log("this.state.commInfoObj==",this.state.commInfoObj);
     }
 
     handleInlineEditChange(name,val){
       console.log("name : ",name, "  val : ",val);
       var info = this.state.commInfoObj;
-      info[name]=val;
-      // switch (name) {
-      //   case "billing":
-      //     info.billing = val;
-      //     break;
-      //   case "serviceLevel":
-      //     info.serviceLevel = val;
-      //     break;
-      //   case "status":
-      //     info.status = val;
-      //     break;
-      //   case "comment":
-      //     info.comment = val;
-      //     break;
-      // }
-      this.setState({commInfoObj : info});
-      console.log("update comm details==",this.state.commInfoObj);
+
+      if(info[name]!==val){
+        info[name]=val;
+        this.setState({commInfoObj : info},function(){
+          console.log("update comm details==",this.state.commInfoObj);
+          this.props.updateHubAccountCommercialInfo(this.state.commInfoObj);
+        });
+      }
     }
 
     render() {
-      var statusOptions = [
-        { "id" :1 , "value" : "UNSIGNED"},
-        { "id" :2 , "value" : "SIGNED"}
-      ];
-
         return (
           <div >
             <Grid fluid={true} className="inner_grid">
@@ -128,7 +113,10 @@ class InfoGeneralCommercial extends React.Component {
                   Service Level :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit name="serviceLevel" type="select" options={this.ServiceLevel} value={this.state.commInfoObj.servicelevelid} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="servicelevelid" type="select" options={SERVICE_LEVEL}
+                    optionsLabel="servicelevelname"
+                    value={this.state.commInfoObj.servicelevelid}
+                    onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -138,7 +126,10 @@ class InfoGeneralCommercial extends React.Component {
                   Legal Status :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit name="status" type="select" options={statusOptions} value={this.state.commInfoObj.legalstatusid} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="legalstatusid" type="select" options={LEGAL_STATUS}
+                    optionsLabel="legalstatusname"
+                    value={this.state.commInfoObj.legalstatusid}
+                    onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -162,13 +153,14 @@ class InfoGeneralCommercial extends React.Component {
 
 function mapStateToProps(state) {
     return {
-    infoGenComm:state.Account.infoGenComm,
+      infoGenComm:state.Account.infoGenComm,
       BillingLocation:state.Common.billingLocationList
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
+      updateHubAccountCommercialInfo:updateHubAccountCommercialInfo
    }, dispatch);
 }
 
