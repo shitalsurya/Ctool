@@ -10,6 +10,7 @@ import Connections from './containers/common/Connections';
 import AccountList from './containers/account/AccountList/AccountList';
 import AccountDetails from './containers/account/AccountDetails/AccountDetails';
 import CreateAccount from './containers/account/CreateAccount/CreateAccount';
+import AccountType from './containers/account/CreateAccount/AccountType';
 import MiscUsers from './containers/miscellaneous/users/MiscUsers';
 import MiscCountry from './containers/miscellaneous/countries/MiscCntry';
 import EditCountry from './containers/miscellaneous/countries/EditCountryModal';
@@ -53,6 +54,7 @@ ReactDOM.render(
 				<Route path="Accounts" component={AccountList}/>
 				<Route path="AccountDetails" component={AccountDetails}/>
 				<Route path="CreateAccount" component={CreateAccount}/>
+				<Route path="AccountType" component={AccountType}/>
 				<Route path="UserManagement" component={MiscUsers}/>
 				<Route path="CountryManagement" component={MiscCountry}/>
 				<Route path="connections" component={Connections}/>

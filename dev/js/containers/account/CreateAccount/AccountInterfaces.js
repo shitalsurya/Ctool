@@ -41,6 +41,9 @@ class AccountInterfaces extends React.Component {
         if(!e.target.checked)
           info.rplAdd = '';
       }
+      else if (e.target.name == "scheduleEnabled") {
+        info[e.target.name] = e.target.checked ? "Yes" : "No";
+      }
       else{
         info[e.target.name] = e.target.value;
       }
@@ -61,43 +64,43 @@ class AccountInterfaces extends React.Component {
     }
 
     handleInterfaceDetailsNext(){
-      console.log(this.state.accountInterfacesInfo);
-      var accountObjCheck = this.state.accountInterfacesInfo;
-       if(accountObjCheck.techName && accountObjCheck.commName && accountObjCheck.ExstAccts
-        && accountObjCheck.accInterface ){
-          switch(accountObjCheck.accInterface)
-          {
-            case "HTTP":
-              if(accountObjCheck.defTPOA && ((accountObjCheck.moEnabled=="Yes" && accountObjCheck.rplAdd) || (accountObjCheck.moEnabled=="No"))) {
+      // console.log(this.state.accountInterfacesInfo);
+      // var accountObjCheck = this.state.accountInterfacesInfo;
+      //  if(accountObjCheck.techName && accountObjCheck.commName && accountObjCheck.ExstAccts
+      //   && accountObjCheck.accInterface ){
+      //     switch(accountObjCheck.accInterface)
+      //     {
+      //       case "HTTP":
+      //         if(accountObjCheck.defTPOA && ((accountObjCheck.moEnabled=="Yes" && accountObjCheck.rplAdd) || (accountObjCheck.moEnabled=="No"))) {
                 this.StoreTextFieldsData();
                 this.props.handleInterfaceDetailsNext(this.accountInfo);
-              }
-              else
-                this.setState({emptyValFlag:false});
-              break;
-            case "SMTP":
-              if(accountObjCheck.defTPOA && accountObjCheck.rplAdd) {
-                this.StoreTextFieldsData();
-                this.props.handleInterfaceDetailsNext(this.accountInfo);
-              }
-              else
-                this.setState({emptyValFlag:false});
-              break;
-            case "SMPP":
-              if(accountObjCheck.defTPOA && accountObjCheck.rplAdd) {
-                this.StoreTextFieldsData();
-                this.props.handleInterfaceDetailsNext(this.accountInfo);
-              }
-              else
-                this.setState({emptyValFlag:false});
-              break;
-          }
-        }
-        else {
-          if(accountObjCheck.accInterface)
-            this.setState({emptyValFlag:false});
-          this.setState({emptyFlag:false});
-      }
+      //         }
+      //         else
+      //           this.setState({emptyValFlag:false});
+      //         break;
+      //       case "SMTP":
+      //         if(accountObjCheck.defTPOA && accountObjCheck.rplAdd) {
+      //           this.StoreTextFieldsData();
+      //           this.props.handleInterfaceDetailsNext(this.accountInfo);
+      //         }
+      //         else
+      //           this.setState({emptyValFlag:false});
+      //         break;
+      //       case "SMPP":
+      //         if(accountObjCheck.defTPOA && accountObjCheck.rplAdd) {
+      //           this.StoreTextFieldsData();
+      //           this.props.handleInterfaceDetailsNext(this.accountInfo);
+      //         }
+      //         else
+      //           this.setState({emptyValFlag:false});
+      //         break;
+      //     }
+      //   }
+      //   else {
+      //     if(accountObjCheck.accInterface)
+      //       this.setState({emptyValFlag:false});
+      //     this.setState({emptyFlag:false});
+      // }
     }
 
     render() {
@@ -136,35 +139,82 @@ class AccountInterfaces extends React.Component {
                   </Col>
                   <Col mdHidden md={ 3 } />
                 </Row>
-                <Row className="show-grid">
-                  <Col componentClass={ ControlLabel } md={ 3 }>
-                    Existing accounts :
-                  </Col>
-                  <Col md={ 6 } className={this.state.accountInterfacesInfo.ExstAccts || this.state.emptyFlag ? false : "empty"}>
-                    <FormControl componentClass="select"
-                      name="ExstAccts"
-                      value={this.state.accountInterfacesInfo.ExstAccts}
-                      onChange={this.handleChange.bind(this)}>
-                      {this.accountList}
-                    </FormControl>
-                  </Col>
-                  <Col mdHidden md={ 3 } />
-                </Row>
-
-                <Row className="show-grid">
-                  <Col componentClass={ ControlLabel } md={ 3 }>
-                    Interface:
-                  </Col>
-                  <Col md={ 6 } className={this.state.accountInterfacesInfo.accInterface || this.state.emptyFlag ? false : "empty"}>
-                    <FormControl componentClass="select"
-                      name="accInterface"
-                      value={this.state.accountInterfacesInfo.accInterface}
-                      onChange={this.handleChange.bind(this)}>
-                      {this.interfaceList}
-                    </FormControl>
-                  </Col>
-                  <Col mdHidden md={ 3 } />
-                </Row>
+                {this.props.accType === "sms" &&
+                  <div>
+                    <Row className="show-grid">
+                      <Col componentClass={ ControlLabel } md={ 3 }>
+                        Existing accounts :
+                      </Col>
+                      <Col md={ 6 } className={this.state.accountInterfacesInfo.ExstAccts || this.state.emptyFlag ? false : "empty"}>
+                        <FormControl componentClass="select"
+                          name="ExstAccts"
+                          value={this.state.accountInterfacesInfo.ExstAccts}
+                          onChange={this.handleChange.bind(this)}>
+                          {this.accountList}
+                        </FormControl>
+                      </Col>
+                      <Col mdHidden md={ 3 } />
+                    </Row>
+                    <Row className="show-grid">
+                      <Col componentClass={ ControlLabel } md={ 3 }>
+                        Interface:
+                      </Col>
+                      <Col md={ 6 } className={this.state.accountInterfacesInfo.accInterface || this.state.emptyFlag ? false : "empty"}>
+                        <FormControl componentClass="select"
+                          name="accInterface"
+                          value={this.state.accountInterfacesInfo.accInterface}
+                          onChange={this.handleChange.bind(this)}>
+                          {this.interfaceList}
+                        </FormControl>
+                      </Col>
+                      <Col mdHidden md={ 3 } />
+                    </Row>
+                  </div>
+                }
+                {this.props.accType === "email" &&
+                  <div>
+                    <Row className="show-grid">
+                      <Col componentClass={ ControlLabel } md={ 3 }>
+                        Interface:
+                      </Col>
+                      <Col md={ 6 } className={this.state.accountInterfacesInfo.emailAccInterface || this.state.emptyFlag ? false : "empty"}>
+                        <FormControl componentClass="select"
+                          name="emailAccInterface"
+                          value={this.state.accountInterfacesInfo.emailAccInterface}
+                          onChange={this.handleChange.bind(this)}>
+                          {this.emailinterfaceList}
+                        </FormControl>
+                      </Col>
+                      <Col mdHidden md={ 3 } />
+                    </Row>
+                    <Row className="show-grid">
+                      <Col componentClass={ ControlLabel } md={ 3 }>
+                        Access Method:
+                      </Col>
+                      <Col md={ 6 } className={this.state.accountInterfacesInfo.acsMethod || this.state.emptyFlag ? false : "empty"}>
+                        <FormControl componentClass="select"
+                          name="acsMethod"
+                          value={this.state.accountInterfacesInfo.acsMethod}
+                          onChange={this.handleChange.bind(this)}>
+                          {this.accessList}
+                        </FormControl>
+                      </Col>
+                      <Col mdHidden md={ 3 } />
+                    </Row>
+                    <Row className="show-grid">
+                        <Col componentClass={ ControlLabel } md={ 3 }>
+                          Schedule Enabled:
+                        </Col>
+                        <Col md={ 6 }>
+                           <Checkbox
+                                name="scheduleEnabled"
+                                className = "checkboxCentered"
+                                onClick={this.handleChange.bind(this)}/>
+                        </Col>
+                        <Col mdHidden md={ 3 } />
+                    </Row>
+                  </div>
+                }
               </Grid>
             </div>
 
@@ -205,6 +255,7 @@ class AccountInterfaces extends React.Component {
                         <Col md={ 6 }>
                            <Checkbox
                                 name="moEnabled"
+                                className = "checkboxCentered"
                                 onClick={this.handleChange.bind(this)}>
                             [*Check this box only if you have a valid Customer MO Reply Address]
                            </Checkbox>
@@ -353,6 +404,19 @@ class AccountInterfaces extends React.Component {
         ]
       };
       this.interfaceList = initializeSelectOptions(Interfaces.data,'name','value');
+      var emailInterfaces = {
+        "data": [
+            {"name": "IN365_EMAIL", "value": "IN365_EMAIL"}
+        ]
+      };
+      this.emailinterfaceList = initializeSelectOptions(emailInterfaces.data,'name','value');
+      var AccessMethod = {
+        "data": [
+            {"name": "VPN", "value": "VPN"},
+            {"name": "Non VPN", "value": "Non VPN"}
+        ]
+      };
+      this.accessList = initializeSelectOptions(AccessMethod.data,'name','value');
     }
 
     componentWillReceiveProps (nextProps) {
@@ -367,7 +431,8 @@ function mapStateToProps(state) {
     return {
       // data: state.Account.data,
       target : state.Common.target,
-      AcctList : state.Common.acctList
+      AcctList : state.Common.acctList,
+      accType : state.Account.accType
     };
 }
 
