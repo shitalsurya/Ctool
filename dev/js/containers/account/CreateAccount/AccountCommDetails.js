@@ -177,15 +177,25 @@ class AccountCommDetails extends React.Component {
   }
 
   goToTechnicalDetails() {
-    // // this.props.goToTechnicalDetails( this.state.acctCommInfo );
-    // var accountObjCheck = this.state.acctCommInfo;
-    //  if(accountObjCheck.company && accountObjCheck.billinglocation
-    //   && accountObjCheck.servicelevel && accountObjCheck.traffictype){
-        this.props.goToTechnicalDetails( this.state.acctCommInfo );
-    //   }
-    //   else {
-    //     this.setState({emptyFlag:false});
-    // }
+    // this.props.goToTechnicalDetails( this.state.acctCommInfo );
+     var accountObjCheck = this.state.acctCommInfo;
+     if(this.props.accType === "sms"){
+       if(accountObjCheck.company && accountObjCheck.billinglocation
+        && accountObjCheck.servicelevel && accountObjCheck.traffictype){
+          this.props.goToTechnicalDetails( this.state.acctCommInfo );
+        }
+        else {
+          this.setState({emptyFlag:false});
+        }
+     }
+     else if(this.props.accType === "email"){
+       if(accountObjCheck.company && accountObjCheck.billinglocation){
+          this.props.goToTechnicalDetails( this.state.acctCommInfo );
+        }
+        else {
+          this.setState({emptyFlag:false});
+        }
+     }
   }
 
   componentWillMount() {

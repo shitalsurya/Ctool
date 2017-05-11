@@ -64,43 +64,57 @@ class AccountInterfaces extends React.Component {
     }
 
     handleInterfaceDetailsNext(){
-      // console.log(this.state.accountInterfacesInfo);
-      // var accountObjCheck = this.state.accountInterfacesInfo;
-      //  if(accountObjCheck.techName && accountObjCheck.commName && accountObjCheck.ExstAccts
-      //   && accountObjCheck.accInterface ){
-      //     switch(accountObjCheck.accInterface)
-      //     {
-      //       case "HTTP":
-      //         if(accountObjCheck.defTPOA && ((accountObjCheck.moEnabled=="Yes" && accountObjCheck.rplAdd) || (accountObjCheck.moEnabled=="No"))) {
-                this.StoreTextFieldsData();
-                this.props.handleInterfaceDetailsNext(this.accountInfo);
-      //         }
-      //         else
-      //           this.setState({emptyValFlag:false});
-      //         break;
-      //       case "SMTP":
-      //         if(accountObjCheck.defTPOA && accountObjCheck.rplAdd) {
-      //           this.StoreTextFieldsData();
-      //           this.props.handleInterfaceDetailsNext(this.accountInfo);
-      //         }
-      //         else
-      //           this.setState({emptyValFlag:false});
-      //         break;
-      //       case "SMPP":
-      //         if(accountObjCheck.defTPOA && accountObjCheck.rplAdd) {
-      //           this.StoreTextFieldsData();
-      //           this.props.handleInterfaceDetailsNext(this.accountInfo);
-      //         }
-      //         else
-      //           this.setState({emptyValFlag:false});
-      //         break;
-      //     }
-      //   }
-      //   else {
-      //     if(accountObjCheck.accInterface)
-      //       this.setState({emptyValFlag:false});
-      //     this.setState({emptyFlag:false});
-      // }
+      console.log(this.state.accountInterfacesInfo);
+      var accountObjCheck = this.state.accountInterfacesInfo;
+      if(this.props.accType === "sms"){
+        if(accountObjCheck.techName && accountObjCheck.commName && accountObjCheck.ExstAccts
+         && accountObjCheck.accInterface ){
+           switch(accountObjCheck.accInterface)
+           {
+             case "HTTP":
+               if(accountObjCheck.defTPOA && ((accountObjCheck.moEnabled=="Yes" && accountObjCheck.rplAdd) || (accountObjCheck.moEnabled=="No"))) {
+                 this.StoreTextFieldsData();
+                 this.props.handleInterfaceDetailsNext(this.accountInfo);
+               }
+               else
+                 this.setState({emptyValFlag:false});
+               break;
+             case "SMTP":
+               if(accountObjCheck.defTPOA && accountObjCheck.rplAdd) {
+                 this.StoreTextFieldsData();
+                 this.props.handleInterfaceDetailsNext(this.accountInfo);
+               }
+               else
+                 this.setState({emptyValFlag:false});
+               break;
+             case "SMPP":
+               if(accountObjCheck.defTPOA && accountObjCheck.rplAdd) {
+                 this.StoreTextFieldsData();
+                 this.props.handleInterfaceDetailsNext(this.accountInfo);
+               }
+               else
+                 this.setState({emptyValFlag:false});
+               break;
+           }
+         }
+         else {
+           if(accountObjCheck.accInterface)
+             this.setState({emptyValFlag:false});
+           this.setState({emptyFlag:false});
+       }
+      }
+      else if(this.props.accType === "email"){
+        if(accountObjCheck.techName && accountObjCheck.commName && accountObjCheck.emailAccInterface
+         && accountObjCheck.acsMethod ){
+           this.StoreTextFieldsData();
+           this.props.handleInterfaceDetailsNext(this.accountInfo);
+         }
+         else {
+           if(accountObjCheck.accInterface)
+             this.setState({emptyValFlag:false});
+           this.setState({emptyFlag:false});
+       }
+      }
     }
 
     render() {
