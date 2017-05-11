@@ -484,6 +484,12 @@ font-size: 14px;
   border-radius: 15px;
 }
 /* Advanced Search CSS*/
+.bootstrap-typeahead-input-main,.bootstrap-typeahead-menu {
+  margin-left: 56px;
+}
+.dropdown-caret{
+      margin-top: 5px;
+}
 .btn{
     padding: 5px 10px !important;
 }
@@ -491,7 +497,7 @@ font-size: 14px;
 #adv-search-panel{
       margin-bottom: 15px;
         margin-right: -15px;
-      input:first-child{
+  .form-inline >   input:first-child{
         width: 95% !important;
         border-radius: 0px !important;
       }
@@ -525,6 +531,7 @@ font-size: 14px;
 	font-family: 'SAP-icons';
 	content: "\e03e";
 }
+
 /*menus thumbnail*/
 .thumbnail .caption h3 {
 	height: 80px;

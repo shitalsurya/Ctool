@@ -132,7 +132,7 @@ class AdvancedSearch extends React.Component {
                 <Well>
                   <Grid fluid={ true }>
                     <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 3 }>
+                      <Col componentClass={ ControlLabel } md={ 2 }>
                         Company:
                       </Col>
                       <Col md={ 9 }>
@@ -142,9 +142,11 @@ class AdvancedSearch extends React.Component {
                           placeholder="Select a company..."
                           defaultSelected={this.state.selectedCompany}
                         >
-                          <span title="Click to open advanced search"
-                            className="sap-caret"></span>
                         </Typeahead>
+                      </Col>
+                      <Col md={ 1 } className="dropdown-caret">
+                        <span title="Search company"
+                          className="sap-caret"></span>
 
                       </Col>
                     </Row>
