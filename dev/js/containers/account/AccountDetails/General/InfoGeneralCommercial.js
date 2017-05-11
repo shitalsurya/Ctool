@@ -25,27 +25,26 @@ class InfoGeneralCommercial extends React.Component {
     handleInlineEditChange(name,val){
       console.log("name : ",name, "  val : ",val);
       var info = this.state.commInfoObj;
-      switch (name) {
-        case "billing":
-          info.billing = val;
-          break;
-        case "serviceLevel":
-          info.serviceLevel = val;
-          break;
-        case "status":
-          info.status = val;
-          break;
-        case "comment":
-          info.comment = val;
-          break;
-      }
+      info[name]=val;
+      // switch (name) {
+      //   case "billing":
+      //     info.billing = val;
+      //     break;
+      //   case "serviceLevel":
+      //     info.serviceLevel = val;
+      //     break;
+      //   case "status":
+      //     info.status = val;
+      //     break;
+      //   case "comment":
+      //     info.comment = val;
+      //     break;
+      // }
       this.setState({commInfoObj : info});
+      console.log("update comm details==",this.state.commInfoObj);
     }
 
     render() {
-        console.log("render commInfoObj : ", this.state.commInfoObj.billinglocation);
-        this.BillingLocation = initializeSelectOptions(this.props.BillingLocation,'billinglocationname','billinglocationid');
-    //  console.log("commInfoObj billinglocation: ", this.state.commInfoObj);
       var statusOptions = [
         { "id" :1 , "value" : "UNSIGNED"},
         { "id" :2 , "value" : "SIGNED"}
@@ -74,9 +73,9 @@ class InfoGeneralCommercial extends React.Component {
                   Billing Location :
                 </Col>
                 <Col md={ 8 } >
-                  <InlineEdit name="billinglocationid" type="select" options={this.BillingLocation}
-                    defaultOptionName={this.state.commInfoObj.billinglocation.billinglocationname}
-                    value={this.state.commInfoObj.billinglocation.billinglocationid}
+                  <InlineEdit name="billinglocationid" type="select" options={this.props.BillingLocation}
+                    optionsLabel="billinglocationname"
+                    value={this.state.commInfoObj.billinglocationid}
                     onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>

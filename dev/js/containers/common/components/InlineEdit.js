@@ -6,6 +6,7 @@ import {Typeahead} from 'react-bootstrap-typeahead';
 import Toggle from 'react-toggle';
 import DateTimeField from 'react-bootstrap-datetimepicker';
 import moment from 'moment';
+import { initializeSelectOptions } from './../Functions/commonFunctions';
 require('./Inline.scss');
 
 export default class InlineEdit extends React.Component {
@@ -18,7 +19,7 @@ export default class InlineEdit extends React.Component {
             type : this.props.type || 'text',
             defaultVal : this.props.value,
             options : this.props.options || [],
-            defaultOptionName:this.props.defaultOptionName,
+            optionsLabel:this.props.optionsLabel|| '',
             showView:true,
             showEdit : false,
             showButtons : false,
@@ -75,15 +76,29 @@ export default class InlineEdit extends React.Component {
           });
       }
     }
-
+    getNamebyIdForSelect(_options){
+        var _defaultOptionName="";
+      _options.forEach( function (bl)
+      {
+        if(bl.hasOwnProperty(this.state.name)){
+          if(bl[this.state.name]==this.state.value){
+             _defaultOptionName = bl[this.state.optionsLabel];
+          }
+        }
+      }.bind(this));
+        console.log("_defaultOptionName==",_defaultOptionName);
+        return _defaultOptionName;
+    }
     onOkClick() {
         if(!this.state.mselect){
+
           var _state = {
               name: this.state.name,
               value: this.state.value,
               showView:true,
               showEdit : false,
-              showButtons : false
+              showButtons : false,
+              defaultOptionName:this.getNamebyIdForSelect(this.props.options)
             };
           this.setState(_state,function(){
             this.props.onSave(this.state.name,this.state.value,this.state.row);
@@ -116,7 +131,7 @@ export default class InlineEdit extends React.Component {
               value: e.target.value,
               showView:false,
               showButtons : true,
-              showEdit : false,
+              showEdit : false
           };
           break;
         case "multiSelect":
@@ -310,7 +325,8 @@ export default class InlineEdit extends React.Component {
           this.setState({text : true});
           break;
         case "select":
-          this.setState({select : true});
+           var _options = initializeSelectOptions(this.state.options,this.state.optionsLabel,this.state.name);
+           this.setState({select : true,options:_options,defaultOptionName:this.getNamebyIdForSelect(this.state.options)});
           break;
         case "toggle":
           var _defaultVal;
