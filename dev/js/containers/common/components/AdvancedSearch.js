@@ -14,7 +14,7 @@ class AdvancedSearch extends React.Component {
          var cachedObj = JSON.parse(sessionStorage.getItem("cacheAccListSearch"));
            console.log("Use from session storage==",cachedObj);
          this.state={
-           isCacheSearch:cachedObj.cacheSearch,
+           isCacheSearch:cachedObj.isCacheSearch,
            isAdvSearch:cachedObj.isAdvSearch,
            selectedCompany:cachedObj.selectedCompany,
              selectedStatus:cachedObj.selectedStatus ,
@@ -200,7 +200,7 @@ class AdvancedSearch extends React.Component {
                       </Col>
                       <Col md={ 1 }>
                         <Toggle
-                          defaultChecked={this.state.isCacheSearch === "Yes" ? true : false }
+                          defaultChecked={this.state.isCacheSearch == "Yes" ? true : false }
                           value={this.state.isCacheSearch}
                           icons={{
                                  checked:'Yes',
