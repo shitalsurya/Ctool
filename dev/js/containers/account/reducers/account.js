@@ -100,7 +100,12 @@ export default function(state = {
             return Object.assign({}, state, {infoGenComm:action.payload,target:action.type});
         case types.CREATE_ACCOUNT_TYPE:
           return Object.assign({}, state, {
-            accType: action.payload
+            accType: action.payload,
+            accountInfo: {},
+            showTechnicalDetails: false,
+            showCommDetails: true,
+            showInterfaceDetails: false,
+            showReviewDetails: false
           });
         return state;
     }
