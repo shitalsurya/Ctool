@@ -259,18 +259,15 @@ toggleOnChange(name,value){
                          md={ 3 }> Restricted routing:
                        </Col>
                        <Col md={ 1 }>
-                         <InlineEdit  name="resRouting"
-                           type = "toggle"
-                           value={this.state.resRouting}
+                         <Toggle
+                           name="locked"
                            icons={{
                               checked: 'Yes',
                               unchecked: 'No',
                            }}
-                           onSave = {
-                             this.toggleOnChange.bind(this)
-                           }
-                         />
-
+                           defaultChecked={this.state.resRouting == "Yes" ? true : false}
+                           value={this.state.resRouting}
+                           onChange={this.toggleOnChange.bind(this)} />
                        </Col>
 
                      </Row>
