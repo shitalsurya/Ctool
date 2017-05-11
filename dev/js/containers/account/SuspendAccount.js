@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
+import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal,Label } from 'react-bootstrap';
 import Select from 'react-select';
 // import Company from '././../../../json/Company.json';
 import BrandingHeader from './../common/components/BrandingHeader';
 import Navigation from './../common/components/Navigation';
 import Account from '././../../../json/Account.json';
-import { initializeData, handleSuspendAccCompany, setSuspendAccountInfo, getCompanyList } from './actions/accountActions';
+import { initializeData, setSuspendAccountInfo } from './actions/accountActions';
 import { DateField, Calendar } from 'react-date-picker';
 import * as types from '../common/commonActionTypes';
 require( '././../../../scss/style.scss' );
@@ -16,176 +16,143 @@ require( '././../../../scss/datePick.scss' );
 class SuspendAccount extends React.Component {
   constructor( props, context ) {
     super( props, context );
-
     this.state = {
-      emptyFlag : false,
-      susAccInfo : {},
-      submenus:{
-        head: types.ACCOUNT_LIST,
-        head_icon : "accounts-icon",
-        subVal:[
-          types.ACCOUNT_CREATE,
-          types.ACCOUNT_SPND,
-          types.ACCOUNT_REAC,
-          types.ACCOUNT_CLOSE
-        ]
-      }
+        modalHeading:'Suspend Account',
+        susAccInfo : {}
     };
 
   }
 
-  checkEmpty(){
-    if(!this.state.susAccInfo.company) {
-      this.setState({emptyFlag:true});
-    }
-  }
-
   render() {
-
+    
     const onChange = (dateString, { dateMoment, timestamp }) => {
-      var info = this.state.susAccInfo;
-      info.date = dateString;
-      this.setState({susAccInfo:info});
+      var _susAccInfo = this.state.susAccInfo;
+      if(_susAccInfo.date <= dateMoment._d){
+        _susAccInfo.date = dateMoment._d;
+      }
+      this.setState({susAccInfo:_susAccInfo});
     }
 
     return (
-      <div>
-        <BrandingHeader/>
-        <Grid fluid={true}>
-          <Row>
-            <Col md={2}>
-              <Navigation submenus={this.state.submenus}></Navigation>
-            </Col>
-            <Col md={10}>
-              <div className="controls-container">
+      <Modal show={this.props.suspendAction} onHide={this.handleCancel.bind(this)}>
+          <Modal.Header closeButton>
+              <Modal.Title>{this.state.modalHeading}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div>
+              <Grid fluid={true}>
+                <Row className="show-grid">
+                  <Col componentClass={ ControlLabel } md={ 4 }>
+                    Company :
+                  </Col>
+                  <Col md={ 6 }>
+                    <FormControl.Static>
+                      {this.state.susAccInfo.company}
+                    </FormControl.Static>
+                  </Col>
+                  <Col mdHidden md={ 3 }/>
+                </Row>
 
-                <div className="rec">
-                  <div className="page-heading">
-                    Suspend Account
-                  </div>
-                </div>
+                <Row className="show-grid">
+                  <Col componentClass={ ControlLabel } md={ 4 }>
+                    Account :
+                  </Col>
+                  <Col md={ 6 } >
+                    <FormControl.Static>
+                      {this.state.susAccInfo.account}
+                    </FormControl.Static>
+                  </Col>
+                  <Col mdHidden md={ 3 }/>
+                </Row>
 
-                <div>
-                  <Grid fluid={true}>
+                <Row className="show-grid">
+                  <Col componentClass={ ControlLabel } md={ 4 }>
+                    Account Manager :
+                  </Col>
+                  <Col md={ 6 } >
+                    <FormControl.Static>
+                      {this.state.susAccInfo.manager}
+                    </FormControl.Static>
+                  </Col>
+                  <Col mdHidden md={ 3 }/>
+                </Row>
 
-                    <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 3 }>
-                        Company :
-                      </Col>
-                      <Col md={ 6 } className={this.state.emptyFlag ? "empty" : false}>
-                        <Select
-                          placeholder="Select Company.."
-                          options={this.companyList}
-                          value={this.state.susAccInfo.company}
-                          onChange={this.handleSelectFieldsChange.bind(this,types.SUSPEND_ACC_COMPANY)}  />
-                        <div hidden={this.state.emptyFlag ? false : "hidden"} className="error-msg">Enter Company</div>
-
-                      </Col>
-                      <Col mdHidden md={ 3 }/>
-                    </Row>
-
-                    <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 3 }>
-                        Account :
-                      </Col>
-                      <Col md={ 6 } >
-                        <Select
-                          placeholder="Select Account.."
-                          options={this.accountList}
-                          value={this.state.susAccInfo.account}
-                          onChange={this.handleSelectFieldsChange.bind(this,types.SUSPEND_ACC_ACCOUNT)}
-                          onOpen={this.checkEmpty.bind(this)}  />
-                      </Col>
-                      <Col mdHidden md={ 3 }/>
-                    </Row>
-
-                    <Row className="show-grid" hidden={this.state.susAccInfo.manager ? false : "hidden"}>
-                      <Col componentClass={ ControlLabel } md={ 3 }>
-                        Account Manager :
-                      </Col>
-                      <Col md={ 6 }>
-                        <FormControl.Static>
-                          {this.state.susAccInfo.manager}
-                        </FormControl.Static>
-                      </Col>
-                      <Col mdHidden md={ 3 }/>
-                    </Row>
-
-                    <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 3 }>
-                        Date :
-                      </Col>
-                      <Col md={ 6 }>
-                        <DateField
-                          dateFormat="DD-MM-YYYY"
-                          value={this.state.susAccInfo.date}
-                          onChange={onChange}
-                          updateOnDateClick={true}
-                          collapseOnDateClick={true}
-                          placeholder="Select Date.."
-                        />
-                      </Col>
-                      <Col mdHidden md={ 3 }/>
-                    </Row>
-
-                    <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 5 }>
-                        <Button bsStyle="primary" onClick={this.handleSubmitSuspend.bind(this)}>
-                          Suspend Account
-                        </Button>
-                      </Col>
-                      <Col mdHidden md={ 3 }/>
-                    </Row>
-
-                  </Grid>
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </Grid>
-      </div>
+                <Row className="show-grid">
+                  <Col componentClass={ ControlLabel } md={ 4 }>
+                    Suspend Date :
+                  </Col>
+                  <Col md={ 6 }>
+                    <DateField
+                      forceValidDate
+                      dateFormat="DD-MM-YYYY"
+                      value={this.state.susAccInfo.date}
+                      onChange={onChange.bind(this)}
+                      updateOnDateClick={true}
+                      collapseOnDateClick={true}
+                      placeholder="Select Date.."
+                    />
+                  </Col>
+                  <Col mdHidden md={ 3 }/>
+                </Row>
+              </Grid>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.handleSuspendAccount.bind(this)}>Suspend Account</Button>
+            <Button onClick={this.handleCancel.bind(this)}>Cancel</Button>
+          </Modal.Footer>
+      </Modal>
     );
   }
 
-  handleSubmitSuspend(){
+  handleSuspendAccount(){
     this.props.setSuspendAccountInfo(this.state.susAccInfo);
     console.log(this.state.susAccInfo);
-    this.setState({susAccInfo : { "date" : ''}});
-    this.accountList = [];
+    this.props.close();
   }
 
-  handleSelectFieldsChange(target,value) {
-
-    var info = this.state.susAccInfo;
-    switch (target) {
-      case types.SUSPEND_ACC_COMPANY:
-        info = {};
-        info.company = value.value;
-        const spndAccObj = {
-          "company" :value.value,
-          "accounts" : Account
-        }
-      //  var updatedAccountList = this.props.handleSuspendAccCompany(spndAccObj);
-    //    this.accountList = initializeData(updatedAccountList,'account');
-        break;
-      case types.SUSPEND_ACC_ACCOUNT:
-        info.account = value.value;
-        var manager = Account.data.filter(function (header, item) {
-          if(header.account === value.value)
-            return header.manager;
-        }.bind(this));
-        if(manager.length)
-          info.manager = manager[0].manager;
-        else
-          info.manager = null;
-        break;
-    }
-    this.setState({susAccInfo:info,emptyFlag:false});
+  handleCancel(){
+    console.log(this.state.susAccInfo);
+    this.props.close();
   }
+
+  // handleSelectFieldsChange(target,value) {
+  //
+  //   var info = this.state.susAccInfo;
+  //   switch (target) {
+  //     case types.SUSPEND_ACC_COMPANY:
+  //       info = {};
+  //       info.company = value.value;
+  //       const spndAccObj = {
+  //         "company" :value.value,
+  //         "accounts" : Account
+  //       }
+  //     //  var updatedAccountList = this.props.handleSuspendAccCompany(spndAccObj);
+  //   //    this.accountList = initializeData(updatedAccountList,'account');
+  //       break;
+  //     case types.SUSPEND_ACC_ACCOUNT:
+  //       info.account = value.value;
+  //       var manager = Account.data.filter(function (header, item) {
+  //         if(header.account === value.value)
+  //           return header.manager;
+  //       }.bind(this));
+  //       if(manager.length)
+  //         info.manager = manager[0].manager;
+  //       else
+  //         info.manager = null;
+  //       break;
+  //   }
+  //   this.setState({susAccInfo:info,emptyFlag:false});
+  // }
 
   componentWillMount() {
-    let Company = this.props.getCompanyList();
-//    this.companyList = initializeData(Company,'code');
+
+  }
+
+  componentWillReceiveProps(nextProps){
+    var _susAccInfo = nextProps.susAccInfo||{};
+    _susAccInfo.date = new Date();
+    this.setState({susAccInfo:_susAccInfo});
   }
 
 }
@@ -196,9 +163,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
-      handleSuspendAccCompany : handleSuspendAccCompany,
       setSuspendAccountInfo : setSuspendAccountInfo,
-      getCompanyList : getCompanyList
         }, dispatch);
 }
 

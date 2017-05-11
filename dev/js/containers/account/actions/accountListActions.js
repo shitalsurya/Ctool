@@ -2,93 +2,156 @@ import * as types from './../../common/commonActionTypes';
 import axios from 'axios';
 import * as config from '../../../containers/common/config';
 import {httpRequest} from '../../../containers/common/commonAjaxActions';
-var accounts = [{
+var accounts = [
+	{
 		"customerid":"1",
 		"customername":"123_MM_3000_INDO_HTTP",
 		"company":
-		 {"companyid": "10 GRAD(37669)",
-		 "companyname": "10 GRAD(37669)"},
+		 {
+			 "companyid": "10 GRAD(37669)",
+		 	 "companyname": "10 GRAD(37669)"
+		 },
+		"accountmanager":
+     {
+			 "accountmanagerid": "101",
+			 "accountmanagername": "Manager 101"
+		 },
 		 "status":"Active"
-	},
+  },
 	{
 		"customerid":"2",
 		"customername":"456_MM_3000_GER_HTTP",
 		"company":
-		 {"companyid": "10 GRAD(37669)",
-		 "companyname": "10 GRAD(37669)"},
-		 "status":"Suspended"
+	 	{
+		 "companyid": "10 GRAD(37669)",
+		 "companyname": "10 GRAD(37669)"
+	  },
+		"accountmanager":
+     {
+			 "accountmanagerid": "201",
+			 "accountmanagername": "Manager 201"
+		 },
+		"status":"Suspended",
+		"suspenddate" : "24-02-2017"
 	},
 	{
-			"customerid":"3",
-			"customername":"789_MM_3000_INDO_HTTP",
-			"company":
-			 {"companyid": "10 GRAD(37669)",
-			 "companyname": "10 GRAD(37669)"},
-			 "status":"Suspended"
-		},
+		"customerid":"3",
+		"customername":"789_MM_3000_INDO_HTTP",
+		"company":
 		{
-				"customerid":"4",
-				"customername":"987_MM_3000_INDO_HTTP",
-				"company":
-				 {"companyid": "10 GRAD(37669)",
-				 "companyname": "10 GRAD(37669)"},
-				 "status":"Closed"
-			},
-			{
-					"customerid":"5",
-					"customername":"654_MM_3000_INDO_HTTP",
-					"company":
-					 {"companyid": "10 GRAD(37669)",
-					 "companyname": "10 GRAD(37669)"},
-					 "status":"Closed"
-				},
-				{
-						"customerid":"6",
-						"customername":"321_MM_3000_INDO_HTTP",
-						"company":
-						 {"companyid": "10 GRAD(37669)",
-						 "companyname": "10 GRAD(37669)"},
-						 "status":"Active"
-					},
-					{
-							"customerid":"7",
-							"customername":"234_MM_3000_INDO_HTTP",
-							"company":
-							 {"companyid": "10 GRAD(37669)",
-							 "companyname": "10 GRAD(37669)"},
-							 "status":"Active"
-						},
-						{
-								"customerid":"8",
-								"customername":"867_MM_3000_INDO_HTTP",
-								"company":
-								 {"companyid": "10 GRAD(37669)",
-								 "companyname": "10 GRAD(37669)"},
-								 "status":"Suspended"
-							},
+			"companyid": "10 GRAD(37669)",
+		  "companyname": "10 GRAD(37669)"
+		},
+		"accountmanager":
+     {
+			 "accountmanagerid": "301",
+			 "accountmanagername": "Manager 301"
+		 },
+		"status":"Suspended",
+		"suspenddate" : "01-03-2017"
+	},
+	{
+		"customerid":"4",
+		"customername":"987_MM_3000_INDO_HTTP",
+		"company":
+	  {
+			"companyid": "10 GRAD(37669)",
+			"companyname": "10 GRAD(37669)"
+		},
+		"accountmanager":
+     {
+			 "accountmanagerid": "401",
+			 "accountmanagername": "Manager 401"
+		 },
+		"status":"Closed"
+	},
+	{
+		"customerid":"5",
+		"customername":"654_MM_3000_INDO_HTTP",
+		"company":
+		{
+			"companyid": "10 GRAD(37669)",
+			"companyname": "10 GRAD(37669)"
+		},
+		"accountmanager":
+     {
+			 "accountmanagerid": "501",
+			 "accountmanagername": "Manager 501"
+		 },
+		"status":"Closed"
+	},
+	{
+		"customerid":"6",
+		"customername":"321_MM_3000_INDO_HTTP",
+		"company":
+		{
+			"companyid": "10 GRAD(37669)",
+			"companyname": "10 GRAD(37669)"
+		},
+		"accountmanager":
+     {
+			 "accountmanagerid": "601",
+			 "accountmanagername": "Manager 601"
+		 },
+		"status":"Active"
+	},
+	{
+		"customerid":"7",
+		"customername":"234_MM_3000_INDO_HTTP",
+		"company":
+		{
+			"companyid": "10 GRAD(37669)",
+			"companyname": "10 GRAD(37669)"
+		},
+		"accountmanager":
+     {
+			 "accountmanagerid": "701",
+			 "accountmanagername": "Manager 701"
+		 },
+		"status":"Active"
+	},
+	{
+		"customerid":"8",
+		"customername":"867_MM_3000_INDO_HTTP",
+		"company":
+		{
+			"companyid": "10 GRAD(37669)",
+			"companyname": "10 GRAD(37669)"
+		},
+		"accountmanager":
+     {
+			 "accountmanagerid": "801",
+			 "accountmanagername": "Manager 801"
+		 },
+		"status":"Suspended",
+		"suspenddate" : "14-06-2016"
+	},
 ];
-	export function getHubAcctList() {
-		return function (dispatch,getState) {
-			dispatch(getHubAcctListResponse());
-			// dispatch(loginUserRequest());
-			// var request = {
-			// 						url:config.getUrl('UserAuth'),
-			// 							method:'POST',
-			// 						data:{username, password},
-			// 						successCallback:loginUserResponse,
-			// 						failureCallback:loginUserResponse
-			// 					};
-			// return httpRequest(dispatch,getState,request);
-		}
+
+export function getHubAcctList() {
+	return function (dispatch,getState) {
+		dispatch(getHubAcctListResponse());
+		// dispatch(loginUserRequest());
+		// var request = {
+		// 						url:config.getUrl('UserAuth'),
+		// 							method:'POST',
+		// 						data:{username, password},
+		// 						successCallback:loginUserResponse,
+		// 						failureCallback:loginUserResponse
+		// 					};
+		// return httpRequest(dispatch,getState,request);
 	}
-	export function getHubAcctListRequest() {
-		  return {
-		    type: types.MISC_ACCOUNT_LIST_REQUEST
-		  }
-		}
-		export function getHubAcctListResponse(data) {
-			  return {
-			    type: types.MISC_ACCOUNT_LIST_RESPONSE,
-					 payload: accounts
-			  }
-			}
+}
+
+export function getHubAcctListRequest() {
+  return {
+    type: types.MISC_ACCOUNT_LIST_REQUEST
+  }
+}
+
+export function getHubAcctListResponse(data) {
+  return {
+    type: types.MISC_ACCOUNT_LIST_RESPONSE,
+		 payload: accounts
+  }
+}
