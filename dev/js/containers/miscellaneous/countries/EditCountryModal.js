@@ -46,7 +46,6 @@ class EditCountryModal extends React.Component {
   }
 
   handleToggleChange(e){
-    debugger;
     this.currentCntry = this.state.currentCntry;
     console.log( "handleInlineEditChange this.currentCntry==", this.currentCntry );
     this.currentCntry[e.target.name] = e.target.checked ? "Yes" : "No";
