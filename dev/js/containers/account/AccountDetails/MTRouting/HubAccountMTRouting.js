@@ -69,13 +69,21 @@ var fields = [
   {
       name:'Pref.',
       dataField:'preference',
-      type:'select',
+      type:'text',
       width:'80px',
+        dataAlign:'left',
       options: [{ "id": 1, "value":"1"},{ "id": 2, "value":"2"}]
   },
   {
       name:'SMSC',
     dataField:'SMSC',
+    type:'text',
+    dataAlign:'left'
+  },
+  {
+      name:'TPOA',
+    dataField:'TPOA',
+      width:'150px',
     type:'text',
     dataAlign:'left'
   },
