@@ -22,7 +22,6 @@ import React from 'react';
         };
         export function initializeSelectOptions(_list,nameField,valField){
           var obj={};
-          debugger;
           if(_list[0][valField] !== ""){
             obj[nameField]="Please select..";
             obj[valField]="";
