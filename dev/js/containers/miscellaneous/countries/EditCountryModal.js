@@ -32,15 +32,28 @@ class EditCountryModal extends React.Component {
              }
         }
   }
+handleNLChange(name,val){
+    this.currentCntry = this.state.currentCntry;
+    if(this.currentCntry["countrynumberlookupoptionsids"]!==val){
+      this.currentCntry["countrynumberlookupoptionsids"]=val;
+      console.log( "handleNLChange==", this.currentCntry );
+      this.props.updateCountryDetails(this.currentCntry);
+    }
+}
+handleCNLChange(name,val){
+    this.currentCntry = this.state.currentCntry;
+    if(this.currentCntry["customernumberlookupoptionsids"]!==val){
+      this.currentCntry["customernumberlookupoptionsids"]=val;
+      console.log( "handleCNLChange==", this.currentCntry );
+      this.props.updateCountryDetails(this.currentCntry);
+    }
+}
 
   handleInlineEditChange(name,val){
     this.currentCntry = this.state.currentCntry;
-    console.log( "handleInlineEditChange this.currentCntry==", this.currentCntry );
-    console.log("handleInlineEditChange prev==",this.currentCntry[name]);
-    console.log("handleInlineEditChange new==",val);
     if(this.currentCntry[name]!==val){
       this.currentCntry[name]=val;
-      console.log( "after this.currentCntry==", this.currentCntry );
+      console.log( "handleInlineEditChange==", this.currentCntry );
       this.props.updateCountryDetails(this.currentCntry);
     }
   }
@@ -58,9 +71,9 @@ class EditCountryModal extends React.Component {
     console.log("render currentCntry==",info);
 
     const lookupOptions = [
-      { value: 'Local-Numbering-Plan', label: 'Local-Numbering-Plan' },
-      { value: 'Local-Ported-Plan', label: 'Local-Ported-Plan' },
-      { value: 'NRS', label: 'NRS'}
+      { numberlookupid: 1, numberlookupname: 'Local-Numbering-Plan' },
+      { numberlookupid: 2, numberlookupname: 'Local-Ported-Plan' },
+      { numberlookupid: 3, numberlookupname: 'NRS'}
     ];
 
     return (
@@ -88,8 +101,8 @@ class EditCountryModal extends React.Component {
                         <FormControl
                           className="info_label"
                           type="text"
-                          name="countryId"
-                          value={info.id} />
+                          name="countryid"
+                          value={info.countryid} />
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -97,7 +110,7 @@ class EditCountryModal extends React.Component {
                         Name:
                       </Col>
                       <Col md={ 6 }>
-                        <InlineEdit name="countryName" type="text" value={info.countryName} onSave={this.handleInlineEditChange.bind(this)}  />
+                        <InlineEdit name="countryname" type="text" value={info.countryname} onSave={this.handleInlineEditChange.bind(this)}  />
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -109,7 +122,7 @@ class EditCountryModal extends React.Component {
                           className="info_label"
                           type="text"
                           name="continent"
-                          value={info.continent} />
+                          value={info.continent.continentname} />
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -120,8 +133,8 @@ class EditCountryModal extends React.Component {
                         <FormControl
                           className="info_label"
                           type="text"
-                          name="countryNoCode"
-                          value={info.countryNoCode} />
+                          name="countrycode"
+                          value={info.countrycode} />
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -132,8 +145,8 @@ class EditCountryModal extends React.Component {
                         <FormControl
                           className="info_label"
                           type="text"
-                          name="countryCode"
-                          value={info.countryCode} />
+                          name="mnemoniccountrycode"
+                          value={info.mnemoniccountrycode} />
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -144,8 +157,8 @@ class EditCountryModal extends React.Component {
                         <FormControl
                           className="info_label"
                           type="text"
-                          name="msisdnLen"
-                          value={info.msisdnLen} />
+                          name="msisdnlength"
+                          value={info.msisdnlength} />
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -157,7 +170,7 @@ class EditCountryModal extends React.Component {
                           className="info_label"
                           type="text"
                           name="minLen"
-                          value={info.minLen} />
+                          value={info.minmsisdnlength} />
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -169,7 +182,7 @@ class EditCountryModal extends React.Component {
                           className="info_label"
                           type="text"
                           name="maxLen"
-                          value={info.maxLen} />
+                          value={info.maxmsisdnlength} />
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -177,7 +190,11 @@ class EditCountryModal extends React.Component {
                         Number Lookup Option(s):
                       </Col>
                       <Col md={ 6 }>
-                        <InlineEdit name="LookupOptions" type="multiSelect" options={lookupOptions} value={info.LookupOptions} onSave={this.handleInlineEditChange.bind(this)}  />
+                        <InlineEdit name="numberlookupid" type="multiSelect"
+                          options={lookupOptions}
+                          optionsLabel="numberlookupname"
+                          value={info.countrynumberlookupoptionsids}
+                          onSave={this.handleNLChange.bind(this)}  />
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -185,7 +202,10 @@ class EditCountryModal extends React.Component {
                         Default Number Lookup:
                       </Col>
                       <Col md={ 6 }>
-                        <InlineEdit name="defLookup" type="select" options={lookupOptions} value={info.defLookup} onSave={this.handleInlineEditChange.bind(this)}  />
+                        <InlineEdit name="numberlookupid" type="select" options={lookupOptions}
+                          optionsLabel="numberlookupname"
+                          value={info.numberlookupid}
+                          onSave={this.handleInlineEditChange.bind(this)}  />
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -209,7 +229,11 @@ class EditCountryModal extends React.Component {
                         CNL Option(s):
                       </Col>
                       <Col md={ 6 }>
-                        <InlineEdit name="CNLOptions" type="multiSelect" options={lookupOptions} value={info.CNLOptions} onSave={this.handleInlineEditChange.bind(this)}  />
+                        <InlineEdit name="numberlookupid" type="multiSelect"
+                          options={lookupOptions}
+                          optionsLabel="numberlookupname"
+                          value={info.customernumberlookupoptionsids}
+                          onSave={this.handleCNLChange.bind(this)}  />
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -263,7 +287,7 @@ class EditCountryModal extends React.Component {
       case types.MISC_UPDATE_COUNTRYDETAILS_RESPONSE:
         console.log("nextProps.countryDetails==",nextProps.countryDetails);
         if( nextProps.countryDetails != {}){
-          this.refs.container.success(`Account created successfully.`, ``, {
+          this.refs.container.success(`Country updated successfully.`, ``, {
               closeButton: true,
           });
             // this.state.showEditModal =false;

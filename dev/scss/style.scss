@@ -484,9 +484,6 @@ font-size: 14px;
   border-radius: 15px;
 }
 /* Advanced Search CSS*/
-.bootstrap-typeahead-input-main,.bootstrap-typeahead-menu {
-  margin-left: 56px;
-}
 .dropdown-caret{
       margin-top: 5px;
 }
@@ -508,6 +505,10 @@ font-size: 14px;
   .form-control-static {
     padding-top: 0px  !important;
   }
+  .bootstrap-typeahead-input-main,.bootstrap-typeahead-menu {
+    margin-left: 56px;
+  }
+
 }
 
 

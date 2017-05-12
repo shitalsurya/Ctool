@@ -155,3 +155,9 @@ export const LEGAL_STATUS = [
   { "legalstatusid" :1 , "legalstatusname" : "UNSIGNED"},
      { "legalstatusid" :2 , "legalstatusname" : "SIGNED"}
 ];
+export const TRAFFIC_TYPE = [
+     {"traffictypeid": 1, "traffictypename": "General"},
+       {"traffictypeid": 2, "traffictypename": "Campaign"},
+         {"traffictypeid": 3, "traffictypename": "Low Latency"},
+           {"traffictypeid": 4, "traffictypename": "Time Sensitive"}
+];

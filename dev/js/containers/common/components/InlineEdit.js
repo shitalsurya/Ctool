@@ -6,7 +6,7 @@ import {Typeahead} from 'react-bootstrap-typeahead';
 import Toggle from 'react-toggle';
 import DateTimeField from 'react-bootstrap-datetimepicker';
 import moment from 'moment';
-import { initializeSelectOptions } from './../Functions/commonFunctions';
+import { initializeSelectOptions,initializeTypeAheadData } from './../Functions/commonFunctions';
 require('./Inline.scss');
 
 export default class InlineEdit extends React.Component {
@@ -104,20 +104,27 @@ export default class InlineEdit extends React.Component {
            };
           break;
           case "multiSelect":
+          var labels=[];
+            this.state.selected.forEach( function (option)
+              {
+                    labels.push(option.label);
+            });
             _state = {
                name: this.state.name,
                value: this.state.value,
-               showView:true,
-               showEdit : false,
+
+               mSelectView : true,
+               mSelectEdit : false,
                showButtons : false,
+               defaultOptionName:labels.join(',')
              };
             break;
         default:
         var _state = {
             name: this.state.name,
             value: this.state.value,
-            mSelectView : true,
-            mSelectEdit : false,
+            showView:true,
+            showEdit : false,
             showButtons : false
           };
             break;
@@ -143,6 +150,7 @@ export default class InlineEdit extends React.Component {
      }
 
      handleChange(e){
+       console.log("handleChange==",e);
        switch(this.state.type){
         case "text":
         case "select":
@@ -156,7 +164,7 @@ export default class InlineEdit extends React.Component {
         case "multiSelect":
           var _value = [];
           for (var i in e) {
-            _value.push(e[i].key)
+            _value.push(e[i].id)
           }
           var _state = {
             selected: e,
@@ -230,7 +238,7 @@ export default class InlineEdit extends React.Component {
                   this.state.mSelectView &&
                     <ControlLabel className="inline-view-ctrl"
                       onMouseOver={this.handleMouseOver.bind(this) }>
-                      {this.state.value.join()}
+                      {this.state.defaultOptionName}
                     </ControlLabel>
                 }
               </div>
@@ -257,7 +265,7 @@ export default class InlineEdit extends React.Component {
                     <div style={this.state.styles}  onMouseLeave={()=>this.setState({mSelectView:true,mSelectEdit : false,showButtons : false})}>
                       <InputGroup>
                         <FormControl title={this.state.value} className="inline-edit-ctrl" componentClass="label">
-                          {this.state.value.join()}
+                          {this.state.defaultOptionName}
                         </FormControl>
                         <InputGroup.Addon onClick={this.onEditClick.bind(this)}>
                           <span title="Click to edit"
@@ -273,13 +281,19 @@ export default class InlineEdit extends React.Component {
                 <FormGroup id="inline-edit-ctrl">
                   {
                     this.state.mselect &&
-                      <Typeahead
-                        defaultSelected = {this.state.selected}
-                        labelKey="key"
-                        multiple
-                        options={this.state.options}
-                        onChange={this.handleChange.bind(this)}
-                      />
+                      // <Typeahead
+                      //   clearButton
+                      //   defaultSelected={options.slice(0, 5)}
+                      //   labelKey="name"
+                      //   multiple
+                      //   options={this.state.options}
+                      // />
+                        <Typeahead
+                          defaultSelected = {this.state.selected}
+                          multiple
+                          options={this.state.options}
+                          onChange={this.handleChange.bind(this)}
+                        />
                   }
                   {
                     this.state.select &&
@@ -325,6 +339,7 @@ export default class InlineEdit extends React.Component {
     }
 
     componentWillMount() {
+      console.log("componentWillMount this.state.type==",this.state.type);
       switch (this.state.type) {
         case "text":
           this.setState({text : true});
@@ -344,15 +359,21 @@ export default class InlineEdit extends React.Component {
             this.setState({time : true,value:_time});
           break;
         case "multiSelect":
-          // this.setState({mselect : true});
-          var _values = this.state.value.map(function (field) {
-               return (
-                 <option key={field} value={field}>
-                   {field}
-                 </option>
-               );
-           });
-          this.setState({mselect:true,selected:_values,mSelectView:true,showView:false});
+
+          var _options = initializeTypeAheadData(this.state.options,this.state.optionsLabel,this.state.name);
+            console.log("_options==",_options);
+            console.log("this.state.value==",this.state.value);
+             var _selected = [],labels=[];
+            for (var i in this.state.value) {
+              _options.forEach( function (option)
+              {
+                  if(option.id == this.state.value[i]){
+                      _selected.push(option);
+                      labels.push(option.label);
+                  }
+              }.bind(this));
+            }
+          this.setState({mselect:true,selected:_selected,defaultOptionName:labels.join(','),options:_options,mSelectView:true,showView:false});
           break;
       }
     }

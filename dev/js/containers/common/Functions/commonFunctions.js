@@ -21,6 +21,7 @@ import React from 'react';
           //  withFirstAndLast: false // Hide the going to First and Last page button
         };
         export function initializeSelectOptions(_list,nameField,valField){
+          console.log("initializeSelectOptions");
           var obj={};
           if(_list[0][valField] !== ""){
             obj[nameField]="Please select..";
@@ -38,7 +39,7 @@ import React from 'react';
           return _options;
         }
         export function initializeTypeAheadData(_list,valField,keyField){
-          console.log("initializeData==",_list);
+          console.log("initializeTypeAheadData==",_list);
           var list = _list.map(function (item, index) {
                 return (
                   {

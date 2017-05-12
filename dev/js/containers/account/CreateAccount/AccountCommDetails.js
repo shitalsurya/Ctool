@@ -6,15 +6,12 @@ import Select from 'react-select';
 import { ToastContainer, ToastMessage} from "react-toastr";
 import * as types from './../../common/commonActionTypes';
 import {getList} from './../../common/commonActions';
-
+import {SERVICE_LEVEL,TRAFFIC_TYPE} from './../../common/commonActionTypes';
 import {goToTechnicalDetails } from './../actions/accountActions';
 import {initializeSelectOptions} from './../../common/Functions/commonFunctions';
 import Toggle from 'react-toggle';
 require( './../../../../scss/style.scss' );
 require( './../../../../scss/react-toggle.scss' );
-import BillingLocation from './../../../../json/BillingLocation.json';
-import ServiceLevel from './../../../../json/ServiceLevel.json';
-import TrafficType from './../../../../json/TrafficType.json';
 const ToastMessageFactory = React.createFactory( ToastMessage.animation );
 
 class AccountCommDetails extends React.Component {
@@ -201,13 +198,7 @@ class AccountCommDetails extends React.Component {
   componentWillMount() {
 
     this.props.getList("accounts");
-  //this.props.getUserList();
-    this.BillingLocation = initializeSelectOptions(BillingLocation.data,'billinglocationname','billinglocationid');
-    this.ServiceLevel = initializeSelectOptions(ServiceLevel.data,'servicelevelname','servicelevelid');
-    this.TrafficType = initializeSelectOptions(TrafficType.data,'name','value');
-
     var info = this.state.acctCommInfo;
-    //  info.revSharing = "No";
     info.requesterName = sessionStorage.getItem( "username" );
     this.setState({accountCommInfo : info});
   }
@@ -218,15 +209,13 @@ class AccountCommDetails extends React.Component {
         console.log("this.userList==",this.userList);
       this.companyList = initializeSelectOptions(nextProps.Company,'companyname','companyid');
         console.log("this.companyList==",this.companyList);
-    // switch(nextProps.target){
-    //   case types.MISC_USERLIST_RESPONSE:
-    //
-    //
-    //       break;
-    //       case types.GET_COMPANY_LIST_RESPONSE:
-    //
-    //           break;
-    //         }
+
+          this.BillingLocation = initializeSelectOptions(nextProps.BillingLocation,'billinglocationname','billinglocationid');
+              console.log("this.BillingLocation==",this.BillingLocation);
+          this.ServiceLevel = initializeSelectOptions(SERVICE_LEVEL,'servicelevelname','servicelevelid');
+    console.log("this.ServiceLevel==",this.ServiceLevel);
+          this.TrafficType = initializeSelectOptions(TRAFFIC_TYPE,'traffictypename','traffictypeid');
+              console.log("this.TrafficType==",this.TrafficType);
   }
 }
 
@@ -236,6 +225,7 @@ function mapStateToProps( state ) {
   target: state.Common.target,
   Users:state.Common.userList,
   Company:state.Common.compList,
+  BillingLocation:state.Common.billingLocationList,
   accType:state.Account.accType
   };
 }

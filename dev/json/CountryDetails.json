@@ -1,16 +1,19 @@
 {
-  "id":1,
-  "countryName":"India",
-  "continent":"Asia",
-  "countryNoCode" : 91,
-  "countryCode":"IN",
-  "msisdnLen":12,
-  "minLen":12,
-  "maxLen":12,
-  "LookupOptions":["NRS","Local-Numbering-Plan"],
-  "defLookup":"Local-Numbering-Plan",
-  "enableCNL":"Yes",
-  "CNLOptions":["Local-Numbering-Plan"],
-  "msgBodyRemoval":"No",
-  "lastUpdated":"22-11-2016"
+  "countryid": 1,
+  "countryname": "Egypt",
+  "countrycode": "20",
+  "mnemoniccountrycode": "EG",
+  "msisdnlength": 12,
+  "minmsisdnlength": 12,
+  "maxmsisdnlength": 12,
+  "operatorroutingmode": "Local-Numbering-Plan",
+  "updatedate": "09 May 2012 10:19:17 AM",
+  "continent": {
+    "continentid": 1,
+    "continentname": "AFRICA"
+  },
+  "numberlookupid": 1,
+  "customernumberlookupoptionsids": [1,2],
+  "countrynumberlookupoptionsids": [2],
+    "enablecnl":true
 }
