@@ -62,6 +62,8 @@ class Navigation extends React.Component {
       console.log("currentMenu==",currentMenu );
       this.props.handleActiveNav(currentMenu);
       let routeString = currentMenu.replace(" ","");
+      if(routeString === "CreateAccount")
+        routeString = "AccountType";
       this.context.router.push(routeString);
     //  this.props.navigateMenus(currentMenu)
     }

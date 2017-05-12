@@ -244,3 +244,15 @@ export function getExContactList() {
 		dispatch(getExContactListResponse());
 	}
 }
+
+export function handleAccType(_type){
+	return function(dispatch){
+		dispatch(handleAccTypeSelected(_type))
+	}
+}
+export function handleAccTypeSelected(_type){
+	return{
+		  type: types.CREATE_ACCOUNT_TYPE,
+			payload:_type
+	}
+}

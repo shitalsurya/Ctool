@@ -103,34 +103,38 @@ class AccountCommDetails extends React.Component {
               </Col>
               <Col mdHidden md={ 4 } />
             </Row>
-            <Row className="show-grid">
-              <Col componentClass={ ControlLabel } md={ 2 }>
-                Service Level:
-              </Col>
-              <Col md={ 6 } className={this.state.acctCommInfo.servicelevel || this.state.emptyFlag ? false : "empty"}>
-                <FormControl componentClass="select"
-                  name="servicelevel"
-                  value={this.state.acctCommInfo.servicelevel}
-                  onChange={this.handleChange.bind(this)}>
-                  {this.ServiceLevel}
-                </FormControl>
-              </Col>
-              <Col mdHidden md={ 4 } />
-            </Row>
-            <Row className="show-grid">
-              <Col componentClass={ ControlLabel } md={ 2 }>
-                Traffic Type:
-              </Col>
-              <Col md={ 6 } className={this.state.acctCommInfo.traffictype || this.state.emptyFlag ? false : "empty"}>
-                <FormControl componentClass="select"
-                  name="traffictype"
-                  value={this.state.acctCommInfo.traffictype}
-                  onChange={this.handleChange.bind(this)}>
-                  {this.TrafficType}
-                </FormControl>
-              </Col>
-              <Col mdHidden md={ 4 } />
-            </Row>
+            { this.props.accType === "sms" &&
+              <div>
+                <Row className="show-grid">
+                  <Col componentClass={ ControlLabel } md={ 2 }>
+                    Service Level:
+                  </Col>
+                  <Col md={ 6 } className={this.state.acctCommInfo.servicelevel || this.state.emptyFlag ? false : "empty"}>
+                    <FormControl componentClass="select"
+                      name="servicelevel"
+                      value={this.state.acctCommInfo.servicelevel}
+                      onChange={this.handleChange.bind(this)}>
+                      {this.ServiceLevel}
+                    </FormControl>
+                  </Col>
+                  <Col mdHidden md={ 4 } />
+                </Row>
+                <Row className="show-grid">
+                <Col componentClass={ ControlLabel } md={ 2 }>
+                  Traffic Type:
+                </Col>
+                <Col md={ 6 } className={this.state.acctCommInfo.traffictype || this.state.emptyFlag ? false : "empty"}>
+                  <FormControl componentClass="select"
+                    name="traffictype"
+                    value={this.state.acctCommInfo.traffictype}
+                    onChange={this.handleChange.bind(this)}>
+                    {this.TrafficType}
+                  </FormControl>
+                </Col>
+                <Col mdHidden md={ 4 } />
+              </Row>
+              </div>
+            }
             {/* <Row className="show-grid">
               <Col componentClass={ ControlLabel } md={ 2 }>
                 Revenue Sharing:
@@ -174,14 +178,24 @@ class AccountCommDetails extends React.Component {
 
   goToTechnicalDetails() {
     // this.props.goToTechnicalDetails( this.state.acctCommInfo );
-    var accountObjCheck = this.state.acctCommInfo;
-     if(accountObjCheck.company && accountObjCheck.billinglocation
-      && accountObjCheck.servicelevel && accountObjCheck.traffictype){
-        this.props.goToTechnicalDetails( this.state.acctCommInfo );
-      }
-      else {
-        this.setState({emptyFlag:false});
-    }
+     var accountObjCheck = this.state.acctCommInfo;
+     if(this.props.accType === "sms"){
+       if(accountObjCheck.company && accountObjCheck.billinglocation
+        && accountObjCheck.servicelevel && accountObjCheck.traffictype){
+          this.props.goToTechnicalDetails( this.state.acctCommInfo );
+        }
+        else {
+          this.setState({emptyFlag:false});
+        }
+     }
+     else if(this.props.accType === "email"){
+       if(accountObjCheck.company && accountObjCheck.billinglocation){
+          this.props.goToTechnicalDetails( this.state.acctCommInfo );
+        }
+        else {
+          this.setState({emptyFlag:false});
+        }
+     }
   }
 
   componentWillMount() {
@@ -221,7 +235,8 @@ function mapStateToProps( state ) {
   //  data: state.Account.data,
   target: state.Common.target,
   Users:state.Common.userList,
-  Company:state.Common.compList
+  Company:state.Common.compList,
+  accType:state.Account.accType
   };
 }
 
