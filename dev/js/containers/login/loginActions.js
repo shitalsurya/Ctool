@@ -35,7 +35,7 @@ export function loginUser(username, password) {
 	return function (dispatch,getState) {
 		dispatch(loginUserRequest());
 		var request = {
-								url:config.getUrl('UserAuth'),
+								url:config.getUrl('getToken'),
 									method:'POST',
 								data:{username, password},
 								successCallback:loginUserResponse,

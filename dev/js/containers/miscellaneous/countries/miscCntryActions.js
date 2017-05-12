@@ -1,8 +1,9 @@
 import axios from 'axios';
 import * as config from './../../common/config';
 import * as types from '../../common/commonActionTypes';
-import Countries from '../../../../json/Countries.json'
-import CountryDetails from '../../../../json/CountryDetails';
+import {httpRequest} from './../../common/commonAjaxActions';
+//import Countries from '../../../../json/Countries.json'
+// import CountryDetails from '../../../../json/CountryDetails';
 import updatedCntryDetails from '../../../../json/CountryDetailsUpdated';
 
 export function getCountryListRequest() {
@@ -11,25 +12,23 @@ export function getCountryListRequest() {
   }
 }
 
-export function getCountryListResponse(data) {
+export function getCountryListResponse(response) {
   return {
     type: types.MISC_COUNTRYLIST_RESPONSE,
-		 payload: Countries
+		 payload: response.data
   }
 }
 
 export function getCountryList() {
 	return function (dispatch,getState) {
-		dispatch(getCountryListResponse());
-		// dispatch(loginUserRequest());
-		// var request = {
-		// 						url:config.getUrl('UserAuth'),
-		// 							method:'POST',
-		// 						data:{username, password},
-		// 						successCallback:loginUserResponse,
-		// 						failureCallback:loginUserResponse
-		// 					};
-		// return httpRequest(dispatch,getState,request);
+		dispatch(getCountryListRequest());
+        var request = {
+            url:config.getUrl('GetCountryList'),
+            method:'GET',
+            successCallback:getCountryListResponse,
+            failureCallback:getCountryListResponse
+        };
+        return httpRequest(dispatch,getState,request);
 	}
 }
 
@@ -38,16 +37,23 @@ export function getCntryDetailsRequest() {
 	  type: types.MISC_COUNTRYDETAILS_REQUEST
 	}
 }
-export function getCntryDetailsResponse(data) {
+export function getCntryDetailsResponse(response) {
   return {
     type: types.MISC_COUNTRYDETAILS_RESPONSE,
-		payload: CountryDetails
+		payload: response.data
   }
 }
 
-export function getCntryDetails(_userId) {
+export function getCntryDetails(_countryid) {
 		return function (dispatch,getState) {
-			dispatch(getCntryDetailsResponse());
+			dispatch(getCntryDetailsRequest());
+            var request = {
+                url:config.getUrl('getCountryById')+_countryid,
+                method:'GET',
+                successCallback:getCntryDetailsResponse,
+                failureCallback:getCntryDetailsResponse
+            };
+            return httpRequest(dispatch,getState,request);
 		}
 }
 

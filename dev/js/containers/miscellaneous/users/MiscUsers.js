@@ -79,7 +79,7 @@ class MiscUsers extends React.Component {
   }
 
   showDetails(row){
-    this.props.getUserDetails(row.id);
+    this.props.getUserDetails(row.userid);
   }
 
   actionFormatter(cell, row,field,index) {

@@ -1,7 +1,8 @@
 import axios from 'axios';
 import * as config from './../../common/config';
 import * as types from './../../common/commonActionTypes';
-import Users from '../../../../json/Users.json';
+import {httpRequest} from './../../common/commonAjaxActions';
+//import Users from '../../../../json/Users.json';
 import UserDetails1 from '../../../../json/UserDetails1.json';
 import UserDetails2 from '../../../../json/UserDetails2.json';
 import updatedUserDetails from '../../../../json/updatedUserDetails.json';
@@ -12,25 +13,23 @@ export function getUserListRequest() {
   }
 }
 
-export function getUserListResponse(data) {
+export function getUserListResponse(response) {
   return {
     type: types.MISC_USERLIST_RESPONSE,
-		 payload: Users
+		 payload: response.data
   }
 }
 
 export function getUserList() {
 	return function (dispatch,getState) {
-		dispatch(getUserListResponse());
-		// dispatch(loginUserRequest());
-		// var request = {
-		// 						url:config.getUrl('UserAuth'),
-		// 							method:'POST',
-		// 						data:{username, password},
-		// 						successCallback:loginUserResponse,
-		// 						failureCallback:loginUserResponse
-		// 					};
-		// return httpRequest(dispatch,getState,request);
+		dispatch(getUserListRequest());
+		var request = {
+				url:config.getUrl('userList'),
+				method:'GET',
+				successCallback:getUserListResponse,
+				failureCallback:getUserListResponse
+		};
+		return httpRequest(dispatch,getState,request);
 	}
 }
 
@@ -40,47 +39,49 @@ export function getUserDetailsRequest() {
   }
 }
 
-export function getUserDetailsResponse1(data) {
+export function getUserDetailsResponse(response) {
   return {
     type: types.MISC_USERDETAILS_RESPONSE,
-		 payload: UserDetails1
+		 payload: response.data
   }
 }
 
-export function getUserDetailsResponse2(data) {
-	return {
-		type: types.MISC_USERDETAILS_RESPONSE,
-		 payload: UserDetails2
-	}
+export function getUserDetails(_userId) {
+    return function (dispatch,getState) {
+        dispatch(getUserDetailsRequest());
+        var request = {
+            url:config.getUrl('getUserById')+_userId,
+            method:'GET',
+            successCallback:getUserDetailsResponse,
+            failureCallback:getUserDetailsResponse
+        };
+        return httpRequest(dispatch,getState,request);
+    }
 }
 
-export function getUserDetails(_userId) {
-  var userId = _userId%2;
-	switch (userId) {
-		case 1:
-			return function (dispatch,getState) {
-				dispatch(getUserDetailsResponse1());
-			}
-			break;
-		case 0:
-			return function (dispatch,getState) {
-				dispatch(getUserDetailsResponse2());
-			}
-			break;
-		default:
+export function updateUserDetailsRequest() {
+    return {
+        type: types.MISC_UPDATE_USERDETAILS_REQUEST
+    }
+}
 
+export function updateUserDetailsResponse(response) {
+	return {
+		type: types.MISC_UPDATE_USERDETAILS_RESPONSE,
+		 payload: response.data
 	}
 }
 
 export function updateUserDetails(_user) {
-	return function (dispatch,getState) {
-		dispatch(updateUserDetailsResponse());
-	}
-}
-
-export function updateUserDetailsResponse(data) {
-	return {
-		type: types.MISC_UPDATE_USERDETAILS_RESPONSE,
-		 payload: updatedUserDetails
-	}
+    return function (dispatch,getState) {
+        dispatch(updateUserDetailsRequest());
+        var request = {
+            url:config.getUrl('updateUserEmail'),
+            method:'GET',
+            data:_user,
+            successCallback:updateUserDetailsResponse,
+            failureCallback:updateUserDetailsResponse
+        };
+        return httpRequest(dispatch,getState,request);
+    }
 }
