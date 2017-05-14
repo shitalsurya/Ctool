@@ -49,7 +49,7 @@ class EditUserModal extends React.Component {
     debugger;
     this.currentUser = this.state.currentUser;
     console.log( "handleInlineEditChange this.currentUser==", this.currentUser );
-    this.currentUser[e.target.name] = e.target.checked ? "Yes" : "No";
+    this.currentUser[e.target.name] = e.target.checked ? 1 : 0;
     this.props.updateUserDetails(this.currentUser);
   }
 
@@ -63,7 +63,8 @@ class EditUserModal extends React.Component {
 
     const roleOptions= [
         { value: 'Support', label: 'Support' },
-        { value: 'ServiceDesk', label: 'ServiceDesk' }
+        { value: 'ServiceDesk', label: 'ServiceDesk' },
+        { value: 'ACCOUNTMANAGER', label: 'ACCOUNTMANAGER'}
     ];
 
     return (
@@ -91,8 +92,8 @@ class EditUserModal extends React.Component {
                         <FormControl
                           className="info_label"
                           type="text"
-                          name="id"
-                          value={info.id} />
+                          name="userid"
+                          value={info.userid} />
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -103,8 +104,8 @@ class EditUserModal extends React.Component {
                         <FormControl
                           className="info_label"
                           type="text"
-                          name="login"
-                          value={info.login} />
+                          name="loginid"
+                          value={info.loginid} />
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -142,7 +143,7 @@ class EditUserModal extends React.Component {
                              checked: 'Yes',
                              unchecked: 'No',
                           }}
-                          defaultChecked={info.locked == "Yes" ? true : false}
+                          defaultChecked={info.locked == 1 ? true : false}
                           value={info.locked}
                           onChange={this.handleToggleChange.bind(this)} />
                       </Col>
@@ -158,7 +159,7 @@ class EditUserModal extends React.Component {
                              checked: 'Yes',
                              unchecked: 'No',
                           }}
-                          defaultChecked={info.live == "Yes" ? true : false}
+                          defaultChecked={info.live == 1 ? true : false}
                           value={info.live}
                           onChange={this.handleToggleChange.bind(this)} />
                       </Col>
@@ -176,7 +177,7 @@ class EditUserModal extends React.Component {
                         Role:
                       </Col>
                       <Col md={ 6 }>
-                        <InlineEdit name="role" type="select" options={roleOptions} value={info.role} onSave={this.handleInlineEditChange.bind(this)}  />
+                        <InlineEdit name="ctoolrole" type="select" options={roleOptions} value={info.ctoolrole} onSave={this.handleInlineEditChange.bind(this)}  />
                       </Col>
                     </Row>
                     <Row className="show-grid">

@@ -49,7 +49,7 @@ class OpenAccountsList extends React.Component {
 
   dataFormatter(cell, row,field,index) {
     switch (field) {
-      case 'customername':
+      case 'name':
         return (
            <Button bsStyle="link"  title="show" onClick={this.showAccountDetails.bind(this,row)} >{cell}</Button>
         )
@@ -104,10 +104,10 @@ class OpenAccountsList extends React.Component {
     var _info = {};
     console.log("currentAcct : ",_info," type : ",status);
     _info.account = accObj.customername;
-    _info.company = accObj.company.companyname;
+    _info.company = accObj.companies.companyname;
     switch (status) {
       case "Suspend":
-        _info.manager = accObj.accountmanager.accountmanagername;
+        _info.manager = accObj.acctManager.name;
         this.setState({suspendAction:true,info:_info});
         break;
       case "Reactivate":
@@ -115,7 +115,7 @@ class OpenAccountsList extends React.Component {
         this.setState({reactivateAction:true,info:_info});
         break;
       case "Close":
-        _info.manager = accObj.accountmanager.accountmanagername;
+        _info.manager = accObj.acctManager.name;
         this.setState({closeAction:true,info:_info});
         break;
     }
@@ -184,11 +184,11 @@ class OpenAccountsList extends React.Component {
       },
       {
           name:'Hub Account Name',
-          dataField:'customername',
+          dataField:'name',
       },
       {
           name:'Company Name',
-          dataField:'company',
+          dataField:'companies',
       },
       {
           name:'Status',
