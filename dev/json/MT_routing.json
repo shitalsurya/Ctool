@@ -5,6 +5,8 @@
   "expand": [{
       "id":"1",
     "operator":"Vodafone UK(7)",
+    "prefStartTime":"1492552680000",
+      "prefEndTime":"1492556280000",
       "expand": [{
           "id":"1",
           "preference":"1",
@@ -13,9 +15,7 @@
           "onOff":"On",
           "permanent":"No",
           "status":"green",
-          "comment":"comment 1",
-          "prefStartTime":"1492552680000",
-            "prefEndTime":"1492556280000"
+          "comment":"comment 1"
         }, {
             "id":"2",
               "preference":"2",
@@ -24,9 +24,8 @@
             "onOff":"On",
             "permanent":"No",
             "status":"orange",
-          "comment":"comment 2",
-            "prefStartTime":"1492559880000",
-              "prefEndTime":"1492563480000"
+          "comment":"comment 2"
+
           }]
     }]
 },
@@ -36,6 +35,8 @@
   "expand": [{
       "id":"1",
     "operator":"2 Degrees (7123)",
+    "prefStartTime":"1492552680000",
+      "prefEndTime":"1492556280000",
       "expand": [{
           "id":"1",
           "preference":"1",
@@ -44,9 +45,7 @@
           "onOff":"On",
           "permanent":"No",
           "status":"green",
-        "comment":"comment 1",
-          "prefStartTime":"1492552680000",
-            "prefEndTime":"1492556280000"
+        "comment":"comment 1"
         }, {
             "id":"2",
               "preference":"2",
@@ -55,9 +54,7 @@
             "onOff":"On",
             "permanent":"No",
             "status":"orange",
-          "comment":"comment 1",
-            "prefStartTime":"1492559880000",
-              "prefEndTime":"1492563480000"
+          "comment":"comment 1"
           }]
     }]
 }

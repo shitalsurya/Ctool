@@ -2,6 +2,7 @@ import React from 'react';
 import Toggle from 'react-toggle';
 import InlineEdit from './../../common/components/InlineEdit';
 import DeleteRow from './../../common/components/DeleteRow';
+import moment from 'moment';
 require('./../components/Inline.scss');
 export function columnFormatter(cell, row, field, index) {
   //  this.currentRow = row;
@@ -46,18 +47,22 @@ export function columnFormatter(cell, row, field, index) {
                      />
             break;
         case "time":
-            return <InlineEdit name = {
-                field.dataField
-            }
-              row={row}
-              type = 'time'
-              value = {
-                cell
-              }
-              onSave = {
-                this.updateValue.bind(this)
-              }
-                   />
+        var ms=parseInt(cell);
+        var _time = moment(ms).format("HH:mm A");
+        return <span title={field.name}>{_time}</span>
+        //  this.setState({time : true,value:_time});
+            // return <InlineEdit name = {
+            //     field.dataField
+            // }
+            //   row={row}
+            //   type = 'time'
+            //   value = {
+            //     cell
+            //   }
+            //   onSave = {
+            //     this.updateValue.bind(this)
+            //   }
+            //        />
             break;
         case "image":
             const imgSrc = require("./../../../../images/circle-" + cell + ".png");

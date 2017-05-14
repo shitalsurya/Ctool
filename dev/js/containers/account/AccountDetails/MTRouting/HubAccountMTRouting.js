@@ -31,8 +31,40 @@ expandComponent(row) {
     <SubNestedTable data={ row.expand } />
   );
 }
+updateValue(name,val,currentRow){
+  console.log("name==",name);
+  currentRow[name]=val;
+  console.log("currentRow==",currentRow);
+}
 
   render() {
+    var fields=[
+      {
+      name:'Preferred Start Time',
+    dataField:'prefStartTime',
+    type:'time',
+      width:'150px'
+  },
+  {
+    name:'Preferred End Time',
+    dataField:'prefEndTime',
+    type:'time',
+      width:'150px'
+  }
+];
+var listCols = fields.map(function (field,index) {
+      return (
+          <TableHeaderColumn dataField={field.dataField}
+            key={index}
+            width={field.width}
+            headerAlign='left'
+            dataAlign={field.dataAlign || 'center'}
+            dataFormat={ table.columnFormatter.bind(this) }
+            formatExtraData={ field} >
+            {field.name}
+          </TableHeaderColumn>
+      );
+  }.bind(this));
     if (this.props.data) {
       return (
         <BootstrapTable data={this.props.data}
@@ -42,6 +74,7 @@ expandComponent(row) {
           expandComponent={ this.expandComponent.bind(this) }>
           <TableHeaderColumn isKey={ true } hidden dataField={this.props.groupById}>ID</TableHeaderColumn>
           <TableHeaderColumn dataField={this.props.groupBy.value}> </TableHeaderColumn>
+          {listCols}
         </BootstrapTable>
       );
     }
