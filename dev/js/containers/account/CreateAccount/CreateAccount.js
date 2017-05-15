@@ -32,8 +32,8 @@ class CreateAccount extends React.Component {
             ]
           }
         };
-        this.showCommDetails=false;
-        this.showTechnicalDetails = true;
+        this.showCommDetails=true;
+        this.showTechnicalDetails = false;
         this.showInterfaceDetails=false;
         this.showReviewDetails=false;
         this.accountObj = {};
