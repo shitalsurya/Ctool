@@ -12,11 +12,12 @@ import * as types from './../../common/commonActionTypes';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid, Button, Image,Glyphicon,Thumbnail} from 'react-bootstrap';
 import {handleSelectFieldsChange,navigateMenus} from './../actions/accountActions';
+import {getList} from './../../common/commonActions';
 require('./../../../../scss/tabs.scss');
 require('./../../../../scss/style.scss');
 
 
-export default class AccountDetails extends React.Component {
+class AccountDetails extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.currentAcct = this.props.location.state.currentAcct;
@@ -37,7 +38,10 @@ export default class AccountDetails extends React.Component {
             }
         }
     }
-
+    componentWillMount(){
+      console.log("TPOA componentWillMount this.currentAcct ==",this.currentAcct );
+       this.props.getList("TPOA",this.currentAcct);
+    }
     render() {
 
         return (
@@ -52,8 +56,8 @@ export default class AccountDetails extends React.Component {
                 <Col md={10}>
                   <Tabs className="tabs" >
                     <div className="links">
-                      <TabLink to="General" default className="tab-link">{this.state.accountCaptions.General}</TabLink>
-                      <TabLink to="TPOA" className="tab-link">{this.state.accountCaptions.TPOA }</TabLink>
+                      <TabLink to="General"  className="tab-link">{this.state.accountCaptions.General}</TabLink>
+                      <TabLink to="TPOA" default className="tab-link">{this.state.accountCaptions.TPOA }</TabLink>
                       <TabLink to="MTRouting"  className="tab-link">{this.state.accountCaptions.MTRouting }</TabLink>
                       <TabLink to="MORouting" className="tab-link">{this.state.accountCaptions.MORouting}</TabLink>
                     </div>
@@ -62,7 +66,7 @@ export default class AccountDetails extends React.Component {
                         <HubAccountGeneral currentAcct={this.currentAcct}/>
                       </TabContent>
                       <TabContent for="TPOA">
-                        <HubAccountTPOA currentAcct={this.currentAcct}/>
+                        <HubAccountTPOA />
                       </TabContent>
                       <TabContent for="MORouting">
                         <HubAccountMORouting/>
@@ -80,3 +84,16 @@ export default class AccountDetails extends React.Component {
       );
     }
   }
+  function mapStateToProps(state) {
+      return {
+
+       };
+  }
+
+  function mapDispatchToProps(dispatch) {
+      return bindActionCreators({
+          getList:getList
+      }, dispatch);
+  }
+
+  export default connect(mapStateToProps, mapDispatchToProps)(AccountDetails);

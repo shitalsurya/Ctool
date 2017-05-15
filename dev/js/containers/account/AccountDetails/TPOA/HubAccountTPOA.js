@@ -10,18 +10,15 @@ import InlineEdit from './../../../common/components/InlineEdit';
 import DeleteRowLink from './../../../common/components/DeleteRow';
 import TPOAs from './../../../../../json/TPOAs.json';
 import AddTPOAModal from './HubAccountTPOAAddModal';
-import {getList} from './../../../common/commonActions';
+
 require('./../../../../../scss/style.scss');
 
 class HubAccountGeneral extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-          data:TPOAs.data,
+          TPOAinfo : this.props.TPOAinfo||{},
           showAddTPOA : false,
-          TPOAinfo : {
-            defaultTPOA : "A365"
-          }
         }
     }
 
@@ -36,10 +33,11 @@ class HubAccountGeneral extends React.Component {
       var fields = [
         {
             name:'SMSC Operator',
-            dataField:'SMSCOp',
+            dataField:'smscid',
+            optionsLabel:'smscname',
             type:'select',
-            options: [{ "id": 1, "value":"Aircel Delhi"},{ "id": 2, "value":"Vodafone Pune"},
-                      { "id": 3, "value":"Airtel Mumbai"},{ "id": 4, "value":"Jio Banglore"}]
+            options: [{ "smscid": 1, "smscname":"Aircel Delhi"},{ "smscid": 2, "smscname":"Vodafone Pune"},
+                      { "smscid": 3, "smscname":"Airtel Mumbai"},{ "smscid": 4, "smscname":"Jio Banglore"}]
         },
         {
             name:'TPOA',
@@ -84,7 +82,7 @@ class HubAccountGeneral extends React.Component {
 
                <Row className="show-grid">
                  <Col componentClass={ ControlLabel } md={ 3 }>
-                   Default TPOA :
+                   Default TPOA :{this.state.TPOAinfo.defaultTPOA}
                  </Col>
                  <Col md={ 8 } >
                    <InlineEdit name="defaultTPOA" type="text" value={this.state.TPOAinfo.defaultTPOA} onSave={this.handleInlineEditChange.bind(this)}  />
@@ -94,23 +92,23 @@ class HubAccountGeneral extends React.Component {
 
                <Row className="show-grid">
                  <Col componentClass={ ControlLabel } md={ 5 }>
-                    Existing TPOA setting
+                   Existing TPOA setting
                  </Col>
                  <Col mdHidden md={ 2 }/>
                </Row>
 
                <Row className="show-grid">
                  <Col md={ 12 }>
-                   <BootstrapTable data={this.state.data} >
+                   <BootstrapTable data={this.state.TPOAinfo.forcedTPOA} >
                      <TableHeaderColumn isKey={ true } hidden dataField='id'>ID</TableHeaderColumn>
-                      {listCols}
+                     {listCols}
                    </BootstrapTable>
-                </Col>
+                 </Col>
                </Row>
 
                <Row className="show-grid">
                  <Col componentClass={ ControlLabel } md={ 3 }>
-                 <Button bsStyle="primary" onClick = {this.handleAddTPOARequest.bind(this)} >Add TPOA</Button>
+                   <Button bsStyle="primary" onClick = {this.handleAddTPOARequest.bind(this)} >Add TPOA</Button>
                  </Col>
                  <Col mdHidden md={ 2 }/>
                </Row>
@@ -121,13 +119,6 @@ class HubAccountGeneral extends React.Component {
 
            </div>
         );
-    }
-    componentWillMount(){
-      console.log("componentWillMount this.currentAcct ==",this.currentAcct );
-       this.props.getList("TPOA",this.currentAcct);
-    }
-    componentWillReceiveProps(nextProps) {
-
     }
 
     close() {
@@ -145,12 +136,13 @@ class HubAccountGeneral extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return { data: state.Account.accountCommInfo };
+    return {
+      TPOAinfo:state.Account.TPOAinfo
+     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        getList:getList
     }, dispatch);
 }
 

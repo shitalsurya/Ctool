@@ -92,7 +92,11 @@ export default function(state = {
     		case types.GET_EX_CONTACT_LIST_RESPONSE:
           console.log("GET_EX_CONTACT_LIST_RESPONSE==",action.payload.data);
     			return Object.assign({}, state, {exContactList:action.payload.data,target:action.type});
-
+          case types.GET_ACCT_FORCED_TPOA_LIST_REQUEST:
+            return Object.assign({}, state, {});
+          case types.GET_ACCT_FORCED_TPOA_LIST_RESPONSE:
+            console.log("GET_ACCT_FORCED_TPOA_LIST_RESPONSE==",action.payload);
+            return Object.assign({}, state, {TPOAinfo:action.payload,target:action.type});
           case types.GET_ACCT_GENERAL_COMM_INFO_REQUEST:
             return Object.assign({}, state, {});
           case types.GET_ACCT_GENERAL_COMM_INFO_RESPONSE:

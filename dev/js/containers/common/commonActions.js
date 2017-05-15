@@ -29,7 +29,7 @@ import * as config from './config';
 						dispatch(getBillingLocationList())
 						break;
 					case "TPOA":
-	 					 dispatch(getHubAcctDefaultTPOA(currentAcct))
+	 				//	 dispatch(getHubAcctDefaultTPOA(currentAcct))
 	 					 dispatch(getHubAcctForcedTPOAList(currentAcct))
 	 					 break;
 

@@ -278,7 +278,7 @@ export default class InlineEdit extends React.Component {
             }
             {
               this.state.showButtons &&
-                <FormGroup >
+                <FormGroup>
                   {
                     this.state.mselect &&
                       // <Typeahead
@@ -297,14 +297,14 @@ export default class InlineEdit extends React.Component {
                   }
                   {
                     this.state.select &&
-                      <FormControl componentClass="select" className="inline-edit-ctrl" disabled={this.state.showButtons ? false : "disabled"}
+                      <FormControl componentClass="select" disabled={this.state.showButtons ? false : "disabled"}
                         value={this.state.value}  onChange={this.handleChange.bind(this)}>
                         {this.state.options}
                       </FormControl>
                   }
                   {
                     this.state.text &&
-                      <FormControl title={this.state.value} className="inline-edit-ctrl" value={this.state.value} onChange={this.handleChange.bind(this)}
+                      <FormControl title={this.state.value} value={this.state.value} onChange={this.handleChange.bind(this)}
                         type="text" disabled={this.state.showButtons ? false : "disabled"} />
                   }
                   {
