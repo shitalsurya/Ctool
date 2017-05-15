@@ -24,11 +24,9 @@ import * as config from './config';
 					case "interface":
 						dispatch(getHubAcctList())
 						break;
-					case "General":
+					case "AccountDetails":
 						dispatch(getHubAccountCommercialInfo(currentAcct))
 						dispatch(getBillingLocationList())
-						break;
-					case "TPOA":
 	 				//	 dispatch(getHubAcctDefaultTPOA(currentAcct))
 	 					 dispatch(getHubAcctForcedTPOAList(currentAcct))
 	 					 break;

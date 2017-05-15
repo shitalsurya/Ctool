@@ -19,7 +19,6 @@ import * as types from './../../../common/commonActionTypes';
 class HubAccountGeneral extends React.Component {
     constructor(props, context) {
         super(props, context);
-          this.currentAcct = this.props.currentAcct;
 
         this.state = {
           openStatus : {
@@ -216,10 +215,7 @@ class HubAccountGeneral extends React.Component {
       }
       this.setState({openStatus : updatedOpenStatus});
     }
-    componentWillMount(){
-      console.log("componentWillMount this.currentAcct ==",this.currentAcct );
-       this.props.getList("General",this.currentAcct);
-    }
+    
 
 }
 

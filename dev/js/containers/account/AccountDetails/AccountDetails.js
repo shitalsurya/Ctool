@@ -40,7 +40,7 @@ class AccountDetails extends React.Component {
     }
     componentWillMount(){
       console.log("TPOA componentWillMount this.currentAcct ==",this.currentAcct );
-       this.props.getList("TPOA",this.currentAcct);
+       this.props.getList("AccountDetails",this.currentAcct);
     }
     render() {
 
@@ -63,7 +63,7 @@ class AccountDetails extends React.Component {
                     </div>
                     <div className="content" >
                       <TabContent for="General">
-                        <HubAccountGeneral currentAcct={this.currentAcct}/>
+                        <HubAccountGeneral/>
                       </TabContent>
                       <TabContent for="TPOA">
                         <HubAccountTPOA />
