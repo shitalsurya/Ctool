@@ -97,15 +97,20 @@ updateValue(name,val,currentRow){
      mode: 'checkbox',
        bgColor: '#427cac'
    };
+var prefList=[  {"preferencename": "1", "preferenceid": 1},
+      {"preferencename": "2", "preferenceid": 2},
+        {"preferencename": "3", "preferenceid": 3},
+          {"preferencename": "4", "preferenceid": 4}];
 
 var fields = [
   {
       name:'Pref.',
-      dataField:'preference',
-      type:'text',
+      dataField:'preferenceid',
+      optionsLabel:'preferencename',
+      type:'select',
       width:'80px',
         dataAlign:'left',
-      options: [{ "id": 1, "value":"1"},{ "id": 2, "value":"2"}]
+      options: prefList
   },
   {
       name:'SMSC',

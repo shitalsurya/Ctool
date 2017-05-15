@@ -30,6 +30,9 @@ export function columnFormatter(cell, row, field, index) {
               options = {
                 field.options
               }
+              optionsLabel={
+                field.optionsLabel
+              }
               value = {
                 cell
               }

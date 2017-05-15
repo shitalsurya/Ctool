@@ -9,7 +9,7 @@
       "prefEndTime":"1492556280000",
       "expand": [{
           "id":"1",
-          "preference":"1",
+          "preferenceid":1,
           "SMSC":"GB_Vodafone_Bulk 1111111111111111111111111",
           "TPOA":"TPOA 1",
           "onOff":"On",
@@ -18,7 +18,7 @@
           "comment":"comment 1"
         }, {
             "id":"2",
-              "preference":"2",
+              "preferenceid":2,
             "SMSC":"GB_Vodafone_Bulk",
               "TPOA":"TPOA 1",
             "onOff":"On",
@@ -39,7 +39,7 @@
       "prefEndTime":"1492556280000",
       "expand": [{
           "id":"1",
-          "preference":"1",
+          "preferenceid":1,
           "SMSC":"GB_Vodafone_Bulk",
             "TPOA":"TPOA 1",
           "onOff":"On",
@@ -48,7 +48,7 @@
         "comment":"comment 1"
         }, {
             "id":"2",
-              "preference":"2",
+              "preferenceid":2,
             "SMSC":"GB_Vodafone_Bulk",
               "TPOA":"TPOA 1",
             "onOff":"On",
