@@ -1,14 +1,14 @@
 {
 "data":  [{
-  "countryId":"1",
+  "countryId":1,
   "country":"USA(60)",
   "expand": [{
-      "id":"1",
+      "id":1,
     "operator":"Vodafone UK(7)",
     "prefStartTime":"1492552680000",
       "prefEndTime":"1492556280000",
       "expand": [{
-          "id":"1",
+          "id":1,
           "preferenceid":1,
           "SMSC":"GB_Vodafone_Bulk 1111111111111111111111111",
           "TPOA":"TPOA 1",
@@ -17,7 +17,7 @@
           "status":"green",
           "comment":"comment 1"
         }, {
-            "id":"2",
+            "id":2,
               "preferenceid":2,
             "SMSC":"GB_Vodafone_Bulk",
               "TPOA":"TPOA 1",
@@ -30,15 +30,15 @@
     }]
 },
 {
-  "countryId":"2",
+  "countryId":2,
   "country":"New Zealand(60)",
   "expand": [{
-      "id":"1",
+      "id":1,
     "operator":"2 Degrees (7123)",
     "prefStartTime":"1492552680000",
       "prefEndTime":"1492556280000",
       "expand": [{
-          "id":"1",
+          "id":1,
           "preferenceid":1,
           "SMSC":"GB_Vodafone_Bulk",
             "TPOA":"TPOA 1",
@@ -47,7 +47,7 @@
           "status":"green",
         "comment":"comment 1"
         }, {
-            "id":"2",
+            "id":2,
               "preferenceid":2,
             "SMSC":"GB_Vodafone_Bulk",
               "TPOA":"TPOA 1",
