@@ -7,7 +7,7 @@ import {
     ToastContainer,
     ToastMessage,
 } from "react-toastr";
-import { initializeData,handleTechDetailsNext, getMetadata,handleTechDetailsBack, handleSaveContact } from './../actions/accountActions';
+import { initializeData,handleTechDetailsNext, getMetadata,handleTechDetailsBack, getExContactDetails } from './../actions/accountActions';
 import * as types from './../../common/commonActionTypes';
 import {getList} from './../../common/commonActions';
 import {initializeSelectOptions} from './../../common/Functions/commonFunctions';
@@ -28,11 +28,12 @@ class AccountTechnicalDetails extends React.Component {
 
     handleChange(e){
       console.log("handleChange==",e.target.value);
-      var info = this.state.accountTechDetailsInfo;
-      info[e.target.name] = e.target.value;
-      this.setState({accountTechDetailsInfo:info},function(){
-        console.log("handleChange==",this.state.accountTechDetailsInfo);
-      });
+      this.props.getExContactDetails(e.target.value);
+      // var info = this.state.accountTechDetailsInfo;
+      // info[e.target.name] = e.target.value;
+      // this.setState({accountTechDetailsInfo:info},function(){
+      //   console.log("handleChange==",this.state.accountTechDetailsInfo);
+      // });
     }
 
     handleTechDetailsBack(){
@@ -56,8 +57,10 @@ class AccountTechnicalDetails extends React.Component {
     }
 
     addContact(_contact){
-      this.props.handleSaveContact(_contact);
       this.setState({emptyFlag : false});
+      var info = this.state.accountTechDetailsInfo;
+      info.contactDetails = _contact;
+      this.setState({accountTechDetailsInfo:info});
     }
 
     render() {
@@ -203,10 +206,16 @@ class AccountTechnicalDetails extends React.Component {
       console.log("componentWillReceiveProps==",nextProps);
       this.Countries = initializeSelectOptions(nextProps.Countries,'countryName','countryCode');
       console.log("this.Countries==",this.Countries);
-      this.exContactList = initializeSelectOptions(nextProps.exContactList,'name','contactnumber');
+      this.exContactList = initializeSelectOptions(nextProps.exContactList,'name','contactid');
       console.log("this.exContactList==",this.exContactList);
       var info = this.state.accountTechDetailsInfo || [];
       info.contactDetails = nextProps.contactDetails || {};
+      switch(nextProps.target){
+        case types.GET_EX_CONTACT_DETAILS_RESPONSE:
+          info.contactDetails = nextProps.contactDetails.details;
+          this.setState({emptyFlag:false});
+          break;
+      }
       this.setState({accountTechDetailsInfo:info})
     }
 }
@@ -214,7 +223,7 @@ class AccountTechnicalDetails extends React.Component {
 function mapStateToProps(state) {
     return {
       // data: state.Account.data,
-      target:state.Common.target,
+      target:state.Account.target,
       Countries:state.Common.countryList,
       exContactList:state.Common.exContactList,
       contactDetails:state.Account.contactDetails
@@ -226,7 +235,7 @@ function mapDispatchToProps(dispatch) {
             getList:getList,
             handleTechDetailsNext: handleTechDetailsNext,
             handleTechDetailsBack:handleTechDetailsBack,
-            handleSaveContact:handleSaveContact
+            getExContactDetails:getExContactDetails
     }, dispatch);
 }
 

@@ -107,10 +107,21 @@ export default function(state = {
             showInterfaceDetails: false,
             showReviewDetails: false
           });
-        case types.ADD_CONTACT:
-          return Object.assign({}, state, {
-            contactDetails : action.payload
-          });
+        case types.GET_EX_CONTACT_DETAILS_REQUEST:
+    			return Object.assign({}, state, {});
+    		case types.GET_EX_CONTACT_DETAILS_RESPONSE:
+    			var _data={};
+    			if(typeof(action.payload)!='undefined'){
+    				_data = {
+    					details:action.payload
+    				}
+    			}
+    			else {
+    				_data = {
+    					details:"No data available."
+    				}
+    			}
+    			return Object.assign({}, state, {contactDetails:_data,target:action.type});
         return state;
     }
 };

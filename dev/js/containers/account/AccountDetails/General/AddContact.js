@@ -6,6 +6,7 @@ require('./../../../../../scss/style.scss');
 require('./../../../../../scss/react-toggle.scss');
 import Countries from './../../../../../json/Countries.json';
 import * as types from './../../../common/commonActionTypes';
+import { initializeSelectOptions } from './../../../common/Functions/commonFunctions';
 import { initializeData } from './../../actions/accountActions';
 class AddContact extends React.Component {
   constructor(props, context) {
@@ -25,7 +26,7 @@ class AddContact extends React.Component {
           addcontactinfo.email=value.target.value;
         break;
         case types.ADDCONTACT_COUNTRY:
-          addcontactinfo.country = value.value;
+          addcontactinfo.country = value.target.value;
         break;
         case types.ADDCONTACT_MOBILENUMBER :
           addcontactinfo.mobilenumber = value.target.value;
@@ -46,7 +47,8 @@ class AddContact extends React.Component {
   }
 
   componentWillMount(){
-    this.countryList = initializeData(Countries,'code');
+    // this.countryList = initializeData(Countries,'countryName');
+    this.countryList = initializeSelectOptions(Countries.data,'countryName','countryCode')
   }
 
   close() {
@@ -94,13 +96,12 @@ class AddContact extends React.Component {
                             Country:
                           </Col>
                           <Col md={ 8 }>
-                          <Select
-                                name="country"
-                                placeholder="Select country.."
-                                options={this.countryList}
-                                value={this.state.AddContactInfo.country || ''}
-                                onChange={this.handleModalChange.bind(this,types.ADDCONTACT_COUNTRY)}
-                                 />
+                            <FormControl componentClass="select"
+                              name="country"
+                              value={this.state.AddContactInfo.country || ''}
+                              onChange={this.handleModalChange.bind(this,types.ADDCONTACT_COUNTRY)}>
+                              {this.countryList}
+                            </FormControl>
                           </Col>
                       </Row>
                       <Row className="show-grid">
