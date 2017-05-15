@@ -7,10 +7,11 @@ import {
     ToastContainer,
     ToastMessage,
 } from "react-toastr";
-import { initializeData,handleTechDetailsNext, getMetadata,handleTechDetailsBack } from './../actions/accountActions';
+import { initializeData,handleTechDetailsNext, getMetadata,handleTechDetailsBack, handleSaveContact } from './../actions/accountActions';
 import * as types from './../../common/commonActionTypes';
 import {getList} from './../../common/commonActions';
 import {initializeSelectOptions} from './../../common/Functions/commonFunctions';
+import ModalAddContact from '../AccountDetails/General/AddContact';
 require('./../../../../scss/style.scss');
 const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
@@ -18,6 +19,8 @@ class AccountTechnicalDetails extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state={
+          emptyFlag:true,
+          addCnct:false,
           accountTechDetailsInfo:this.props.accountObj || []
         };
         console.log("this.state.accountTechDetailsInfo==",this.state.accountTechDetailsInfo);
@@ -48,101 +51,110 @@ class AccountTechnicalDetails extends React.Component {
       this.props.handleTechDetailsNext( this.accountInfo );
     }
 
+    close() {
+      this.setState({addCnct : false});
+    }
+
+    addContact(_contact){
+      this.props.handleSaveContact(_contact);
+      this.setState({emptyFlag : false});
+    }
+
     render() {
         return (
           <div>
             <div className="controls-container">
               <div className="rec">
-                <span>Technical Details</span>
+                <span>Customer Contacts</span>
               </div>
               <Grid fluid={true}>
-                <Row className="show-grid">
-                  <Col componentClass={ ControlLabel } md={ 3 }>
-                    Existing company contacts:
-                  </Col>
-                  <Col md={ 6 }>
-                    <FormControl componentClass="select"
-                      name="exstContacts"
-                      value={this.state.accountTechDetailsInfo.exstContacts}
-                      onChange={this.handleChange.bind(this)}>
-                      {this.exContactList}
-                    </FormControl>
-                  </Col>
-                  <Col mdHidden md={ 3 } />
-                </Row>
+                { //this.state.emptyFlag &&
+                  <div>
+                    <Row className="show-grid">
+                      <Col componentClass={ ControlLabel } md={ 3 }>
+                        Existing company contacts:
+                      </Col>
+                      <Col md={ 4 }>
+                        <FormControl componentClass="select"
+                          name="exstContacts"
+                          value={this.state.accountTechDetailsInfo.exstContacts}
+                          onChange={this.handleChange.bind(this)}>
+                          {this.exContactList}
+                        </FormControl>
+                      </Col>
+                      <Col md={2}>
+                        OR
+                        <Button bsStyle="link" onClick={() => this.setState({addCnct : true})}> NEW </Button>
+                      </Col>
+                      <Col mdHidden md={ 3 } />
+                    </Row>
+                  </div>
+                }
 
-                <Row className="show-grid">
-                  <Col componentClass={ ControlLabel } md={ 3 }>
-                    Name:
-                  </Col>
-                  <Col md={ 6 }>
-                    <FormControl
-                        type="text"
-                        name="name"
-                        value={this.state.accountTechDetailsInfo.name}
-                        onChange={this.handleChange.bind(this)}
-                        placeholder="Enter your name" />
-                  </Col>
-                  <Col mdHidden md={ 3 } />
-                </Row>
-                <Row className="show-grid">
-                  <Col componentClass={ ControlLabel } md={ 3 }>
-                    Email:
-                  </Col>
-                  <Col md={ 6 }>
-                    <FormControl
-                        type="email"
-                        name="email"
-                        value={this.state.accountTechDetailsInfo.email}
-                        onChange={this.handleChange.bind(this)}
-                        placeholder="Enter your email" />
-                  </Col>
-                  <Col mdHidden md={ 3 } />
-                </Row>
-                <Row className="show-grid">
-                  <Col componentClass={ ControlLabel } md={ 3 }>
-                    Country:
-                  </Col>
-                  <Col md={ 6 }>
-                    <FormControl componentClass="select"
-                      name="country"
-                      value={this.state.accountTechDetailsInfo.country}
-                      onChange={this.handleChange.bind(this)}>
-                      {this.Countries}
-                    </FormControl>
-                  </Col>
-                  <Col mdHidden md={ 3 } />
-                </Row>
-                <Row className="show-grid">
-                  <Col componentClass={ ControlLabel } md={ 3 }>
-                    Mobile phone number:
-                  </Col>
-                  <Col md={ 6 }>
-                    <FormControl
-                        type="text"
-                        name="MobNo"
-                        value={this.state.accountTechDetailsInfo.MobNo}
-                        onChange={this.handleChange.bind(this)}
-                        placeholder="Enter your mobile phone number"/>
-                  </Col>
-                  <Col mdHidden md={ 3 } />
-                </Row>
-                <Row className="show-grid">
-                   <Col componentClass={ ControlLabel } md={ 3 }>
-                     Direct phone number:
-                   </Col>
-                   <Col md={ 6 }>
-                   <FormControl
-                        type="text"
-                        name="DirectNo"
-                        value={this.state.accountTechDetailsInfo.DirectNo}
-                        onChange={this.handleChange.bind(this)}
-                        placeholder="Enter your direct phone number"/>
-                   </Col>
-                   <Col mdHidden md={ 3 } />
-                 </Row>
+                { !this.state.emptyFlag &&
+                  <div>
+                    <Row className="show-grid">
+                      <Col componentClass={ ControlLabel } md={ 3 }>
+                        Name:
+                      </Col>
+                      <Col md={ 6 }>
+                        <FormControl.Static name="name">
+                          {this.state.accountTechDetailsInfo.contactDetails.name}
+                        </FormControl.Static>
+                      </Col>
+                      <Col mdHidden md={ 3 } />
+                    </Row>
+                    <Row className="show-grid">
+                      <Col componentClass={ ControlLabel } md={ 3 }>
+                        Email:
+                      </Col>
+                      <Col md={ 6 }>
+                        <FormControl.Static name="email">
+                          {this.state.accountTechDetailsInfo.contactDetails.email}
+                        </FormControl.Static>
+                      </Col>
+                      <Col mdHidden md={ 3 } />
+                    </Row>
+                    <Row className="show-grid">
+                      <Col componentClass={ ControlLabel } md={ 3 }>
+                        Country:
+                      </Col>
+                      <Col md={ 6 }>
+                        <FormControl.Static name="country">
+                          {this.state.accountTechDetailsInfo.contactDetails.country}
+                        </FormControl.Static>
+                      </Col>
+                      <Col mdHidden md={ 3 } />
+                    </Row>
+                    <Row className="show-grid">
+                      <Col componentClass={ ControlLabel } md={ 3 }>
+                        Mobile phone number:
+                      </Col>
+                      <Col md={ 6 }>
+                        <FormControl.Static name="mobilenumber">
+                          {this.state.accountTechDetailsInfo.contactDetails.mobilenumber}
+                        </FormControl.Static>
+                      </Col>
+                      <Col mdHidden md={ 3 } />
+                    </Row>
+                    <Row className="show-grid">
+                       <Col componentClass={ ControlLabel } md={ 3 }>
+                         Direct phone number:
+                       </Col>
+                       <Col md={ 6 }>
+                         <FormControl.Static name="directnumber">
+                           {this.state.accountTechDetailsInfo.contactDetails.directnumber}
+                         </FormControl.Static>
+                       </Col>
+                       <Col mdHidden md={ 3 } />
+                     </Row>
+                  </div>
+                }
+
               </Grid>
             </div>
+
+            <ModalAddContact  showContact={this.state.addCnct} addContact={this.addContact.bind(this)} close={this.close.bind(this)}/>
 
             <div className="button-container">
               <Grid fluid={true}>
@@ -193,6 +205,9 @@ class AccountTechnicalDetails extends React.Component {
       console.log("this.Countries==",this.Countries);
       this.exContactList = initializeSelectOptions(nextProps.exContactList,'name','contactnumber');
       console.log("this.exContactList==",this.exContactList);
+      var info = this.state.accountTechDetailsInfo || [];
+      info.contactDetails = nextProps.contactDetails || {};
+      this.setState({accountTechDetailsInfo:info})
     }
 }
 
@@ -201,7 +216,8 @@ function mapStateToProps(state) {
       // data: state.Account.data,
       target:state.Common.target,
       Countries:state.Common.countryList,
-      exContactList:state.Common.exContactList
+      exContactList:state.Common.exContactList,
+      contactDetails:state.Account.contactDetails
     };
 }
 
@@ -210,6 +226,7 @@ function mapDispatchToProps(dispatch) {
             getList:getList,
             handleTechDetailsNext: handleTechDetailsNext,
             handleTechDetailsBack:handleTechDetailsBack,
+            handleSaveContact:handleSaveContact
     }, dispatch);
 }
 

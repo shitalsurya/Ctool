@@ -256,3 +256,16 @@ export function handleAccTypeSelected(_type){
 			payload:_type
 	}
 }
+
+export function handleSaveContact(_contact){
+  return function(dispatch){
+    dispatch(handleSaveContactRequest(_contact))
+  }
+}
+
+export function handleSaveContactRequest(_contact){
+  return{
+    type: types.ADD_CONTACT,
+    payload: _contact
+  }
+}

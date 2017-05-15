@@ -25,18 +25,15 @@ class InfoGeneralAddContacts extends React.Component {
     }
 
     close() {
-
       this.setState({showContact : false});
     }
 
     addContact(){
        this.setState({showContact: true , modalHeading:'Account Contacts' });
-
     }
 
     componentWillMount(){
         this.companyList = initializeData(Contact,'name');
-
     }
 
     deleteDataFormatter(cell, row,field,index) {

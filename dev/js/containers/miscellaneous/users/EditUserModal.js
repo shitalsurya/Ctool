@@ -46,7 +46,6 @@ class EditUserModal extends React.Component {
   }
 
   handleToggleChange(e){
-    debugger;
     this.currentUser = this.state.currentUser;
     console.log( "handleInlineEditChange this.currentUser==", this.currentUser );
     this.currentUser[e.target.name] = e.target.checked ? 1 : 0;

@@ -107,6 +107,10 @@ export default function(state = {
             showInterfaceDetails: false,
             showReviewDetails: false
           });
+        case types.ADD_CONTACT:
+          return Object.assign({}, state, {
+            contactDetails : action.payload
+          });
         return state;
     }
 };

@@ -22,12 +22,12 @@ import React from 'react';
         };
         export function initializeSelectOptions(_list,nameField,valField){
           console.log("initializeSelectOptions");
-          var obj={};
-          if(_list[0][valField] !== ""){
-            obj[nameField]="Please select..";
-            obj[valField]="";
-            _list.unshift(obj);
-          }
+          // var obj={};
+          // if(_list[0][valField] !== ""){
+          //   obj[nameField]="Please select..";
+          //   obj[valField]="";
+          //   _list.unshift(obj);
+          // }
           var _options = _list.map(function (item) {
             return (
               <option key={item[valField]}
