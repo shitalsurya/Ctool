@@ -24,13 +24,11 @@ class OpenAccountsList extends React.Component {
     this.state = {
       closeAction : false,
       reactivateAction : false,
-      suspendAction : false,
+      suspendAction : false
     }
   }
 
-  componentWillMount() {
-    this.props.getHubAcctList();
-  }
+
 
   componentWillReceiveProps( nextProps ) {
     switch(nextProps.target){
@@ -60,10 +58,28 @@ class OpenAccountsList extends React.Component {
             {row[field].companyname}
           </FormControl.Static>)
         break;
+      case 'status':
+            var _status="";
+            if(row.suspenddate!=null){
+                _status = "Suspended";
+            }
+            else{
+                _status = row.liveaccount==1?"Active":"Closed";
+            }
+          return (
+            <FormControl.Static>
+              {_status}
+            </FormControl.Static>)
+          break;
       case 'action':
-
-        console.log("row==",row);
-        switch(row.status){
+        var _status="";
+        if(row.suspenddate!=null){
+            _status = "Suspended";
+        }
+        else{
+            _status = row.liveaccount==1?"Active":"Closed";
+        }
+        switch(_status){
           case "Active":
             let suspend = "Suspend";
             return (
@@ -100,22 +116,22 @@ class OpenAccountsList extends React.Component {
     }
   }
 
-  actionFormatter(accObj,status){
+  actionFormatter(_row,status){
     var _info = {};
     console.log("currentAcct : ",_info," type : ",status);
-    _info.account = accObj.customername;
-    _info.company = accObj.companies.companyname;
+    _info.account = _row.name;
+    _info.company = _row.company.companyname;
     switch (status) {
       case "Suspend":
-        _info.manager = accObj.acctManager.name;
+        _info.manager = _row.accountmanager.name;
         this.setState({suspendAction:true,info:_info});
         break;
       case "Reactivate":
-        _info.suspenddate = accObj.suspenddate;
+        _info.suspenddate = _row.suspenddate;
         this.setState({reactivateAction:true,info:_info});
         break;
       case "Close":
-        _info.manager = accObj.acctManager.name;
+        _info.manager = _row.accountmanager.name;
         this.setState({closeAction:true,info:_info});
         break;
     }
@@ -127,6 +143,9 @@ class OpenAccountsList extends React.Component {
 
   filterAccountList(_searchFilter){
     console.log("_searchFilter==",_searchFilter);
+    //accountName=EMA&companyId=40254&status=ACTIVE
+    var reqParam='?accountName='+_searchFilter.selectedAccount+'&companyId='+_searchFilter.selectedCompany[0].id+'&status='+_searchFilter.selectedStatus;
+    this.props.getHubAcctList(reqParam);
   }
 
   render() {
@@ -152,6 +171,7 @@ class OpenAccountsList extends React.Component {
     }.bind(this);
 
     const options = {
+      noDataText:"  Please specify your search criteria to get hub accounts.",
       expandRowBgColor: '#f7f8fa',
       clearSearch: true,
       //searchPanel:advancedSearch(props),
@@ -188,7 +208,7 @@ class OpenAccountsList extends React.Component {
       },
       {
           name:'Company Name',
-          dataField:'companies',
+          dataField:'company',
       },
       {
           name:'Status',

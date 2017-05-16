@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import {Collapse,Well, Checkbox,Form,Grid,Row,Col,ControlLabel,FormControl,Button} from 'react-bootstrap';
 import Toggle from 'react-toggle';
 import {Typeahead} from 'react-bootstrap-typeahead';
-import {getCompanyList} from './../../account/actions/accountActions';
+import {getCompanyList} from './../commonActions';
 import {initializeTypeAheadData} from './../Functions/commonFunctions';
 require('../../../../scss/style.scss');
 class AdvancedSearch extends React.Component {
@@ -172,9 +172,9 @@ class AdvancedSearch extends React.Component {
                           value={this.state.selectedStatus}
                           onChange={this.handleStatusChange.bind(this)}
                         >
-                          <option key="Active" value="Active" >Active  </option>
-                          <option key="Suspended" value="Suspended" >Suspended  </option>
-                          <option key="Closed" value="Closed" >Closed  </option>
+                          <option key="ACTIVE" value="ACTIVE" >Active  </option>
+                          <option key="SUSPENDED" value="SUSPENDED" >Suspended  </option>
+                          <option key="CLOSED" value="CLOSED" >Closed  </option>
                         </FormControl>
                       </Col>
                     </Row>

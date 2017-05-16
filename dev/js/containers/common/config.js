@@ -23,7 +23,8 @@ export function getUrl(APIName){
 				'updateCustCNL':'/countries/cnloptions',//customer,
 					'updateNL':'/countries/numberlookupoptions',//updateNL
 			'hubAccList':'/hub_accounts',
-			'updateUserName':'/users/username'
+			'updateUserName':'/users/username',
+			'getCompanyList':'/companies/min',
 	};
 	return getServerUrl() +'/ctool'+ APIUrls[APIName];
 }

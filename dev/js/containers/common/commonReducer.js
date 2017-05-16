@@ -6,7 +6,12 @@ export default function (state = {}, action = null) {
 			return Object.assign({}, state, {});
 		case  types.GET_COMPANY_LIST_RESPONSE :
 			// console.log("GET_COMPANY_LIST_RESPONSE==",action.payload.data);
-			return Object.assign({}, state, {compList:action.payload.data,target:action.type});
+
+			if(action.payload.status==200){
+					return Object.assign({}, state, {compList:action.payload.data,target:action.type});
+			}
+			else{
+			}
 		case types.MISC_USERLIST_REQUEST:
 			return Object.assign({}, state, {});
 		case types.MISC_USERLIST_RESPONSE:
