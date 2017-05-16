@@ -16,6 +16,8 @@ require('./../../../../../scss/style.scss');
 class HubAccountGeneral extends React.Component {
     constructor(props, context) {
         super(props, context);
+          console.log("this.props.currentAcct==",this.props.currentAcct);
+          this.currentAcct=this.props.currentAcct;
         this.state = {
           TPOAinfo : this.props.TPOAinfo||{},
           showAddTPOA : false,
@@ -36,8 +38,7 @@ class HubAccountGeneral extends React.Component {
             dataField:'smscid',
             optionsLabel:'smscname',
             type:'select',
-            options: [{ "smscid": 1, "smscname":"Aircel Delhi"},{ "smscid": 2, "smscname":"Vodafone Pune"},
-                      { "smscid": 3, "smscname":"Airtel Mumbai"},{ "smscid": 4, "smscname":"Jio Banglore"}]
+            options: this.props.smscList
         },
         {
             name:'TPOA',
@@ -115,7 +116,7 @@ class HubAccountGeneral extends React.Component {
 
              </Grid>
 
-             <AddTPOAModal showAdd={this.state.showAddTPOA} close={this.close.bind(this)}/>
+             <AddTPOAModal currentAcct={this.currentAcct} showAdd={this.state.showAddTPOA} close={this.close.bind(this)}/>
 
            </div>
         );
@@ -137,7 +138,8 @@ class HubAccountGeneral extends React.Component {
 
 function mapStateToProps(state) {
     return {
-      TPOAinfo:state.Account.TPOAinfo
+      TPOAinfo:state.Account.TPOAinfo,
+      smscList:state.Common.smscList,
      };
 }
 

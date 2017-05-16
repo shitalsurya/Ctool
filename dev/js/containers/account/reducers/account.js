@@ -74,23 +74,11 @@ export default function(state = {
             return Object.assign({}, state, {
                 data: action.payload
             });
-        case types.GET_COMPANY_LIST_REQUEST:
-    			return Object.assign({}, state, {});
-    		case types.GET_COMPANY_LIST_RESPONSE:
-          console.log("GET_COMPANY_LIST_RESPONSE==",action.payload.data);
-    			return Object.assign({}, state, {companyList:action.payload.data,target:action.type});
         case types.ACTIVE_NAV_ITEM:
           return Object.assign({}, state, {
               nav: action.payload
           });
-        case types.MISC_ACCOUNT_LIST_REQUEST:
-          return Object.assign({}, state, {});
-        case types.MISC_ACCOUNT_LIST_RESPONSE:
-          return Object.assign({}, state, {acctList:action.payload,target:action.type});
-        case types.GET_EX_CONTACT_LIST_REQUEST:
-    			return Object.assign({}, state, {});
-    		case types.GET_EX_CONTACT_LIST_RESPONSE:
-          console.log("GET_EX_CONTACT_LIST_RESPONSE==",action.payload.data);
+
     			return Object.assign({}, state, {exContactList:action.payload.data,target:action.type});
           case types.GET_ACCT_FORCED_TPOA_LIST_REQUEST:
             return Object.assign({}, state, {});

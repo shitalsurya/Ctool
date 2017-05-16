@@ -31,23 +31,7 @@ var TPOA_Info =  {
 	  }
 	]
 }
-	export function getHubAcctDefaultTPOA(currentAcct) {
-		return function (dispatch,getState) {
-			dispatch(getHubAcctDefaultTPOAResponse());
-		}
-	}
 
-	export function getHubAcctDefaultTPOARequest() {
-		  return {
-		    type: types.GET_ACCT_DEFAULT_TPOA_REQUEST
-		  }
-		}
-		export function getHubAcctDefaultTPOAResponse(data) {
-			  return {
-			    type: types.GET_ACCT_DEFAULT_TPOA_RESPONSE,
-					 payload: TPOA_Info.defaultTPOA
-			  }
-			}
 			export function getHubAcctForcedTPOAList(commInfo) {
 				return function (dispatch,getState) {
 					dispatch(getHubAcctForcedTPOAListResponse());
@@ -64,3 +48,24 @@ var TPOA_Info =  {
 							 payload: TPOA_Info
 						}
 					}
+
+
+
+
+
+					export function AddHubAccountForcedTPOA(_currentAcct,_newTPOAinfo) {
+						return function (dispatch,getState) {
+							dispatch(AddHubAccountForcedTPOAResponse(_currentAcct,_newTPOAinfo));
+						}
+					}
+					export function AddHubAccountForcedTPOARequest() {
+							return {
+								type: types.GET_ACCT_FORCED_TPOA_LIST_REQUEST
+							}
+						}
+						export function AddHubAccountForcedTPOAResponse(_currentAcct,_newTPOAinfo) {
+								return {
+									type: types.GET_ACCT_FORCED_TPOA_LIST_RESPONSE,
+									 payload: _newTPOAinfo
+								}
+							}

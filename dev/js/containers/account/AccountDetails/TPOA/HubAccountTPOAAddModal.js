@@ -1,101 +1,94 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal,Label } from 'react-bootstrap';
 import Select from 'react-select';
 import Toggle from 'react-toggle';
 require('./../../../../../scss/style.scss');
 require('./../../../../../scss/react-toggle.scss');
 import * as types from './../../../common/commonActionTypes';
-
+import {initializeSelectOptions} from './../../../common/Functions/commonFunctions';
+import {AddHubAccountForcedTPOA} from './../../actions/accountTPOAActions';
 class HubAccountTPOAAddModal extends React.Component {
   constructor(props, context) {
       super(props, context);
-
+      console.log("this.props.currentAcct==",this.props.currentAcct);
+      this.currentAcct=this.props.currentAcct;
         this.state={
-             TPOAinfo : this.props.TPOAinfo || [],
+             newTPOAinfo : [],
              modalHeading:'Add TPOA Setting',
         }
   }
 
-  handleModalChange(target, value){
-    var info = this.state.TPOAinfo;
-    switch(target) {
-      case types.TPOA_ADD_SMSC:
-        info.smsc = value.value;
-        break;
-      case types.TPOA_ADD_TPOA:
-        info.tpoa = value.target.value
-        break;
-    }
-    this.setState({TPOAinfo : info});
+  handleChange(e) {
+      console.log("name==",e.target.name);
+      console.log("value==",e.target.value);
+    var info = this.state.newTPOAinfo;
+    info[e.target.name] = e.target.value;
+    this.setState({newTPOAinfo : info});
   }
 
 
-  addRouting(){
-    console.log(this.state.TPOAinfo);
-    this.setState({TPOAinfo : []});
+  addNewTPOA(){
+    console.log(this.state.newTPOAinfo);
+    this.props.AddHubAccountForcedTPOA(this.currentAcct,this.state.newTPOAinfo);
+      this.setState({newTPOAinfo : []});
     this.props.close();
   }
 
   close() {
-    this.setState({TPOAinfo : []});
+    this.setState({newTPOAinfo : []});
     this.props.close();
   }
 
 
   render(){
 
-    const options = [
-      { value: 'SMSC1', label: 'SMSC1' },
-      { value: 'SMSC2', label: 'SMSC2' },
-      { value: 'SMSC3', label: 'SMSC3' },
-      { value: 'SMSC4', label: 'SMSC4' },
-      { value: 'SMSC5', label: 'SMSC5' },
-      { value: 'SMSC6', label: 'SMSC6' }
-    ];
-
+  console.log("render this.props.smscList==",this.props.smscList);
+  this.smscList = initializeSelectOptions(this.props.smscList,'smscname','smscid');
+    console.log("this.smscList==",this.smscList);
     return (
       <Modal show={this.props.showAdd} onHide={this.close.bind(this)}>
-          <Modal.Header closeButton>
-              <Modal.Title>{this.state.modalHeading}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div>
-              <Grid fluid={true}>
-                <Row className="show-grid">
-                  <Col componentClass={ ControlLabel } md={ 3 }>
-                    SMSC:
-                  </Col>
-                  <Col md={ 6 }>
-                    <Select
-                      name="smsc"
-                      placeholder="Select SMSC.."
-                      options={options}
-                      value={this.state.TPOAinfo.smsc || ''}
-                      onChange={this.handleModalChange.bind(this,types.TPOA_ADD_SMSC)}
-                    />
-                  </Col>
-                  <Col mdHidden md={ 3 } />
-                </Row>
-                <Row className="show-grid">
-                    <Col componentClass={ ControlLabel } md={ 3 }>
-                      TPOA :
-                    </Col>
-                    <Col md={ 6 }>
-                      <FormControl
-                         type="text"
-                         name="tpoa"
-                         value={this.state.TPOAinfo.tpoa || ''}
-                         onChange={this.handleModalChange.bind(this,types.TPOA_ADD_TPOA)}
-                         placeholder="Enter TPOA" />
-                    </Col>
-                    <Col mdHidden md={ 3 } />
-                </Row>
-              </Grid>
-            </div>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.addRouting.bind(this)}>Save</Button>
-            <Button onClick={this.close.bind(this)}>Close</Button>
+        <Modal.Header closeButton>
+          <Modal.Title>{this.state.modalHeading}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div>
+            <Grid fluid={true}>
+              <Row className="show-grid">
+                <Col componentClass={ ControlLabel } md={ 3 }>
+                  SMSC:
+                </Col>
+                <Col md={ 6 }>
+                  <FormControl componentClass="select"
+                    name="smscid"
+                    value={this.state.newTPOAinfo.smscid}
+                    onChange={this.handleChange.bind(this)}>
+                    {this.smscList}
+                  </FormControl>
+                </Col>
+                <Col mdHidden md={ 3 } />
+              </Row>
+              <Row className="show-grid">
+                <Col componentClass={ ControlLabel } md={ 3 }>
+                  TPOA :
+                </Col>
+                <Col md={ 6 }>
+                  <FormControl
+                    type="text"
+                    name="tpoa"
+                    value={this.state.newTPOAinfo.tpoa || ''}
+                    onChange={this.handleChange.bind(this)}
+                    placeholder="Enter TPOA" />
+                </Col>
+                <Col mdHidden md={ 3 } />
+              </Row>
+            </Grid>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.addNewTPOA.bind(this)}>Save</Button>
+          <Button onClick={this.close.bind(this)}>Close</Button>
           </Modal.Footer>
       </Modal>
 
@@ -103,5 +96,16 @@ class HubAccountTPOAAddModal extends React.Component {
   }
 
 }
+function mapStateToProps(state) {
+    return {
+      smscList:state.Common.smscList
+     };
+}
 
-export default HubAccountTPOAAddModal;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+      AddHubAccountForcedTPOA:AddHubAccountForcedTPOA
+    }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HubAccountTPOAAddModal);

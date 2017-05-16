@@ -242,7 +242,7 @@ class OpenAccountsList extends React.Component {
 
 function mapStateToProps( state ) {
   return {
-      acctList: state.Account.acctList,
+      acctList: state.Common.acctList,
       target: state.Account.target
   };
 }

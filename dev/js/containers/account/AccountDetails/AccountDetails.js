@@ -63,10 +63,10 @@ class AccountDetails extends React.Component {
                     </div>
                     <div className="content" >
                       <TabContent for="General">
-                        <HubAccountGeneral/>
+                        <HubAccountGeneral currentAcct={this.currentAcct}/>
                       </TabContent>
                       <TabContent for="TPOA">
-                        <HubAccountTPOA />
+                        <HubAccountTPOA currentAcct={this.currentAcct}/>
                       </TabContent>
                       <TabContent for="MORouting">
                         <HubAccountMORouting/>
