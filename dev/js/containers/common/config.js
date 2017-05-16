@@ -18,8 +18,12 @@ export function getUrl(APIName){
 			'CreateAccount':'/account',
 			'GetCountryList':'/countries/min',
 			'getCountryById':'/countries/',
+			'updateCountryName':'/countries/countryname',
+			'enableCNL':'/countries/cnl',//enableCNL
+				'updateCustCNL':'/countries/cnloptions',//customer,
+					'updateNL':'/countries/numberlookupoptions',//updateNL
 			'hubAccList':'/hub_accounts',
-			'updateUserEmail':'/users/username'
+			'updateUserName':'/users/username'
 	};
 	return getServerUrl() +'/ctool'+ APIUrls[APIName];
 }

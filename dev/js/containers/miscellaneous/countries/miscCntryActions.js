@@ -59,15 +59,42 @@ export function getCntryDetails(_countryid) {
 		}
 }
 
-export function updateCountryDetails(_user) {
+export function updateCountryDetails(_name,_country) {
 	return function (dispatch,getState) {
-		dispatch(updateCountryDetailsResponse());
+		dispatch(updateCountryDetailsRequest());
+    var _url="";
+    switch(_name){
+      case "countryname":
+      _url = config.getUrl('updateCountryName');
+      break;
+      case "nl":
+      _url = config.getUrl('updateNL');
+      break;
+      case "cnl":
+      _url = config.getUrl('updateCustCNL');
+      break;
+      case "enableCNL":
+      _url = config.getUrl('enableCNL');
+      break;
+    }
+    var request = {
+        url:_url,
+        method:'PUT',
+        data:_country,
+        successCallback:updateCountryDetailsResponse,
+        failureCallback:updateCountryDetailsResponse
+    };
+    return httpRequest(dispatch,getState,request);
 	}
 }
-
-export function updateCountryDetailsResponse(data) {
+export function updateCountryDetailsRequest(data) {
+		return {
+			type: types.MISC_UPDATE_COUNTRYDETAILS_REQUEST
+		}
+}
+export function updateCountryDetailsResponse(response) {
 		return {
 			type: types.MISC_UPDATE_COUNTRYDETAILS_RESPONSE,
-			 payload: updatedCntryDetails
+			 payload: response
 		}
 }

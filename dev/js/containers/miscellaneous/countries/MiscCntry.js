@@ -77,7 +77,7 @@ class MiscCntry extends React.Component {
   }
 
   showDetails(row){
-    this.props.getCntryDetails(row.countryCode);
+    this.props.getCntryDetails(row.countryid);
   }
 
   actionFormatter(cell, row,field,index) {
@@ -106,7 +106,7 @@ class MiscCntry extends React.Component {
     var fields = [
       {
           name:'Country Name',
-          dataField:'countryName',
+          dataField:'countryname',
       }
       // {
       //     name:'Action',
@@ -119,7 +119,7 @@ class MiscCntry extends React.Component {
     var listCols = fields.map(function (field) {
           return (
               <TableHeaderColumn
-                isKey={ field.dataField == 'countryName'?true :false }
+                isKey={ field.dataField == 'countryname'?true :false }
                 width={field.width}
                 dataAlign={field.dataAlign}
                 dataFormat={ this.actionFormatter.bind(this) }

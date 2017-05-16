@@ -35,17 +35,17 @@ class EditCountryModal extends React.Component {
 handleNLChange(name,val){
     this.currentCntry = this.state.currentCntry;
     if(this.currentCntry["countrynumberlookupoptionsids"]!==val){
-      this.currentCntry["countrynumberlookupoptionsids"]=val;
+        this.currentCntry["numberlookupids"]=val.toString();
       console.log( "handleNLChange==", this.currentCntry );
-      this.props.updateCountryDetails(this.currentCntry);
+      this.props.updateCountryDetails("nl",this.currentCntry);
     }
 }
 handleCNLChange(name,val){
     this.currentCntry = this.state.currentCntry;
     if(this.currentCntry["customernumberlookupoptionsids"]!==val){
-      this.currentCntry["customernumberlookupoptionsids"]=val;
+      this.currentCntry["numberlookupids"]=val.toString();
       console.log( "handleCNLChange==", this.currentCntry );
-      this.props.updateCountryDetails(this.currentCntry);
+      this.props.updateCountryDetails("cnl",this.currentCntry);
     }
 }
 
@@ -54,15 +54,17 @@ handleCNLChange(name,val){
     if(this.currentCntry[name]!==val){
       this.currentCntry[name]=val;
       console.log( "handleInlineEditChange==", this.currentCntry );
-      this.props.updateCountryDetails(this.currentCntry);
+      this.props.updateCountryDetails(name,this.currentCntry);
     }
   }
 
   handleToggleChange(e){
+    console.log("handleToggleChange==",e.target.name);
+    debugger;
     this.currentCntry = this.state.currentCntry;
     console.log( "handleInlineEditChange this.currentCntry==", this.currentCntry );
-    this.currentCntry[e.target.name] = e.target.checked ? "Yes" : "No";
-    this.props.updateCountryDetails(this.currentCntry);
+    this.currentCntry[e.target.name] = e.target.checked;//? "Yes" : "No";
+    this.props.updateCountryDetails(e.target.name,this.currentCntry);
   }
 
   render(){
@@ -285,7 +287,7 @@ handleCNLChange(name,val){
     switch (nextProps.target) {
       case types.MISC_UPDATE_COUNTRYDETAILS_RESPONSE:
         console.log("nextProps.countryDetails==",nextProps.countryDetails);
-        if( nextProps.countryDetails != {}){
+        if( nextProps.countryDetails ==0){
           this.refs.container.success(`Country updated successfully.`, ``, {
               closeButton: true,
           });

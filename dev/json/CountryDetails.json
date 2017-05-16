@@ -1,19 +1,26 @@
+
+
+
 {
-  "countryid": 1,
-  "countryname": "Egypt",
-  "countrycode": "20",
-  "mnemoniccountrycode": "EG",
-  "msisdnlength": 12,
-  "minmsisdnlength": 12,
-  "maxmsisdnlength": 12,
-  "operatorroutingmode": "Local-Numbering-Plan",
-  "updatedate": "09 May 2012 10:19:17 AM",
   "continent": {
-    "continentid": 1,
-    "continentname": "AFRICA"
+    "continentid": 0,
+    "continentname": "string"
   },
-  "numberlookupid": 1,
-  "customernumberlookupoptionsids": [1,2],
-  "countrynumberlookupoptionsids": [2],
-    "enablecnl":true
+  "countrycode": "string",
+  "countryid": 0,
+  "countryname": "string",
+  "countrynumberlookupoptionsids": [
+    0
+  ],
+  "customernumberlookupoptionsids": [
+    0
+  ],
+  "enablecnl": true,
+  "maxmsisdnlength": 0,
+  "minmsisdnlength": 0,
+  "mnemoniccountrycode": "string",
+  "msisdnlength": 0,
+  "numberlookupid": 0,
+  "operatorroutingmode": "string",
+  "updatedate": "2017-05-15T10:27:52.620Z"
 }

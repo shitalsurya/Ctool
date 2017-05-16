@@ -68,16 +68,32 @@ export function updateUserDetailsRequest() {
 export function updateUserDetailsResponse(response) {
 	return {
 		type: types.MISC_UPDATE_USERDETAILS_RESPONSE,
-		 payload: response.data
+		 payload: response
 	}
 }
 
-export function updateUserDetails(_user) {
+export function updateUserDetails(_name,_user) {
     return function (dispatch,getState) {
         dispatch(updateUserDetailsRequest());
+        var _url="";
+        switch(_name){
+          case "email":
+          _url = config.getUrl('updateUserEmail');
+          break;
+          case "name":
+          _url = config.getUrl('updateUserName');
+          break;
+          // case "locked":
+          // _url = config.getUrl('updateUserName');
+          // break;
+          // case "live":
+          // _url = config.getUrl('updateUserName');
+          // break;
+
+        }
         var request = {
-            url:config.getUrl('updateUserEmail'),
-            method:'GET',
+            url:_url,
+            method:'PUT',
             data:_user,
             successCallback:updateUserDetailsResponse,
             failureCallback:updateUserDetailsResponse

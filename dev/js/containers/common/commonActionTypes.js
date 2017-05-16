@@ -167,3 +167,13 @@ export const TRAFFIC_TYPE = [
          {"traffictypeid": 3, "traffictypename": "Low Latency"},
            {"traffictypeid": 4, "traffictypename": "Time Sensitive"}
 ];
+export const homepageOptions= [
+    { homepageid: 1, homepagename: '/hubaccounts' },
+    { homepageid: 2, homepagename: '/hubconnections' }
+];
+
+export const roleOptions= [
+    { roleid: 'Support', rolename: 'Support' },
+    { roleid: 'ServiceDesk', rolename: 'ServiceDesk' },
+    { roleid: 'ACCOUNTMANAGER', rolename: 'ACCOUNTMANAGER'}
+];

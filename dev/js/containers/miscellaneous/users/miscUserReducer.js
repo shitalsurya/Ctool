@@ -26,18 +26,8 @@ export default function (state = {}, action = null) {
 		case types.MISC_UPDATE_USERDETAILS_REQUEST:
 			return Object.assign({}, state, {});
 		case types.MISC_UPDATE_USERDETAILS_RESPONSE:
-			var _data={};
-			if(typeof(action.payload)!='undefined'){
-				_data = {
-					details:action.payload
-				}
-			}
-			else {
-				_data = {
-					details:"Failed to update user details."
-				}
-			}
-			return Object.assign({}, state, {userDetails:_data,target:action.type});
+		console.log("MISC_UPDATE_USERDETAILS_RESPONSE==",action.payload);
+			return Object.assign({}, state, {userDetails:action.payload.data,target:action.type});
 
 		default:
 			return state;

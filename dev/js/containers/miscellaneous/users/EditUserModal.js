@@ -10,6 +10,8 @@ import BrandingHeader from './../../common/components/BrandingHeader';
 import Navigation from './../../common/components/Navigation';
 import * as types from './../../common/commonActionTypes';
 import { getUserList, updateUserDetails } from './miscUsersActions';
+import {homepageOptions,roleOptions} from './../../common/commonActionTypes';
+import {initializeSelectOptions} from './../../common/Functions/commonFunctions';
 import {
     ToastContainer,
     ToastMessage,
@@ -41,7 +43,7 @@ class EditUserModal extends React.Component {
     if(this.currentUser[name]!==val){
       this.currentUser[name]=val;
       console.log( "after this.currentUser==", this.currentUser );
-      this.props.updateUserDetails(this.currentUser);
+      this.props.updateUserDetails(name,this.currentUser);
     }
   }
 
@@ -49,22 +51,16 @@ class EditUserModal extends React.Component {
     this.currentUser = this.state.currentUser;
     console.log( "handleInlineEditChange this.currentUser==", this.currentUser );
     this.currentUser[e.target.name] = e.target.checked ? 1 : 0;
-    this.props.updateUserDetails(this.currentUser);
+    this.props.updateUserDetails(e.target.name,this.currentUser);
   }
 
   render(){
     const info = this.state.currentUser;
     console.log("render currentUser==",info);
-    const homepageOptions= [
-        { value: 'Account', label: 'Account' },
-        { value: 'Connections', label: 'Connections' }
-    ];
-
-    const roleOptions= [
-        { value: 'Support', label: 'Support' },
-        { value: 'ServiceDesk', label: 'ServiceDesk' },
-        { value: 'ACCOUNTMANAGER', label: 'ACCOUNTMANAGER'}
-    ];
+    this.homepageOptions = initializeSelectOptions(homepageOptions,'homepagename','homepageid');
+  console.log("this.ServiceLevel==",this.ServiceLevel);
+    this.roleOptions = initializeSelectOptions(roleOptions,'rolename','roleid');
+        console.log("this.TrafficType==",this.TrafficType);
 
     return (
       <div>
@@ -168,7 +164,10 @@ class EditUserModal extends React.Component {
                         User homepage:
                       </Col>
                       <Col md={ 6 }>
-                        <InlineEdit name="homepage" type="select" options={homepageOptions} value={info.homepage} onSave={this.handleInlineEditChange.bind(this)}  />
+                      <InlineEdit name="homepageid" type="select" options={this.homepageOptions}
+                        optionsLabel="homepagename"
+                        value={info.homepage}
+                        onSave={this.handleInlineEditChange.bind(this)}  />
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -176,7 +175,8 @@ class EditUserModal extends React.Component {
                         Role:
                       </Col>
                       <Col md={ 6 }>
-                        <InlineEdit name="ctoolrole" type="select" options={roleOptions} value={info.ctoolrole} onSave={this.handleInlineEditChange.bind(this)}  />
+                        <InlineEdit name="ctoolrole" type="select" options={this.roleOptions}
+                         value={info.ctoolrole} onSave={this.handleInlineEditChange.bind(this)}  />
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -226,8 +226,8 @@ class EditUserModal extends React.Component {
     switch (nextProps.target) {
       case types.MISC_UPDATE_USERDETAILS_RESPONSE:
         console.log("nextProps.userDetails==",nextProps.userDetails);
-        if( nextProps.userDetails != {}){
-          this.refs.container.success(`User created successfully.`, ``, {
+        if( nextProps.userDetails == 0){
+          this.refs.container.success(`User updated successfully.`, ``, {
               closeButton: true,
           });
             // this.state.showEditModal =false;
