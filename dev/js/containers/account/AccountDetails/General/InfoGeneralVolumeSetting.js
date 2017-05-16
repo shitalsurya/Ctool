@@ -7,39 +7,32 @@ import Select from 'react-select';
 import InlineEdit from './../../../common/components/InlineEdit';
 require('./../../../../../scss/tabs.scss');
 require('./../../../../../scss/style.scss');
+import { updateHubAccountVolumeInfo } from './../../actions/accountGeneralActions';
 
 class InfoGeneralVolumeSetting extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-          volSettingObj : {
-            volType : 'None',
-            volLimit : '',
-            preAlert : '',
-            commments : ''
-          }
+          volSettingObj : this.props.infoGenVol||{}
         }
     }
 
     handleInlineEditChange(name,val){
+      console.log("name : ",name, "  val : ",val);
       var info = this.state.volSettingObj;
-      switch (name) {
-        case "volType":
-          info.volType = val;
-          break;
+
+      if(info[name]!==val){
+        info[name]=val;
+        this.setState({volSettingObj : info},function(){
+          console.log("update vol details==",this.state.volSettingObj);
+          this.props.updateHubAccountVolumeInfo(this.state.volSettingObj);
+        });
       }
-      this.setState({volSettingObj : info});
     }
 
 
     render() {
       console.log("volSettingObj : ",this.state.volSettingObj);
-        var options = [
-          { "id": 1, "value":"None"},
-          { "id": 2, "value":"Daily"},
-          { "id": 3, "value":"Monthly"},
-          { "id": 4, "value":"Counter"}
-        ];
 
         return (
           <div >
@@ -50,7 +43,13 @@ class InfoGeneralVolumeSetting extends React.Component {
                   Volume Type :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit name="volType" type="select" options={options} value={this.state.volSettingObj.volType} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit
+                    name="volTypeid"
+                    type="select"
+                    options={this.props.VolTypeList}
+                    optionsLabel="volTypename"
+                    value={this.state.volSettingObj.volTypeid}
+                    onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -109,11 +108,15 @@ class InfoGeneralVolumeSetting extends React.Component {
 
 function mapStateToProps(state) {
     return {
+      infoGenVol:state.Account.infoGenVol,
+      VolTypeList:state.Common.volTypeList
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ }, dispatch);
+    return bindActionCreators({
+      updateHubAccountVolumeInfo:updateHubAccountVolumeInfo,
+    }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoGeneralVolumeSetting);

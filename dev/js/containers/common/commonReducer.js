@@ -32,6 +32,18 @@ export default function (state = {}, action = null) {
 			return Object.assign({}, state, {});
 		case types.GET_SMSC_LIST_RESPONSE:
 			return Object.assign({}, state, {smscList:action.payload,target:action.type});
+		case types.GET_VOLUMETYPE_LIST_REQUEST:
+			return Object.assign({}, state, {});
+		case types.GET_VOLUMETYPE_LIST_RESPONSE:
+			return Object.assign({}, state, {volTypeList:action.payload,target:action.type});
+		case types.GET_STARTTIME_LIST_REQUEST:
+			return Object.assign({}, state, {});
+		case types.GET_STARTTIME_LIST_RESPONSE:
+			return Object.assign({}, state, {startTimeList:action.payload,target:action.type});
+		case types.GET_ENDTIME_LIST_REQUEST:
+			return Object.assign({}, state, {});
+		case types.GET_ENDTIME_LIST_RESPONSE:
+			return Object.assign({}, state, {endTimeList:action.payload,target:action.type});
 		default:
 			return state;
 	}
