@@ -26,7 +26,7 @@ class AccountCommDetails extends React.Component {
   }
 
   handleChange( e) {
-      console.log("handleChange==",e.target.value);
+      //console.log("handleChange==",e.target.value);
       var info = this.state.acctCommInfo;
       info[e.target.name] = e.target.value;
       this.setState({acctCommInfo:info},function(){
@@ -52,7 +52,7 @@ class AccountCommDetails extends React.Component {
                   className="info_label"
                   type="text"
                   name="requesterName"
-                  value={this.state.acctCommInfo.requesterName||''} />
+                  value={this.state.acctCommInfo.requesterid||''} />
               </Col>
               <Col mdHidden md={ 4 }/>
             </Row>
@@ -62,9 +62,10 @@ class AccountCommDetails extends React.Component {
               </Col>
               <Col md={ 6 } >
                 <FormControl componentClass="select"
-                  name="acctManager"
-                  value={this.state.acctCommInfo.acctManager}
+                  name="accountmanagerid"
+                  value={this.state.acctCommInfo.accountmanagerid}
                   onChange={this.handleChange.bind(this)}>
+                  <option value="select" disabled selected>Please select...</option>
                   {this.userList}
                 </FormControl>
               </Col>
@@ -74,11 +75,12 @@ class AccountCommDetails extends React.Component {
               <Col componentClass={ ControlLabel } md={ 2 }>
                 Company:
               </Col>
-              <Col md={ 6 } className={this.state.acctCommInfo.company || this.state.emptyFlag ? false : "empty"}>
+              <Col md={ 6 } className={this.state.acctCommInfo.companyid || this.state.emptyFlag ? false : "empty"}>
                 <FormControl componentClass="select"
-                  name="company"
-                  value={this.state.acctCommInfo.company}
+                  name="companyid"
+                  value={this.state.acctCommInfo.companyid}
                   onChange={this.handleChange.bind(this)}>
+                  <option value="select" disabled selected>Please select...</option>
                   {this.companyList}
                 </FormControl>
               </Col>
@@ -88,13 +90,14 @@ class AccountCommDetails extends React.Component {
               <Col componentClass={ ControlLabel } md={ 2 }>
                 Billing Location:
               </Col>
-              <Col md={ 6 } className={this.state.acctCommInfo.billinglocation || this.state.emptyFlag ? false : "empty"}>
+              <Col md={ 6 } className={this.state.acctCommInfo.billinglocationid || this.state.emptyFlag ? false : "empty"}>
 
                 <FormControl componentClass="select"
                   placeholder="Select billing location.."
-                  name="billinglocation"
-                  value={this.state.acctCommInfo.billinglocation}
+                  name="billinglocationid"
+                  value={this.state.acctCommInfo.billinglocationid}
                   onChange={this.handleChange.bind(this)}>
+                  <option value="select" disabled selected>Please select...</option>
                   {this.BillingLocation}
                 </FormControl>
               </Col>
@@ -111,45 +114,29 @@ class AccountCommDetails extends React.Component {
                       name="servicelevel"
                       value={this.state.acctCommInfo.servicelevel}
                       onChange={this.handleChange.bind(this)}>
+                      <option value="select" disabled selected>Please select...</option>
                       {this.ServiceLevel}
                     </FormControl>
                   </Col>
                   <Col mdHidden md={ 4 } />
                 </Row>
                 <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 2 }>
-                  Traffic Type:
-                </Col>
-                <Col md={ 6 } className={this.state.acctCommInfo.traffictype || this.state.emptyFlag ? false : "empty"}>
-                  <FormControl componentClass="select"
-                    name="traffictype"
-                    value={this.state.acctCommInfo.traffictype}
-                    onChange={this.handleChange.bind(this)}>
-                    {this.TrafficType}
-                  </FormControl>
-                </Col>
-                <Col mdHidden md={ 4 } />
-              </Row>
+                  <Col componentClass={ ControlLabel } md={ 2 }>
+                    Traffic Type:
+                  </Col>
+                  <Col md={ 6 } className={this.state.acctCommInfo.trafficid || this.state.emptyFlag ? false : "empty"}>
+                    <FormControl componentClass="select"
+                      name="trafficid"
+                      value={this.state.acctCommInfo.trafficid}
+                      onChange={this.handleChange.bind(this)}>
+                      <option value="select" disabled selected>Please select...</option>
+                      {this.TrafficType}
+                    </FormControl>
+                  </Col>
+                  <Col mdHidden md={ 4 } />
+                </Row>
               </div>
             }
-            {/* <Row className="show-grid">
-              <Col componentClass={ ControlLabel } md={ 2 }>
-                Revenue Sharing:
-              </Col>
-              <Col md={ 6 }>
-                <label>
-                  <Toggle name="revSharing"
-                    icons={{
-                           checked:'Yes',
-                           unchecked: 'No',
-                    }}
-                    //  defaultChecked={this.state.acctCommInfo.revSharing == "No" ? false : true}
-                    value={this.state.acctCommInfo.revSharing}
-                    onChange={this.handleChange.bind(this)} />
-                </label>
-              </Col>
-              <Col mdHidden md={ 4 } />
-            </Row> */}
           </Grid>
         </div>
 
@@ -174,34 +161,37 @@ class AccountCommDetails extends React.Component {
   }
 
   goToTechnicalDetails() {
+    console.log("goToTechnicalDetails this.state.acctCommInfo==",this.state.acctCommInfo);
     // this.props.goToTechnicalDetails( this.state.acctCommInfo );
+    var info = this.state.acctCommInfo;
+    info.rsflag = 0;
+    info.requesterid = sessionStorage.getItem( "username" );
+    this.setState({accountCommInfo : info});
      var accountObjCheck = this.state.acctCommInfo;
+      this.props.goToTechnicalDetails( this.state.acctCommInfo );
      if(this.props.accType === "sms"){
-       if(accountObjCheck.company && accountObjCheck.billinglocation
-        && accountObjCheck.servicelevel && accountObjCheck.traffictype){
-          this.props.goToTechnicalDetails( this.state.acctCommInfo );
-        }
-        else {
-          this.setState({emptyFlag:false});
-        }
+      //  if(accountObjCheck.company && accountObjCheck.billinglocation
+      //   && accountObjCheck.servicelevel && accountObjCheck.traffictype){
+      //     this.props.goToTechnicalDetails( this.state.acctCommInfo );
+      //   }
+      //   else {
+      //     this.setState({emptyFlag:false});
+      //   }
      }
      else if(this.props.accType === "email"){
-       if(accountObjCheck.company && accountObjCheck.billinglocation){
-          this.props.goToTechnicalDetails( this.state.acctCommInfo );
-        }
-        else {
-          this.setState({emptyFlag:false});
-        }
+      //  if(accountObjCheck.company && accountObjCheck.billinglocation){
+      //     this.props.goToTechnicalDetails( this.state.acctCommInfo );
+      //   }
+      //   else {
+      //     this.setState({emptyFlag:false});
+      //   }
      }
   }
 
   componentWillMount() {
 
     this.props.getList("accounts");
-    var info = this.state.acctCommInfo;
-    info.revSharing = "No";
-    info.requesterName = sessionStorage.getItem( "username" );
-    this.setState({accountCommInfo : info});
+
   }
 
   componentWillReceiveProps( nextProps ) {
@@ -228,7 +218,7 @@ function mapStateToProps( state ) {
     Users:state.Common.userList,
     Company:state.Common.compList,
     BillingLocation:state.Common.billingLocationList,
-    accType:state.Account.accType
+    accType:state.Account.accType||"sms"
   };
 }
 

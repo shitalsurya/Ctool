@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as config from './../../common/config';
 import * as types from './../../common/commonActionTypes';
 import {httpRequest} from './../../common/commonAjaxActions';
-//import Users from '../../../../json/Users.json';
+import Users from '../../../../json/Users.json';
 import UserDetails1 from '../../../../json/UserDetails1.json';
 import UserDetails2 from '../../../../json/UserDetails2.json';
 import updatedUserDetails from '../../../../json/updatedUserDetails.json';
@@ -16,7 +16,7 @@ export function getUserListRequest() {
 export function getUserListResponse(response) {
   return {
     type: types.MISC_USERLIST_RESPONSE,
-		 payload: response.data
+		 payload: Users //response.data
   }
 }
 

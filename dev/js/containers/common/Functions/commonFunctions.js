@@ -21,13 +21,14 @@ import React from 'react';
           //  withFirstAndLast: false // Hide the going to First and Last page button
         };
         export function initializeSelectOptions(_list,nameField,valField){
-          console.log("initializeSelectOptions");
+          console.log("initializeSelectOptions",_list);
           // var obj={};
           // if(_list[0][valField] !== ""){
           //   obj[nameField]="Please select..";
           //   obj[valField]="";
           //   _list.unshift(obj);
           // }
+           if(typeof(_list)!='undefined'){
           var _options = _list.map(function (item) {
             return (
               <option key={item[valField]}
@@ -37,6 +38,7 @@ import React from 'react';
             );
           }.bind(this));
           return _options;
+        }
         }
         export function initializeTypeAheadData(_list,valField,keyField){
           console.log("initializeTypeAheadData==",_list);

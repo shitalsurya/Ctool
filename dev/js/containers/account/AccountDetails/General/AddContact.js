@@ -59,80 +59,80 @@ class AddContact extends React.Component {
 
         return(
           <Modal show={this.props.showContact} onHide={this.close.bind(this)}>
-              <Modal.Header closeButton>
-                  <Modal.Title>{this.state.modalHeading}</Modal.Title>
-              </Modal.Header>
-                <Modal.Body>
-                  <div>
-                    <Grid fluid={true}>
-                      <Row className="show-grid">
-                          <Col componentClass={ ControlLabel } md={ 4 }>
-                            Contact:
-                          </Col>
-                          <Col md={ 8 }>
-                          <FormControl
-                             type="text"
-                             name="name"
-                             value={this.state.AddContactInfo.name || ''}
-                             onChange={this.handleModalChange.bind(this,types.ADDCONTACT_COMPANYNAME)}
-                             placeholder="Enter Company name" />
-                          </Col>
-                      </Row>
-                      <Row className="show-grid">
-                          <Col componentClass={ ControlLabel } md={ 4 }>
-                            Email:
-                          </Col>
-                          <Col md={ 8 }>
-                          <FormControl
-                             type="text"
-                             name="email"
-                             value={this.state.AddContactInfo.email || ''}
-                             onChange={this.handleModalChange.bind(this,types.ADDCONTACT_COMPANYEMAIL)}
-                             placeholder="Enter Email" />
-                          </Col>
-                      </Row>
-                      <Row className="show-grid">
-                          <Col componentClass={ ControlLabel } md={ 4 }>
-                            Country:
-                          </Col>
-                          <Col md={ 8 }>
-                            <FormControl componentClass="select"
-                              name="country"
-                              value={this.state.AddContactInfo.country || ''}
-                              onChange={this.handleModalChange.bind(this,types.ADDCONTACT_COUNTRY)}>
-                              {this.countryList}
-                            </FormControl>
-                          </Col>
-                      </Row>
-                      <Row className="show-grid">
-                          <Col componentClass={ ControlLabel } md={ 4 }>
-                            Mobile Phone Number:
-                          </Col>
-                          <Col md={ 8 }>
-                          <FormControl
-                             type="text"
-                             name="mobilenumber"
-                             value={this.state.AddContactInfo.mobilenumber || ''}
-                             onChange={this.handleModalChange.bind(this,types.ADDCONTACT_MOBILENUMBER)}
-                             placeholder ="Enter mobilenumber" />
-                          </Col>
-                      </Row>
-                      <Row className="show-grid">
-                          <Col componentClass={ ControlLabel } md={ 4 }>
-                            Direct Phone Number:
-                          </Col>
-                          <Col md={ 8 }>
-                          <FormControl
-                             type="text"
-                             name="directnumber"
-                             value={this.state.AddContactInfo.directnumber || ''}
-                             onChange={this.handleModalChange.bind(this,types.ADDCONTACT_DIRECTNUMBER)}
-                             placeholder ="Enter directnumber" />
-                          </Col>
-                      </Row>
-                    </Grid>
-                  </div>
-                </Modal.Body>
+            <Modal.Header closeButton>
+              <Modal.Title>{this.state.modalHeading}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div>
+                <Grid fluid={true}>
+                  <Row className="show-grid">
+                    <Col componentClass={ ControlLabel } md={ 4 }>
+                      Contact:
+                    </Col>
+                    <Col md={ 8 }>
+                      <FormControl
+                        type="text"
+                        name="name"
+                        value={this.state.AddContactInfo.name || ''}
+                        onChange={this.handleModalChange.bind(this,types.ADDCONTACT_COMPANYNAME)}
+                        placeholder="Enter Company name" />
+                    </Col>
+                  </Row>
+                  <Row className="show-grid">
+                    <Col componentClass={ ControlLabel } md={ 4 }>
+                      Email:
+                    </Col>
+                    <Col md={ 8 }>
+                      <FormControl
+                        type="text"
+                        name="email"
+                        value={this.state.AddContactInfo.email || ''}
+                        onChange={this.handleModalChange.bind(this,types.ADDCONTACT_COMPANYEMAIL)}
+                        placeholder="Enter Email" />
+                    </Col>
+                  </Row>
+                  <Row className="show-grid">
+                    <Col componentClass={ ControlLabel } md={ 4 }>
+                      Country:
+                    </Col>
+                    <Col md={ 8 }>
+                      <FormControl componentClass="select"
+                        name="country"
+                        value={this.state.AddContactInfo.country || ''}
+                        onChange={this.handleModalChange.bind(this,types.ADDCONTACT_COUNTRY)}>
+                        {this.countryList}
+                      </FormControl>
+                    </Col>
+                  </Row>
+                  <Row className="show-grid">
+                    <Col componentClass={ ControlLabel } md={ 4 }>
+                      Mobile Phone Number:
+                    </Col>
+                    <Col md={ 8 }>
+                      <FormControl
+                        type="text"
+                        name="mobilenumber"
+                        value={this.state.AddContactInfo.mobilenumber || ''}
+                        onChange={this.handleModalChange.bind(this,types.ADDCONTACT_MOBILENUMBER)}
+                        placeholder ="Enter mobilenumber" />
+                    </Col>
+                  </Row>
+                  <Row className="show-grid">
+                    <Col componentClass={ ControlLabel } md={ 4 }>
+                      Direct Phone Number:
+                    </Col>
+                    <Col md={ 8 }>
+                      <FormControl
+                        type="text"
+                        name="directnumber"
+                        value={this.state.AddContactInfo.directnumber || ''}
+                        onChange={this.handleModalChange.bind(this,types.ADDCONTACT_DIRECTNUMBER)}
+                        placeholder ="Enter directnumber" />
+                    </Col>
+                  </Row>
+                </Grid>
+              </div>
+            </Modal.Body>
                 <Modal.Footer>
                   <Button onClick={this.saveAddContact.bind(this)}>Save Contact</Button>
                   <Button onClick={this.close.bind(this)}>Close</Button>

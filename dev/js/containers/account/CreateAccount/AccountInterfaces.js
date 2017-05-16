@@ -64,56 +64,56 @@ class AccountInterfaces extends React.Component {
     }
 
     handleInterfaceDetailsNext(){
-      console.log(this.state.accountInterfacesInfo);
+      console.log("handleInterfaceDetailsNext==",this.state.accountInterfacesInfo);
       var accountObjCheck = this.state.accountInterfacesInfo;
       if(this.props.accType === "sms"){
-        if(accountObjCheck.techName && accountObjCheck.commName && accountObjCheck.ExstAccts
-         && accountObjCheck.accInterface ){
-           switch(accountObjCheck.accInterface)
+        // if(accountObjCheck.techName && accountObjCheck.commName && accountObjCheck.ExstAccts
+        //  && accountObjCheck.customertype ){
+           switch(accountObjCheck.customertype)
            {
              case "HTTP":
-               if(accountObjCheck.defTPOA && ((accountObjCheck.moEnabled=="Yes" && accountObjCheck.rplAdd) || (accountObjCheck.moEnabled=="No"))) {
+              // if(accountObjCheck.defTPOA && ((accountObjCheck.moEnabled=="Yes" && accountObjCheck.rplAdd) || (accountObjCheck.moEnabled=="No"))) {
                  this.StoreTextFieldsData();
                  this.props.handleInterfaceDetailsNext(this.accountInfo);
-               }
-               else
-                 this.setState({emptyValFlag:false});
+            //   }
+              // else
+            //     this.setState({emptyValFlag:false});
                break;
              case "SMTP":
-               if(accountObjCheck.defTPOA && accountObjCheck.rplAdd) {
+            //   if(accountObjCheck.defTPOA && accountObjCheck.rplAdd) {
                  this.StoreTextFieldsData();
                  this.props.handleInterfaceDetailsNext(this.accountInfo);
-               }
-               else
-                 this.setState({emptyValFlag:false});
+            //   }
+            //   else
+            //     this.setState({emptyValFlag:false});
                break;
              case "SMPP":
-               if(accountObjCheck.defTPOA && accountObjCheck.rplAdd) {
+          //     if(accountObjCheck.defTPOA && accountObjCheck.rplAdd) {
                  this.StoreTextFieldsData();
                  this.props.handleInterfaceDetailsNext(this.accountInfo);
-               }
-               else
-                 this.setState({emptyValFlag:false});
+              //  }
+              //  else
+              //    this.setState({emptyValFlag:false});
                break;
            }
-         }
-         else {
-           if(accountObjCheck.accInterface)
-             this.setState({emptyValFlag:false});
-           this.setState({emptyFlag:false});
-       }
+      //    }
+      //    else {
+      //      if(accountObjCheck.customertype)
+      //        this.setState({emptyValFlag:false});
+      //      this.setState({emptyFlag:false});
+      //  }
       }
       else if(this.props.accType === "email"){
-        if(accountObjCheck.techName && accountObjCheck.commName && accountObjCheck.emailAccInterface
-         && accountObjCheck.acsMethod ){
+        // if(accountObjCheck.techName && accountObjCheck.commName && accountObjCheck.emailAccInterface
+        //  && accountObjCheck.acsMethod ){
            this.StoreTextFieldsData();
            this.props.handleInterfaceDetailsNext(this.accountInfo);
-         }
-         else {
-           if(accountObjCheck.accInterface)
-             this.setState({emptyValFlag:false});
-           this.setState({emptyFlag:false});
-       }
+        // }
+      //    else {
+      //      if(accountObjCheck.customertype)
+      //        this.setState({emptyValFlag:false});
+      //      this.setState({emptyFlag:false});
+      //  }
       }
     }
 
@@ -129,13 +129,13 @@ class AccountInterfaces extends React.Component {
                   <Col componentClass={ ControlLabel } md={ 3 }>
                     Technical name:
                   </Col>
-                  <Col md={ 6 } className={this.state.accountInterfacesInfo.techName || this.state.emptyFlag ? false : "empty"}>
+                  <Col md={ 6 } className={this.state.accountInterfacesInfo.customername || this.state.emptyFlag ? false : "empty"}>
                     <FormControl
-                       type="text"
-                       name="techName"
-                       value={this.state.accountInterfacesInfo.techName}
-                       onChange={this.handleChange.bind(this)}
-                       placeholder="Enter technical name"/>
+                      type="text"
+                      name="customername"
+                      value={this.state.accountInterfacesInfo.customername}
+                      onChange={this.handleChange.bind(this)}
+                      placeholder="Enter technical name"/>
                   </Col>
                   <Col mdHidden md={ 3 } />
                 </Row>
@@ -143,13 +143,13 @@ class AccountInterfaces extends React.Component {
                   <Col componentClass={ ControlLabel } md={ 3 }>
                     Commercial name:
                   </Col>
-                  <Col md={ 6 } className={this.state.accountInterfacesInfo.commName || this.state.emptyFlag ? false : "empty"}>
-                  <FormControl
-                       type="text"
-                       name="commName"
-                       value={this.state.accountInterfacesInfo.commName}
-                       onChange={this.handleChange.bind(this)}
-                       placeholder="Enter commercial name"/>
+                  <Col md={ 6 } className={this.state.accountInterfacesInfo.extranetcustomername || this.state.emptyFlag ? false : "empty"}>
+                    <FormControl
+                      type="text"
+                      name="extranetcustomername"
+                      value={this.state.accountInterfacesInfo.extranetcustomername}
+                      onChange={this.handleChange.bind(this)}
+                      placeholder="Enter commercial name"/>
                   </Col>
                   <Col mdHidden md={ 3 } />
                 </Row>
@@ -159,10 +159,10 @@ class AccountInterfaces extends React.Component {
                       <Col componentClass={ ControlLabel } md={ 3 }>
                         Existing accounts :
                       </Col>
-                      <Col md={ 6 } className={this.state.accountInterfacesInfo.ExstAccts || this.state.emptyFlag ? false : "empty"}>
+                      <Col md={ 6 } className={this.state.accountInterfacesInfo.customerid || this.state.emptyFlag ? false : "empty"}>
                         <FormControl componentClass="select"
-                          name="ExstAccts"
-                          value={this.state.accountInterfacesInfo.ExstAccts}
+                          name="customerid"
+                          value={this.state.accountInterfacesInfo.customerid}
                           onChange={this.handleChange.bind(this)}>
                           {this.accountList}
                         </FormControl>
@@ -173,12 +173,15 @@ class AccountInterfaces extends React.Component {
                       <Col componentClass={ ControlLabel } md={ 3 }>
                         Interface:
                       </Col>
-                      <Col md={ 6 } className={this.state.accountInterfacesInfo.accInterface || this.state.emptyFlag ? false : "empty"}>
+                      <Col md={ 6 } className={this.state.accountInterfacesInfo.customertype || this.state.emptyFlag ? false : "empty"}>
                         <FormControl componentClass="select"
-                          name="accInterface"
-                          value={this.state.accountInterfacesInfo.accInterface}
+                          name="customertype"
+                          value={this.state.accountInterfacesInfo.customertype}
                           onChange={this.handleChange.bind(this)}>
-                          {this.interfaceList}
+                          <option key="HTTP" value="HTTP" selected>HTTP</option>
+                          <option key="SMTP" value="SMTP">SMTP</option>
+                          <option key="SMPP" value="SMPP">SMPP</option>
+                          <option key="SMPP SWIFTLET" value="SMPP SWIFTLET">SMPP SWIFTLET</option>
                         </FormControl>
                       </Col>
                       <Col mdHidden md={ 3 } />
@@ -191,12 +194,12 @@ class AccountInterfaces extends React.Component {
                       <Col componentClass={ ControlLabel } md={ 3 }>
                         Interface:
                       </Col>
-                      <Col md={ 6 } className={this.state.accountInterfacesInfo.emailAccInterface || this.state.emptyFlag ? false : "empty"}>
+                      <Col md={ 6 } className={this.state.accountInterfacesInfo.customertype || this.state.emptyFlag ? false : "empty"}>
                         <FormControl componentClass="select"
-                          name="emailAccInterface"
-                          value={this.state.accountInterfacesInfo.emailAccInterface}
+                          name="customertype"
+                          value={this.state.accountInterfacesInfo.customertype}
                           onChange={this.handleChange.bind(this)}>
-                          {this.emailinterfaceList}
+                          <option key="IN365_EMAIL" value="IN365_EMAIL">IN365_EMAIL</option>
                         </FormControl>
                       </Col>
                       <Col mdHidden md={ 3 } />
@@ -210,22 +213,23 @@ class AccountInterfaces extends React.Component {
                           name="acsMethod"
                           value={this.state.accountInterfacesInfo.acsMethod}
                           onChange={this.handleChange.bind(this)}>
-                          {this.accessList}
+                          <option key="VPN" value="VPN">VPN</option>
+                          <option key="Non VPN" value="Non VPN">Non VPN</option>
                         </FormControl>
                       </Col>
                       <Col mdHidden md={ 3 } />
                     </Row>
                     <Row className="show-grid">
-                        <Col componentClass={ ControlLabel } md={ 3 }>
-                          Schedule Enabled:
-                        </Col>
-                        <Col md={ 6 }>
-                           <Checkbox
-                                name="scheduleEnabled"
-                                className = "checkboxCentered"
-                                onClick={this.handleChange.bind(this)}/>
-                        </Col>
-                        <Col mdHidden md={ 3 } />
+                      <Col componentClass={ ControlLabel } md={ 3 }>
+                        Schedule Enabled:
+                      </Col>
+                      <Col md={ 6 }>
+                        <Checkbox
+                          name="scheduleEnabled"
+                          className = "checkboxCentered"
+                          onClick={this.handleChange.bind(this)}/>
+                      </Col>
+                      <Col mdHidden md={ 3 } />
                     </Row>
                   </div>
                 }
@@ -233,158 +237,158 @@ class AccountInterfaces extends React.Component {
             </div>
 
             {
-              this.state.accountInterfacesInfo.accInterface === "HTTP" &&
-              <div>
-                <div className="controls-container" >
-                   <div className="rec">
-                     <span>MT Interfaces</span>
-                   </div>
-                   <Grid fluid={true}>
-                       <Row className="show-grid">
-                          <Col componentClass={ ControlLabel } md={ 3 }>
-                             Default TPOA:
-                          </Col>
-                          <Col md={ 6 } className={this.state.accountInterfacesInfo.defTPOA || this.state.emptyValFlag ? false : "empty"}>
-                            <FormControl
-                               type="text"
-                               name="defTPOA"
-                               value={this.state.accountInterfacesInfo.defTPOA}
-                               onChange={this.handleChange.bind(this)}
-                               placeholder="Enter Default TPOA"/>
-                          </Col>
-                          <Col mdHidden md={ 3 } />
-                        </Row>
-                   </Grid>
-                 </div>
-
-                <div className="controls-container" >
-                  <div className="rec">
-                    <span>MO Interfaces</span>
+              this.state.accountInterfacesInfo.customertype === "HTTP" &&
+                <div>
+                  <div className="controls-container" >
+                    <div className="rec">
+                      <span>MT Interfaces</span>
+                    </div>
+                    <Grid fluid={true}>
+                      <Row className="show-grid">
+                        <Col componentClass={ ControlLabel } md={ 3 }>
+                          Default TPOA:
+                        </Col>
+                        <Col md={ 6 } className={this.state.accountInterfacesInfo.defaulttpoa || this.state.emptyValFlag ? false : "empty"}>
+                          <FormControl
+                            type="text"
+                            name="defaulttpoa"
+                            value={this.state.accountInterfacesInfo.defaulttpoa}
+                            onChange={this.handleChange.bind(this)}
+                            placeholder="Enter Default TPOA"/>
+                        </Col>
+                        <Col mdHidden md={ 3 } />
+                      </Row>
+                    </Grid>
                   </div>
-                  <Grid fluid={true}>
-                    <Row className="show-grid">
+
+                  <div className="controls-container" >
+                    <div className="rec">
+                      <span>MO Interfaces</span>
+                    </div>
+                    <Grid fluid={true}>
+                      <Row className="show-grid">
                         <Col componentClass={ ControlLabel } md={ 3 }>
                           MO Enabled:
                         </Col>
                         <Col md={ 6 }>
-                           <Checkbox
-                                name="moEnabled"
-                                className = "checkboxCentered"
-                                onClick={this.handleChange.bind(this)}>
+                          <Checkbox
+                            name="moEnabled"
+                            className = "checkboxCentered"
+                            onClick={this.handleChange.bind(this)}>
                             [*Check this box only if you have a valid Customer MO Reply Address]
-                           </Checkbox>
+                          </Checkbox>
                         </Col>
                         <Col mdHidden md={ 3 } />
-                    </Row>
-                    <Row className="show-grid" hidden={this.state.accountInterfacesInfo.moEnabled==="Yes" ? false : "hidden"}>
+                      </Row>
+                      <Row className="show-grid" hidden={this.state.accountInterfacesInfo.moEnabled==="Yes" ? false : "hidden"}>
                         <Col componentClass={ ControlLabel } md={ 3 }>
                           Reply Address:
                         </Col>
-                        <Col md={ 6 } className={this.state.accountInterfacesInfo.rplAdd || this.state.emptyValFlag ? false : "empty"}>
+                        <Col md={ 6 } className={this.state.accountInterfacesInfo.customerreplyaddress || this.state.emptyValFlag ? false : "empty"}>
                           <FormControl
-                             type="text"
-                             name="rplAdd"
-                             value={this.state.accountInterfacesInfo.rplAdd}
-                             onChange={this.handleChange.bind(this)}
-                             placeholder="Enter Reply Address"/>
-                           <HelpBlock>(e.g. https://www.tobedecided.com)</HelpBlock>
+                            type="text"
+                            name="customerreplyaddress"
+                            value={this.state.accountInterfacesInfo.customerreplyaddress}
+                            onChange={this.handleChange.bind(this)}
+                            placeholder="Enter Reply Address"/>
+                          <HelpBlock>(e.g. https://www.tobedecided.com)</HelpBlock>
                         </Col>
                         <Col mdHidden md={ 3 } />
-                    </Row>
-                  </Grid>
+                      </Row>
+                    </Grid>
+                  </div>
                 </div>
-              </div>
             }
 
             {
-              this.state.accountInterfacesInfo.accInterface === "SMTP" &&
-              <div>
-                <div className="controls-container" >
-                   <div className="rec">
-                     <span>MT Interfaces</span>
-                   </div>
-                   <Grid fluid={true}>
-                       <Row className="show-grid">
-                          <Col componentClass={ ControlLabel } md={ 3 }>
-                             Default TPOA:
-                          </Col>
-                          <Col md={ 6 } className={this.state.accountInterfacesInfo.defTPOA || this.state.emptyValFlag ? false : "empty"}>
-                            <FormControl
-                               type="text"
-                               name="defTPOA"
-                               value={this.state.accountInterfacesInfo.defTPOA}
-                               onChange={this.handleChange.bind(this)}
-                               placeholder="Enter Default TPOA"/>
-                          </Col>
-                          <Col mdHidden md={ 3 } />
-                        </Row>
-                   </Grid>
-                 </div>
-
-                <div className="controls-container" >
-                  <div className="rec">
-                    <span>MO Interfaces</span>
+              this.state.accountInterfacesInfo.customertype === "SMTP" &&
+                <div>
+                  <div className="controls-container" >
+                    <div className="rec">
+                      <span>MT Interfaces</span>
+                    </div>
+                    <Grid fluid={true}>
+                      <Row className="show-grid">
+                        <Col componentClass={ ControlLabel } md={ 3 }>
+                          Default TPOA:
+                        </Col>
+                        <Col md={ 6 } className={this.state.accountInterfacesInfo.defaulttpoa || this.state.emptyValFlag ? false : "empty"}>
+                          <FormControl
+                            type="text"
+                            name="defaulttpoa"
+                            value={this.state.accountInterfacesInfo.defaulttpoa}
+                            onChange={this.handleChange.bind(this)}
+                            placeholder="Enter Default TPOA"/>
+                        </Col>
+                        <Col mdHidden md={ 3 } />
+                      </Row>
+                    </Grid>
                   </div>
-                  <Grid fluid={true}>
-                    <Row className="show-grid" >
+
+                  <div className="controls-container" >
+                    <div className="rec">
+                      <span>MO Interfaces</span>
+                    </div>
+                    <Grid fluid={true}>
+                      <Row className="show-grid" >
                         <Col componentClass={ ControlLabel } md={ 3 }>
                           SMTP Reply Address:
                         </Col>
-                        <Col md={ 6 } className={this.state.accountInterfacesInfo.rplAdd || this.state.emptyValFlag ? false : "empty"}>
+                        <Col md={ 6 } className={this.state.accountInterfacesInfo.customerreplyaddress || this.state.emptyValFlag ? false : "empty"}>
                           <FormControl
-                             type="text"
-                             name="rplAdd"
-                             value={this.state.accountInterfacesInfo.rplAdd}
-                             onChange={this.handleChange.bind(this)}
-                             placeholder="Enter Reply Address"/>
+                            type="text"
+                            name="customerreplyaddress"
+                            value={this.state.accountInterfacesInfo.customerreplyaddress}
+                            onChange={this.handleChange.bind(this)}
+                            placeholder="Enter Reply Address"/>
                         </Col>
                         <Col mdHidden md={ 3 } />
-                    </Row>
-                  </Grid>
+                      </Row>
+                    </Grid>
+                  </div>
                 </div>
-              </div>
             }
 
             {
-              this.state.accountInterfacesInfo.accInterface === "SMPP" &&
-              <div>
-                <div className="controls-container" >
-                   <div className="rec">
-                     <span>MT Interfaces</span>
-                   </div>
-                   <Grid fluid={true}>
-                       <Row className="show-grid" >
-                           <Col componentClass={ ControlLabel } md={ 3 }>
-                             SMPP Client IP Address(es):
-                           </Col>
-                           <Col md={ 6 } className={this.state.accountInterfacesInfo.rplAdd || this.state.emptyValFlag ? false : "empty"}>
-                             <FormControl
-                                type="text"
-                                name="rplAdd"
-                                value={this.state.accountInterfacesInfo.rplAdd}
-                                onChange={this.handleChange.bind(this)}
-                                placeholder="Enter Reply Address"/>
-                              <HelpBlock>(comma separated)</HelpBlock>
-                           </Col>
-                           <Col mdHidden md={ 3 } />
-                       </Row>
-                       <Row className="show-grid">
-                          <Col componentClass={ ControlLabel } md={ 3 }>
-                             Default TPOA:
-                          </Col>
-                          <Col md={ 6 } className={this.state.accountInterfacesInfo.defTPOA || this.state.emptyValFlag ? false : "empty"}>
-                            <FormControl
-                               type="text"
-                               name="defTPOA"
-                               value={this.state.accountInterfacesInfo.defTPOA}
-                               onChange={this.handleChange.bind(this)}
-                               placeholder="Enter Default TPOA"/>
-                          </Col>
-                          <Col mdHidden md={ 3 } />
-                        </Row>
-                   </Grid>
-                 </div>
-              </div>
+              this.state.accountInterfacesInfo.customertype === "SMPP" &&
+                <div>
+                  <div className="controls-container" >
+                    <div className="rec">
+                      <span>MT Interfaces</span>
+                    </div>
+                    <Grid fluid={true}>
+                      <Row className="show-grid" >
+                        <Col componentClass={ ControlLabel } md={ 3 }>
+                          SMPP Client IP Address(es):
+                        </Col>
+                        <Col md={ 6 } className={this.state.accountInterfacesInfo.customerreplyaddress || this.state.emptyValFlag ? false : "empty"}>
+                          <FormControl
+                            type="text"
+                            name="customerreplyaddress"
+                            value={this.state.accountInterfacesInfo.customerreplyaddress}
+                            onChange={this.handleChange.bind(this)}
+                            placeholder="Enter Reply Address"/>
+                          <HelpBlock>(comma separated)</HelpBlock>
+                        </Col>
+                        <Col mdHidden md={ 3 } />
+                      </Row>
+                      <Row className="show-grid">
+                        <Col componentClass={ ControlLabel } md={ 3 }>
+                          Default TPOA:
+                        </Col>
+                        <Col md={ 6 } className={this.state.accountInterfacesInfo.defaulttpoa || this.state.emptyValFlag ? false : "empty"}>
+                          <FormControl
+                            type="text"
+                            name="defaulttpoa"
+                            value={this.state.accountInterfacesInfo.defaulttpoa}
+                            onChange={this.handleChange.bind(this)}
+                            placeholder="Enter Default TPOA"/>
+                        </Col>
+                        <Col mdHidden md={ 3 } />
+                      </Row>
+                    </Grid>
+                  </div>
+                </div>
             }
 
             <div className="button-container">
@@ -410,32 +414,11 @@ class AccountInterfaces extends React.Component {
 
     componentWillMount(){
       this.props.getList("interface");
-      var Interfaces = {
-        "data": [
-            {"name": "HTTP", "value": "HTTP"},
-            {"name": "SMPP", "value": "SMPP"},
-            {"name": "SMTP", "value": "SMTP"}
-        ]
-      };
-      this.interfaceList = initializeSelectOptions(Interfaces.data,'name','value');
-      var emailInterfaces = {
-        "data": [
-            {"name": "IN365_EMAIL", "value": "IN365_EMAIL"}
-        ]
-      };
-      this.emailinterfaceList = initializeSelectOptions(emailInterfaces.data,'name','value');
-      var AccessMethod = {
-        "data": [
-            {"name": "VPN", "value": "VPN"},
-            {"name": "Non VPN", "value": "Non VPN"}
-        ]
-      };
-      this.accessList = initializeSelectOptions(AccessMethod.data,'name','value');
     }
 
     componentWillReceiveProps (nextProps) {
       console.log("componentWillReceiveProps==",nextProps);
-      this.accountList = initializeSelectOptions(nextProps.AcctList,'customername','customerid');
+      this.accountList = initializeSelectOptions(nextProps.AcctList,'name','customerid');
       console.log("this.accountList==",this.accountList);
     }
 
@@ -446,7 +429,7 @@ function mapStateToProps(state) {
       // data: state.Account.data,
       target : state.Common.target,
       AcctList : state.Common.acctList,
-      accType : state.Account.accType
+      accType : state.Account.accType ||"sms"
     };
 }
 

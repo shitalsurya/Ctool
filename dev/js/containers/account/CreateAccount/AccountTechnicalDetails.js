@@ -11,7 +11,7 @@ import { initializeData,handleTechDetailsNext, getMetadata,handleTechDetailsBack
 import * as types from './../../common/commonActionTypes';
 import {getList} from './../../common/commonActions';
 import {initializeSelectOptions} from './../../common/Functions/commonFunctions';
-import ModalAddContact from '../AccountDetails/General/AddContact';
+import ModalAddContact from './../AccountDetails/General/AddContact';
 require('./../../../../scss/style.scss');
 const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 
@@ -29,11 +29,11 @@ class AccountTechnicalDetails extends React.Component {
     handleChange(e){
       console.log("handleChange==",e.target.value);
       this.props.getExContactDetails(e.target.value);
-      // var info = this.state.accountTechDetailsInfo;
-      // info[e.target.name] = e.target.value;
-      // this.setState({accountTechDetailsInfo:info},function(){
-      //   console.log("handleChange==",this.state.accountTechDetailsInfo);
-      // });
+       var info = this.state.accountTechDetailsInfo;
+       info[e.target.name] = e.target.value;
+       this.setState({accountTechDetailsInfo:info},function(){
+         console.log("handleChange==",this.state.accountTechDetailsInfo);
+       });
     }
 
     handleTechDetailsBack(){
@@ -59,7 +59,7 @@ class AccountTechnicalDetails extends React.Component {
     addContact(_contact){
       this.setState({emptyFlag : false});
       var info = this.state.accountTechDetailsInfo;
-      info.contactDetails = _contact;
+      info.contact = _contact;
       this.setState({accountTechDetailsInfo:info});
     }
 
@@ -79,9 +79,10 @@ class AccountTechnicalDetails extends React.Component {
                       </Col>
                       <Col md={ 4 }>
                         <FormControl componentClass="select"
-                          name="exstContacts"
-                          value={this.state.accountTechDetailsInfo.exstContacts}
+                          name="contactid"
+                          value={this.state.accountTechDetailsInfo.contact.contactid}
                           onChange={this.handleChange.bind(this)}>
+                          <option value="select" disabled selected>Please select...</option>
                           {this.exContactList}
                         </FormControl>
                       </Col>
@@ -102,7 +103,7 @@ class AccountTechnicalDetails extends React.Component {
                       </Col>
                       <Col md={ 6 }>
                         <FormControl.Static name="name">
-                          {this.state.accountTechDetailsInfo.contactDetails.name}
+                          {this.contactDetails.name}
                         </FormControl.Static>
                       </Col>
                       <Col mdHidden md={ 3 } />
@@ -113,7 +114,7 @@ class AccountTechnicalDetails extends React.Component {
                       </Col>
                       <Col md={ 6 }>
                         <FormControl.Static name="email">
-                          {this.state.accountTechDetailsInfo.contactDetails.email}
+                          {this.contactDetails.email}
                         </FormControl.Static>
                       </Col>
                       <Col mdHidden md={ 3 } />
@@ -124,7 +125,7 @@ class AccountTechnicalDetails extends React.Component {
                       </Col>
                       <Col md={ 6 }>
                         <FormControl.Static name="country">
-                          {this.state.accountTechDetailsInfo.contactDetails.country}
+                          {this.contactDetails.country}
                         </FormControl.Static>
                       </Col>
                       <Col mdHidden md={ 3 } />
@@ -135,22 +136,22 @@ class AccountTechnicalDetails extends React.Component {
                       </Col>
                       <Col md={ 6 }>
                         <FormControl.Static name="mobilenumber">
-                          {this.state.accountTechDetailsInfo.contactDetails.mobilenumber}
+                          {this.contactDetails.mobilenumber}
                         </FormControl.Static>
                       </Col>
                       <Col mdHidden md={ 3 } />
                     </Row>
                     <Row className="show-grid">
-                       <Col componentClass={ ControlLabel } md={ 3 }>
-                         Direct phone number:
-                       </Col>
-                       <Col md={ 6 }>
-                         <FormControl.Static name="directnumber">
-                           {this.state.accountTechDetailsInfo.contactDetails.directnumber}
-                         </FormControl.Static>
-                       </Col>
-                       <Col mdHidden md={ 3 } />
-                     </Row>
+                      <Col componentClass={ ControlLabel } md={ 3 }>
+                        Direct phone number:
+                      </Col>
+                      <Col md={ 6 }>
+                        <FormControl.Static name="directnumber">
+                          {this.contactDetails.directnumber}
+                        </FormControl.Static>
+                      </Col>
+                      <Col mdHidden md={ 3 } />
+                    </Row>
                   </div>
                 }
 
@@ -182,25 +183,7 @@ class AccountTechnicalDetails extends React.Component {
 
     componentWillMount(){
         this.props.getList("contacts");
-        // var Companies = {
-        //   "data":[
-        //     {"name": "10 GRAD(37669)", "value": "10 GRAD(37669)"},
-        //     {"name": "100 BEST(39551)", "value": "100 BEST(39551)"},
-        //     {"name": "10DUKE (38660)", "value": "10DUKE (38660)"},
-        //     {"name": "118811 (39258)", "value": "118811 (39258)"}
-        //   ]
-        // };
-        // this.contactsList = initializeData(Companies,'value');
     }
-
-    // componentDidMount(){
-    //   // this.refs.name.getInputNode().value = this.props.accountObj.name||"";
-    //   // this.refs.email.getInputNode().value = this.props.accountObj.email||"";
-    //   // this.refs.MobNo.getInputNode().value = this.props.accountObj.MobNo||"";
-    //   // this.refs.DirectNo.getInputNode().value = this.props.accountObj.DirectNo||"";
-    //   // this.refs.techName.getInputNode().value = this.props.accountObj.techName||"";
-    //   // this.refs.commName.getInputNode().value = this.props.accountObj.commName||"";
-    // }
 
     componentWillReceiveProps (nextProps) {
       console.log("componentWillReceiveProps==",nextProps);
@@ -208,15 +191,15 @@ class AccountTechnicalDetails extends React.Component {
       console.log("this.Countries==",this.Countries);
       this.exContactList = initializeSelectOptions(nextProps.exContactList,'name','contactid');
       console.log("this.exContactList==",this.exContactList);
-      var info = this.state.accountTechDetailsInfo || [];
-      info.contactDetails = nextProps.contactDetails || {};
+
       switch(nextProps.target){
         case types.GET_EX_CONTACT_DETAILS_RESPONSE:
-          info.contactDetails = nextProps.contactDetails.details;
-          this.setState({emptyFlag:false});
+          this.contactDetails = nextProps.contactDetails.details;
+            var info = this.state.accountTechDetailsInfo || [];
+            info.contact = this.contactDetails || {};
+          this.setState({emptyFlag:false,accountTechDetailsInfo:info});
           break;
       }
-      this.setState({accountTechDetailsInfo:info})
     }
 }
 
