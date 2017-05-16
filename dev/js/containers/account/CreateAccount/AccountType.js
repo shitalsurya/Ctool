@@ -13,6 +13,7 @@ class AccountType extends React.Component{
   constructor(props,context){
     super(props,context);
     this.state = {
+      type:'sms',
       submenus:{
         head: types.ACCOUNT_LIST,
         head_icon : "accounts-icon",
@@ -23,12 +24,8 @@ class AccountType extends React.Component{
     }
   }
 
-  handleAccountType(e){
-    this.props.handleAccType(e.target.name);
-    this.context.router.push( 'CreateAccount' );
-  }
-
   render(){
+    this.props.handleAccType(this.state.type);
     return(
       <div>
         <BrandingHeader/>
@@ -53,10 +50,16 @@ class AccountType extends React.Component{
                           Select the type of account to be created :
                         </Col>
                         <Col md={6}>
-                          <ButtonToolbar onClick={this.handleAccountType.bind(this)}>
-                            <Button className="typeButton" name="sms" bsStyle="info">SMS Account</Button>
-                            <Button className="typeButton" name="email" bsStyle="info">IN365 Email Account</Button>
-                          </ButtonToolbar>
+                          <ButtonGroup justified>
+                            <Button href="#CreateAccount" className="grp-btn" name="sms" onClick={() => this.setState({type:'sms'})}>
+                              <span className="add-icon"></span>
+                              <span>SMS Account</span>
+                            </Button>
+                            <Button href="#CreateAccount" className="grp-btn" name="email" onClick={() => this.setState({type:'email'})}>
+                              <span className="add-icon"></span>
+                              <span>IN365 Email Account</span>
+                            </Button>
+                          </ButtonGroup>
                         </Col>
                         <Col mdHidden md={ 4 }/>
                       </Row>
@@ -70,6 +73,7 @@ class AccountType extends React.Component{
       </div>
     );
   }
+
 }
 
 AccountType.contextTypes = {

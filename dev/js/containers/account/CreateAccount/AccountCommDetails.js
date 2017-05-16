@@ -27,11 +27,11 @@ class AccountCommDetails extends React.Component {
 
   handleChange( e) {
       console.log("handleChange==",e.target.value);
-    var info = this.state.acctCommInfo;
-    info[e.target.name] = e.target.value;
-    this.setState({acctCommInfo:info},function(){
-      console.log("handleChange==",this.state.acctCommInfo);
-    });
+      var info = this.state.acctCommInfo;
+      info[e.target.name] = e.target.value;
+      this.setState({acctCommInfo:info},function(){
+        console.log("handleChange==",this.state.acctCommInfo);
+      });
   }
 
   render() {
@@ -199,34 +199,36 @@ class AccountCommDetails extends React.Component {
 
     this.props.getList("accounts");
     var info = this.state.acctCommInfo;
+    info.revSharing = "No";
     info.requesterName = sessionStorage.getItem( "username" );
     this.setState({accountCommInfo : info});
   }
 
   componentWillReceiveProps( nextProps ) {
     console.log("componentWillReceiveProps==",nextProps);
-      this.userList = initializeSelectOptions(nextProps.Users,'name','id');
-        console.log("this.userList==",this.userList);
-      this.companyList = initializeSelectOptions(nextProps.Company,'companyname','companyid');
-        console.log("this.companyList==",this.companyList);
 
-          this.BillingLocation = initializeSelectOptions(nextProps.BillingLocation,'billinglocationname','billinglocationid');
-              console.log("this.BillingLocation==",this.BillingLocation);
-          this.ServiceLevel = initializeSelectOptions(SERVICE_LEVEL,'servicelevelname','servicelevelid');
+      this.userList = initializeSelectOptions(nextProps.Users,'name','id');
+    console.log("this.userList==",this.userList);
+      this.companyList = initializeSelectOptions(nextProps.Company,'companyname','companyid');
+    console.log("this.companyList==",this.companyList);
+
+      this.BillingLocation = initializeSelectOptions(nextProps.BillingLocation,'billinglocationname','billinglocationid');
+    console.log("this.BillingLocation==",this.BillingLocation);
+      this.ServiceLevel = initializeSelectOptions(SERVICE_LEVEL,'servicelevelname','servicelevelid');
     console.log("this.ServiceLevel==",this.ServiceLevel);
-          this.TrafficType = initializeSelectOptions(TRAFFIC_TYPE,'traffictypename','traffictypeid');
-              console.log("this.TrafficType==",this.TrafficType);
+      this.TrafficType = initializeSelectOptions(TRAFFIC_TYPE,'traffictypename','traffictypeid');
+    console.log("this.TrafficType==",this.TrafficType);
   }
 }
 
 function mapStateToProps( state ) {
   return {
-  //  data: state.Account.data,
-  target: state.Common.target,
-  Users:state.Common.userList,
-  Company:state.Common.compList,
-  BillingLocation:state.Common.billingLocationList,
-  accType:state.Account.accType
+    //  data: state.Account.data,
+    target: state.Common.target,
+    Users:state.Common.userList,
+    Company:state.Common.compList,
+    BillingLocation:state.Common.billingLocationList,
+    accType:state.Account.accType
   };
 }
 

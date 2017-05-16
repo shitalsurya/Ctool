@@ -5,6 +5,7 @@ import {httpRequest} from '../../../containers/common/commonAjaxActions';
 import {getSpndAccount, getDataList} from './accountAjaxActions';
 import Company from '../../../../json/Company.json';
 import ExContact from '../../../../json/ExistingContact.json';
+import ExContactDetails from '../../../../json/ExContactDetails.json';
 export function initializeData(_list,valField){
   console.log("initializeData==",_list);
   var list = _list.data.map(function (item, index) {
@@ -233,15 +234,24 @@ export function getExContactListRequest() {
 			type: types.GET_EX_CONTACT_LIST_REQUEST
 		}
 	}
-export function getExContactListResponse(data) {
+export function getExContactListResponse(response) {
 		return {
 			type: types.GET_EX_CONTACT_LIST_RESPONSE,
+    	//  payload: response.data
 			 payload: ExContact
 		}
 }
 export function getExContactList() {
 	return function (dispatch,getState) {
 		dispatch(getExContactListResponse());
+    // dispatch(getExContactListRequest());
+    // var request = {
+    //     url:config.getUrl('GetCountryList'),
+    //     method:'GET',
+    //     successCallback:getExContactListResponse,
+    //     failureCallback:getExContactListResponse
+    // };
+    // return httpRequest(dispatch,getState,request);
 	}
 }
 
@@ -254,5 +264,31 @@ export function handleAccTypeSelected(_type){
 	return{
 		  type: types.CREATE_ACCOUNT_TYPE,
 			payload:_type
+	}
+}
+
+export function getExContactDetailsRequest() {
+		return {
+			type: types.GET_EX_CONTACT_DETAILS_REQUEST
+		}
+	}
+export function getExContactDetailsResponse(response) {
+		return {
+			type: types.GET_EX_CONTACT_DETAILS_RESPONSE,
+    	//  payload: response.data
+			 payload: ExContactDetails
+		}
+}
+export function getExContactDetails(_contactid) {
+	return function (dispatch,getState) {
+		dispatch(getExContactDetailsResponse());
+    // dispatch(getExContactDetailsRequest());
+    // var request = {
+    //     url:config.getUrl('GetCountryList'),
+    //     method:'GET',
+    //     successCallback:getExContactDetailsResponse,
+    //     failureCallback:getExContactDetailsResponse
+    // };
+    // return httpRequest(dispatch,getState,request);
 	}
 }

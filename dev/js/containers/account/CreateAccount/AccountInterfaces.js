@@ -122,7 +122,7 @@ class AccountInterfaces extends React.Component {
           <div>
             <div className="controls-container">
               <div className="rec">
-                <span>Account Name and Interfaces</span>
+                <span>Technical Details</span>
               </div>
               <Grid fluid={true}>
                 <Row className="show-grid">

@@ -21,19 +21,19 @@ class Stepper extends React.Component {
                 <button type="button" className={this.props.buttonStyle.techStyle} >
                   2
                 </button>
-                <p>Technical Details</p>
+                <p>Customer Contacts</p>
             </div>
             <div className="stepwizard-step">
                 <button type="button" className={this.props.buttonStyle.intrStyle} >
                   3
                 </button>
-                <p>Account Name and Interfaces</p>
+                <p>Technical Details</p>
             </div>
             <div className="stepwizard-step">
                 <button type="button" className={this.props.buttonStyle.revwStyle} >
                   4
                 </button>
-                <p>Create Account</p>
+                <p>Summary & Confirmation</p>
             </div>
         </div>
       </div>
