@@ -4,7 +4,7 @@ import {getUserList} from './../miscellaneous/users/miscUsersActions';
 import {getCountryList} from './../miscellaneous/countries/miscCntryActions';
 import {getExContactList} from './../account/actions/accountActions';
 import {getHubAcctListe} from '../account/actions/accountListActions';
-import {getHubAccountCommercialInfo} from '../account/actions/accountGeneralActions';
+import {getHubAccountCommercialInfo, getHubAccountTechnicalInfo} from '../account/actions/accountGeneralActions';
 import {getHubAcctDefaultTPOA,getHubAcctForcedTPOAList} from '../account/actions/accountTPOAActions';
 import BillingLocation from './../../../json/BillingLocation.json';
 import Company from './../../../json/Company.json';
@@ -22,7 +22,7 @@ import * as config from './config';
 					case "accounts":
 						dispatch(getUserList())
 						dispatch(getCompanyList())
-							dispatch(getBillingLocationList())
+						dispatch(getBillingLocationList())
 						break;
 					case "contacts":
 						dispatch(getCountryList())
@@ -33,11 +33,11 @@ import * as config from './config';
 						break;
 					case "AccountDetails":
 						dispatch(getHubAccountCommercialInfo(currentAcct))
+						dispatch(getHubAccountTechnicalInfo(currentAcct))
 						dispatch(getBillingLocationList())
-	 					 dispatch(getSMSCList())
-	 					 dispatch(getHubAcctForcedTPOAList(currentAcct))
-	 					 break;
-
+	 					dispatch(getSMSCList())
+	 					dispatch(getHubAcctForcedTPOAList(currentAcct))
+	 					break;
 				}
 		  }
 		}

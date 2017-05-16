@@ -80,16 +80,21 @@ export default function(state = {
           });
 
     			return Object.assign({}, state, {exContactList:action.payload.data,target:action.type});
-          case types.GET_ACCT_FORCED_TPOA_LIST_REQUEST:
-            return Object.assign({}, state, {});
-          case types.GET_ACCT_FORCED_TPOA_LIST_RESPONSE:
-            console.log("GET_ACCT_FORCED_TPOA_LIST_RESPONSE==",action.payload);
-            return Object.assign({}, state, {TPOAinfo:action.payload,target:action.type});
-          case types.GET_ACCT_GENERAL_COMM_INFO_REQUEST:
-            return Object.assign({}, state, {});
-          case types.GET_ACCT_GENERAL_COMM_INFO_RESPONSE:
-            console.log("GET_ACCT_GENERAL_COMM_INFO_RESPONSE==",action.payload);
-            return Object.assign({}, state, {infoGenComm:action.payload,target:action.type});
+        case types.GET_ACCT_FORCED_TPOA_LIST_REQUEST:
+          return Object.assign({}, state, {});
+        case types.GET_ACCT_FORCED_TPOA_LIST_RESPONSE:
+          console.log("GET_ACCT_FORCED_TPOA_LIST_RESPONSE==",action.payload);
+          return Object.assign({}, state, {TPOAinfo:action.payload,target:action.type});
+        case types.GET_ACCT_GENERAL_COMM_INFO_REQUEST:
+          return Object.assign({}, state, {});
+        case types.GET_ACCT_GENERAL_COMM_INFO_RESPONSE:
+          console.log("GET_ACCT_GENERAL_COMM_INFO_RESPONSE==",action.payload);
+          return Object.assign({}, state, {infoGenComm:action.payload,target:action.type});
+        case types.GET_ACCT_GENERAL_TECH_INFO_REQUEST:
+          return Object.assign({}, state, {});
+        case types.GET_ACCT_GENERAL_TECH_INFO_RESPONSE:
+          console.log("GET_ACCT_GENERAL_TECH_INFO_RESPONSE==",action.payload);
+          return Object.assign({}, state, {infoGenTech:action.payload,target:action.type});
         case types.CREATE_ACCOUNT_TYPE:
           return Object.assign({}, state, {
             accType: action.payload,
