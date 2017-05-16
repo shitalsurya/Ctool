@@ -60,7 +60,6 @@ handleCNLChange(name,val){
 
   handleToggleChange(e){
     console.log("handleToggleChange==",e.target.name);
-    debugger;
     this.currentCntry = this.state.currentCntry;
     console.log( "handleInlineEditChange this.currentCntry==", this.currentCntry );
     this.currentCntry[e.target.name] = e.target.checked;//? "Yes" : "No";

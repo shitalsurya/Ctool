@@ -7,41 +7,31 @@ import Select from 'react-select';
 import InlineEdit from './../../../common/components/InlineEdit';
 require('./../../../../../scss/tabs.scss');
 require('./../../../../../scss/style.scss');
+import { updateHubAccountDelvTimeInfo } from './../../actions/accountGeneralActions';
 
 class InfoGeneralDeliveryTime extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-          deliveryTimeObj : {
-            startTime : 'Some Random Time',
-            endTime : 'Some Random Time'
-          }
+          deliveryTimeObj : this.props.infoGenDelivery
         }
     }
 
     handleInlineEditChange(name,val){
+      console.log("name : ",name, "  val : ",val);
       var info = this.state.deliveryTimeObj;
-      switch (name) {
-        case "startTime":
-          info.startTime =val;
-          break;
-        case "endTime":
-          info.endTime = val;
-          break;
-        default:
 
+      if(info[name]!==val){
+        info[name]=val;
+        this.setState({deliveryTimeObj : info},function(){
+          console.log("update delivery time details==",this.state.deliveryTimeObj);
+          this.props.updateHubAccountDelvTimeInfo(this.state.deliveryTimeObj);
+        });
       }
-      this.setState({deliveryTimeObj : info});
     }
 
     render() {
       console.log("deliveryTimeObj : ",this.state.deliveryTimeObj);
-      var startOptions = [
-        { "id":1 , "value":"Some Random Time"}
-      ];
-      var endOptions = [
-        { "id":1 , "value":"Some Random Time"}
-      ];
 
         return (
           <div >
@@ -52,7 +42,13 @@ class InfoGeneralDeliveryTime extends React.Component {
                   Preferred Start Time(UTC) :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit name="startTime" type="select" options={startOptions} value={this.state.deliveryTimeObj.startTime} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit
+                    name="starttimeid"
+                    type="select"
+                    options={this.props.StartTimeList}
+                    optionsLabel="starttimename"
+                    value={this.state.deliveryTimeObj.starttimeid}
+                    onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 8 }/>
               </Row>
@@ -62,7 +58,13 @@ class InfoGeneralDeliveryTime extends React.Component {
                   Preferred End Time(UTC) :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit name="endTime" type="select" options={endOptions} value={this.state.deliveryTimeObj.endTime} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit
+                    name="endtimeid"
+                    type="select"
+                    options={this.props.EndTimeList}
+                    optionsLabel="endtimename"
+                    value={this.state.deliveryTimeObj.endtimeid}
+                    onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -80,11 +82,16 @@ class InfoGeneralDeliveryTime extends React.Component {
 
 function mapStateToProps(state) {
     return {
+      infoGenDelivery : state.Account.infoGenDelivery,
+      StartTimeList : state.Common.startTimeList,
+      EndTimeList : state.Common.endTimeList
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ }, dispatch);
+    return bindActionCreators({
+      updateHubAccountDelvTimeInfo:updateHubAccountDelvTimeInfo
+    }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoGeneralDeliveryTime);

@@ -95,6 +95,16 @@ export default function(state = {
         case types.GET_ACCT_GENERAL_TECH_INFO_RESPONSE:
           console.log("GET_ACCT_GENERAL_TECH_INFO_RESPONSE==",action.payload);
           return Object.assign({}, state, {infoGenTech:action.payload,target:action.type});
+        case types.GET_ACCT_GENERAL_VOL_INFO_REQUEST:
+          return Object.assign({}, state, {});
+        case types.GET_ACCT_GENERAL_VOL_INFO_RESPONSE:
+          console.log("GET_ACCT_GENERAL_VOL_INFO_RESPONSE==",action.payload);
+          return Object.assign({}, state, {infoGenVol:action.payload,target:action.type});
+        case types.GET_ACCT_GENERAL_DELV_INFO_REQUEST:
+          return Object.assign({}, state, {});
+        case types.GET_ACCT_GENERAL_DELV_INFO_RESPONSE:
+          console.log("GET_ACCT_GENERAL_DELV_INFO_RESPONSE==",action.payload);
+          return Object.assign({}, state, {infoGenDelivery:action.payload,target:action.type});
         case types.CREATE_ACCOUNT_TYPE:
           return Object.assign({}, state, {
             accType: action.payload,
