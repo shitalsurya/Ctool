@@ -29,14 +29,14 @@ export default function (state = {}, action = null) {
 			return Object.assign({}, state, {});
 		case types.MISC_ACCOUNT_LIST_RESPONSE:
 			return Object.assign({}, state, {acctList:action.payload,target:action.type});
-			case types.GET_BILLINGLOCATION_LIST_REQUEST:
-				return Object.assign({}, state, {});
-			case types.GET_BILLINGLOCATION_LIST_RESPONSE:
-				return Object.assign({}, state, {billingLocationList:action.payload.data,target:action.type});
-				case types.GET_SMSC_LIST_REQUEST:
-					return Object.assign({}, state, {});
-				case types.GET_SMSC_LIST_RESPONSE:
-					return Object.assign({}, state, {smscList:action.payload,target:action.type});
+		case types.GET_BILLINGLOCATION_LIST_REQUEST:
+			return Object.assign({}, state, {});
+		case types.GET_BILLINGLOCATION_LIST_RESPONSE:
+			return Object.assign({}, state, {billingLocationList:action.payload.data,target:action.type});
+		case types.GET_SMSC_LIST_REQUEST:
+			return Object.assign({}, state, {});
+		case types.GET_SMSC_LIST_RESPONSE:
+			return Object.assign({}, state, {smscList:action.payload,target:action.type});
 		default:
 			return state;
 	}

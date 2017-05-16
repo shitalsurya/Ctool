@@ -7,36 +7,28 @@ import Select from 'react-select';
 import InlineEdit from './../../../common/components/InlineEdit';
 require('./../../../../../scss/tabs.scss');
 require('./../../../../../scss/style.scss');
+import { updateHubAccountTechnicalInfo } from './../../actions/accountGeneralActions';
 
 class InfoGeneralTechnical extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-          techInfoObj : {
-            accID : '31353',
-            techName : 'ACCNAME12345_HTTP',
-            revStatus : 'No',
-            exAdd : 'http://172.24.229.51:8883/',
-            disExtranet : 'No',
-            extLogin : 'ACCNAME12345_HTTP',
-            extPassword : 'PWD',
-            msgEncrp : 'No',
-            msgBodyRem : 'No'
-          }
+          techInfoObj : this.props.infoGenTech||{}
         }
     }
 
     handleInlineEditChange(name,val){
+      console.log("name : ",name, "  val : ",val);
       var info = this.state.techInfoObj;
-      switch (name) {
-        case "techName":
-          info.techName=val;
-          break;
-        case "extPassword":
-          info.extPassword = val;
-          break;
+
+      if(info[name]!==val){
+        info[name]=val;
+      this.setState({techInfoObj:info},function(){
+        console.log("update tech details==",this.state.techInfoObj);
+        this.props.updateHubAccountTechnicalInfo(this.state.techInfoObj);
+      });
+
       }
-      this.setState({techInfoObj:info});
     }
 
     render() {
@@ -176,11 +168,14 @@ class InfoGeneralTechnical extends React.Component {
 
 function mapStateToProps(state) {
     return {
+      infoGenTech:state.Account.infoGenTech
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ }, dispatch);
+    return bindActionCreators({
+      updateHubAccountTechnicalInfo:updateHubAccountTechnicalInfo
+    }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoGeneralTechnical);

@@ -11,7 +11,7 @@ import InfoGeneralVolumeSetting from './InfoGeneralVolumeSetting';
 import InfoGeneralMTSetting from './InfoGeneralMTSetting';
 import InfoGeneralMOSetting from './InfoGeneralMOSetting';
 import InfoGeneralDeliveryTime from './InfoGeneralDeliveryTime';
-import {getList} from './../../../common/commonActions';
+// import {getList} from './../../../common/commonActions';
 require('./../../../../../scss/style.scss');
 require('./../../../../../scss/tabs.scss');
 import * as types from './../../../common/commonActionTypes';
@@ -215,7 +215,7 @@ class HubAccountGeneral extends React.Component {
       }
       this.setState({openStatus : updatedOpenStatus});
     }
-    
+
 
 }
 
@@ -227,7 +227,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-      getList:getList
+      // getList:getList
      }, dispatch);
 }
 
