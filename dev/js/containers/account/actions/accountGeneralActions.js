@@ -37,6 +37,29 @@ var deliveryTimeInfo = {
 	endtimeid : 1
 }
 
+var moSettingInfo = {
+	intrfType : 'HTTP',
+	replyAdd : 'http://192.168.60.99:888/cgi-bin/trash.pl',
+	login : 'N/A',
+	password : 'N/A',
+	pathOut : '/opt/HUB/routermo/outputspool/defaulttrash/',
+	disTxtBdy : 'No'
+}
+
+var mtSettingInfo = {
+	interfaceType : 'HTTP',
+	url : 'http://sms-pp.sapmobileservices.com/cmc/accname12348581/accname12348581.sms',
+	login : 'accname12348581',
+	password : 'JuF6HJi',
+	encode : 'YWNjbmFtZTEyMzQ4NTgxOkp1Rmo2SEpp',
+	mwNotifid : 1,
+	smscNotifid : 1,
+	mobileNotifid : 1,
+	ntfPath : '/usr/mobileway/notifs/outputspool/http',
+	disTxtBody : 'No',
+	country : ''
+}
+
 export function getHubAccountCommercialInfo(currentAcct) {
 	return function (dispatch,getState) {
 		dispatch(getHubAccountCommercialInfoResponse());
@@ -138,6 +161,75 @@ export function updateHubAccountVolumeInfoResponse(data) {
 	return {
 		type: types.UPDATE_ACCT_GENERAL_VOL_INFO_RESPONSE,
 		 payload: volSettingInfo
+	}
+}
+
+
+export function getHubAccountMTInfo(currentAcct) {
+	return function (dispatch,getState) {
+		dispatch(getHubAccountMTInfoResponse());
+	}
+}
+export function getHubAccountMTInfoRequest() {
+  return {
+    type: types.GET_ACCT_GENERAL_MT_INFO_REQUEST
+  }
+}
+export function getHubAccountMTInfoResponse(data) {
+  return {
+    type: types.GET_ACCT_GENERAL_MT_INFO_RESPONSE,
+		 payload: mtSettingInfo
+  }
+}
+
+export function updateHubAccountMTInfo(mtSettingInfo) {
+	return function (dispatch,getState) {
+		dispatch(updateHubAccountMTInfoResponse());
+	}
+}
+export function updateHubAccountMTInfoRequest() {
+	return {
+		type: types.UPDATE_ACCT_GENERAL_MT_INFO_REQUEST
+	}
+}
+export function updateHubAccountMTInfoResponse(data) {
+	return {
+		type: types.UPDATE_ACCT_GENERAL_MT_INFO_RESPONSE,
+		 payload: mtSettingInfo
+	}
+}
+
+export function getHubAccountMOInfo(currentAcct) {
+	return function (dispatch,getState) {
+		dispatch(getHubAccountMOInfoResponse());
+	}
+}
+export function getHubAccountMOInfoRequest() {
+  return {
+    type: types.GET_ACCT_GENERAL_MO_INFO_REQUEST
+  }
+}
+export function getHubAccountMOInfoResponse(data) {
+  return {
+    type: types.GET_ACCT_GENERAL_MO_INFO_RESPONSE,
+		 payload: moSettingInfo
+  }
+}
+
+export function updateHubAccountMOInfo(moSettingInfo) {
+	return function (dispatch,getState) {
+		dispatch(updateHubAccountMOInfoResponse());
+	}
+}
+export function updateHubAccountMOInfoRequest() {
+	return {
+		type: types.UPDATE_ACCT_GENERAL_MO_INFO_REQUEST
+	}
+}
+export function updateHubAccountMOInfoResponse(data) {
+	return {
+		type: types.UPDATE_ACCT_GENERAL_MO_INFO_RESPONSE,
+		 payload: moSettingInfo
 	}
 }
 

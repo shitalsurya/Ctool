@@ -100,6 +100,16 @@ export default function(state = {
         case types.GET_ACCT_GENERAL_VOL_INFO_RESPONSE:
           console.log("GET_ACCT_GENERAL_VOL_INFO_RESPONSE==",action.payload);
           return Object.assign({}, state, {infoGenVol:action.payload,target:action.type});
+        case types.GET_ACCT_GENERAL_MT_INFO_REQUEST:
+          return Object.assign({}, state, {});
+        case types.GET_ACCT_GENERAL_MT_INFO_RESPONSE:
+          console.log("GET_ACCT_GENERAL_MT_INFO_RESPONSE==",action.payload);
+          return Object.assign({}, state, {infoGenMT:action.payload,target:action.type});
+        case types.GET_ACCT_GENERAL_MO_INFO_REQUEST:
+          return Object.assign({}, state, {});
+        case types.GET_ACCT_GENERAL_MO_INFO_RESPONSE:
+          console.log("GET_ACCT_GENERAL_MO_INFO_RESPONSE==",action.payload);
+          return Object.assign({}, state, {infoGenMO:action.payload,target:action.type});
         case types.GET_ACCT_GENERAL_DELV_INFO_REQUEST:
           return Object.assign({}, state, {});
         case types.GET_ACCT_GENERAL_DELV_INFO_RESPONSE:
