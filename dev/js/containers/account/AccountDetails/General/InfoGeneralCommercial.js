@@ -58,7 +58,10 @@ class InfoGeneralCommercial extends React.Component {
                   Billing Location :
                 </Col>
                 <Col md={ 8 } >
-                  <InlineEdit name="billinglocationid" type="select" options={this.props.BillingLocation}
+                  <InlineEdit
+                    name="billinglocationid"
+                    type="select"
+                    options={this.props.BillingLocation}
                     optionsLabel="billinglocationname"
                     value={this.state.commInfoObj.billinglocationid}
                     onSave={this.handleInlineEditChange.bind(this)}  />
@@ -113,7 +116,10 @@ class InfoGeneralCommercial extends React.Component {
                   Service Level :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit name="servicelevelid" type="select" options={SERVICE_LEVEL}
+                  <InlineEdit
+                    name="servicelevelid"
+                    type="select"
+                    options={SERVICE_LEVEL}
                     optionsLabel="servicelevelname"
                     value={this.state.commInfoObj.servicelevelid}
                     onSave={this.handleInlineEditChange.bind(this)}  />
@@ -126,7 +132,10 @@ class InfoGeneralCommercial extends React.Component {
                   Legal Status :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit name="legalstatusid" type="select" options={LEGAL_STATUS}
+                  <InlineEdit
+                    name="legalstatusid"
+                    type="select"
+                    options={LEGAL_STATUS}
                     optionsLabel="legalstatusname"
                     value={this.state.commInfoObj.legalstatusid}
                     onSave={this.handleInlineEditChange.bind(this)}  />

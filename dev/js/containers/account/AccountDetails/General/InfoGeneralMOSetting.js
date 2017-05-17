@@ -7,33 +7,27 @@ import Select from 'react-select';
 import InlineEdit from './../../../common/components/InlineEdit';
 require('./../../../../../scss/tabs.scss');
 require('./../../../../../scss/style.scss');
+import { updateHubAccountMOInfo } from './../../actions/accountGeneralActions';
 
 class InfoGeneralMOSetting extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state =  {
-           moSettingObj : {
-             intrfType : 'HTTP',
-             replyAdd : 'http://192.168.60.99:888/cgi-bin/trash.pl',
-             login : 'N/A',
-             password : 'N/A',
-             pathOut : '/opt/HUB/routermo/outputspool/defaulttrash/',
-             disTxtBdy : 'No'
-           }
+           moSettingObj : this.props.infoGenMO || {}
         }
     }
 
     handleInlineEditChange(name,val){
+      console.log("name : ",name, "  val : ",val);
       var info = this.state.moSettingObj;
-      switch (name) {
-        case "replyAdd":
-          info.replyAdd =val;
-          break;
-        case "pathOut":
-          info.pathOut =val;
-          break;
+
+      if(info[name]!==val){
+        info[name]=val;
+        this.setState({moSettingObj : info},function(){
+          console.log("update MO details==",this.state.moSettingObj);
+          this.props.updateHubAccountMOInfo(this.state.moSettingObj);
+        });
       }
-      this.setState({moSettingObj:info});
     }
 
     render() {
@@ -132,11 +126,14 @@ class InfoGeneralMOSetting extends React.Component {
 
 function mapStateToProps(state) {
     return {
+      infoGenMO : state.Account.infoGenMO
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ }, dispatch);
+    return bindActionCreators({
+      updateHubAccountMOInfo:updateHubAccountMOInfo
+    }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoGeneralMOSetting);

@@ -7,47 +7,27 @@ import Select from 'react-select';
 import InlineEdit from './../../../common/components/InlineEdit';
 require('./../../../../../scss/tabs.scss');
 require('./../../../../../scss/style.scss');
+import { updateHubAccountMTInfo } from './../../actions/accountGeneralActions';
 
 class InfoGeneralMTSetting extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-          mtSettingObj : {
-            interfaceType : 'HTTP',
-            url : 'http://sms-pp.sapmobileservices.com/cmc/accname12348581/accname12348581.sms',
-            login : 'accname12348581',
-            password : 'JuF6HJi',
-            encode : 'YWNjbmFtZTEyMzQ4NTgxOkp1Rmo2SEpp',
-            mwNotif : 'DEFAULT_ACK',
-            smscNotif : 'DEFAULT_ACK',
-            mobileNotif : 'DEFAULT_ACK',
-            ntfPath : '/usr/mobileway/notifs/outputspool/http',
-            disTxtBody : 'No',
-            country : ''
-          }
+          mtSettingObj : this.props.infoGenMT||{}
         }
     }
 
     handleInlineEditChange(name,val){
-      var info=this.state.mtSettingObj;
-      switch (name) {
-        case "password":
-          info.password =val;
-          break;
-        case "mwNotif":
-          info.mwNotif=val;
-          break;
-        case "smscNotif":
-          info.smscNotif=val;
-          break;
-        case "mobileNotif":
-          info.mobileNotif=val;
-          break;
-        case "ntfPath":
-          info.ntfPath=val;
-          break;
+      console.log("name : ",name, "  val : ",val);
+      var info = this.state.mtSettingObj;
+
+      if(info[name]!==val){
+        info[name]=val;
+        this.setState({mtSettingObj : info},function(){
+          console.log("update mt details==",this.state.mtSettingObj);
+          this.props.updateHubAccountMTInfo(this.state.mtSettingObj);
+        });
       }
-      this.setState({mtSettingObj:info});
     }
 
     render() {
@@ -136,7 +116,13 @@ class InfoGeneralMTSetting extends React.Component {
                       MW NOTIF :
                     </Col>
                     <Col md={ 7 }>
-                      <InlineEdit name="mwNotif" type="select" options={options} value={this.state.mtSettingObj.mwNotif} onSave={this.handleInlineEditChange.bind(this)}  />
+                      <InlineEdit
+                        name="mwNotifid"
+                        type="select"
+                        options={this.props.mwNotiflist}
+                        optionsLabel="mwNotifname"
+                        value={this.state.mtSettingObj.mwNotifid}
+                        onSave={this.handleInlineEditChange.bind(this)}  />
                     </Col>
                   </Row>
                   <Row className="show-grid">
@@ -144,7 +130,13 @@ class InfoGeneralMTSetting extends React.Component {
                       SMSC NOTIF :
                     </Col>
                     <Col md={ 7 }>
-                      <InlineEdit name="smscNotif" type="select" options={options} value={this.state.mtSettingObj.smscNotif} onSave={this.handleInlineEditChange.bind(this)}  />
+                      <InlineEdit
+                        name="smscNotifid"
+                        type="select"
+                        options={this.props.smscNotiflist}
+                        optionsLabel="smscNotifname"
+                        value={this.state.mtSettingObj.smscNotifid}
+                        onSave={this.handleInlineEditChange.bind(this)}  />
                     </Col>
                   </Row>
                   <Row className="show-grid">
@@ -152,7 +144,13 @@ class InfoGeneralMTSetting extends React.Component {
                       MOBILE NOTIF :
                     </Col>
                     <Col md={ 7 }>
-                      <InlineEdit name="mobileNotif" type="select" options={options} value={this.state.mtSettingObj.mobileNotif} onSave={this.handleInlineEditChange.bind(this)}  />
+                      <InlineEdit
+                        name="mobileNotifid"
+                        type="select"
+                        options={this.props.mobileNotiflist}
+                        optionsLabel="mobileNotifname"
+                        value={this.state.mtSettingObj.mobileNotifid}
+                        onSave={this.handleInlineEditChange.bind(this)}  />
                     </Col>
                   </Row>
                 </Col>
@@ -210,11 +208,17 @@ class InfoGeneralMTSetting extends React.Component {
 
 function mapStateToProps(state) {
     return {
+      infoGenMT:state.Account.infoGenMT,
+      mwNotiflist:state.Common.mwNotiflist,
+      smscNotiflist:state.Common.smscNotiflist,
+      mobileNotiflist:state.Common.mobileNotiflist,
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ }, dispatch);
+    return bindActionCreators({
+      updateHubAccountMTInfo:updateHubAccountMTInfo
+    }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoGeneralMTSetting);
