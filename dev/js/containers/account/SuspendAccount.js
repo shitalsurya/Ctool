@@ -8,30 +8,44 @@ import BrandingHeader from './../common/components/BrandingHeader';
 import Navigation from './../common/components/Navigation';
 import Account from '././../../../json/Account.json';
 import { initializeData, setSuspendAccountInfo } from './actions/accountActions';
-import { DateField, Calendar } from 'react-date-picker';
+// import { DateField, Calendar } from 'react-date-picker';
 import * as types from '../common/commonActionTypes';
 require( '././../../../scss/style.scss' );
 require( '././../../../scss/datePick.scss' );
+var DatePicker = require("react-bootstrap-date-picker");
 
 class SuspendAccount extends React.Component {
   constructor( props, context ) {
     super( props, context );
+    var today = new Date().toISOString();
     this.state = {
+        value:today,
+        minValue:today,
         modalHeading:'Suspend Account',
         susAccInfo : {}
     };
 
   }
 
+  handleChange(value, formattedValue) {
+    var info = this.state.susAccInfo;
+    info.date = value;
+    this.setState({
+      susAccInfo:info,
+      value: value, // ISO String, ex: "2016-11-19T12:00:00.000Z"
+      formattedValue: formattedValue // Formatted String, ex: "11/19/2016"
+    });
+  }
+
   render() {
-    
-    const onChange = (dateString, { dateMoment, timestamp }) => {
-      var _susAccInfo = this.state.susAccInfo;
-      if(_susAccInfo.date <= dateMoment._d){
-        _susAccInfo.date = dateMoment._d;
-      }
-      this.setState({susAccInfo:_susAccInfo});
-    }
+
+    // const onChange = (dateString, { dateMoment, timestamp }) => {
+    //   var _susAccInfo = this.state.susAccInfo;
+    //   if(_susAccInfo.date <= dateMoment._d){
+    //     _susAccInfo.date = dateMoment._d;
+    //   }
+    //   this.setState({susAccInfo:_susAccInfo});
+    // }
 
     return (
       <Modal show={this.props.suspendAction} onHide={this.handleCancel.bind(this)}>
@@ -82,15 +96,27 @@ class SuspendAccount extends React.Component {
                     Suspend Date :
                   </Col>
                   <Col md={ 6 }>
-                    <DateField
-                      forceValidDate
+                    <DatePicker
+                      id="example-datepicker"
                       dateFormat="DD-MM-YYYY"
+                      minDate={this.state.minValue}
+                      showTodayButton={true}
+                      todayButtonLabel={"Now"}
                       value={this.state.susAccInfo.date}
-                      onChange={onChange.bind(this)}
-                      updateOnDateClick={true}
-                      collapseOnDateClick={true}
-                      placeholder="Select Date.."
-                    />
+                      onChange={this.handleChange.bind(this)} />
+
+                    {/*
+                      <DateField
+                        forceValidDate
+                        dateFormat="DD-MM-YYYY"
+                        value={this.state.susAccInfo.date}
+                        onChange={onChange.bind(this)}
+                        updateOnDateClick={true}
+                        collapseOnDateClick={true}
+                        placeholder="Select Date.."
+                      />
+                    */}
+
                   </Col>
                   <Col mdHidden md={ 3 }/>
                 </Row>
@@ -146,15 +172,16 @@ class SuspendAccount extends React.Component {
   // }
 
   componentWillMount() {
-
+    var _susAccInfo = this.state.susAccInfo;
+    _susAccInfo.date = this.state.value;
+    this.setState({susAccInfo:_susAccInfo});
   }
 
   componentWillReceiveProps(nextProps){
     var _susAccInfo = nextProps.susAccInfo||{};
-    _susAccInfo.date = new Date();
+    _susAccInfo.date = this.state.value;
     this.setState({susAccInfo:_susAccInfo});
   }
-
 }
 
 function mapStateToProps(state) {
