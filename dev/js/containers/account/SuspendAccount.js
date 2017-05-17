@@ -29,7 +29,7 @@ class SuspendAccount extends React.Component {
 
   handleChange(value, formattedValue) {
     var info = this.state.susAccInfo;
-    info.date = value;
+    info.suspenddate = value;
     this.setState({
       susAccInfo:info,
       value: value, // ISO String, ex: "2016-11-19T12:00:00.000Z"
@@ -73,7 +73,7 @@ class SuspendAccount extends React.Component {
                   </Col>
                   <Col md={ 6 } >
                     <FormControl.Static>
-                      {this.state.susAccInfo.account}
+                      {this.state.susAccInfo.name}
                     </FormControl.Static>
                   </Col>
                   <Col mdHidden md={ 3 }/>
@@ -85,7 +85,7 @@ class SuspendAccount extends React.Component {
                   </Col>
                   <Col md={ 6 } >
                     <FormControl.Static>
-                      {this.state.susAccInfo.manager}
+                      {this.state.susAccInfo.accountmanager}
                     </FormControl.Static>
                   </Col>
                   <Col mdHidden md={ 3 }/>
@@ -102,7 +102,7 @@ class SuspendAccount extends React.Component {
                       minDate={this.state.minValue}
                       showTodayButton={true}
                       todayButtonLabel={"Now"}
-                      value={this.state.susAccInfo.date}
+                      value={this.state.susAccInfo.suspenddate}
                       onChange={this.handleChange.bind(this)} />
 
                     {/*

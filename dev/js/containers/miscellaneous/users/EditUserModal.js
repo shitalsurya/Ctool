@@ -51,16 +51,21 @@ class EditUserModal extends React.Component {
     this.currentUser = this.state.currentUser;
     console.log( "handleInlineEditChange this.currentUser==", this.currentUser );
     this.currentUser[e.target.name] = e.target.checked ? 1 : 0;
-    this.props.updateUserDetails(e.target.name,this.currentUser);
+    var urlKey=e.target.name;
+    if(e.target.name=="locked"){
+      console.log("this.currentUser[e.target.name]==",this.currentUser[e.target.name]);
+      this.currentUser[e.target.name]==1? urlKey="unlock":urlKey="lock";
+    }
+    this.props.updateUserDetails(urlKey,this.currentUser);
   }
 
   render(){
     const info = this.state.currentUser;
     console.log("render currentUser==",info);
-    this.homepageOptions = initializeSelectOptions(homepageOptions,'homepagename','homepageid');
-  console.log("this.ServiceLevel==",this.ServiceLevel);
+    this.homepageOptions = initializeSelectOptions(homepageOptions,'homepagename','homepage');
+  console.log("this.homepageOptions==",this.homepageOptions);
     this.roleOptions = initializeSelectOptions(roleOptions,'rolename','roleid');
-        console.log("this.TrafficType==",this.TrafficType);
+        console.log("this.roleOptions==",this.roleOptions);
 
     return (
       <div>
@@ -149,13 +154,13 @@ class EditUserModal extends React.Component {
                       </Col>
                       <Col md={ 6 }>
                         <Toggle
-                          name="live"
+                          name="liveaccount"
                           icons={{
                              checked: 'Yes',
                              unchecked: 'No',
                           }}
-                          defaultChecked={info.live == 1 ? true : false}
-                          value={info.live}
+                          defaultChecked={info.liveaccount == 1 ? true : false}
+                          value={info.liveaccount}
                           onChange={this.handleToggleChange.bind(this)} />
                       </Col>
                     </Row>
@@ -164,7 +169,10 @@ class EditUserModal extends React.Component {
                         User homepage:
                       </Col>
                       <Col md={ 6 }>
-                      <InlineEdit name="homepageid" type="select" options={this.homepageOptions}
+                      <InlineEdit
+                        name="homepage"
+                        type="select"
+                        options={this.homepageOptions}
                         optionsLabel="homepagename"
                         value={info.homepage}
                         onSave={this.handleInlineEditChange.bind(this)}  />

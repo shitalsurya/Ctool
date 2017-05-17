@@ -16,7 +16,7 @@ export function getUserListRequest() {
 export function getUserListResponse(response) {
   return {
     type: types.MISC_USERLIST_RESPONSE,
-		 payload: response.data
+		 payload: response
      //payload:Users.data
   }
 }
@@ -43,7 +43,7 @@ export function getUserDetailsRequest() {
 export function getUserDetailsResponse(response) {
   return {
     type: types.MISC_USERDETAILS_RESPONSE,
-		 payload: response.data
+		 payload: response
   }
 }
 
@@ -84,12 +84,15 @@ export function updateUserDetails(_name,_user) {
           case "name":
           _url = config.getUrl('updateUserName');
           break;
-          // case "locked":
-          // _url = config.getUrl('updateUserName');
-          // break;
-          // case "live":
-          // _url = config.getUrl('updateUserName');
-          // break;
+          case "lock":
+          _url = config.getUrl('unlockUser');
+          break;
+          case "unlock":
+          _url = config.getUrl('lockUser');
+          break;
+          case "liveaccount":
+          _url = config.getUrl('reliveUser');
+          break;
 
         }
         var request = {

@@ -42,7 +42,7 @@ export function getCntryDetailsRequest() {
 export function getCntryDetailsResponse(response) {
   return {
     type: types.MISC_COUNTRYDETAILS_RESPONSE,
-		payload: response.data
+		payload: response
   }
 }
 

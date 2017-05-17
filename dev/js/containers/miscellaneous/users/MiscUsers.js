@@ -45,9 +45,9 @@ class MiscUsers extends React.Component {
           break;
       case types.MISC_USERDETAILS_RESPONSE:
           console.log( "nextProps.userDetails==", nextProps.userDetails);
-          if( nextProps.userDetails != {}){
+          if( nextProps.userDetails != null){
               // this.state.showEditModal =true;
-              this.currentUser =  nextProps.userDetails.details;
+              this.currentUser =  nextProps.userDetails;
               var _currentUser=this.currentUser;
               this.context.router.push( {pathname:'editUser',state:{currentUser:_currentUser}} );
           }

@@ -206,8 +206,8 @@ export const TRAFFIC_TYPE = [
            {"traffictypeid": 4, "traffictypename": "Time Sensitive"}
 ];
 export const homepageOptions= [
-    { homepageid: 1, homepagename: '/hubaccounts' },
-    { homepageid: 2, homepagename: '/hubconnections' }
+    { homepage: '/hubaccounts', homepagename: '/hubaccounts' },
+    { homepage: '/hubconnections', homepagename: '/hubconnections' }
 ];
 
 export const roleOptions= [

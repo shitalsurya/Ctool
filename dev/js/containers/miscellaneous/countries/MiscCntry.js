@@ -45,9 +45,9 @@ class MiscCntry extends React.Component {
           break;
       case types.MISC_COUNTRYDETAILS_RESPONSE:
           console.log( "nextProps.countryDetails==", nextProps.countryDetails);
-          if( nextProps.countryDetails != {}){
+          if( nextProps.countryDetails != null){
               // this.state.showEditModal =true;
-              this.currentCntry =  nextProps.countryDetails.details;
+              this.currentCntry =  nextProps.countryDetails;
               var _currentCntry=this.currentCntry;
               this.context.router.push( {pathname:'editCountry',state:{currentCntry:_currentCntry}} );
           }

@@ -14,7 +14,7 @@ export function getUrl(APIName){
 			//Users Module
 			'userList':'/users',
         	'getUserById':'/users/userid/',
-			'updateUserEmail':'/users/email',
+
 			'CreateAccount':'/account',
 			'GetCountryList':'/countries/min',
 			'getCountryById':'/countries/',
@@ -24,6 +24,10 @@ export function getUrl(APIName){
 					'updateNL':'/countries/numberlookupoptions',//updateNL
 			'hubAccList':'/hub_accounts',
 			'updateUserName':'/users/username',
+			'updateUserEmail':'/users/email',
+			'lockUser':'/users/lock',
+			'unlockUser':'/users/unlock',
+				'reliveUser':'/users/relive',
 			'getCompanyList':'/companies/min',
 			'getBillingLocationList':'/billing_locations/min',
 			'getCompanyContacts':'/company_contacts',

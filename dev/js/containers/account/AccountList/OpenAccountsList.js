@@ -84,7 +84,7 @@ class OpenAccountsList extends React.Component {
             let suspend = "Suspend";
             return (
               <div>
-                <span className="suspend-icon" title="Suspend" onClick={this.actionFormatter.bind(this,row,suspend)} ></span>
+                <span className="suspend-icon" title="Suspend" onClick={this.openModal.bind(this,row,suspend)} ></span>
               </div>
 
             )
@@ -94,8 +94,8 @@ class OpenAccountsList extends React.Component {
             let close = "Close";
             return (
               <div>
-                <span className="reactivate-icon" title="Reactivate" onClick={this.actionFormatter.bind(this,row,reactivate)} ></span>
-                <span className="close-icon" title="Close" onClick={this.actionFormatter.bind(this,row,close)} ></span>
+                <span className="reactivate-icon" title="Reactivate" onClick={this.openModal.bind(this,row,reactivate)} ></span>
+                <span className="close-icon" title="Close" onClick={this.openModal.bind(this,row,close)} ></span>
               </div>
 
             )
@@ -116,14 +116,14 @@ class OpenAccountsList extends React.Component {
     }
   }
 
-  actionFormatter(_row,status){
+  openModal(_row,status){
     var _info = {};
     console.log("currentAcct : ",_info," type : ",status);
-    _info.account = _row.name;
+    _info.name = _row.name;
     _info.company = _row.company.companyname;
     switch (status) {
       case "Suspend":
-        _info.manager = _row.accountmanager.name;
+        _info.accountmanager = _row.accountmanager.name;
         this.setState({suspendAction:true,info:_info});
         break;
       case "Reactivate":
@@ -131,7 +131,7 @@ class OpenAccountsList extends React.Component {
         this.setState({reactivateAction:true,info:_info});
         break;
       case "Close":
-        _info.manager = _row.accountmanager.name;
+        _info.accountmanager = _row.accountmanager.name;
         this.setState({closeAction:true,info:_info});
         break;
     }
@@ -143,8 +143,15 @@ class OpenAccountsList extends React.Component {
 
   filterAccountList(_searchFilter){
     console.log("_searchFilter==",_searchFilter);
+    var _accountName="",_companyId=""
     //accountName=EMA&companyId=40254&status=ACTIVE
-    var reqParam='?accountName='+_searchFilter.selectedAccount+'&companyId='+_searchFilter.selectedCompany[0].id+'&status='+_searchFilter.selectedStatus;
+    if(typeof(_searchFilter.selectedAccount)!=''){
+       _accountName='accountName='+_searchFilter.selectedAccount;
+    }
+    if(_searchFilter.selectedCompany.length!=0){
+       _companyId='&companyId='+_searchFilter.selectedCompany[0].id;
+    }
+    var reqParam='?'+_accountName+_companyId+'&status='+_searchFilter.selectedStatus;
     this.props.getHubAcctList(reqParam);
   }
 
