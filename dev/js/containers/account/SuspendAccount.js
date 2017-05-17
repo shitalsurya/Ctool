@@ -22,18 +22,25 @@ class SuspendAccount extends React.Component {
         value:today,
         minValue:today,
         modalHeading:'Suspend Account',
-        susAccInfo : {}
+        susAccInfo : {
+          'date' : today
+        }
     };
 
   }
 
-  handleChange(value, formattedValue) {
+  handleChange(_value) {
     var info = this.state.susAccInfo;
-    info.date = value;
+    if(_value != null)
+      info.date = _value;
+    else {
+      _value = new Date().toISOString();
+      info.date = _value;
+    }
+
     this.setState({
       susAccInfo:info,
-      value: value, // ISO String, ex: "2016-11-19T12:00:00.000Z"
-      formattedValue: formattedValue // Formatted String, ex: "11/19/2016"
+      value: _value, // ISO String, ex: "2016-11-19T12:00:00.000Z"
     });
   }
 
@@ -99,6 +106,7 @@ class SuspendAccount extends React.Component {
                     <DatePicker
                       id="example-datepicker"
                       dateFormat="DD-MM-YYYY"
+                      clearButtonElement={<div>Now</div>}
                       minDate={this.state.minValue}
                       showTodayButton={true}
                       todayButtonLabel={"Now"}
@@ -172,9 +180,7 @@ class SuspendAccount extends React.Component {
   // }
 
   componentWillMount() {
-    var _susAccInfo = this.state.susAccInfo;
-    _susAccInfo.date = this.state.value;
-    this.setState({susAccInfo:_susAccInfo});
+
   }
 
   componentWillReceiveProps(nextProps){
