@@ -29,11 +29,11 @@ class AccountTechnicalDetails extends React.Component {
     handleChange(e){
       console.log("handleChange==",e.target.value);
       this.props.getExContactDetails(e.target.value);
-       var info = this.state.accountTechDetailsInfo;
-       info[e.target.name] = e.target.value;
-       this.setState({accountTechDetailsInfo:info},function(){
-         console.log("handleChange==",this.state.accountTechDetailsInfo);
-       });
+      var contact={};
+      contact[e.target.name] = e.target.value;
+      var info = this.state.accountTechDetailsInfo;
+    info.contact = contact;
+      this.setState({accountTechDetailsInfo:info});
     }
 
     handleTechDetailsBack(){
@@ -59,7 +59,7 @@ class AccountTechnicalDetails extends React.Component {
     addContact(_contact){
       this.setState({emptyFlag : false});
       var info = this.state.accountTechDetailsInfo;
-      info.contact = _contact;
+        info.contact = this.contactDetails = _contact;
       this.setState({accountTechDetailsInfo:info});
     }
 
@@ -80,7 +80,6 @@ class AccountTechnicalDetails extends React.Component {
                       <Col md={ 4 }>
                         <FormControl componentClass="select"
                           name="contactid"
-                          value={this.state.accountTechDetailsInfo.contact.contactid}
                           onChange={this.handleChange.bind(this)}>
                           <option value="select" disabled selected>Please select...</option>
                           {this.exContactList}
@@ -125,7 +124,7 @@ class AccountTechnicalDetails extends React.Component {
                       </Col>
                       <Col md={ 6 }>
                         <FormControl.Static name="country">
-                          {this.contactDetails.country}
+                          {this.contactDetails.countryid}
                         </FormControl.Static>
                       </Col>
                       <Col mdHidden md={ 3 } />
@@ -136,7 +135,7 @@ class AccountTechnicalDetails extends React.Component {
                       </Col>
                       <Col md={ 6 }>
                         <FormControl.Static name="mobilenumber">
-                          {this.contactDetails.mobilenumber}
+                          {this.contactDetails.mobile}
                         </FormControl.Static>
                       </Col>
                       <Col mdHidden md={ 3 } />
@@ -147,7 +146,7 @@ class AccountTechnicalDetails extends React.Component {
                       </Col>
                       <Col md={ 6 }>
                         <FormControl.Static name="directnumber">
-                          {this.contactDetails.directnumber}
+                          {this.contactDetails.phone}
                         </FormControl.Static>
                       </Col>
                       <Col mdHidden md={ 3 } />
@@ -194,9 +193,8 @@ class AccountTechnicalDetails extends React.Component {
 
       switch(nextProps.target){
         case types.GET_EX_CONTACT_DETAILS_RESPONSE:
-          this.contactDetails = nextProps.contactDetails.details;
-            var info = this.state.accountTechDetailsInfo || [];
-            info.contact = this.contactDetails || {};
+          var info = this.state.accountTechDetailsInfo;
+            info.contact = this.contactDetails = nextProps.contactDetails;
           this.setState({emptyFlag:false,accountTechDetailsInfo:info});
           break;
       }

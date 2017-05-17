@@ -10,13 +10,27 @@ import {getHubAcctListe} from '../account/actions/accountListActions';
 import {getHubAccountCommercialInfo, getHubAccountTechnicalInfo, getHubAccountVolumeInfo } from '../account/actions/accountGeneralActions';
 import {getHubAccountDelvTimeInfo, getHubAccountMOInfo, getHubAccountMTInfo} from '../account/actions/accountGeneralActions';
 import {getHubAcctDefaultTPOA,getHubAcctForcedTPOAList} from '../account/actions/accountTPOAActions';
-import BillingLocation from './../../../json/BillingLocation.json';
-// var BillingLocation = [
-// 		{"smscname": "Mobile 365 Inc.", "smscid": 1},
-// 				{"smscname": "Mobile 365 South Africa.", "smscid": 2},
-// 					{"smscname": "Mobileway Australia", "smscid": 3},
-// 						{"smscname": "Mobileway China", "smscid": 4}
-// 	];
+var BillingLocation =[
+  {
+    "billinglocationname": "Mobile 365 Inc",
+    "billinglocationshortname": "Mobile365 USA",
+    "billinglocationid": 207
+  },
+  {
+    "billinglocationname": "Mobile 365 South Africa",
+    "billinglocationshortname": "MZAF",
+    "billinglocationid": 209
+  },
+  {
+    "billinglocationname": "Mobileway France",
+    "billinglocationshortname": "MWFR",
+    "billinglocationid": 11
+  },
+  {
+    "billinglocationname": "Mobileway Iberica",
+    "billinglocationshortname": "MWES",
+    "billinglocationid": 12
+  }];
 var Company = [
 {
 	"companyid": 1,
@@ -134,15 +148,22 @@ var MOBILE_NOTIF = [
 					type: types.GET_BILLINGLOCATION_LIST_REQUEST
 				}
 			}
-		export function getBillingLocationListResponse(data) {
+		export function getBillingLocationListResponse(response) {
 				return {
 					type: types.GET_BILLINGLOCATION_LIST_RESPONSE,
-					 payload: BillingLocation
+					 payload: response
 				}
 		}
 		export function getBillingLocationList() {
 			return function (dispatch,getState) {
-				dispatch(getBillingLocationListResponse());
+				dispatch(getBillingLocationListRequest());
+				var request = {
+					url:config.getUrl('getBillingLocationList'),
+					method:'GET',
+					successCallback:getBillingLocationListResponse,
+					failureCallback:getBillingLocationListResponse
+				};
+				return httpRequest(dispatch,getState,request);
 			}
 		}
 

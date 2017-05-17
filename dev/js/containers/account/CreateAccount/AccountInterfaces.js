@@ -68,8 +68,8 @@ class AccountInterfaces extends React.Component {
       var accountObjCheck = this.state.accountInterfacesInfo;
       if(this.props.accType === "sms"){
         // if(accountObjCheck.techName && accountObjCheck.commName && accountObjCheck.ExstAccts
-        //  && accountObjCheck.customertype ){
-           switch(accountObjCheck.customertype)
+        //  && accountObjCheck.interfacetype ){
+           switch(accountObjCheck.interfacetype)
            {
              case "HTTP":
               // if(accountObjCheck.defTPOA && ((accountObjCheck.moEnabled=="Yes" && accountObjCheck.rplAdd) || (accountObjCheck.moEnabled=="No"))) {
@@ -98,7 +98,7 @@ class AccountInterfaces extends React.Component {
            }
       //    }
       //    else {
-      //      if(accountObjCheck.customertype)
+      //      if(accountObjCheck.interfacetype)
       //        this.setState({emptyValFlag:false});
       //      this.setState({emptyFlag:false});
       //  }
@@ -110,7 +110,7 @@ class AccountInterfaces extends React.Component {
            this.props.handleInterfaceDetailsNext(this.accountInfo);
         // }
       //    else {
-      //      if(accountObjCheck.customertype)
+      //      if(accountObjCheck.interfacetype)
       //        this.setState({emptyValFlag:false});
       //      this.setState({emptyFlag:false});
       //  }
@@ -173,10 +173,10 @@ class AccountInterfaces extends React.Component {
                       <Col componentClass={ ControlLabel } md={ 3 }>
                         Interface:
                       </Col>
-                      <Col md={ 6 } className={this.state.accountInterfacesInfo.customertype || this.state.emptyFlag ? false : "empty"}>
+                      <Col md={ 6 } className={this.state.accountInterfacesInfo.interfacetype || this.state.emptyFlag ? false : "empty"}>
                         <FormControl componentClass="select"
-                          name="customertype"
-                          value={this.state.accountInterfacesInfo.customertype}
+                          name="interfacetype"
+                          value={this.state.accountInterfacesInfo.interfacetype}
                           onChange={this.handleChange.bind(this)}>
                           <option key="HTTP" value="HTTP" selected>HTTP</option>
                           <option key="SMTP" value="SMTP">SMTP</option>
@@ -194,10 +194,10 @@ class AccountInterfaces extends React.Component {
                       <Col componentClass={ ControlLabel } md={ 3 }>
                         Interface:
                       </Col>
-                      <Col md={ 6 } className={this.state.accountInterfacesInfo.customertype || this.state.emptyFlag ? false : "empty"}>
+                      <Col md={ 6 } className={this.state.accountInterfacesInfo.interfacetype || this.state.emptyFlag ? false : "empty"}>
                         <FormControl componentClass="select"
-                          name="customertype"
-                          value={this.state.accountInterfacesInfo.customertype}
+                          name="interfacetype"
+                          value={this.state.accountInterfacesInfo.interfacetype}
                           onChange={this.handleChange.bind(this)}>
                           <option key="IN365_EMAIL" value="IN365_EMAIL">IN365_EMAIL</option>
                         </FormControl>
@@ -237,7 +237,7 @@ class AccountInterfaces extends React.Component {
             </div>
 
             {
-              this.state.accountInterfacesInfo.customertype === "HTTP" &&
+              this.state.accountInterfacesInfo.interfacetype === "HTTP" &&
                 <div>
                   <div className="controls-container" >
                     <div className="rec">
@@ -301,7 +301,7 @@ class AccountInterfaces extends React.Component {
             }
 
             {
-              this.state.accountInterfacesInfo.customertype === "SMTP" &&
+              this.state.accountInterfacesInfo.interfacetype === "SMTP" &&
                 <div>
                   <div className="controls-container" >
                     <div className="rec">
@@ -350,7 +350,7 @@ class AccountInterfaces extends React.Component {
             }
 
             {
-              this.state.accountInterfacesInfo.customertype === "SMPP" &&
+              this.state.accountInterfacesInfo.interfacetype === "SMPP" &&
                 <div>
                   <div className="controls-container" >
                     <div className="rec">

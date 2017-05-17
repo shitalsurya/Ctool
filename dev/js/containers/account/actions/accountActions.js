@@ -4,8 +4,30 @@ import * as config from '../../../containers/common/config';
 import {httpRequest} from '../../../containers/common/commonAjaxActions';
 import {getSpndAccount, getDataList} from './accountAjaxActions';
 
-import ExContact from '../../../../json/ExistingContact.json';
-import ExContactDetails from '../../../../json/ExContactDetails.json';
+var exCompanyContacts ={
+  "status":200,
+  "data":
+[
+  {
+    "contactid": 1,
+    "email": "string",
+    "insertdate": "2017-05-17T05:00:04.535Z",
+    "mobile": "string",
+    "name": "abc",
+    "phone": "string",
+    "updatedate": "2017-05-17T05:00:04.536Z"
+  },
+  {
+    "contactid": 2,
+    "email": "string",
+    "insertdate": "2017-05-17T05:00:04.535Z",
+    "mobile": "string",
+    "name": "xyz",
+    "phone": "string",
+    "updatedate": "2017-05-17T05:00:04.536Z"
+  }
+]
+}
 export function initializeData(_list,valField){
   console.log("initializeData==",_list);
   var list = _list.data.map(function (item, index) {
@@ -185,16 +207,15 @@ export function getExContactListRequest() {
 export function getExContactListResponse(response) {
 		return {
 			type: types.GET_EX_CONTACT_LIST_RESPONSE,
-    	//  payload: response.data
-			 payload: ExContact
+    	//  payload: response
+			 payload: exCompanyContacts
 		}
 }
 export function getExContactList() {
 	return function (dispatch,getState) {
-		dispatch(getExContactListResponse());
-    // dispatch(getExContactListRequest());
+    dispatch(getExContactListResponse());
     // var request = {
-    //     url:config.getUrl('GetCountryList'),
+    //     url:config.getUrl('getCompanyContacts'),
     //     method:'GET',
     //     successCallback:getExContactListResponse,
     //     failureCallback:getExContactListResponse
@@ -224,15 +245,14 @@ export function getExContactDetailsResponse(response) {
 		return {
 			type: types.GET_EX_CONTACT_DETAILS_RESPONSE,
     	//  payload: response.data
-			 payload: ExContactDetails
+			 payload: exCompanyContacts
 		}
 }
 export function getExContactDetails(_contactid) {
 	return function (dispatch,getState) {
-		dispatch(getExContactDetailsResponse());
-    // dispatch(getExContactDetailsRequest());
+    dispatch(getExContactDetailsResponse());
     // var request = {
-    //     url:config.getUrl('GetCountryList'),
+    //     url:config.getUrl('getCompanyContacts')+'/'+_contactid,
     //     method:'GET',
     //     successCallback:getExContactDetailsResponse,
     //     failureCallback:getExContactDetailsResponse

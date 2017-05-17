@@ -127,18 +127,11 @@ export default function(state = {
         case types.GET_EX_CONTACT_DETAILS_REQUEST:
     			return Object.assign({}, state, {});
     		case types.GET_EX_CONTACT_DETAILS_RESPONSE:
-    			var _data={};
-    			if(typeof(action.payload)!='undefined'){
-    				_data = {
-    					details:action.payload
-    				}
-    			}
-    			else {
-    				_data = {
-    					details:"No data available."
-    				}
-    			}
-    			return Object.assign({}, state, {contactDetails:_data,target:action.type});
+        console.log("GET_EX_CONTACT_DETAILS_RESPONSE==",action.payload);
+        if(action.payload.status==200){
+          return Object.assign({}, state, {contactDetails:action.payload.data[0],target:action.type});
+        }
+
         return state;
     }
 };

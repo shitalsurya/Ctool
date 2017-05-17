@@ -16,25 +16,10 @@ class AddContact extends React.Component {
         AddContactInfo : this.props.AddContactInfo || {},
       }
   }
-  handleModalChange(target, value){
+  handleModalChange(e){
+    console.log("handleModalChange==",e);
     var addcontactinfo = this.state.AddContactInfo;
-    switch(target) {
-        case types.ADDCONTACT_COMPANYNAME :
-          addcontactinfo.name=value.target.value;
-        break;
-        case types.ADDCONTACT_COMPANYEMAIL :
-          addcontactinfo.email=value.target.value;
-        break;
-        case types.ADDCONTACT_COUNTRY:
-          addcontactinfo.country = value.target.value;
-        break;
-        case types.ADDCONTACT_MOBILENUMBER :
-          addcontactinfo.mobilenumber = value.target.value;
-        break;
-        case types.ADDCONTACT_DIRECTNUMBER :
-        addcontactinfo.directnumber = value.target.value;
-      break;
-    }
+    addcontactinfo[e.target.name]=e.target.value;
     this.setState({ AddContactInfo: addcontactinfo});
   }
 
@@ -74,7 +59,7 @@ class AddContact extends React.Component {
                         type="text"
                         name="name"
                         value={this.state.AddContactInfo.name || ''}
-                        onChange={this.handleModalChange.bind(this,types.ADDCONTACT_COMPANYNAME)}
+                        onChange={this.handleModalChange.bind(this)}
                         placeholder="Enter Company name" />
                     </Col>
                   </Row>
@@ -87,7 +72,7 @@ class AddContact extends React.Component {
                         type="text"
                         name="email"
                         value={this.state.AddContactInfo.email || ''}
-                        onChange={this.handleModalChange.bind(this,types.ADDCONTACT_COMPANYEMAIL)}
+                        onChange={this.handleModalChange.bind(this)}
                         placeholder="Enter Email" />
                     </Col>
                   </Row>
@@ -97,9 +82,10 @@ class AddContact extends React.Component {
                     </Col>
                     <Col md={ 8 }>
                       <FormControl componentClass="select"
-                        name="country"
-                        value={this.state.AddContactInfo.country || ''}
-                        onChange={this.handleModalChange.bind(this,types.ADDCONTACT_COUNTRY)}>
+                        name="countryid"
+                        value={this.state.AddContactInfo.countryid || ''}
+                        onChange={this.handleModalChange.bind(this)}>
+                          <option value="select" disabled selected>Please select...</option>
                         {this.countryList}
                       </FormControl>
                     </Col>
@@ -111,9 +97,9 @@ class AddContact extends React.Component {
                     <Col md={ 8 }>
                       <FormControl
                         type="text"
-                        name="mobilenumber"
-                        value={this.state.AddContactInfo.mobilenumber || ''}
-                        onChange={this.handleModalChange.bind(this,types.ADDCONTACT_MOBILENUMBER)}
+                        name="mobile"
+                        value={this.state.AddContactInfo.mobile || ''}
+                        onChange={this.handleModalChange.bind(this)}
                         placeholder ="Enter mobilenumber" />
                     </Col>
                   </Row>
@@ -124,9 +110,9 @@ class AddContact extends React.Component {
                     <Col md={ 8 }>
                       <FormControl
                         type="text"
-                        name="directnumber"
-                        value={this.state.AddContactInfo.directnumber || ''}
-                        onChange={this.handleModalChange.bind(this,types.ADDCONTACT_DIRECTNUMBER)}
+                        name="phone"
+                        value={this.state.AddContactInfo.phone || ''}
+                        onChange={this.handleModalChange.bind(this)}
                         placeholder ="Enter directnumber" />
                     </Col>
                   </Row>

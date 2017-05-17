@@ -25,6 +25,8 @@ export function getUrl(APIName){
 			'hubAccList':'/hub_accounts',
 			'updateUserName':'/users/username',
 			'getCompanyList':'/companies/min',
+			'getBillingLocationList':'/billing_locations/min',
+			'getCompanyContacts':'/company_contacts',
 	};
 	return getServerUrl() +'/ctool'+ APIUrls[APIName];
 }

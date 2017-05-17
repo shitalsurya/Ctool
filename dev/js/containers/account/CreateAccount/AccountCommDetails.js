@@ -197,7 +197,7 @@ class AccountCommDetails extends React.Component {
   componentWillReceiveProps( nextProps ) {
     console.log("componentWillReceiveProps==",nextProps);
 
-      this.userList = initializeSelectOptions(nextProps.Users,'name','id');
+      this.userList = initializeSelectOptions(nextProps.Users,'name','userid');
     console.log("this.userList==",this.userList);
       this.companyList = initializeSelectOptions(nextProps.Company,'companyname','companyid');
     console.log("this.companyList==",this.companyList);
@@ -215,7 +215,7 @@ function mapStateToProps( state ) {
   return {
     //  data: state.Account.data,
     target: state.Common.target,
-    Users:state.Common.userList,
+    Users: state.MiscUsers.userList,
     Company:state.Common.compList,
     BillingLocation:state.Common.billingLocationList,
     accType:state.Account.accType||"sms"

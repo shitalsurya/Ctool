@@ -15,7 +15,7 @@ export function getCountryListRequest() {
 export function getCountryListResponse(response) {
   return {
     type: types.MISC_COUNTRYLIST_RESPONSE,
-		 payload: response.data
+		 payload: response
     // payload:Countries
   }
 }
