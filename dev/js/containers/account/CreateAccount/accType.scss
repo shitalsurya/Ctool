@@ -4,3 +4,19 @@
 label{
       padding-top: 5px;
 }
+.sms-icon::before {
+	font-family: 'SAP-icons';
+	content: "\e0d3";
+}
+.sms-icon {
+	font-size: 15px;
+	box-sizing: border-box;
+}
+.email-icon::before {
+	font-family: 'SAP-icons';
+	content: "\e037";
+}
+.email-icon {
+	font-size: 15px;
+	box-sizing: border-box;
+}

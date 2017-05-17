@@ -52,11 +52,11 @@ class AccountType extends React.Component{
                         <Col md={6}>
                           <ButtonGroup justified>
                             <Button href="#CreateAccount" className="grp-btn" name="sms" onClick={() => this.setState({type:'sms'})}>
-                              <span className="add-icon"></span>
+                              <span className="sms-icon"></span>
                               <span>SMS Account</span>
                             </Button>
                             <Button href="#CreateAccount" className="grp-btn" name="email" onClick={() => this.setState({type:'email'})}>
-                              <span className="add-icon"></span>
+                              <span className="email-icon"></span>
                               <span>IN365 Email Account</span>
                             </Button>
                           </ButtonGroup>
