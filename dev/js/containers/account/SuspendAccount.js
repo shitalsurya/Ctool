@@ -22,18 +22,24 @@ class SuspendAccount extends React.Component {
         value:today,
         minValue:today,
         modalHeading:'Suspend Account',
-        susAccInfo : {}
+        susAccInfo : {
+          'suspenddate' : today
+        }
     };
 
   }
 
-  handleChange(value, formattedValue) {
+  handleChange(_value) {
     var info = this.state.susAccInfo;
-    info.suspenddate = value;
+    if(_value != null)
+      info.suspenddate = _value;
+    else {
+      _value = new Date().toISOString();
+      info.suspenddate = _value;
+    }
     this.setState({
       susAccInfo:info,
-      value: value, // ISO String, ex: "2016-11-19T12:00:00.000Z"
-      formattedValue: formattedValue // Formatted String, ex: "11/19/2016"
+      value: _value, // ISO String, ex: "2016-11-19T12:00:00.000Z"
     });
   }
 
@@ -99,12 +105,12 @@ class SuspendAccount extends React.Component {
                     <DatePicker
                       id="example-datepicker"
                       dateFormat="DD-MM-YYYY"
+                      clearButtonElement={<div>Now</div>}
                       minDate={this.state.minValue}
                       showTodayButton={true}
                       todayButtonLabel={"Now"}
                       value={this.state.susAccInfo.suspenddate}
                       onChange={this.handleChange.bind(this)} />
-
                     {/*
                       <DateField
                         forceValidDate
@@ -116,7 +122,6 @@ class SuspendAccount extends React.Component {
                         placeholder="Select Date.."
                       />
                     */}
-
                   </Col>
                   <Col mdHidden md={ 3 }/>
                 </Row>
@@ -172,14 +177,12 @@ class SuspendAccount extends React.Component {
   // }
 
   componentWillMount() {
-    var _susAccInfo = this.state.susAccInfo;
-    _susAccInfo.date = this.state.value;
-    this.setState({susAccInfo:_susAccInfo});
+
   }
 
   componentWillReceiveProps(nextProps){
     var _susAccInfo = nextProps.susAccInfo||{};
-    _susAccInfo.date = this.state.value;
+    _susAccInfo.suspenddate = this.state.value;
     this.setState({susAccInfo:_susAccInfo});
   }
 }

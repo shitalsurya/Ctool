@@ -8,6 +8,7 @@ import HubAccountGeneral from './General/HubAccountGeneral';
 import HubAccountTPOA from './TPOA/HubAccountTPOA';
 import HubAccountMORouting from './MORouting/HubAccountMORouting';
 import HubAccountMTRouting from './MTRouting/HubAccountMTRouting';
+import HubAccountAddKeyword from './AddKeyword/HubAccountAddKeyword';
 import * as types from './../../common/commonActionTypes';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid, Button, Image,Glyphicon,Thumbnail} from 'react-bootstrap';
@@ -27,7 +28,8 @@ class AccountDetails extends React.Component {
                 General:"General",
                 TPOA:"TPOA",
                 MORouting:"MORouting",
-                MTRouting:"MTRouting"
+                MTRouting:"MTRouting",
+                AddKeyword:"AddKeyword"
             },
             submenus:{
               head: types.ACCOUNT_LIST,
@@ -38,10 +40,12 @@ class AccountDetails extends React.Component {
             }
         }
     }
+
     componentWillMount(){
       console.log("TPOA componentWillMount this.currentAcct ==",this.currentAcct );
        this.props.getList("AccountDetails",this.currentAcct);
     }
+
     render() {
 
         return (
@@ -60,6 +64,7 @@ class AccountDetails extends React.Component {
                       <TabLink to="TPOA" default className="tab-link">{this.state.accountCaptions.TPOA }</TabLink>
                       <TabLink to="MTRouting"  className="tab-link">{this.state.accountCaptions.MTRouting }</TabLink>
                       <TabLink to="MORouting" className="tab-link">{this.state.accountCaptions.MORouting}</TabLink>
+                      <TabLink to="AddKeyword" className="tab-link">{this.state.accountCaptions.AddKeyword}</TabLink>
                     </div>
                     <div className="content" >
                       <TabContent for="General">
@@ -74,6 +79,9 @@ class AccountDetails extends React.Component {
                       <TabContent for="MTRouting">
                         <HubAccountMTRouting/>
                       </TabContent>
+                      <TabContent for="AddKeyword">
+                        <HubAccountAddKeyword/>
+                      </TabContent>
                     </div>
                   </Tabs>
                 </Col>
@@ -84,6 +92,7 @@ class AccountDetails extends React.Component {
       );
     }
   }
+
   function mapStateToProps(state) {
       return {
 
