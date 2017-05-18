@@ -62,10 +62,10 @@ class EditUserModal extends React.Component {
   render(){
     const info = this.state.currentUser;
     console.log("render currentUser==",info);
-    this.homepageOptions = initializeSelectOptions(homepageOptions,'homepagename','homepage');
-  console.log("this.homepageOptions==",this.homepageOptions);
-    this.roleOptions = initializeSelectOptions(roleOptions,'rolename','roleid');
-        console.log("this.roleOptions==",this.roleOptions);
+  //   this.homepageOptions = initializeSelectOptions(homepageOptions,'homepagename','homepage');
+  // console.log("this.homepageOptions==",this.homepageOptions);
+  //   this.roleOptions = initializeSelectOptions(roleOptions,'rolename','roleid');
+  //       console.log("this.roleOptions==",this.roleOptions);
 
     return (
       <div>
@@ -172,7 +172,7 @@ class EditUserModal extends React.Component {
                       <InlineEdit
                         name="homepage"
                         type="select"
-                        options={this.homepageOptions}
+                        options={homepageOptions}
                         optionsLabel="homepagename"
                         value={info.homepage}
                         onSave={this.handleInlineEditChange.bind(this)}  />
@@ -183,8 +183,13 @@ class EditUserModal extends React.Component {
                         Role:
                       </Col>
                       <Col md={ 6 }>
-                        <InlineEdit name="ctoolrole" type="select" options={this.roleOptions}
-                         value={info.ctoolrole} onSave={this.handleInlineEditChange.bind(this)}  />
+                      <InlineEdit
+                        name="ctoolrole"
+                        type="select"
+                        options={roleOptions}
+                        optionsLabel="ctoolrolename"
+                        value={info.ctoolrole}
+                        onSave={this.handleInlineEditChange.bind(this)}  />
                       </Col>
                     </Row>
                     <Row className="show-grid">

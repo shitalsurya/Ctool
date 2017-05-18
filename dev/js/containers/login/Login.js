@@ -140,6 +140,7 @@ class Login extends Component {
   checkAuth( nextProps ) {
     if ( nextProps.error == false ) {
       this.context.router.push( 'launchpad' );
+      console.log("token==",nextProps.token);
        sessionStorage.setItem("username",this.refs.userEmail);
     }
     if ( nextProps.error == true ) {
@@ -150,7 +151,7 @@ class Login extends Component {
     const userEmail = ReactDOM.findDOMNode(this.refs.userEmail).value;
     const userPassword =ReactDOM.findDOMNode(this.refs.userPassword).value;
     sessionStorage.setItem( "Username", userEmail );
-    this.props.loginUser( userEmail, userPassword );
+    this.props.loginUser( userEmail.toUpperCase(), userPassword.toUpperCase() );
   }
   validate( field ) {
     var errors = {};

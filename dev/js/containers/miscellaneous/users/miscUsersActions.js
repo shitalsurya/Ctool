@@ -93,6 +93,12 @@ export function updateUserDetails(_name,_user) {
           case "liveaccount":
           _url = config.getUrl('reliveUser');
           break;
+          case "ctoolrole":
+          _url = config.getUrl('updateUserRole');
+          break;
+          case "homepage":
+          _url = config.getUrl('updateHomepage');
+          break;
 
         }
         var request = {

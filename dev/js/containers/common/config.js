@@ -27,6 +27,8 @@ export function getUrl(APIName){
 			'updateUserEmail':'/users/email',
 			'lockUser':'/users/lock',
 			'unlockUser':'/users/unlock',
+			'updateHomepage':'/users/homepage',
+			'updateUserRole':'/users/role',
 				'reliveUser':'/users/relive',
 			'getCompanyList':'/companies/min',
 			'getBillingLocationList':'/billing_locations/min',

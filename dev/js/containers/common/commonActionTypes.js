@@ -211,7 +211,7 @@ export const homepageOptions= [
 ];
 
 export const roleOptions= [
-    { roleid: 'Support', rolename: 'Support' },
-    { roleid: 'ServiceDesk', rolename: 'ServiceDesk' },
-    { roleid: 'ACCOUNTMANAGER', rolename: 'ACCOUNTMANAGER'}
+    { ctoolrole: 'ADMINISTRATOR', ctoolrolename: 'ADMINISTRATOR' },
+    { ctoolrole: 'ServiceDesk', ctoolrolename: 'ServiceDesk' },
+    { ctoolrole: 'ACCOUNTMANAGER', ctoolrolename: 'ACCOUNTMANAGER'}
 ];

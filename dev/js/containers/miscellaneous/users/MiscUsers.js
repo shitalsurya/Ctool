@@ -48,8 +48,17 @@ class MiscUsers extends React.Component {
           if( nextProps.userDetails != null){
               // this.state.showEditModal =true;
               this.currentUser =  nextProps.userDetails;
-              var _currentUser=this.currentUser;
-              this.context.router.push( {pathname:'editUser',state:{currentUser:_currentUser}} );
+            //   console.log("len==",this.currentUser.homepage.length);
+            //   if(this.currentUser.homepage.charAt(0) === '/')
+            //   {
+            //    this.currentUser.homepage = this.currentUser.homepage.substr(1,this.currentUser.homepage.length - 1).charAt(0).toUpperCase();
+            //      console.log("after substr==",this.currentUser.homepage);
+            //   // this.currentUser.homepage  =this.currentUser.homepage.charAt(0).toUpperCase();
+            // //     console.log("after==",this.currentUser.homepage);
+            //   }
+            //   var _currentUser=this.currentUser;
+            //     console.log("_currentUser==",_currentUser);
+              this.context.router.push( {pathname:'editUser',state:{currentUser:this.currentUser }} );
           }
           else{
               // this.state.showEditModal =false;
