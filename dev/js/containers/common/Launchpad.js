@@ -1,9 +1,11 @@
 import React from 'react';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid, Button, Image,Glyphicon,Thumbnail} from 'react-bootstrap';
+import BrandingHeader from './components/BrandingHeader';
 import * as types from './commonActionTypes';
-require( '../../../scss/style.scss' );
-var sapImg = require( "../../../images/sap-logo.png" );
-var logoImg=require("../../../images/sybase-365.jpg");
+// require( '../../../scss/style.scss' );
+import style from './Launchpad.style.css';
+// var sapImg = require( "../../../images/sap-logo.png" );
+// var logoImg = require("../../../images/sybase-365.jpg");
 
 export default class Launchpad extends React.Component {
   constructor( props, context ) {
@@ -13,30 +15,13 @@ export default class Launchpad extends React.Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-inverse">
-          <div className="container-fluid">
-            <div className="navbar-header">
-              <button
-                type="button"
-                className="navbar-toggle"
-                data-toggle="collapse"
-                data-target="#myNavbar">
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-              </button>
-              <div className="dashboard-navbar">
-                <span> <img src={ sapImg } /></span>
-                <span >Sybase 365 Configuration Tool</span></div>
-            </div>
-          </div>
-        </nav>
+        <BrandingHeader/>
         <Grid>
           <Row className="dashboard-menu first">
             <Col xs={6} md={3}>
               <Thumbnail>
                 <a onClick={ this.navigateRoutes.bind( this, types.ACCOUNT_LIST )}>
-                  <span className="accounts-icon"></span>
+                  <span className={style.accounts_icon}></span>
                   <h3>Accounts</h3>
                 </a>
                 <p>Accounts and Routing</p>
@@ -45,7 +30,7 @@ export default class Launchpad extends React.Component {
             <Col xs={6} md={3}>
               <Thumbnail>
                 <a onClick={ this.navigateRoutes.bind( this, types.CONNECTIONS )}>
-                  <span className="connections-icon"></span>
+                  <span className={style.connections_icon}></span>
                   <h3>Connections</h3>
                 </a>
                 <p>SMSC Configuration</p>
@@ -54,7 +39,7 @@ export default class Launchpad extends React.Component {
             <Col xs={6} md={3}>
               <Thumbnail>
                 <a href="">
-                  <span className="operators-icon"></span>
+                  <span className={style.operators_icon}></span>
                   <h3>Operators</h3>
                 </a>
                 <p>Operators and Routing preferences</p>
@@ -63,7 +48,7 @@ export default class Launchpad extends React.Component {
             <Col xs={6} md={3}>
               <Thumbnail>
                 <a onClick={ this.navigateRoutes.bind( this, types.MISCELLENEOUS )}>
-                  <span className="misc-icon"></span>
+                  <span className={style.misc_icon}></span>
                   <h3>Miscelleneous</h3>
                 </a>
                 <p>Account Managers, countries etc.</p>
@@ -76,7 +61,7 @@ export default class Launchpad extends React.Component {
             <Col xs={6} md={3}>
               <Thumbnail>
                 <a onClick={ this.navigateRoutes.bind( this, types.MISC_USERS )}>
-                  <span className="user-icon"></span>
+                  <span className={style.user_icon}></span>
                   <h3>CTool Users</h3>
                 </a>
                 <p>Users properties</p>
@@ -85,8 +70,7 @@ export default class Launchpad extends React.Component {
             <Col xs={6} md={3}>
               <Thumbnail>
                 <a href="">
-                  <span className="toolbox-icon"></span>
-
+                  <span className={style.toolbox_icon}></span>
                   <h3>Toolbox</h3>
                 </a>
                 <p>Search, SMS Extract and IP Check </p>
@@ -117,19 +101,18 @@ export default class Launchpad extends React.Component {
 
   navigateRoutes( _route ) {
     console.log("_route==",_route);
-  switch (_route) {
-      case types.ACCOUNT_LIST:
-        this.context.router.push( 'Accounts' );
-      break;
-      case types.CONNECTIONS:
-        this.context.router.push( 'connections' );
-      break;
-      case types.MISCELLENEOUS:
-        this.context.router.push( 'UserManagement' );
-      break;
-    default:
-
-  }
+    switch (_route) {
+        case types.ACCOUNT_LIST:
+          this.context.router.push( 'Accounts' );
+        break;
+        case types.CONNECTIONS:
+          this.context.router.push( 'connections' );
+        break;
+        case types.MISCELLENEOUS:
+          this.context.router.push( 'UserManagement' );
+        break;
+      default:
+    }
   }
 }
 

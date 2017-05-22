@@ -5,6 +5,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid, Button, Image,Glyphicon } from 'react-bootstrap';
 import Select from 'react-select';
 import * as types from './../../common/commonActionTypes';
+import Loading from './../../common/Loading'
 import { getHubAcctList} from './../actions/accountListActions';
 import {
     ToastContainer,
@@ -22,13 +23,16 @@ class OpenAccountsList extends React.Component {
     super( props, context );
     this.accounts=[];
     this.state = {
+      loadFlag:true,
       closeAction : false,
       reactivateAction : false,
       suspendAction : false
     }
   }
 
-
+  componentDidMount(){
+    setTimeout(function() { this.setState({loadFlag: false}); }.bind(this), 3000);
+  }
 
   componentWillReceiveProps( nextProps ) {
     switch(nextProps.target){
@@ -156,7 +160,6 @@ class OpenAccountsList extends React.Component {
   }
 
   render() {
-
      const createCustomToolBar = function(props) {
         return (
           <div>
@@ -176,6 +179,38 @@ class OpenAccountsList extends React.Component {
         <AdvancedSearch fields={props} onSearch={this.filterAccountList.bind(this)}/>
       );
     }.bind(this);
+
+    const loadFunc = function() {
+      return (
+        <Loading/>
+      );
+    };
+
+    const loadOptions = {
+      noDataText: loadFunc(),
+      expandRowBgColor: '#f7f8fa',
+      clearSearch: true,
+      //searchPanel:advancedSearch(props),
+      searchPanel: (props) => advancedSearch(props),
+      toolBar: (props) => createCustomToolBar(props),
+      page: 1,  // which page you want to show as default
+      sizePerPageList: [ {
+        text: '5', value: 5
+      }, {
+        text: '10', value: 10
+      }, {
+        text: 'All', value: 50
+      } ], // you can change the dropdown list for size per page
+      sizePerPage: 5,  // which size per page you want to locate as default
+      pageStartIndex: 1, // where to start counting the pages
+      paginationSize: 3,  // the pagination bar size.
+      prePage: '<', // Previous page button text
+      nextPage: '>', // Next page button text
+      firstPage: '<<', // First page button text
+      lastPage: '>>', // Last page button text
+      alwaysShowAllBtns: false, // Always show next and previous button
+      //  withFirstAndLast: false // Hide the going to First and Last page button
+    };
 
     const options = {
       noDataText:"  Please specify your search criteria to get hub accounts.",
@@ -253,7 +288,7 @@ class OpenAccountsList extends React.Component {
                 <BootstrapTable data ={ this.accounts } pagination={ true }
                   tableHeaderClass='nested-body-class'
                   search={ true }
-                  options={ options }>
+                  options={ this.state.loadFlag ? loadOptions : options }>
                     {listCols}
                 </BootstrapTable>
               </Col>

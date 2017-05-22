@@ -1,0 +1,53 @@
+.accounts_icon::after {
+	font-family: 'SAP-icons';
+	content: "\e001";
+}
+.accounts_icon {
+	font-size: 25px;
+	box-sizing: border-box;
+}
+
+.connections_icon::after {
+	font-family: 'SAP-icons';
+	content: "\e119";
+}
+.connections_icon {
+	font-size: 25px;
+	box-sizing: border-box;
+}
+
+.operators_icon::after {
+  font-family: 'SAP-icons';
+	content: "\e018";
+}
+.operators_icon {
+	font-size: 25px;
+	box-sizing: border-box;
+}
+
+.misc_icon::after {
+	font-family: 'SAP-icons';
+	content: "\e1a8";
+}
+.misc_icon {
+	font-size: 25px;
+	box-sizing: border-box;
+}
+
+.user_icon::after {
+	font-family: 'SAP-icons';
+	content: "\e0ca";
+}
+.user_icon {
+	font-size: 25px;
+	box-sizing: border-box;
+}
+
+.toolbox_icon::after {
+	font-family: 'SAP-icons';
+	content: "\e002";
+}
+.toolbox_icon {
+	font-size: 25px;
+	box-sizing: border-box;
+}
