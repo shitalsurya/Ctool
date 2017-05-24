@@ -131,7 +131,7 @@ class AdvancedSearch extends React.Component {
         <Form inline>
           { this.props.fields.searchField }
           {!this.state.isAdvSearch &&
-            <Button bsStyle="basic" onClick={ this.toggleSearchPanel.bind(this)}>
+            <Button bsStyle="default" onClick={ this.toggleSearchPanel.bind(this)}>
               <span title="Click to open advanced search"
                 className="sap-caret"></span>
             </Button>

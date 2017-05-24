@@ -11,8 +11,8 @@ class Loading extends React.Component {
     var color = 'gray';
 
     var style = {
-        // display: '-webkit-flex',
-        // display: 'flex',
+        display: '-webkit-flex',
+        display: 'flex',
         WebkitFlex: '0 1 auto',
         flex: '0 1 auto',
         WebkitFlexDirection: 'column',
@@ -24,16 +24,17 @@ class Loading extends React.Component {
         WebkitFlexBasis: '25%',
         flexBasis: '25%',
         // maxWidth: '25%',
-        // height: '200px',
+        height: '100px',
         WebkitAlignItems: 'center',
         alignItems: 'center',
         WebkitJustifyContent: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        paddingBottom: '20px'
     };
 
     return(
       <div>
-        <div style={style}><Halogen.PulseLoader color={color}/></div>
+        <div style={style}><Halogen.FadeLoader color={color}/></div>
       </div>
     )
   }
