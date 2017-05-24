@@ -26,7 +26,7 @@ class AdvancedSearch extends React.Component {
            isCacheSearch:"No",
            isAdvSearch:false,
            selectedCompany:[],
-             selectedStatus:"Active",
+             selectedStatus:1,
              selectedAccount:""
            };
            console.log("Use default==",this.state);
@@ -50,7 +50,7 @@ class AdvancedSearch extends React.Component {
 
   handleAccountChange(e){
     console.log("handleAccountChange==",e.target.value);
-    this.setState({selectedAccount:e.target.value},function(){
+    this.setState({selectedAccount:e.target.value,   isCacheSearch:"No"},function(){
         this.checkAdvSearch();
     });
   }
@@ -63,13 +63,14 @@ class AdvancedSearch extends React.Component {
   }
   handleStatusChange(e){
     console.log("handleStatusChange==",e);
-    this.setState({  selectedStatus:e.target.value});
+    this.setState({  selectedStatus:e.target.value,   isCacheSearch:"No"});
   }
   handleCompanyChange(obj){
       console.log("handleCompanyChange==",obj);
 
     this.setState({
-      selectedCompany:obj
+      selectedCompany:obj,
+         isCacheSearch:"No"
     },function(){
         this.checkAdvSearch();
     });
@@ -172,9 +173,9 @@ class AdvancedSearch extends React.Component {
                           value={this.state.selectedStatus}
                           onChange={this.handleStatusChange.bind(this)}
                         >
-                          <option key="ACTIVE" value="ACTIVE" >Active  </option>
-                          <option key="SUSPENDED" value="SUSPENDED" >Suspended  </option>
-                          <option key="CLOSED" value="CLOSED" >Closed  </option>
+                          <option key="ACTIVE" value="1" >Active  </option>
+                          <option key="SUSPENDED" value="2" >Suspended  </option>
+                          <option key="CLOSED" value="0" >Closed  </option>
                         </FormControl>
                       </Col>
                     </Row>
