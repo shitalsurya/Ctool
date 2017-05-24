@@ -20,7 +20,7 @@ export default class AccountList extends React.Component {
           this.state={
             submenus:{
               head: types.ACCOUNT_LIST,
-              head_icon : "accounts-icon",
+              head_icon : "accounts_icon",
               subVal:[
                 types.ACCOUNT_CREATE
               ]

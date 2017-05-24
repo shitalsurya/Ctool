@@ -16,7 +16,7 @@ class AccountType extends React.Component{
       type:'sms',
       submenus:{
         head: types.ACCOUNT_LIST,
-        head_icon : "accounts-icon",
+        head_icon : "accounts_icon",
         subVal:[
           types.ACCOUNT_CREATE
         ]

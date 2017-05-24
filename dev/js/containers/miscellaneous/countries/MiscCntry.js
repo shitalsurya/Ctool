@@ -24,10 +24,11 @@ class MiscCntry extends React.Component {
     this.state = {
       submenus:{
         head: types.MISCELLENEOUS,
-        head_icon : "misc-icon",
+        head_icon : "misc_icon",
         subVal:[
           types.USER_MANAGEMENT,
-          types.COUNTRY_MANAGEMENT
+          types.COUNTRY_MANAGEMENT,
+          types.RESET_PASSWORD
         ]
       }
     }
