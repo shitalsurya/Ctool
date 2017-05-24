@@ -26,7 +26,7 @@ class EditUserModal extends React.Component {
              currentUser: this.props.location.state.currentUser,
              submenus:{
                head: types.MISCELLENEOUS,
-               head_icon : "misc-icon",
+               head_icon : "misc_icon",
                subVal:[
                  types.USER_MANAGEMENT,
                  types.COUNTRY_MANAGEMENT
