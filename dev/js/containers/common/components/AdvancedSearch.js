@@ -12,13 +12,13 @@ class AdvancedSearch extends React.Component {
       super(props, context);
        if(sessionStorage.getItem("cacheAccListSearch")!=null){
          var cachedObj = JSON.parse(sessionStorage.getItem("cacheAccListSearch"));
-           console.log("Use from session storage==",cachedObj);
+         console.log("Use from session storage==",cachedObj);
          this.state={
            isCacheSearch:cachedObj.isCacheSearch,
            isAdvSearch:cachedObj.isAdvSearch,
            selectedCompany:cachedObj.selectedCompany,
-             selectedStatus:cachedObj.selectedStatus ,
-             selectedAccount:cachedObj.selectedAccount
+           selectedStatus:cachedObj.selectedStatus ,
+           selectedAccount:cachedObj.selectedAccount
          };
        }
        else {
@@ -26,26 +26,29 @@ class AdvancedSearch extends React.Component {
            isCacheSearch:"No",
            isAdvSearch:false,
            selectedCompany:[],
-             selectedStatus:1,
-             selectedAccount:""
-           };
-           console.log("Use default==",this.state);
+           selectedStatus:1,
+           selectedAccount:""
+         };
+         console.log("Use default==",this.state);
        }
-
       this.companyList=[];
+  }
+
+  cacheData(){
+    if(this.state.isCacheSearch==="Yes"){
+      console.log("this.state==",this.state);
+      sessionStorage.setItem("cacheAccListSearch",JSON.stringify(this.state));
+    }
+    else{
+      sessionStorage.removeItem("cacheAccListSearch");
+    }
   }
 
   cacheSearchChange(e){
     console.log("cacheSearchChange==",e.target.checked);
-      this.setState({isCacheSearch:e.target.checked?"Yes":"No"},function(){
-        if(this.state.isCacheSearch=="Yes"){
-            console.log("this.state==",this.state);
-            sessionStorage.setItem("cacheAccListSearch",JSON.stringify(this.state));
-        }
-        else{
-          sessionStorage.removeItem("cacheAccListSearch");
-        }
-      });
+    this.setState({isCacheSearch:e.target.checked?"Yes":"No"},function(){
+      this.cacheData();
+    });
   }
 
   handleAccountChange(e){
@@ -54,20 +57,31 @@ class AdvancedSearch extends React.Component {
         this.checkAdvSearch();
     });
   }
+
   handleSearch(){
     console.log("Search with:",this.state);
     this.props.onSearch(this.state);
   }
-  handleClear(){
 
+  handleClear(){
+    this.setState({
+      isCacheSearch:"No",
+      isAdvSearch:false,
+      selectedCompany:[],
+      selectedStatus:1,
+      selectedAccount:""
+    },function(){
+      this.cacheData();
+    });
   }
+
   handleStatusChange(e){
     console.log("handleStatusChange==",e);
     this.setState({  selectedStatus:e.target.value,   isCacheSearch:"No"});
   }
-  handleCompanyChange(obj){
-      console.log("handleCompanyChange==",obj);
 
+  handleCompanyChange(obj){
+    console.log("handleCompanyChange==",obj);
     this.setState({
       selectedCompany:obj,
          isCacheSearch:"No"
@@ -84,8 +98,8 @@ class AdvancedSearch extends React.Component {
     // else {
     //   _selectedCompany=null;
     // }
-
   }
+
   checkAdvSearch(){
     console.log("checkAdvSearch:",this.state);
     if(this.state.selectedCompany.length!=0|| this.state.selectedAccount != ""){
@@ -95,143 +109,143 @@ class AdvancedSearch extends React.Component {
       this.setState({isAdvSearch:false});
     }
   }
+
   toggleSearchPanel(){
     this.setState({ open: !this.state.open });
     this.props.getCompanyList();
   }
+
   componentWillReceiveProps( nextProps ) {
-      console.log("componentWillReceiveProps==",nextProps);
-      if(typeof(nextProps.Company)!='undefined'){
-        this.companyList = initializeTypeAheadData(nextProps.Company,'companyname','companyid');
-          console.log("this.companyList==",this.companyList);
-      }
-  }
-     render() {
-        return (
-          <div id="adv-search-panel">
-            <Form inline>
-              { this.props.fields.searchField }
-              {!this.state.isAdvSearch &&
-                <Button bsStyle="basic" onClick={ this.toggleSearchPanel.bind(this)}>
-                  <span title="Click to open advanced search"
-                    className="sap-caret"></span>
-                </Button>
-              }
-              {this.state.isAdvSearch &&
-                <Button bsStyle="info" onClick={ this.toggleSearchPanel.bind(this)}>
-                  <span title="Click to open advanced search"
-                    className="sap-caret"></span>
-                </Button>
-              }
-              {/* <Button bsStyle="basic">
-                <span title="Click to search"
-                  className="sap-search"></span>
-              </Button> */}
-            </Form>
-            <Collapse in={this.state.open}>
-              <div>
-                <Well>
-                  <Grid fluid={ true }>
-                    <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 2 }>
-                        Company:
-                      </Col>
-                      <Col md={ 9 }>
-                        <Typeahead
-                          onChange={this.handleCompanyChange.bind(this)}
-                          options={this.companyList}
-                          placeholder="Select a company..."
-                          defaultSelected={this.state.selectedCompany}
-                        >
-                        </Typeahead>
-                      </Col>
-                      <Col md={ 1 } className="dropdown-caret">
-                        <span title="Search company"
-                          className="sap-caret"></span>
-
-                      </Col>
-                    </Row>
-                    <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 3 }>
-                        Hub Account Name:
-                      </Col>
-                      <Col md={ 9 }>
-                        <FormControl onChange={this.handleAccountChange.bind(this)}
-                          value={this.state.selectedAccount}
-                          type="text"
-                        />
-                      </Col>
-                    </Row>
-
-                    <Row className="show-grid">
-                      <Col componentClass={ ControlLabel } md={ 3 }>
-                        Status:
-                      </Col>
-                      <Col md={ 9 }>
-                        <FormControl componentClass="select"
-                          name="status"
-                          value={this.state.selectedStatus}
-                          onChange={this.handleStatusChange.bind(this)}
-                        >
-                          <option key="ACTIVE" value="1" >Active  </option>
-                          <option key="SUSPENDED" value="2" >Suspended  </option>
-                          <option key="CLOSED" value="0" >Closed  </option>
-                        </FormControl>
-                      </Col>
-                    </Row>
-                    <Row className="show-grid">
-                      <Col mdHidden md={ 3 }>
-                      </Col>
-                      <Col md={ 2 }>
-                        <Button onClick={this.handleSearch.bind(this)}>
-                          <span className="sap-search"></span>
-                          <span>Search</span>
-                        </Button>
-                      </Col>
-                      <Col md={ 2 }>
-                        <Button onClick={this.handleClear.bind(this)}>
-                          <span className="sap-clear"></span>
-                          <span>Clear</span>
-                        </Button>
-
-                      </Col>
-                    </Row>
-                    <Row className="show-grid">
-                      <Col mdHidden md={ 3 }>
-                      </Col>
-                      <Col md={ 1 }>
-                        <Toggle
-                          defaultChecked={this.state.isCacheSearch == "Yes" ? true : false }
-                          value={this.state.isCacheSearch}
-                          icons={{
-                                 checked:'Yes',
-                                 unchecked: 'No',
-                          }}
-                          onChange={this.cacheSearchChange.bind(this)}
-                        />
-                      </Col>
-                      <Col md={ 8 }>
-                        <FormControl.Static>
-                          Cache my search criterias.
-                        </FormControl.Static>
-                      </Col>
-                    </Row>
-                  </Grid>
-                </Well>
-              </div>
-            </Collapse>
-          </div>
-        );
+    console.log("componentWillReceiveProps==",nextProps);
+    if(typeof(nextProps.Company)!='undefined'){
+      this.companyList = initializeTypeAheadData(nextProps.Company,'companyname','companyid');
+        console.log("this.companyList==",this.companyList);
     }
+  }
+
+  render() {
+    console.log(" Advanced Search State : " , this.state);
+    console.log("Session Store : ", sessionStorage.getItem("cacheAccListSearch"));
+    return (
+      <div id="adv-search-panel">
+        <Form inline>
+          { this.props.fields.searchField }
+          {!this.state.isAdvSearch &&
+            <Button bsStyle="basic" onClick={ this.toggleSearchPanel.bind(this)}>
+              <span title="Click to open advanced search"
+                className="sap-caret"></span>
+            </Button>
+          }
+          {this.state.isAdvSearch &&
+            <Button bsStyle="info" onClick={ this.toggleSearchPanel.bind(this)}>
+              <span title="Click to open advanced search"
+                className="sap-caret"></span>
+            </Button>
+          }
+          {/* <Button bsStyle="basic">
+            <span title="Click to search"
+              className="sap-search"></span>
+          </Button> */}
+        </Form>
+        <Collapse in={this.state.open}>
+          <div>
+            <Well>
+              <Grid fluid={ true }>
+                <Row className="show-grid">
+                  <Col componentClass={ ControlLabel } md={ 2 }>
+                    Company:
+                  </Col>
+                  <Col md={ 9 }>
+                    <Typeahead
+                      onChange={this.handleCompanyChange.bind(this)}
+                      options={this.companyList}
+                      placeholder="Select a company..."
+                      defaultSelected={this.state.selectedCompany}>
+                    </Typeahead>
+                  </Col>
+                  <Col md={ 1 } className="dropdown-caret">
+                    <span title="Search company"
+                      className="sap-caret"></span>
+                  </Col>
+                </Row>
+                <Row className="show-grid">
+                  <Col componentClass={ ControlLabel } md={ 3 }>
+                    Hub Account Name:
+                  </Col>
+                  <Col md={ 9 }>
+                    <FormControl onChange={this.handleAccountChange.bind(this)}
+                      value={this.state.selectedAccount}
+                      type="text" />
+                  </Col>
+                </Row>
+                <Row className="show-grid">
+                  <Col componentClass={ ControlLabel } md={ 3 }>
+                    Status:
+                  </Col>
+                  <Col md={ 9 }>
+                    <FormControl componentClass="select"
+                      name="status"
+                      value={this.state.selectedStatus}
+                      onChange={this.handleStatusChange.bind(this)} >
+                        <option key="ACTIVE" value="1" >Active  </option>
+                        <option key="SUSPENDED" value="2" >Suspended  </option>
+                        <option key="CLOSED" value="0" >Closed  </option>
+                    </FormControl>
+                  </Col>
+                </Row>
+                <Row className="show-grid">
+                  <Col mdHidden md={ 3 }>
+                  </Col>
+                  <Col md={ 2 }>
+                    <Button onClick={this.handleSearch.bind(this)}>
+                      <span className="sap-search"></span>
+                      <span>Search</span>
+                    </Button>
+                  </Col>
+                  <Col md={ 2 }>
+                    <Button onClick={this.handleClear.bind(this)}>
+                      <span className="sap-clear"></span>
+                      <span>Clear</span>
+                    </Button>
+                  </Col>
+                </Row>
+                <Row className="show-grid">
+                  <Col mdHidden md={ 3 }>
+                  </Col>
+                  <Col md={ 1 }>
+                    <Toggle
+                      checked={ this.state.isCacheSearch == "Yes" ? true : false }
+                      icons={{
+                             checked:'Yes',
+                             unchecked: 'No',
+                      }}
+                      onChange={this.cacheSearchChange.bind(this)}  />
+                  </Col>
+                  <Col md={ 8 }>
+                    <FormControl.Static>
+                      Cache my search criterias.
+                    </FormControl.Static>
+                  </Col>
+                </Row>
+              </Grid>
+            </Well>
+          </div>
+        </Collapse>
+      </div>
+    );
+  }
 }
+
 function mapStateToProps( state ) {
   return {
   Company:state.Common.compList,
   };
 }
+
 function mapDispatchToProps( dispatch ) {
   return bindActionCreators( {
     getCompanyList:getCompanyList,
   }, dispatch );
 }
+
 export default connect( mapStateToProps, mapDispatchToProps )( AdvancedSearch );
