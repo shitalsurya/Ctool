@@ -180,40 +180,8 @@ class OpenAccountsList extends React.Component {
       );
     }.bind(this);
 
-    const loadFunc = function() {
-      return (
-        <Loading/>
-      );
-    };
-
-    const loadOptions = {
-      noDataText: loadFunc(),
-      expandRowBgColor: '#f7f8fa',
-      clearSearch: true,
-      //searchPanel:advancedSearch(props),
-      searchPanel: (props) => advancedSearch(props),
-      toolBar: (props) => createCustomToolBar(props),
-      page: 1,  // which page you want to show as default
-      sizePerPageList: [ {
-        text: '5', value: 5
-      }, {
-        text: '10', value: 10
-      }, {
-        text: 'All', value: 50
-      } ], // you can change the dropdown list for size per page
-      sizePerPage: 5,  // which size per page you want to locate as default
-      pageStartIndex: 1, // where to start counting the pages
-      paginationSize: 3,  // the pagination bar size.
-      prePage: '<', // Previous page button text
-      nextPage: '>', // Next page button text
-      firstPage: '<<', // First page button text
-      lastPage: '>>', // Last page button text
-      alwaysShowAllBtns: false, // Always show next and previous button
-      //  withFirstAndLast: false // Hide the going to First and Last page button
-    };
-
     const options = {
-      noDataText:"  Please specify your search criteria to get hub accounts.",
+      noDataText: this.state.loadFlag ? <Loading/> : "Please specify your search criteria to get hub accounts.",
       expandRowBgColor: '#f7f8fa',
       clearSearch: true,
       //searchPanel:advancedSearch(props),
@@ -288,7 +256,7 @@ class OpenAccountsList extends React.Component {
                 <BootstrapTable data ={ this.accounts } pagination={ true }
                   tableHeaderClass='nested-body-class'
                   search={ true }
-                  options={ this.state.loadFlag ? loadOptions : options }>
+                  options={ options }>
                     {listCols}
                 </BootstrapTable>
               </Col>
