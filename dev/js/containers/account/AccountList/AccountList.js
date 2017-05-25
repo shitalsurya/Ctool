@@ -9,12 +9,12 @@ import OpenAccountsList from './OpenAccountsList';
 import * as types from './../../common/commonActionTypes';
 import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid, Button, Image,Glyphicon,Thumbnail} from 'react-bootstrap';
-import {handleSelectFieldsChange,navigateMenus} from './../actions/accountActions';
+import { handleActiveNav} from './../actions/accountActions';
 require('./../../../../scss/tabs.scss');
 require('./../../../../scss/style.scss');
 
 
-export default class AccountList extends React.Component {
+class AccountList extends React.Component {
     constructor(props, context) {
         super(props, context);
           this.state={
@@ -26,6 +26,10 @@ export default class AccountList extends React.Component {
               ]
             }
         }
+    }
+
+    componentWillMount(){
+      this.props.handleActiveNav("Accounts");
     }
 
     render() {
@@ -63,3 +67,16 @@ export default class AccountList extends React.Component {
       );
     }
 }
+
+function mapStateToProps( state ) {
+  return {
+  };
+}
+
+function mapDispatchToProps( dispatch ) {
+  return bindActionCreators( {
+    handleActiveNav : handleActiveNav
+  }, dispatch );
+}
+
+export default connect( mapStateToProps, mapDispatchToProps )(AccountList);
