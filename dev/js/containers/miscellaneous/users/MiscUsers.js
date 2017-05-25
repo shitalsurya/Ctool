@@ -8,6 +8,7 @@ import BrandingHeader from './../../common/components/BrandingHeader';
 import Navigation from './../../common/components/Navigation';
 import * as types from './../../common/commonActionTypes';
 import { getUserList, getUserDetails } from './miscUsersActions';
+import { handleActiveNav } from '../../account/actions/accountActions';
 import {
     ToastContainer,
     ToastMessage,
@@ -36,6 +37,7 @@ class MiscUsers extends React.Component {
   componentWillMount() {
     this.props.getUserList();
     console.log( "this.props.userList==", this.props.userList );
+    this.props.handleActiveNav("User Management");
   }
 
   componentWillReceiveProps( nextProps ) {
@@ -198,6 +200,7 @@ function mapDispatchToProps( dispatch ) {
   return bindActionCreators( {
     getUserList: getUserList,
     getUserDetails: getUserDetails,
+    handleActiveNav: handleActiveNav
     // updateUserDetails:updateUserDetails
   }, dispatch );
 }

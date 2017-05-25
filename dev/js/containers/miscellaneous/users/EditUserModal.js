@@ -29,7 +29,8 @@ class EditUserModal extends React.Component {
                head_icon : "misc_icon",
                subVal:[
                  types.USER_MANAGEMENT,
-                 types.COUNTRY_MANAGEMENT
+                 types.COUNTRY_MANAGEMENT,
+                 types.RESET_PASSWORD
                ]
              }
         }
