@@ -26,7 +26,7 @@ class CreateAccount extends React.Component {
           },
           submenus:{
             head: types.ACCOUNT_LIST,
-            head_icon : "accounts-icon",
+            head_icon : "accounts_icon",
             subVal:[
               types.ACCOUNT_CREATE
             ]

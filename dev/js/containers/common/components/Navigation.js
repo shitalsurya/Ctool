@@ -6,6 +6,8 @@ import { Nav,NavItem } from 'react-bootstrap';
 import {Form, FormControl, InputGroup,FormGroup, Glyphicon, Modal, Button} from 'react-bootstrap';
 import { handleActiveNav } from '../../account/actions/accountActions';
 require('./../../../../scss/style.scss');
+import style from './Navigation.style.css';
+
 class Navigation extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -43,7 +45,7 @@ class Navigation extends React.Component {
                 </span>
                 <span className="list-group-item">
                   <a onClick={ this.navigateMenus.bind( this, this.menuHeading )} >
-                    <span className={this.icon}></span>
+                    <span className={style[this.icon]}></span>
                     <span> { this.menuHeading } </span>
                   </a>
                 </span>

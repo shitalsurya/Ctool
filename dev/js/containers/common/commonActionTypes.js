@@ -99,6 +99,7 @@ export const MISCELLENEOUS = 'Miscelleneous';
 export const TOOLBOX_SEARCH = 'TOOLBOX_SEARCH';
 export const USER_MANAGEMENT = 'User Management';
 export const COUNTRY_MANAGEMENT = 'Country Management';
+export const RESET_PASSWORD = 'Reset Password';
 
 //Users
 export const MISC_USERS = 'MISC_USERS';

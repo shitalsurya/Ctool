@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 import createLogger from 'redux-logger';
 import allReducers from './containers/common/allReducers';
 import Login from './containers/Login/Login';
+import ForgotPassword from './containers/Login/ForgotPassword';
 import Launchpad from './containers/common/Launchpad';
 import Connections from './containers/common/Connections';
 import AccountList from './containers/account/AccountList/AccountList';
@@ -15,6 +16,7 @@ import MiscUsers from './containers/miscellaneous/users/MiscUsers';
 import MiscCountry from './containers/miscellaneous/countries/MiscCntry';
 import EditCountry from './containers/miscellaneous/countries/EditCountryModal';
 import EditUser from './containers/miscellaneous/users/EditUserModal';
+import ResetPassword from './containers/miscellaneous/resetPassword/ResetPassword';
 import Poc from './containers/common/POC';
 import thunkMiddleware from 'redux-thunk';
 import {compose, createStore, applyMiddleware } from 'redux';
@@ -49,6 +51,7 @@ ReactDOM.render(
 				{ /* Default Route */ }
 				<Route path="/" component={Login}/>
 				{ /* Routes */ }
+				<Route path="ForgotPassword" component={ForgotPassword}/>
 				<Route path="launchpad" component={Launchpad}/>
 				<Route path="poc" component={Poc}/>
 				<Route path="Accounts" component={AccountList}/>
@@ -57,6 +60,7 @@ ReactDOM.render(
 				<Route path="AccountType" component={AccountType}/>
 				<Route path="UserManagement" component={MiscUsers}/>
 				<Route path="CountryManagement" component={MiscCountry}/>
+				<Route path="ResetPassword" component={ResetPassword}/>
 				<Route path="connections" component={Connections}/>
 				<Route path="editCountry" component={EditCountry}/>
 				<Route path="editUser" component={EditUser}/>
