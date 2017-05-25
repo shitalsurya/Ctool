@@ -31,6 +31,9 @@ class ForgotPassword extends React.Component {
           <div className="col-sm-4 login-form">
             <div className="login-container">
               <span className="logo">Forgot Password</span>
+              <FormControl.Static>
+                Please enter registered email-id. Reset password link will be sent to you via email.
+              </FormControl.Static>
               <Grid fluid={ true }>
                 <Row className="show-grid">
   						    <Col mdHidden md={ 1 } />
