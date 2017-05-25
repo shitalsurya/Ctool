@@ -23,6 +23,7 @@ class AccountTechnicalDetails extends React.Component {
           addCnct:false,
           accountTechDetailsInfo:this.props.accountObj || []
         };
+        //  this.labels={};
         console.log("this.state.accountTechDetailsInfo==",this.state.accountTechDetailsInfo);
     }
 
@@ -32,7 +33,9 @@ class AccountTechnicalDetails extends React.Component {
       var contact={};
       contact[e.target.name] = e.target.value;
       var info = this.state.accountTechDetailsInfo;
-    info.contact = contact;
+    info.contactsDTO = contact;
+    info.labels = Object.assign(info.labels,contact);
+  //  info.labels[e.target.name] = e.target.selectedOptions[0].text;
       this.setState({accountTechDetailsInfo:info});
     }
 
@@ -59,7 +62,7 @@ class AccountTechnicalDetails extends React.Component {
     addContact(_contact){
       this.setState({emptyFlag : false});
       var info = this.state.accountTechDetailsInfo;
-        info.contact = this.contactDetails = _contact;
+        info.contactsDTO = this.contactDetails = _contact;
       this.setState({accountTechDetailsInfo:info});
     }
 
@@ -194,7 +197,7 @@ class AccountTechnicalDetails extends React.Component {
       switch(nextProps.target){
         case types.GET_EX_CONTACT_DETAILS_RESPONSE:
           var info = this.state.accountTechDetailsInfo;
-            info.contact = this.contactDetails = nextProps.contactDetails;
+            info.contactsDTO = this.contactDetails = nextProps.contactDetails;
           this.setState({emptyFlag:false,accountTechDetailsInfo:info});
           break;
       }

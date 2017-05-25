@@ -62,18 +62,22 @@ export default function(state = {
             return Object.assign({}, state, {
                 target: action.type
             });
-        case types.SUSPEND_ACC_INFO :
-            return Object.assign({}, state, {
-                data: action.payload
-            });
-        case types.REACTIVATE_ACC_INFO :
-            return Object.assign({}, state, {
-                data: action.payload
-            });
-        case types.CLOSE_ACC_INFO :
-            return Object.assign({}, state, {
-                data: action.payload
-            });
+            // export const SUSPEND_ACC_INFO_REQUEST = 'SUSPEND_ACC_INFO_REQUEST';
+            // export const SUSPEND_ACC_INFO_RESPONSE = 'SUSPEND_ACC_INFO_RESPONSE';
+            //
+            //
+            // export const CLOSE_ACC_INFO_REQUEST = 'CLOSE_ACC_INFO_REQUEST';
+            // export const CLOSE_ACC_INFO_RESPONSE = 'CLOSE_ACC_INFO_RESPONSE';
+            case types.REACTIVATE_ACC_INFO_REQUEST:
+              return Object.assign({}, state, {});
+            case types.REACTIVATE_ACC_INFO_RESPONSE:
+              console.log("REACTIVATE_ACC_INFO_RESPONSE==",action.payload);
+              if(action.payload.status==200){
+        					return Object.assign({}, state, {suspendStatus:true,target:action.type});
+        			}
+        			else{
+        					return Object.assign({}, state, {suspendStatus:false,target:action.type});
+        			}
         case types.ACTIVE_NAV_ITEM:
           return Object.assign({}, state, {
               nav: action.payload
@@ -129,7 +133,7 @@ export default function(state = {
     		case types.GET_EX_CONTACT_DETAILS_RESPONSE:
         console.log("GET_EX_CONTACT_DETAILS_RESPONSE==",action.payload);
         if(action.payload.status==200){
-          return Object.assign({}, state, {contactDetails:action.payload.data[0],target:action.type});
+          return Object.assign({}, state, {contactDetails:action.payload.data,target:action.type});
         }
 
         return state;

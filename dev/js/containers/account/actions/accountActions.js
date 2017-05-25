@@ -117,7 +117,7 @@ export function createNewAccount(_accountInfo) {
 	return function (dispatch,getState) {
 		dispatch(CreateNewAccountRequest());
 		var request = {
-								url:config.getUrl('CreateAccount'),
+								url:config.getUrl('hub_accounts'),
 									method:'POST',
 								data:_accountInfo,
 								successCallback:CreateNewAccountSuccess,
@@ -161,19 +161,29 @@ export function setSuspendAccountInfoRequest(_accountInfo){
 
 
 export function setReactivateAccountInfo(_accountInfo){
-	return function(dispatch){
-		dispatch(setReactivateAccountInfoRequest(_accountInfo))
+  return function (dispatch,getState) {
+    dispatch(setReactivateAccountInfoRequest(_accountInfo));
+    var request = {
+        url:config.getUrl('hub_accounts')+'/'+_accountInfo.accountid+'/reactive',
+        method:'PUT',
+        data:_accountInfo,
+        successCallback:setReactivateAccountInfoResponse,
+        failureCallback:setReactivateAccountInfoResponse
+    };
+    return httpRequest(dispatch,getState,request);
 	}
 }
 export function setReactivateAccountInfoRequest(_accountInfo){
 	return{
-		  type: types.REACTIVATE_ACC_INFO,
-			payload:_accountInfo
+		  type: types.REACTIVATE_ACC_INFO_REQUEST
 	}
 }
-
-
-
+export function setReactivateAccountInfoResponse(response){
+	return{
+		  type: types.REACTIVATE_ACC_INFO_RESPONSE,
+			payload:response
+	}
+}
 
 export function setCloseAccountInfo(_accountInfo){
 	return function(dispatch){
@@ -207,20 +217,20 @@ export function getExContactListRequest() {
 export function getExContactListResponse(response) {
 		return {
 			type: types.GET_EX_CONTACT_LIST_RESPONSE,
-    	//  payload: response
-			 payload: exCompanyContacts
+    	  payload: response
+			// payload: exCompanyContacts
 		}
 }
 export function getExContactList() {
 	return function (dispatch,getState) {
-    dispatch(getExContactListResponse());
-    // var request = {
-    //     url:config.getUrl('getCompanyContacts'),
-    //     method:'GET',
-    //     successCallback:getExContactListResponse,
-    //     failureCallback:getExContactListResponse
-    // };
-    // return httpRequest(dispatch,getState,request);
+    dispatch(getExContactListRequest());
+    var request = {
+        url:config.getUrl('getCompanyContacts'),
+        method:'GET',
+        successCallback:getExContactListResponse,
+        failureCallback:getExContactListResponse
+    };
+    return httpRequest(dispatch,getState,request);
 	}
 }
 
@@ -244,19 +254,19 @@ export function getExContactDetailsRequest() {
 export function getExContactDetailsResponse(response) {
 		return {
 			type: types.GET_EX_CONTACT_DETAILS_RESPONSE,
-    	//  payload: response.data
-			 payload: exCompanyContacts
+    	  payload: response
+			// payload: exCompanyContacts
 		}
 }
 export function getExContactDetails(_contactid) {
 	return function (dispatch,getState) {
-    dispatch(getExContactDetailsResponse());
-    // var request = {
-    //     url:config.getUrl('getCompanyContacts')+'/'+_contactid,
-    //     method:'GET',
-    //     successCallback:getExContactDetailsResponse,
-    //     failureCallback:getExContactDetailsResponse
-    // };
-    // return httpRequest(dispatch,getState,request);
+    dispatch(getExContactDetailsRequest());
+    var request = {
+        url:config.getUrl('getCompanyContacts')+'/'+_contactid,
+        method:'GET',
+        successCallback:getExContactDetailsResponse,
+        failureCallback:getExContactDetailsResponse
+    };
+    return httpRequest(dispatch,getState,request);
 	}
 }

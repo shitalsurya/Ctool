@@ -15,14 +15,14 @@ export function getUrl(APIName){
 			'userList':'/users',
         	'getUserById':'/users/userid/',
 
-			'CreateAccount':'/account',
+		//	'CreateAccount':'/account',
 			'GetCountryList':'/countries/min',
 			'getCountryById':'/countries/',
 			'updateCountryName':'/countries/countryname',
 			'enableCNL':'/countries/cnl',//enableCNL
 				'updateCustCNL':'/countries/cnloptions',//customer,
 					'updateNL':'/countries/numberlookupoptions',//updateNL
-			'hubAccList':'/hub_accounts',
+			'hub_accounts':'/hub_accounts',
 			'updateUserName':'/users/username',
 			'updateUserEmail':'/users/email',
 			'lockUser':'/users/lock',
@@ -32,7 +32,7 @@ export function getUrl(APIName){
 				'reliveUser':'/users/relive',
 			'getCompanyList':'/companies/min',
 			'getBillingLocationList':'/billing_locations/min',
-			'getCompanyContacts':'/company_contacts',
+			'getCompanyContacts':'/contacts'
 	};
 	return getServerUrl() +'/ctool'+ APIUrls[APIName];
 }

@@ -22,13 +22,17 @@ class AccountCommDetails extends React.Component {
         emptyFlag : true,
         acctCommInfo:this.props.accountObj || {}
     };
-
+    this.labels=this.props.accountObj.labels || {};
   }
 
   handleChange( e) {
-      //console.log("handleChange==",e.target.value);
+      console.log("handleChange==",e.target.value);
       var info = this.state.acctCommInfo;
       info[e.target.name] = e.target.value;
+
+      this.labels[e.target.name] = e.target.selectedOptions[0].text;
+      info.labels = this.labels;
+        info.labels.requesterName = sessionStorage.getItem( "username");
       this.setState({acctCommInfo:info},function(){
         console.log("handleChange==",this.state.acctCommInfo);
       });
@@ -52,7 +56,7 @@ class AccountCommDetails extends React.Component {
                   className="info_label"
                   type="text"
                   name="requesterName"
-                  value={this.state.acctCommInfo.requesterid||''} />
+                  value={sessionStorage.getItem( "username")||''} />
               </Col>
               <Col mdHidden md={ 4 }/>
             </Row>
@@ -165,11 +169,14 @@ class AccountCommDetails extends React.Component {
     // this.props.goToTechnicalDetails( this.state.acctCommInfo );
     var info = this.state.acctCommInfo;
     info.rsflag = 0;
-    info.requesterid = sessionStorage.getItem( "username" );
+    info.requesterid = sessionStorage.getItem( "userid" );
+
+    info.routingcriteria = "DEFAULT";
     this.setState({accountCommInfo : info});
      var accountObjCheck = this.state.acctCommInfo;
       this.props.goToTechnicalDetails( this.state.acctCommInfo );
      if(this.props.accType === "sms"){
+         info.customertype = "HTTP/HTTP";
       //  if(accountObjCheck.company && accountObjCheck.billinglocation
       //   && accountObjCheck.servicelevel && accountObjCheck.traffictype){
       //     this.props.goToTechnicalDetails( this.state.acctCommInfo );
@@ -179,6 +186,7 @@ class AccountCommDetails extends React.Component {
       //   }
      }
      else if(this.props.accType === "email"){
+          info.customertype = "";
       //  if(accountObjCheck.company && accountObjCheck.billinglocation){
       //     this.props.goToTechnicalDetails( this.state.acctCommInfo );
       //   }

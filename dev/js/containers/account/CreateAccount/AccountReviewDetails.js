@@ -45,15 +45,15 @@ class AccountReviewDetails extends React.Component {
             },
             {
               'subtitle' : 'Account Manager',
-              'value' : 'acctManager'
+              'value' : 'accountmanagerid'
             },
             {
               'subtitle' : 'Company',
-              'value' : 'company'
+              'value' : 'companyid'
             },
             {
               'subtitle' : 'Billing Location',
-              'value' : 'billinglocation'
+              'value' : 'billinglocationid'
             },
             {
               'subtitle' : 'Service Level',
@@ -61,7 +61,7 @@ class AccountReviewDetails extends React.Component {
             },
             {
               'subtitle' : 'Traffic Type',
-              'value' : 'traffictype'
+              'value' : 'trafficid'
             }
           ]
         },
@@ -71,7 +71,7 @@ class AccountReviewDetails extends React.Component {
           'infoList' : [
             {
               'subtitle' : 'Existing Company Contacts',
-              'value' : 'exstContacts'
+              'value' : 'contactid'
             },
             {
               'subtitle' : 'Name',
@@ -101,19 +101,19 @@ class AccountReviewDetails extends React.Component {
           'infoList' : [
             {
               'subtitle' : 'Technical name',
-              'value' : 'techName'
+              'value' : 'customername'
             },
             {
               'subtitle' : 'Commercial name',
-              'value' : 'commName'
+              'value' : 'extranetcustomername'
             },
             {
               'subtitle' : 'Existing accounts',
-              'value' : 'ExstAccts'
+              'value' : 'customerid'
             },
             {
               'subtitle' : 'Interface',
-              'value' : 'accInterface'
+              'value' : 'interfacetype'
             }
           ]
         },
@@ -123,11 +123,11 @@ class AccountReviewDetails extends React.Component {
           'infoList' : [
             {
               'subtitle' : 'Default TPOA',
-              'value' : 'defTPOA'
+              'value' : 'defaulttpoa'
             },
             {
               'subtitle' : 'SMPP Client IP Address(es)',
-              'value' : 'rplAdd',
+              'value' : 'customerreplyaddress',
               'hidden' : this.state.smppFlag
             }
           ],
@@ -145,12 +145,12 @@ class AccountReviewDetails extends React.Component {
             },
             {
               'subtitle' : 'Reply Address',
-              'value' : 'rplAdd',
+              'value' : 'customerreplyaddress',
               'hidden' : this.state.enableFlag
             },
             {
               'subtitle' : 'SMTP Reply Address',
-              'value' : 'rplAdd',
+              'value' : 'customerreplyaddress',
               'hidden' : this.state.smtpFlag
             }
           ],
@@ -182,7 +182,7 @@ class AccountReviewDetails extends React.Component {
                     md={ 3 }> {list.subtitle}:
                 </Col>
                 <Col md={ 6 }>
-                  {this.state.accountInfo[list.value]}
+                  {this.state.accountInfo.labels[list.value]}
                 </Col>
                 <Col
                     mdHidden

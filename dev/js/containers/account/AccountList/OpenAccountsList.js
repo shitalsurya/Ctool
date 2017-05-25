@@ -35,10 +35,23 @@ class OpenAccountsList extends React.Component {
   }
 
   componentWillReceiveProps( nextProps ) {
+    console.log("componentWillReceiveProps list",nextProps);
     switch(nextProps.target){
-      case types.MISC_ACCOUNT_LIST_RESPONSE:
-          this.accounts = nextProps.acctList;
-          console.log( "this.accounts==", this.accounts );
+        case types.MISC_ACCOUNT_LIST_RESPONSE:
+            this.accounts = nextProps.acctList;
+            console.log( "this.accounts==", this.accounts );
+            break;
+          case types.REACTIVATE_ACC_INFO_RESPONSE:
+            if(nextProps.suspendStatus==true){
+              this.refs.container.success(`Account reactivated successfully.`, ``, {
+                  closeButton: true,
+              });
+            }
+            else if(nextProps.suspendStatus==false){
+              this.refs.container.error(`Failed to reactivate account.`, ``, {
+                  closeButton: true,
+              });
+            }
           break;
         }
   }
@@ -64,7 +77,7 @@ class OpenAccountsList extends React.Component {
         break;
       case 'status':
             var _status="";
-            if(row.suspenddate!=null){
+            if(row.suspenddate!=null && row.liveaccount==0){
                 _status = "Suspended";
             }
             else{
@@ -77,7 +90,7 @@ class OpenAccountsList extends React.Component {
           break;
       case 'action':
         var _status="";
-        if(row.suspenddate!=null){
+        if(row.suspenddate!=null && row.liveaccount==0){
             _status = "Suspended";
         }
         else{
@@ -123,15 +136,17 @@ class OpenAccountsList extends React.Component {
   openModal(_row,status){
     var _info = {};
     console.log("currentAcct : ",_info," type : ",status);
-    _info.name = _row.name;
+      _info.accountid = _row.customerid;
+    _info.accountname = _row.name;
     _info.company = _row.company.companyname;
+      _info.requesterid = 0;
     switch (status) {
       case "Suspend":
         _info.accountmanager = _row.accountmanager.name;
         this.setState({suspendAction:true,info:_info});
         break;
       case "Reactivate":
-        _info.suspenddate = _row.suspenddate;
+        _info.newsuspenddate = _row.suspenddate;
         this.setState({reactivateAction:true,info:_info});
         break;
       case "Close":
@@ -181,7 +196,8 @@ class OpenAccountsList extends React.Component {
     }.bind(this);
 
     const options = {
-      noDataText: this.state.loadFlag ? <Loading/> : "Please specify your search criteria to get hub accounts.",
+    //  noDataText: this.state.loadFlag ? <Loading/> : "Please specify your search criteria to get hub accounts.",
+      noDataText: "Please specify your search criteria to get hub accounts.",
       expandRowBgColor: '#f7f8fa',
       clearSearch: true,
       //searchPanel:advancedSearch(props),
@@ -263,8 +279,15 @@ class OpenAccountsList extends React.Component {
             </Row>
           </Grid>
           <CloseAccount closeAction={this.state.closeAction} closeAccInfo={this.state.info} close={this.close.bind(this)}/>
+        {
+          this.state.reactivateAction &&
           <ReactivateAccount reactivateAction={this.state.reactivateAction} reactivateAccInfo={this.state.info} close={this.close.bind(this)}/>
+        }
           <SuspendAccount suspendAction={this.state.suspendAction} susAccInfo={this.state.info} close={this.close.bind(this)}/>
+          <ToastContainer
+            toastMessageFactory={ ToastMessageFactory }
+            ref="container"
+            className="toast-top-right" />
         </div>
     );
   }
@@ -273,7 +296,8 @@ class OpenAccountsList extends React.Component {
 function mapStateToProps( state ) {
   return {
       acctList: state.Common.acctList,
-      target: state.Account.target
+      target: state.Account.target,
+      suspendStatus:state.Account.suspendStatus,
   };
 }
 

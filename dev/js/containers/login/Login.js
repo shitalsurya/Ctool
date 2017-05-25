@@ -133,7 +133,7 @@ class Login extends Component {
     if ( nextProps.error == false ) {
       this.context.router.push( 'launchpad' );
       console.log("token==",nextProps.token);
-       sessionStorage.setItem("username",this.refs.userEmail);
+      // sessionStorage.setItem("username",this.refs.userEmail);
     }
     if ( nextProps.error == true ) {
       alert( "failed" );
@@ -143,7 +143,9 @@ class Login extends Component {
   handleLogin() {
     const userEmail = ReactDOM.findDOMNode(this.refs.userEmail).value;
     const userPassword =ReactDOM.findDOMNode(this.refs.userPassword).value;
-    sessionStorage.setItem( "Username", userEmail );
+    var _requesterid =  "708";
+    sessionStorage.setItem( "userid",_requesterid);
+      sessionStorage.setItem( "username",userEmail);
     this.props.loginUser( userEmail.toUpperCase(), userPassword.toUpperCase() );
   }
 

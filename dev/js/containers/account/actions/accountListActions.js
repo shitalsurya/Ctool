@@ -706,10 +706,10 @@ export function getHubAcctList(_reqParam) {
 	return function (dispatch,getState) {
 		dispatch(getHubAcctListRequest());
 		if(typeof(_reqParam)!='undefined'){
-			var _url = config.getUrl('hubAccList')+_reqParam
+			var _url = config.getUrl('hub_accounts')+_reqParam
 		}
 		else{
-			var _url = config.getUrl('hubAccList');
+			var _url = config.getUrl('hub_accounts');
 		}
 		var request = {
 			url:_url,

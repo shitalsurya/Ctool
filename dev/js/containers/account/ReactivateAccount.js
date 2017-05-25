@@ -16,12 +16,11 @@ class ReactivateAccount extends React.Component {
     super( props, context );
     this.state = {
       modalHeading:'Reactivate Account',
-      reactivateAccInfo:{}
+      reactivateAccInfo:this.props.reactivateAccInfo||{}
     };
   }
 
   render() {
-
     return(
       <Modal show={this.props.reactivateAction} onHide={this.handleCancel.bind(this)}>
           <Modal.Header closeButton>
@@ -48,7 +47,7 @@ class ReactivateAccount extends React.Component {
                   </Col>
                   <Col md={ 6 } >
                     <FormControl.Static>
-                      {this.state.reactivateAccInfo.account}
+                      {this.state.reactivateAccInfo.accountname}
                     </FormControl.Static>
                   </Col>
                   <Col mdHidden md={ 3 }/>
@@ -60,7 +59,7 @@ class ReactivateAccount extends React.Component {
                   </Col>
                   <Col md={ 6 } >
                     <FormControl.Static>
-                      {this.state.reactivateAccInfo.suspenddate}
+                      {this.state.reactivateAccInfo.newsuspenddate}
                     </FormControl.Static>
                   </Col>
                   <Col mdHidden md={ 3 }/>
@@ -72,11 +71,13 @@ class ReactivateAccount extends React.Component {
             <Button onClick={this.handleReactivateAccount.bind(this)}>Reactivate Account</Button>
             <Button onClick={this.handleCancel.bind(this)}>Cancel</Button>
           </Modal.Footer>
+
       </Modal>
       );
   }
 
   handleReactivateAccount(){
+    console.log("this.state.reactivateAccInfo==",this.state.reactivateAccInfo);
     this.props.setReactivateAccountInfo(this.state.reactivateAccInfo);
     console.log(this.state.reactivateAccInfo);
     this.props.close();
@@ -87,46 +88,12 @@ class ReactivateAccount extends React.Component {
     this.props.close();
   }
 
-  // handleSelectFieldsChange(target,value) {
-  //   var info = this.state.reactivateAccInfo;
-  //   switch (target) {
-  //     case types.REACTIVATE_ACC_COMPANY:
-  //       info = {};
-  //       info.company = value.value;
-  //       const reactivateAccObj = {
-  //         "company" :value.value,
-  //         "accounts" : Account
-  //       }
-  //       var updatedAccountList = this.props.handleReactivateAccCompany(reactivateAccObj);
-  //       this.accountList = initializeData(updatedAccountList,'account');
-  //       break;
-  //     case types.REACTIVATE_ACC_ACCOUNT:
-  //       info.account = value.value;
-  //       var date = Account.data.filter(function (header, item) {
-  //         if(header.account === value.value)
-  //           return header.date;
-  //       }.bind(this));
-  //       if(date.length)
-  //         info.date = date[0].date;
-  //       else
-  //         info.date = null;
-  //       break;
-  //   }
-  //   this.setState({reactivateAccInfo:info,emptyFlag:false});
-  // }
 
-  componentWillMount() {
-
-  }
-
-  componentWillReceiveProps(nextProps){
-    var _reactivateAccInfo = nextProps.reactivateAccInfo||{};
-    this.setState({reactivateAccInfo:_reactivateAccInfo});
-  }
 }
 
 function mapStateToProps(state) {
-    return { };
+    return {
+  };
 }
 
 function mapDispatchToProps(dispatch) {

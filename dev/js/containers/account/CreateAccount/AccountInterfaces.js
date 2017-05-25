@@ -23,12 +23,14 @@ class AccountInterfaces extends React.Component {
           emptyValFlag :true,
           accountInterfacesInfo:this.props.accountObj || []
         };
+        //  this.labels={};
         console.log("this.state.accountInterfacesInfo==",this.state.accountInterfacesInfo);
     }
 
     handleChange(e){
       console.log("handleChange==",e.target.value);
       var info = this.state.accountInterfacesInfo;
+
       if(e.target.name === "accInterface"){
         info[e.target.name] = e.target.value;
         info.moEnabled="No";
@@ -47,6 +49,13 @@ class AccountInterfaces extends React.Component {
       else{
         info[e.target.name] = e.target.value;
       }
+      if(e.target.type=="text"){
+          info.labels[e.target.name] = e.target.value;
+      }
+      else{
+          info.labels[e.target.name] = e.target.selectedOptions[0].text;
+      }
+    //  info.labels = this.labels;
       this.setState({accountInterfacesInfo:info},function(){
         console.log("handleChange==",this.state.accountInterfacesInfo);
       });
