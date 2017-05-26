@@ -8,12 +8,12 @@ var accounts =[
     "customertype": "HTTP/HTTP",
     "rsflag": 0,
     "customerid": 31359,
-    "suspenddate": null,
+    "suspenddate": "12 Oct 2006 03:54:02AM",
     "company": {
       "companyid": 40020,
       "companyname": "$"
     },
-    "liveaccount": 1,
+    "liveaccount": 0,
     "accountmanager": {
       "contactid": 20011,
       "email": "anthony.delorme@mobile365.com",
@@ -698,8 +698,8 @@ var accounts =[
       "contactid": 35396,
       "email": "achavez@sybase.com",
       "name": "Adrian Chavez Batta"
-}
-}
+    }
+  }
 ]
 
 export function getHubAcctList(_reqParam) {
@@ -731,6 +731,6 @@ export function getHubAcctListResponse(response) {
   return {
     type: types.MISC_ACCOUNT_LIST_RESPONSE,
 		 payload: response.data
-		 // payload:accounts
+		//  payload:accounts
   }
 }

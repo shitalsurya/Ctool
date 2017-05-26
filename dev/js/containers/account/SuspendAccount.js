@@ -17,26 +17,30 @@ var DatePicker = require("react-bootstrap-date-picker");
 class SuspendAccount extends React.Component {
   constructor( props, context ) {
     super( props, context );
-    var today = new Date().toISOString();
+    this.today = new Date();
     this.state = {
-        value:today,
-        minValue:today,
+        value:this.today.toISOString(),
         modalHeading:'Suspend Account',
-        susAccInfo : {
-          'suspenddate' : today
-        }
+        susAccInfo : this.props.susAccInfo || {}
     };
+  }
 
+  dateFormatter(_date){
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var date = _date.getDate() + " " + months[_date.getMonth()] + " " + _date.getFullYear();
+    var time = _date.toLocaleTimeString().replace(/ +/g, "");
+    if(_date.getHours < 10 || (_date.getHours > 12 && _date.getHours < 22))
+      time = "0" + time;
+    var fullDate = date + " " + time ;
+    return fullDate;
   }
 
   handleChange(_value) {
     var info = this.state.susAccInfo;
-    if(_value != null)
-      info.suspenddate = _value;
-    else {
-      _value = new Date().toISOString();
-      info.suspenddate = _value;
-    }
+    if(_value == null)
+      _value = this.today.toISOString();
+    var _date = new Date(_value);
+    info.suspenddate = this.dateFormatter(_date);
     this.setState({
       susAccInfo:info,
       value: _value, // ISO String, ex: "2016-11-19T12:00:00.000Z"
@@ -79,7 +83,7 @@ class SuspendAccount extends React.Component {
                   </Col>
                   <Col md={ 6 } >
                     <FormControl.Static>
-                      {this.state.susAccInfo.name}
+                      {this.state.susAccInfo.accountname}
                     </FormControl.Static>
                   </Col>
                   <Col mdHidden md={ 3 }/>
@@ -106,10 +110,10 @@ class SuspendAccount extends React.Component {
                       id="example-datepicker"
                       dateFormat="DD-MM-YYYY"
                       clearButtonElement={<div>Now</div>}
-                      minDate={this.state.minValue}
+                      minDate={this.today.toISOString()}
                       showTodayButton={true}
                       todayButtonLabel={"Now"}
-                      value={this.state.susAccInfo.suspenddate}
+                      value={this.state.value}
                       onChange={this.handleChange.bind(this)} />
                     {/*
                       <DateField
@@ -137,6 +141,7 @@ class SuspendAccount extends React.Component {
   }
 
   handleSuspendAccount(){
+    console.log("this.state.susAccInfo==",this.state.susAccInfo);
     this.props.setSuspendAccountInfo(this.state.susAccInfo);
     console.log(this.state.susAccInfo);
     this.props.close();
@@ -177,14 +182,11 @@ class SuspendAccount extends React.Component {
   // }
 
   componentWillMount() {
-
+    var info = this.state.susAccInfo;
+    info.suspenddate = this.dateFormatter(this.today);
+    this.setState({susAccInfo:info});
   }
 
-  componentWillReceiveProps(nextProps){
-    var _susAccInfo = nextProps.susAccInfo||{};
-    _susAccInfo.suspenddate = this.state.value;
-    this.setState({susAccInfo:_susAccInfo});
-  }
 }
 
 function mapStateToProps(state) {
@@ -194,7 +196,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
       setSuspendAccountInfo : setSuspendAccountInfo,
-        }, dispatch);
+  }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SuspendAccount);
