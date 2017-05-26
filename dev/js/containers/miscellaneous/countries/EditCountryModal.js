@@ -9,7 +9,8 @@ require('./../../../../scss/react-toggle.scss');
 import BrandingHeader from './../../common/components/BrandingHeader';
 import Navigation from './../../common/components/Navigation';
 import * as types from './../../common/commonActionTypes';
-import { getCountryList, updateCountryDetails } from './miscCntryActions';
+import { updateCountryDetails } from './miscCntryActions';
+import {lookupOptions} from './../../common/commonActionTypes';
 import {
     ToastContainer,
     ToastMessage,
@@ -70,12 +71,6 @@ handleCNLChange(name,val){
   render(){
     const info = this.state.currentCntry;
     console.log("render currentCntry==",info);
-
-    const lookupOptions = [
-      { numberlookupid: 1, numberlookupname: 'Local-Numbering-Plan' },
-      { numberlookupid: 2, numberlookupname: 'Local-Ported-Plan' },
-      { numberlookupid: 3, numberlookupname: 'NRS'}
-    ];
 
     return (
       <div>
@@ -193,7 +188,7 @@ handleCNLChange(name,val){
                       <Col md={ 6 }>
                         <InlineEdit name="numberlookupid" type="multiSelect"
                           options={lookupOptions}
-                          optionsLabel="numberlookupname"
+                          optionsLabel="numberlookup"
                           value={info.countrynumberlookupoptionsids}
                           onSave={this.handleNLChange.bind(this)}  />
                       </Col>
@@ -204,7 +199,7 @@ handleCNLChange(name,val){
                       </Col>
                       <Col md={ 6 }>
                         <InlineEdit name="numberlookupid" type="select" options={lookupOptions}
-                          optionsLabel="numberlookupname"
+                          optionsLabel="numberlookup"
                           value={info.numberlookupid}
                           onSave={this.handleInlineEditChange.bind(this)}  />
                       </Col>
@@ -232,7 +227,7 @@ handleCNLChange(name,val){
                       <Col md={ 6 }>
                         <InlineEdit name="numberlookupid" type="multiSelect"
                           options={lookupOptions}
-                          optionsLabel="numberlookupname"
+                          optionsLabel="numberlookup"
                           value={info.customernumberlookupoptionsids}
                           onSave={this.handleCNLChange.bind(this)}  />
                       </Col>

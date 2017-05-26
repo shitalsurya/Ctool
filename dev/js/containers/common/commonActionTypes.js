@@ -42,6 +42,7 @@ export const ACCOUNT_MODIFY_MT_ROUTING_STARTTIME = 'ACCOUNT_MODIFY_MT_ROUTING_ST
 export const INFO_GENERAL_COMMERCIAL = 'INFO_GENERAL_COMMERCIAL';
 export const INFO_GENERAL_SYBASE = 'INFO_GENERAL_SYBASE';
 export const INFO_GENERAL_ACC_CONTACTS = 'INFO_GENERAL_ACC_CONTACTS';
+export const INFO_GENERAL_ACC_CNL = 'INFO_GENERAL_ACC_CNL';
 export const INFO_GENERAL_TECHNICAL = 'INFO_GENERAL_TECHNICAL';
 export const INFO_GENERAL_VOLUME = 'INFO_GENERAL_VOLUME';
 export const INFO_GENERAL_MTSETTING = 'INFO_GENERAL_MTSETTING';
@@ -170,6 +171,8 @@ export const GET_ACCT_GENERAL_DELV_INFO_RESPONSE = 'GET_ACCT_GENERAL_DELV_INFO_R
 export const UPDATE_ACCT_GENERAL_COMM_INFO_REQUEST = 'UPDATE_ACCT_GENERAL_COMM_INFO_REQUEST';
 export const UPDATE_ACCT_GENERAL_COMM_INFO_RESPONSE = 'UPDATE_ACCT_GENERAL_COMM_INFO_RESPONSE';
 
+export const ADD_ACC_CNL_REQUEST = 'ADD_ACC_CNL_REQUEST';
+export const ADD_ACC_CNL_RESPONSE = 'ADD_ACC_CNL_RESPONSE';
 
 export const UPDATE_ACCT_MGR_REQUEST = 'UPDATE_ACCT_MGR_REQUEST';
 export const UPDATE_ACCT_MGR_RESPONSE = 'UPDATE_ACCT_MGR_RESPONSE';
@@ -215,3 +218,17 @@ export const roleOptions= [
     { ctoolrole: 'ServiceDesk', ctoolrolename: 'ServiceDesk' },
     { ctoolrole: 'ACCOUNTMANAGER', ctoolrolename: 'ACCOUNTMANAGER'}
 ];
+export const lookupOptions =[
+            {
+              "numberlookupid": 1,
+              "numberlookup": "Local-Numbering-Plan"
+            },
+            {
+              "numberlookupid": 2,
+              "numberlookup": "Local-Ported-Number"
+            },
+            {
+              "numberlookupid": 3,
+              "numberlookup": "NRS"
+            }
+        ];

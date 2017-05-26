@@ -11,6 +11,7 @@ import InfoGeneralVolumeSetting from './InfoGeneralVolumeSetting';
 import InfoGeneralMTSetting from './InfoGeneralMTSetting';
 import InfoGeneralMOSetting from './InfoGeneralMOSetting';
 import InfoGeneralDeliveryTime from './InfoGeneralDeliveryTime';
+import InfoGeneralAddCNL from './InfoGeneralAddCNL';
 // import {getList} from './../../../common/commonActions';
 require('./../../../../../scss/style.scss');
 require('./../../../../../scss/tabs.scss');
@@ -25,6 +26,7 @@ class HubAccountGeneral extends React.Component {
             CommercialInfo : false,
             SyBase : false,
             AccContacts : false,
+            AccCNL:false,
             TechnicalInfo : false,
             volCntrl : false,
             mtSetting : false,
@@ -86,12 +88,28 @@ class HubAccountGeneral extends React.Component {
                   <Collapse in={this.state.openStatus.AccContacts}>
                     <div>
                       <Well>
+
                       </Well>
                     </div>
                   </Collapse>
                 </Col>
               </Row>
-
+              <Row className="show-grid">
+                <Col md={ 12 }>
+                  <div className="rec_tab" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_ACC_CNL)}>
+                    <span className={this.state.openStatus.AccCNL ? "nav-up-icon" : "nav-down-icon"} >
+                      Custom Number Lookup Mode Settings
+                    </span>
+                  </div>
+                  <Collapse in={this.state.openStatus.AccCNL}>
+                    <div>
+                      <Well>
+                        {this.state.openStatus.AccCNL &&  <InfoGeneralAddCNL currentAcct={this.props.currentAcct}/> }
+                      </Well>
+                    </div>
+                  </Collapse>
+                </Col>
+              </Row>
               <Row className="show-grid">
                 <Col md={ 12 }>
                   <div className="rec_tab" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_TECHNICAL)}>
@@ -190,6 +208,9 @@ class HubAccountGeneral extends React.Component {
         case types.INFO_GENERAL_ACC_CONTACTS:
           updatedOpenStatus.AccContacts = !this.state.openStatus.AccContacts;
           break;
+          case types.INFO_GENERAL_ACC_CNL:
+            updatedOpenStatus.AccCNL = !this.state.openStatus.AccCNL;
+            break;
         case types.INFO_GENERAL_TECHNICAL:
           updatedOpenStatus.TechnicalInfo = !this.state.openStatus.TechnicalInfo;
           break;

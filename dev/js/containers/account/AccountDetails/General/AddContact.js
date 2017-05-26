@@ -7,7 +7,6 @@ require('./../../../../../scss/react-toggle.scss');
 import Countries from './../../../../../json/Countries.json';
 import * as types from './../../../common/commonActionTypes';
 import { initializeSelectOptions } from './../../../common/Functions/commonFunctions';
-import { initializeData } from './../../actions/accountActions';
 class AddContact extends React.Component {
   constructor(props, context) {
       super(props, context);

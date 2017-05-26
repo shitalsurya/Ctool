@@ -290,3 +290,29 @@ export function updateHubAccountDelvTimeInfoResponse(data) {
 		 payload: deliveryTimeInfo
 	}
 }
+
+export function addHubAccountCNL(cnlInfo) {
+	return function (dispatch,getState) {
+		dispatch(addHubAccountCNLRequest());
+		var request = {
+			url:config.getUrl('hub_accounts')+'/'+cnlInfo.customerid+'/cnl',
+			method:'POST',
+			data:cnlInfo,
+			successCallback:addHubAccountCNLResponse,
+			failureCallback:addHubAccountCNLResponse
+		};
+		return httpRequest(dispatch,getState,request);
+	}
+}
+
+export function addHubAccountCNLRequest() {
+	return {
+		type: types.UPDATE_ACCT_MGR_REQUEST
+	}
+}
+export function addHubAccountCNLResponse(response) {
+	return {
+		type: types.ADD_ACC_CNL_RESPONSE,
+		 payload: response
+	}
+}

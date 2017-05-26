@@ -150,7 +150,7 @@ export default class InlineEdit extends React.Component {
      }
 
      handleChange(e){
-       console.log("handleChange==",e.target.value);
+       console.log("handleChange==",e);
        switch(this.state.type){
         case "text":
         case "select":
