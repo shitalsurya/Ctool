@@ -29,20 +29,6 @@ var exCompanyContacts ={
   ]
 }
 
-export function initializeData(_list,valField){
-  console.log("initializeData==",_list);
-  var list = _list.data.map(function (item, index) {
-        return (
-          {
-            "id":index,
-            "label":item.name,
-            "value":item[valField],
-          }
-        );
-    }.bind(this));
-    return list;
-}
-
 export function handleTechDetailsBack(_accountCommInfo){
 	return function(dispatch){
 		dispatch(handleTechDetailsBackRequest(_accountCommInfo))
