@@ -59,7 +59,7 @@ class ReactivateAccount extends React.Component {
                   </Col>
                   <Col md={ 6 } >
                     <FormControl.Static>
-                      {this.state.reactivateAccInfo.newsuspenddate}
+                      {this.state.reactivateAccInfo.newsuspenddate.substring(0, 11)}
                     </FormControl.Static>
                   </Col>
                   <Col mdHidden md={ 3 }/>
@@ -88,18 +88,16 @@ class ReactivateAccount extends React.Component {
     this.props.close();
   }
 
-
 }
 
 function mapStateToProps(state) {
-    return {
-  };
+    return { };
 }
 
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
       setReactivateAccountInfo : setReactivateAccountInfo,
-        }, dispatch);
+  }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReactivateAccount);;

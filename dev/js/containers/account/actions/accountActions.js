@@ -7,27 +7,28 @@ import {getSpndAccount, getDataList} from './accountAjaxActions';
 var exCompanyContacts ={
   "status":200,
   "data":
-[
-  {
-    "contactid": 1,
-    "email": "string",
-    "insertdate": "2017-05-17T05:00:04.535Z",
-    "mobile": "string",
-    "name": "abc",
-    "phone": "string",
-    "updatedate": "2017-05-17T05:00:04.536Z"
-  },
-  {
-    "contactid": 2,
-    "email": "string",
-    "insertdate": "2017-05-17T05:00:04.535Z",
-    "mobile": "string",
-    "name": "xyz",
-    "phone": "string",
-    "updatedate": "2017-05-17T05:00:04.536Z"
-  }
-]
+  [
+    {
+      "contactid": 1,
+      "email": "string",
+      "insertdate": "2017-05-17T05:00:04.535Z",
+      "mobile": "string",
+      "name": "abc",
+      "phone": "string",
+      "updatedate": "2017-05-17T05:00:04.536Z"
+    },
+    {
+      "contactid": 2,
+      "email": "string",
+      "insertdate": "2017-05-17T05:00:04.535Z",
+      "mobile": "string",
+      "name": "xyz",
+      "phone": "string",
+      "updatedate": "2017-05-17T05:00:04.536Z"
+    }
+  ]
 }
+
 export function initializeData(_list,valField){
   console.log("initializeData==",_list);
   var list = _list.data.map(function (item, index) {
@@ -53,6 +54,7 @@ export function handleTechDetailsBackRequest(_accountCommInfo){
 			payload:_accountCommInfo
 	}
 }
+
 export function handleTechDetailsNext(_accountInfo){
 	return function(dispatch) {
 		dispatch(handleTechDetailsNextRequest(_accountInfo));
@@ -65,6 +67,7 @@ export function handleTechDetailsNextRequest(_accountInfo) {
 				payload:_accountInfo
     }
 }
+
 export function goToTechnicalDetails(_accountCommInfo){
 	return function(dispatch) {
 		dispatch(goToTechnicalDetailsRequest(_accountCommInfo));
@@ -78,6 +81,7 @@ export function goToTechnicalDetailsRequest(_accountCommInfo) {
 				payload:_accountCommInfo
     }
 }
+
 export function handleInterfaceDetailsBack(_accountInfo){
 	return function(dispatch){
 		dispatch(handleInterfaceDetailsBackRequest(_accountInfo))
@@ -113,6 +117,7 @@ export function handleReviewDetailsBackRequest(_accountInfo){
 			payload:_accountInfo
 	}
 }
+
 export function createNewAccount(_accountInfo) {
 	return function (dispatch,getState) {
 		dispatch(CreateNewAccountRequest());
@@ -126,7 +131,6 @@ export function createNewAccount(_accountInfo) {
 		return httpRequest(dispatch,getState,request);
 	}
 }
-
 export function CreateNewAccountRequest() {
 	return{
 		type: types.ACCOUNT_CREATE_NEW,
@@ -147,18 +151,29 @@ export function CreateNewAccountFailure(data) {
 }
 
 export function setSuspendAccountInfo(_accountInfo){
-	return function(dispatch){
+	return function(dispatch,getState){
 		dispatch(setSuspendAccountInfoRequest(_accountInfo))
+    var request = {
+        url:config.getUrl('hub_accounts')+'/'+_accountInfo.accountid+'/suspend',
+        method:'PUT',
+        data:_accountInfo,
+        successCallback:setSuspendAccountInfoResponse,
+        failureCallback:setSuspendAccountInfoResponse
+    };
+    return httpRequest(dispatch,getState,request);
 	}
 }
 export function setSuspendAccountInfoRequest(_accountInfo){
 	return{
-		  type: types.SUSPEND_ACC_INFO,
-			payload:_accountInfo
+		  type: types.SUSPEND_ACC_INFO_REQUEST,
 	}
 }
-
-
+export function setSuspendAccountInfoResponse(response){
+	return{
+		  type: types.SUSPEND_ACC_INFO_RESPONSE,
+			payload:response
+	}
+}
 
 export function setReactivateAccountInfo(_accountInfo){
   return function (dispatch,getState) {
@@ -186,14 +201,27 @@ export function setReactivateAccountInfoResponse(response){
 }
 
 export function setCloseAccountInfo(_accountInfo){
-	return function(dispatch){
-		dispatch(setCloseAccountInfoRequest(_accountInfo))
+	return function(dispatch,getState){
+		dispatch(setCloseAccountInfoRequest(_accountInfo));
+    var request = {
+        url:config.getUrl('hub_accounts')+'/'+_accountInfo.accountid+'/close',
+        method:'PUT',
+        data:_accountInfo,
+        successCallback:setCloseAccountInfoResponse,
+        failureCallback:setCloseAccountInfoResponse
+    };
+    return httpRequest(dispatch,getState,request);
 	}
 }
 export function setCloseAccountInfoRequest(_accountInfo){
 	return{
-		  type: types.CLOSE_ACC_INFO,
-			payload:_accountInfo
+		  type: types.CLOSE_ACC_INFO_REQUEST,
+	}
+}
+export function setCloseAccountInfoResponse(response){
+	return{
+		  type: types.CLOSE_ACC_INFO_RESPONSE,
+			payload:response
 	}
 }
 

@@ -41,17 +41,41 @@ class OpenAccountsList extends React.Component {
             this.accounts = nextProps.acctList;
             console.log( "this.accounts==", this.accounts );
             break;
-          case types.REACTIVATE_ACC_INFO_RESPONSE:
-            if(nextProps.suspendStatus==true){
-              this.refs.container.success(`Account reactivated successfully.`, ``, {
-                  closeButton: true,
-              });
-            }
-            else if(nextProps.suspendStatus==false){
-              this.refs.container.error(`Failed to reactivate account.`, ``, {
-                  closeButton: true,
-              });
-            }
+        case types.REACTIVATE_ACC_INFO_RESPONSE:
+          if(nextProps.suspendStatus==true){
+            this.refs.container.success(`Account reactivated successfully.`, ``, {
+                closeButton: true,
+            });
+          }
+          else if(nextProps.suspendStatus==false){
+            this.refs.container.error(`Failed to reactivate account.`, ``, {
+                closeButton: true,
+            });
+          }
+          break;
+        case types.CLOSE_ACC_INFO_RESPONSE:
+          if(nextProps.suspendStatus==true){
+            this.refs.container.success(`Account closed successfully.`, ``, {
+                closeButton: true,
+            });
+          }
+          else if(nextProps.suspendStatus==false){
+            this.refs.container.error(`Failed to close account.`, ``, {
+                closeButton: true,
+            });
+          }
+          break;
+        case types.SUSPEND_ACC_INFO_RESPONSE:
+          if(nextProps.suspendStatus==true){
+            this.refs.container.success(`Account suspended successfully.`, ``, {
+                closeButton: true,
+            });
+          }
+          else if(nextProps.suspendStatus==false){
+            this.refs.container.error(`Failed to suspend account.`, ``, {
+                closeButton: true,
+            });
+          }
           break;
         }
   }
@@ -196,7 +220,7 @@ class OpenAccountsList extends React.Component {
     }.bind(this);
 
     const options = {
-    //  noDataText: this.state.loadFlag ? <Loading/> : "Please specify your search criteria to get hub accounts.",
+      //  noDataText: this.state.loadFlag ? <Loading/> : "Please specify your search criteria to get hub accounts.",
       noDataText: "Please specify your search criteria to get hub accounts.",
       expandRowBgColor: '#f7f8fa',
       clearSearch: true,
@@ -278,18 +302,28 @@ class OpenAccountsList extends React.Component {
               </Col>
             </Row>
           </Grid>
+        {
+          this.state.closeAction &&
           <CloseAccount closeAction={this.state.closeAction} closeAccInfo={this.state.info} close={this.close.bind(this)}/>
+        }
         {
           this.state.reactivateAction &&
           <ReactivateAccount reactivateAction={this.state.reactivateAction} reactivateAccInfo={this.state.info} close={this.close.bind(this)}/>
         }
+        {
+          this.state.suspendAction &&
           <SuspendAccount suspendAction={this.state.suspendAction} susAccInfo={this.state.info} close={this.close.bind(this)}/>
+        }
           <ToastContainer
             toastMessageFactory={ ToastMessageFactory }
             ref="container"
             className="toast-top-right" />
         </div>
     );
+  }
+
+  componentWillMount(){
+    this.props.getHubAcctList();
   }
 }
 

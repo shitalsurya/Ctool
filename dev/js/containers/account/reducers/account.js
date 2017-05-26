@@ -62,27 +62,40 @@ export default function(state = {
             return Object.assign({}, state, {
                 target: action.type
             });
-            // export const SUSPEND_ACC_INFO_REQUEST = 'SUSPEND_ACC_INFO_REQUEST';
-            // export const SUSPEND_ACC_INFO_RESPONSE = 'SUSPEND_ACC_INFO_RESPONSE';
-            //
-            //
-            // export const CLOSE_ACC_INFO_REQUEST = 'CLOSE_ACC_INFO_REQUEST';
-            // export const CLOSE_ACC_INFO_RESPONSE = 'CLOSE_ACC_INFO_RESPONSE';
-            case types.REACTIVATE_ACC_INFO_REQUEST:
-              return Object.assign({}, state, {});
-            case types.REACTIVATE_ACC_INFO_RESPONSE:
-              console.log("REACTIVATE_ACC_INFO_RESPONSE==",action.payload);
-              if(action.payload.status==200){
-        					return Object.assign({}, state, {suspendStatus:true,target:action.type});
-        			}
-        			else{
-        					return Object.assign({}, state, {suspendStatus:false,target:action.type});
-        			}
+        case types.SUSPEND_ACC_INFO_REQUEST:
+          return Object.assign({}, state, {});
+        case types.SUSPEND_ACC_INFO_RESPONSE:
+          console.log("SUSPEND_ACC_INFO_RESPONSE==",action.payload);
+          if(action.payload.status==200){
+              return Object.assign({}, state, {suspendStatus:true,target:action.type});
+          }
+          else{
+              return Object.assign({}, state, {suspendStatus:false,target:action.type});
+          }
+        case types.REACTIVATE_ACC_INFO_REQUEST:
+          return Object.assign({}, state, {});
+        case types.REACTIVATE_ACC_INFO_RESPONSE:
+          console.log("REACTIVATE_ACC_INFO_RESPONSE==",action.payload);
+          if(action.payload.status==200){
+    					return Object.assign({}, state, {suspendStatus:true,target:action.type});
+    			}
+    			else{
+    					return Object.assign({}, state, {suspendStatus:false,target:action.type});
+    			}
+        case types.CLOSE_ACC_INFO_REQUEST:
+          return Object.assign({}, state, {});
+        case types.CLOSE_ACC_INFO_RESPONSE:
+          console.log("CLOSE_ACC_INFO_RESPONSE==",action.payload);
+          if(action.payload.status==200){
+              return Object.assign({}, state, {suspendStatus:true,target:action.type});
+          }
+          else{
+              return Object.assign({}, state, {suspendStatus:false,target:action.type});
+          }
         case types.ACTIVE_NAV_ITEM:
           return Object.assign({}, state, {
               nav: action.payload
           });
-
     			return Object.assign({}, state, {exContactList:action.payload.data,target:action.type});
         case types.GET_ACCT_FORCED_TPOA_LIST_REQUEST:
           return Object.assign({}, state, {});
@@ -131,10 +144,10 @@ export default function(state = {
         case types.GET_EX_CONTACT_DETAILS_REQUEST:
     			return Object.assign({}, state, {});
     		case types.GET_EX_CONTACT_DETAILS_RESPONSE:
-        console.log("GET_EX_CONTACT_DETAILS_RESPONSE==",action.payload);
-        if(action.payload.status==200){
-          return Object.assign({}, state, {contactDetails:action.payload.data,target:action.type});
-        }
+          console.log("GET_EX_CONTACT_DETAILS_RESPONSE==",action.payload);
+          if(action.payload.status==200){
+            return Object.assign({}, state, {contactDetails:action.payload.data,target:action.type});
+          }
 
         return state;
     }
