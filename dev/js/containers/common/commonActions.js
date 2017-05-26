@@ -31,6 +31,11 @@ var BillingLocation =[
     "billinglocationshortname": "MWES",
     "billinglocationid": 12
   }];
+  var managerList={
+    status:200,
+    data:[{"name":"Man Kim Toong","contactid":35309},{"name":"Amanda Midlane","contactid":35319},{"name":"Shawn Ng","contactid":35335}]
+  }
+
 var Company = [
 {
 	"companyid": 1,
@@ -100,21 +105,23 @@ var MOBILE_NOTIF = [
 						dispatch(getHubAcctList())
 						break;
 					case "AccountDetails":
-						dispatch(getHubAccountCommercialInfo(currentAcct))
-						dispatch(getHubAccountTechnicalInfo(currentAcct))
-						dispatch(getHubAccountVolumeInfo(currentAcct))
-						dispatch(getHubAccountMTInfo(currentAcct))
-						dispatch(getHubAccountMOInfo(currentAcct))
-						dispatch(getHubAccountDelvTimeInfo(currentAcct))
-						dispatch(getBillingLocationList())
-						dispatch(getVolumeTypeList())
-						dispatch(getMWNotifList())
-						dispatch(getSMSCNotifList())
-						dispatch(getMOBILENotifList())
-						dispatch(getStartTimeList())
-						dispatch(getEndTimeList())
-	 					dispatch(getSMSCList())
-	 					dispatch(getHubAcctForcedTPOAList(currentAcct))
+						 dispatch(getHubAccountCommercialInfo(currentAcct))
+             	dispatch(getBillingLocationList())
+						// dispatch(getHubAccountTechnicalInfo(currentAcct))
+						// dispatch(getHubAccountVolumeInfo(currentAcct))
+						// dispatch(getHubAccountMTInfo(currentAcct))
+						// dispatch(getHubAccountMOInfo(currentAcct))
+						// dispatch(getHubAccountDelvTimeInfo(currentAcct))
+
+            	dispatch(getManagerList())
+						// dispatch(getVolumeTypeList())
+						// dispatch(getMWNotifList())
+						// dispatch(getSMSCNotifList())
+						// dispatch(getMOBILENotifList())
+						// dispatch(getStartTimeList())
+						// dispatch(getEndTimeList())
+            // tch(getSMSCList())
+            // tch(getHubAcctForcedTPOAList(currentAcct))
 	 					break;
 				}
 		  }
@@ -135,7 +142,7 @@ var MOBILE_NOTIF = [
 				dispatch(getCompanyListRequest());
 				var request = {
 					url:config.getUrl('getCompanyList'),
-					method:'GET',
+					method:'PUT',
 					successCallback:getCompanyListResponse,
 					failureCallback:getCompanyListResponse
 				};
@@ -143,6 +150,30 @@ var MOBILE_NOTIF = [
 			}
 		}
 
+export function getManagerListRequest() {
+    return {
+      type: types.GET_MANAGER_LIST_REQUEST
+    }
+  }
+export function getManagerListResponse(response) {
+    return {
+      type: types.GET_MANAGER_LIST_RESPONSE,
+       payload: response
+       //payload: managerList
+    }
+}
+export function getManagerList() {
+  return function (dispatch,getState) {
+    dispatch(getManagerListRequest());
+    var request = {
+      url:config.getUrl('getManagerList'),
+      method:'GET',
+      successCallback:getManagerListResponse,
+      failureCallback:getManagerListResponse
+    };
+    return httpRequest(dispatch,getState,request);
+  }
+}
 		export function getBillingLocationListRequest() {
 				return {
 					type: types.GET_BILLINGLOCATION_LIST_REQUEST

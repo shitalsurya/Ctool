@@ -94,6 +94,19 @@ export default function(state = {
         case types.GET_ACCT_GENERAL_COMM_INFO_RESPONSE:
           console.log("GET_ACCT_GENERAL_COMM_INFO_RESPONSE==",action.payload);
           return Object.assign({}, state, {infoGenComm:action.payload,target:action.type});
+
+
+          case types.UPDATE_ACCT_MGR_REQUEST:
+            return Object.assign({}, state, {});
+          case types.UPDATE_ACCT_MGR_RESPONSE:
+            console.log("UPDATE_ACCT_MGR_RESPONSE==",action.payload);
+            if(action.payload.status==200){
+                return Object.assign({}, state, {updateStatus:true,target:action.type});
+            }
+            else{
+                return Object.assign({}, state, {updateStatus:false,target:action.type});
+            }
+
         case types.GET_ACCT_GENERAL_TECH_INFO_REQUEST:
           return Object.assign({}, state, {});
         case types.GET_ACCT_GENERAL_TECH_INFO_RESPONSE:

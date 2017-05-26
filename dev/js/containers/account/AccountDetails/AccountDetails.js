@@ -60,8 +60,8 @@ class AccountDetails extends React.Component {
                 <Col md={10}>
                   <Tabs className="tabs" >
                     <div className="links">
-                      <TabLink to="General"  className="tab-link">{this.state.accountCaptions.General}</TabLink>
-                      <TabLink to="TPOA" default className="tab-link">{this.state.accountCaptions.TPOA }</TabLink>
+                      <TabLink to="General" default className="tab-link">{this.state.accountCaptions.General}</TabLink>
+                      <TabLink to="TPOA"  className="tab-link">{this.state.accountCaptions.TPOA }</TabLink>
                       <TabLink to="MTRouting"  className="tab-link">{this.state.accountCaptions.MTRouting }</TabLink>
                       <TabLink to="MORouting" className="tab-link">{this.state.accountCaptions.MORouting}</TabLink>
                       <TabLink to="AddKeyword" className="tab-link">{this.state.accountCaptions.AddKeyword}</TabLink>

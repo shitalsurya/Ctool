@@ -94,7 +94,30 @@ export function updateHubAccountCommercialInfoResponse(data) {
 	}
 }
 
+export function updateAccountManager(commInfo) {
+	return function (dispatch,getState) {
+		dispatch(updateAccountManagerRequest());
+		var request = {
+			url:config.getUrl('hub_accounts')+'/'+commInfo.accountId+'/manager/'+commInfo.contactid,
+			method:'PUT',
+			successCallback:updateAccountManagerResponse,
+			failureCallback:updateAccountManagerResponse
+		};
+		return httpRequest(dispatch,getState,request);
+	}
+}
 
+export function updateAccountManagerRequest() {
+	return {
+		type: types.UPDATE_ACCT_MGR_REQUEST
+	}
+}
+export function updateAccountManagerResponse(response) {
+	return {
+		type: types.UPDATE_ACCT_MGR_RESPONSE,
+		 payload: response
+	}
+}
 export function getHubAccountTechnicalInfo(currentAcct) {
 	return function (dispatch,getState) {
 		dispatch(getHubAccountTechnicalInfoResponse());

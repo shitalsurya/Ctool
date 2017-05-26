@@ -32,7 +32,8 @@ export function getUrl(APIName){
 				'reliveUser':'/users/relive',
 			'getCompanyList':'/companies/min',
 			'getBillingLocationList':'/billing_locations/min',
-			'getCompanyContacts':'/contacts'
+			'getCompanyContacts':'/contacts',
+			'getManagerList':'/hub_accounts/managers'
 	};
 	return getServerUrl() +'/ctool'+ APIUrls[APIName];
 }

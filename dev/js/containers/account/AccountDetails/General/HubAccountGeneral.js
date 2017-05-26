@@ -22,7 +22,7 @@ class HubAccountGeneral extends React.Component {
 
         this.state = {
           openStatus : {
-            CommercialInfo : true,
+            CommercialInfo : false,
             SyBase : false,
             AccContacts : false,
             TechnicalInfo : false,
@@ -36,7 +36,6 @@ class HubAccountGeneral extends React.Component {
     }
 
     render() {
-  console.log("render this.infoGenComm==",this.infoGenComm);
 
         return (
           <div className="tabs-container">
@@ -53,7 +52,7 @@ class HubAccountGeneral extends React.Component {
                   <Collapse in={this.state.openStatus.CommercialInfo}>
                     <div>
                       <Well>
-                        <InfoGeneralCommercial/>
+                      {this.state.openStatus.CommercialInfo &&  <InfoGeneralCommercial currentAcct={this.props.currentAcct}/> }
                       </Well>
                     </div>
                   </Collapse>
@@ -70,7 +69,7 @@ class HubAccountGeneral extends React.Component {
                   <Collapse in={this.state.openStatus.SyBase}>
                     <div>
                       <Well>
-                        <InfoGeneralSybase/>
+                        {this.state.openStatus.SyBase &&  <InfoGeneralSybase currentAcct={this.props.currentAcct}/> }
                       </Well>
                     </div>
                   </Collapse>
@@ -87,7 +86,6 @@ class HubAccountGeneral extends React.Component {
                   <Collapse in={this.state.openStatus.AccContacts}>
                     <div>
                       <Well>
-                        <InfoGeneralAddContacts/>
                       </Well>
                     </div>
                   </Collapse>
@@ -104,7 +102,6 @@ class HubAccountGeneral extends React.Component {
                   <Collapse in={this.state.openStatus.TechnicalInfo}>
                     <div>
                       <Well>
-                        <InfoGeneralTechnical/>
                       </Well>
                     </div>
                   </Collapse>
@@ -121,7 +118,6 @@ class HubAccountGeneral extends React.Component {
                   <Collapse in={this.state.openStatus.volCntrl}>
                     <div>
                       <Well>
-                        <InfoGeneralVolumeSetting/>
                       </Well>
                     </div>
                   </Collapse>
@@ -138,7 +134,6 @@ class HubAccountGeneral extends React.Component {
                   <Collapse in={this.state.openStatus.mtSetting}>
                     <div>
                       <Well>
-                        <InfoGeneralMTSetting/>
                       </Well>
                     </div>
                   </Collapse>
@@ -155,7 +150,6 @@ class HubAccountGeneral extends React.Component {
                   <Collapse in={this.state.openStatus.moSetting}>
                     <div>
                       <Well>
-                        <InfoGeneralMOSetting/>
                       </Well>
                     </div>
                   </Collapse>
@@ -172,7 +166,6 @@ class HubAccountGeneral extends React.Component {
                   <Collapse in={this.state.openStatus.deliveryTime}>
                     <div>
                       <Well>
-                        <InfoGeneralDeliveryTime/>
                       </Well>
                     </div>
                   </Collapse>
@@ -221,7 +214,6 @@ class HubAccountGeneral extends React.Component {
 
 function mapStateToProps(state) {
     return {
-
      };
 }
 

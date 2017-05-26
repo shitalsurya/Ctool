@@ -24,7 +24,7 @@ export default class InlineEdit extends React.Component {
             showEdit : false,
             showButtons : false,
         };
-        console.log("InlineEdit this.state==",this.state);
+        console.log("InlineEdit initial this.state==",this.state);
     }
 
     onCancelClick() {
@@ -150,7 +150,7 @@ export default class InlineEdit extends React.Component {
      }
 
      handleChange(e){
-       console.log("handleChange==",e);
+       console.log("handleChange==",e.target.value);
        switch(this.state.type){
         case "text":
         case "select":

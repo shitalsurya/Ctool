@@ -35,6 +35,7 @@ class InfoGeneralCommercial extends React.Component {
     }
 
     render() {
+      console.log("render comm this.BillingLocation==",this.props.BillingLocation);
         return (
           <div >
             <Grid fluid={true} className="inner_grid">

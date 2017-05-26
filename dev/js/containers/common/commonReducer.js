@@ -1,7 +1,13 @@
 import * as types from './commonActionTypes';
 export default function (state = {}, action = null) {
-	console.log("in route reducer");
+	console.log("in common reducer");
 	switch(action.type) {
+		case  types.GET_MANAGER_LIST_REQUEST :
+			return Object.assign({}, state, {});
+		case  types.GET_MANAGER_LIST_RESPONSE :
+			if(action.payload.status==200){
+					return Object.assign({}, state, {managerList:action.payload.data,target:action.type});
+			}
 		case  types.GET_COMPANY_LIST_REQUEST :
 			return Object.assign({}, state, {});
 		case  types.GET_COMPANY_LIST_RESPONSE :

@@ -7,30 +7,36 @@ import Select from 'react-select';
 import InlineEdit from './../../../common/components/InlineEdit';
 require('./../../../../../scss/tabs.scss');
 require('./../../../../../scss/style.scss');
+import { updateAccountManager } from './../../actions/accountGeneralActions';
 
 class InfoGeneralSybase extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
           sybaseInfoObj : {
+            accountId:this.props.currentAcct,
             cntryMgr : 'Wei Leng',
-            accMgr : 'ww@sybase.com'
+            contactid : '35319'
           }
         }
     }
 
-    handleInlineEditChange(name,val){
+    handleChange(name,val){
+      console.log("name : ",name, "  val : ",val);
       var info = this.state.sybaseInfoObj;
-      switch (name) {
-        case "accMgr":
-          info.accMgr = val;
-          break;
+
+      if(info[name]!==val){
+        info[name]=val;
+        this.setState({sybaseInfoObj : info},function(){
+          console.log("updateAccountManager==",this.state.sybaseInfoObj);
+          this.props.updateAccountManager(this.state.sybaseInfoObj);
+        });
       }
-      this.setState({sybaseInfoObj : info});
     }
 
     render() {
       console.log("sybaseInfoObj : ",this.state.sybaseInfoObj);
+        console.log("this.props.managerList : ",this.props.managerList);
         return (
           <div >
             <Grid fluid={true} className="inner_grid">
@@ -54,7 +60,14 @@ class InfoGeneralSybase extends React.Component {
                   Account Manager :
                 </Col>
                 <Col md={ 8 } >
-                  <InlineEdit name="accMgr" type="text" value={this.state.sybaseInfoObj.accMgr} onSave={this.handleInlineEditChange.bind(this)}  />
+                <InlineEdit
+                    name="contactid"
+                    type="select"
+                    options={this.props.managerList}
+                    optionsLabel="name"
+                    value={this.state.sybaseInfoObj.contactid}
+                    onSave={this.handleChange.bind(this)}  />
+
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -72,11 +85,15 @@ class InfoGeneralSybase extends React.Component {
 
 function mapStateToProps(state) {
     return {
+    //  infoGenComm:state.Account.infoGenComm,
+      managerList:state.Common.managerList
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ }, dispatch);
+    return bindActionCreators({
+    updateAccountManager:updateAccountManager
+  }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoGeneralSybase);
