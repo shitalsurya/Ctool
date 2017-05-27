@@ -21,24 +21,23 @@ class AddCnl extends React.Component {
     console.log("handleModalChange==",e);
     var AddCnlinfo = this.state.AddCnlInfo;
     AddCnlinfo[e.target.name]=e.target.value;
+    if(e.target.name=='countryid'){
+        AddCnlinfo.countryname =  e.target.selectedOptions[0].text;
+    }
+
     this.setState({ AddCnlInfo: AddCnlinfo});
   }
 
   saveAddCnl(){
     console.log("new contactinfo : " , this.state.AddCnlInfo);
-    // this.props.handleSaveContact(this.state.AddCnlInfo);
-    // this.props.close();
     this.props.addHubAccountCNL(this.state.AddCnlInfo);
-    this.props.close();
+    this.props.close(this.state.AddCnlInfo);
   }
 
-  componentWillMount(){
-    // this.countryList = initializeData(Countries,'countryName');
-  //  this.countryList = initializeSelectOptions(Countries.data,'countryName','countryCode')
-  }
+  
 
   close() {
-    this.props.close();
+    this.props.close(this.state.AddCnlInfo);
   }
 
   render(){

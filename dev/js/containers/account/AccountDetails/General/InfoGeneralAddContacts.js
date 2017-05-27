@@ -36,14 +36,14 @@ class InfoGeneralAddContacts extends React.Component {
         this.companyList = initializeData(Contact,'name');
     }
 
-    deleteDataFormatter(cell, row,field,index) {
-       this.currentRow = row;
-       this.currentField = field;
-
-       return (
-           <DeleteRowLink currentRow={this.currentRow.name}/>
-       )
-     }
+    // deleteDataFormatter(cell, row,field,index) {
+    //    this.currentRow = row;
+    //    this.currentField = field;
+    //
+    //    return (
+    //        <DeleteRowLink currentRow={this.currentRow.name}/>
+    //    )
+    //  }
 
      buttonFormatter(){
        return <Button bsStyle="primary" onClick={this.addContact.bind(this)}>Add New Contact</Button>

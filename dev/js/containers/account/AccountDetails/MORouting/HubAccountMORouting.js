@@ -23,7 +23,9 @@ class NestedTable extends React.Component {
       currentRow[name]=val;
       console.log("currentRow==",currentRow);
     }
-
+    handleDelete(name,val,currentRow){
+      console.log("onOk==",this.currentcnl);
+    }
     render() {
       var fields = [
         {

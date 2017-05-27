@@ -22,11 +22,8 @@ export default class DeleteRow extends React.Component {
       this.setState({showEdit : false});
     }
 
-    onOkClick() {
-
-    }
-
-     handleModalData(){
+     onOkClick(){
+         this.props.onOk(this.props.currentRow);
        this.setState({showEdit : false});
      }
 
@@ -46,7 +43,7 @@ export default class DeleteRow extends React.Component {
               this.state.showEdit &&
               <Modal show={true} onHide={this.close.bind(this)}>
                   <Modal.Header closeButton>
-                      <Modal.Title> Delete {this.props.currentRow || ''}</Modal.Title>
+                      <Modal.Title> Delete record </Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
                     <div>
@@ -54,7 +51,7 @@ export default class DeleteRow extends React.Component {
                     </div>
                   </Modal.Body>
                   <Modal.Footer>
-                    <Button onClick={this.handleModalData.bind(this)}>Ok</Button>
+                    <Button onClick={this.onOkClick.bind(this)}>Ok</Button>
                     <Button onClick={this.close.bind(this)}>Cancel</Button>
                   </Modal.Footer>
               </Modal>

@@ -36,7 +36,9 @@ updateValue(name,val,currentRow){
   currentRow[name]=val;
   console.log("currentRow==",currentRow);
 }
-
+handleDelete(name,val,currentRow){
+  console.log("onOk==",this.currentcnl);
+}
   render() {
     var fields=[
       {

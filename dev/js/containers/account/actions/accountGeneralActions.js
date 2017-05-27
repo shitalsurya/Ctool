@@ -307,12 +307,98 @@ export function addHubAccountCNL(cnlInfo) {
 
 export function addHubAccountCNLRequest() {
 	return {
-		type: types.UPDATE_ACCT_MGR_REQUEST
+		type: types.ADD_ACC_CNL_REQUEST
 	}
 }
 export function addHubAccountCNLResponse(response) {
 	return {
 		type: types.ADD_ACC_CNL_RESPONSE,
+		 payload: response
+	}
+}
+var acctCnlList={
+	status:200,
+	data:[{
+	  "countryid": 8,
+		"countryname": "INDIA",
+	  "customerid": 0,
+	  "numberlookupid": 2,
+		"numberlookup":"NRS"
+	}]
+}
+export function getHubAccountCNL(currentAcct) {
+	return function (dispatch,getState) {
+		dispatch(getHubAccountCNLRequest());
+		var request = {
+			url:config.getUrl('hub_accounts')+'/'+currentAcct+'/cnl',
+			method:'GET',
+			successCallback:getHubAccountCNLResponse,
+			failureCallback:getHubAccountCNLResponse
+		};
+		return httpRequest(dispatch,getState,request);
+	}
+}
+
+export function getHubAccountCNLRequest() {
+	return {
+		type: types.GET_ACC_CNL_REQUEST
+	}
+}
+export function getHubAccountCNLResponse(response) {
+	return {
+		type: types.GET_ACC_CNL_RESPONSE,
+		 payload: acctCnlList
+	}
+}
+
+export function updateHubAccountCNL(currentAcct) {
+	return function (dispatch,getState) {
+		dispatch(updateHubAccountCNLRequest());
+		var request = {
+			url:config.getUrl('hub_accounts')+'/'+currentAcct.customerid+'/cnl',
+			method:'PUT',
+			data:currentAcct,
+			successCallback:updateHubAccountCNLResponse,
+			failureCallback:updateHubAccountCNLResponse
+		};
+		return httpRequest(dispatch,getState,request);
+	}
+}
+
+export function updateHubAccountCNLRequest() {
+	return {
+		type: types.UPDATE_ACC_CNL_REQUEST
+	}
+}
+export function updateHubAccountCNLResponse(response) {
+	return {
+		type: types.UPDATE_ACC_CNL_RESPONSE,
+		 payload: response
+	}
+}
+deleteHubAccountCNL
+export function deleteHubAccountCNL(currentAcct) {
+	return function (dispatch,getState) {
+		dispatch(deleteHubAccountCNLRequest());
+		var request = {
+			url:config.getUrl('hub_accounts')+'/'+currentAcct.customerid+'/cnl/'+currentAcct.countryid,
+			method:'DELETE',
+			data:currentAcct,
+			successCallback:deleteHubAccountCNLResponse,
+			failureCallback:deleteHubAccountCNLResponse
+		};
+		return httpRequest(dispatch,getState,request);
+	}
+}
+
+export function deleteHubAccountCNLRequest() {
+	return {
+		type: types.DELETE_ACC_CNL_REQUEST
+	}
+}
+export function deleteHubAccountCNLResponse(response) {
+	return {
+		type: types.DELETE_ACC_CNL_RESPONSE,
 		 payload: response
 	}
 }

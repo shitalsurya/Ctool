@@ -108,8 +108,12 @@ export default function(state = {
           console.log("GET_ACCT_GENERAL_COMM_INFO_RESPONSE==",action.payload);
           return Object.assign({}, state, {infoGenComm:action.payload,target:action.type});
 
-
+          case types.GET_ACC_CNL_REQUEST:
+            case types.ADD_ACC_CNL_REQUEST:
+              case types.UPDATE_ACC_CNL_REQUEST:
+              case types.DELETE_ACC_CNL_REQUEST:
           case types.UPDATE_ACCT_MGR_REQUEST:
+              case types.GET_ACCT_GENERAL_TECH_INFO_REQUEST:
             return Object.assign({}, state, {});
           case types.UPDATE_ACCT_MGR_RESPONSE:
             console.log("UPDATE_ACCT_MGR_RESPONSE==",action.payload);
@@ -120,8 +124,7 @@ export default function(state = {
                 return Object.assign({}, state, {updateStatus:false,target:action.type});
             }
 
-        case types.GET_ACCT_GENERAL_TECH_INFO_REQUEST:
-          return Object.assign({}, state, {});
+
         case types.GET_ACCT_GENERAL_TECH_INFO_RESPONSE:
           console.log("GET_ACCT_GENERAL_TECH_INFO_RESPONSE==",action.payload);
           return Object.assign({}, state, {infoGenTech:action.payload,target:action.type});
@@ -145,6 +148,42 @@ export default function(state = {
         case types.GET_ACCT_GENERAL_DELV_INFO_RESPONSE:
           console.log("GET_ACCT_GENERAL_DELV_INFO_RESPONSE==",action.payload);
           return Object.assign({}, state, {infoGenDelivery:action.payload,target:action.type});
+
+          case types.GET_ACC_CNL_RESPONSE:
+            console.log("GET_ACC_CNL_RESPONSE==",action.payload);
+            if(action.payload.status==200){
+                return Object.assign({}, state, {infoGenCnl:action.payload.data,target:action.type});
+            }
+            else{
+                return Object.assign({}, state, {infoGenCnl:[],target:action.type});
+            }
+
+            case types.ADD_ACC_CNL_RESPONSE:
+              console.log("ADD_ACC_CNL_RESPONSE==",action.payload);
+              if(action.payload.status==200){
+                  return Object.assign({}, state, {addStatus:true,target:action.type});
+              }
+              else{
+                  return Object.assign({}, state, {addStatus:false,target:action.type});
+              }
+              case types.UPDATE_ACC_CNL_RESPONSE:
+                console.log("UPDATE_ACC_CNL_RESPONSE==",action.payload);
+                if(action.payload.status==200){
+                    return Object.assign({}, state, {updateStatus:true,target:action.type});
+                }
+                else{
+                    return Object.assign({}, state, {updateStatus:false,target:action.type});
+                }
+
+
+                case types.DELETE_ACC_CNL_RESPONSE:
+                  console.log("DELETE_ACC_CNL_RESPONSE==",action.payload);
+                  if(action.payload.status==200){
+                      return Object.assign({}, state, {deleteStatus:true,target:action.type});
+                  }
+                  else{
+                      return Object.assign({}, state, {deleteStatus:false,target:action.type});
+                  }
         case types.CREATE_ACCOUNT_TYPE:
           return Object.assign({}, state, {
             accType: action.payload,

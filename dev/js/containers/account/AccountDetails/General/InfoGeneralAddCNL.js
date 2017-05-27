@@ -10,18 +10,22 @@ import DeleteRowLink from './../../../common/components/DeleteRow';
 import ModalAddCnl from './AddCnl';
 import Contact from './../../../../../json/ExistingContact.json';
 import * as types from './../../../common/commonActionTypes';
-
+import * as table from './../../../common/Functions/customTable';
+import {lookupOptions} from './../../../common/commonActionTypes';
 import { getCountryList } from './../../../miscellaneous/countries/miscCntryActions';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import { updateHubAccountCNL,deleteHubAccountCNL } from './../../actions/accountGeneralActions';
 class InfoGeneralAddCNL extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-           data :[]
+           data :this.props.infoGenCnl||[]
         }
     }
 
-    close() {
+    close(_newCnl) {
+      this.newCnl=_newCnl;
+      console.log("_newCnl==",_newCnl);
       this.setState({showContact : false});
     }
 
@@ -33,55 +37,75 @@ class InfoGeneralAddCNL extends React.Component {
         this.props.getCountryList();
     }
 
-    deleteDataFormatter(cell, row,field,index) {
-       this.currentRow = row;
-       this.currentField = field;
-
-       return (
-           <DeleteRowLink currentRow={this.currentRow.name}/>
-       )
-     }
-
      buttonFormatter(){
        return <Button bsStyle="primary" onClick={this.addContact.bind(this)}>Add New Contact</Button>
      }
 
-     handleModalChange(target, value){
-        // var contactinfo = this.state.ContactInfo;
-        // switch(target) {
-        //   case types.ADDCONTACT_EXISTINGCOMPANY :
-        //     var _data = Contact.data.filter(function (header, item) {
-        //     if(header.name === value.value)
-        //       return header;
-        //     }.bind(this));
-        //
-        //     contactinfo = _data[0];
-        //       console.log(contactinfo);
-        //     break;
-        //   }
-        //   this.setState({ ContactInfo: contactinfo,data : [contactinfo]});
+      updateValue(name,val,currentRow){
+        console.log("currentRow==",currentRow);
+        this.currentcnl=currentRow;
+        if(currentRow[name]!==val){
+          currentRow[name]=val;
+          currentRow.customerid=this.props.currentAcct;
+          this.props.updateHubAccountCNL(currentRow);
+        }
       }
 
+      handleDelete(currentRow){
+          currentRow.customerid=this.props.currentAcct;
+          this.currentCountryId=currentRow.countryid;
+        console.log("onOk==",currentRow);
+        this.props.deleteHubAccountCNL(currentRow);
+      }
       render() {
 
         const addButtonData=[{
           'name' : 'addButton'
         }]
-
+        var fields = [
+          {
+              name:'Lookup Mode',
+              dataField:'numberlookupid',
+              optionsLabel:'numberlookup',
+              type:'select',
+            //  width:'80px',
+                dataAlign:'left',
+              options: lookupOptions
+          },
+          {
+              name:'Action',
+              dataField:'',
+              type:'delete',
+            //  width:'80px',
+                dataAlign:'left',
+          }
+        ];
+        var listCols = fields.map(function (field,index) {
+              return (
+                  <TableHeaderColumn dataField={field.dataField}
+                    key={index}
+                    width={field.width}
+                    headerAlign='left'
+                    dataAlign={field.dataAlign || 'center'}
+                    dataFormat={ table.columnFormatter.bind(this) }
+                    formatExtraData={ field} >
+                    {field.name}
+                  </TableHeaderColumn>
+              );
+          }.bind(this));
         return (
           <div >
             <Grid fluid={true} className="inner_grid">
               <Row className="show-grid">
                  <Col md= { 12 }>
-                   <BootstrapTable data={this.state.data} >
-                     <TableHeaderColumn isKey={ true } dataField='name'>Country Name</TableHeaderColumn>
-                     <TableHeaderColumn dataField='lookup'>Lookup Mode</TableHeaderColumn>
-                     <TableHeaderColumn dataField='delete' dataFormat={ this.deleteDataFormatter.bind(this) } formatExtraData={ 'delete' } ></TableHeaderColumn>
-                   </BootstrapTable>
+                 <BootstrapTable data={ this.state.data } >
+                   <TableHeaderColumn dataField='countryname' isKey={ true }>Country Name</TableHeaderColumn>
+                   {listCols}
+                 </BootstrapTable>
                    <BootstrapTable data={addButtonData}
                      tableBodyClass='master-body-class'
                      tableHeaderClass='hide-header'>
-                     <TableHeaderColumn isKey={ true } hidden dataField='id'>ID</TableHeaderColumn>
+                     <TableHeaderColumn isKey={ true } hidden dataField='id'></TableHeaderColumn>
                      <TableHeaderColumn columnClassName="center" dataFormat={ this.buttonFormatter.bind(this) }></TableHeaderColumn>
                    </BootstrapTable>
                  </Col>
@@ -95,24 +119,61 @@ class InfoGeneralAddCNL extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-      // switch (nextProps.target) {
-      //   case types.MISC_COUNTRYLIST_RESPONSE:
-      //       this.countryList = nextProps.countryList;
-      //       console.log( "this.countryList==", this.countryList );
-      //       break;
-      //     }
+      console.log("componentWillReceiveProps==",nextProps);
+      switch (nextProps.target) {
+        case types.ADD_ACC_CNL_RESPONSE:
+            if(nextProps.addStatus==true){
+                alert("success");
+                var _data=this.state.data;
+                _data.push(this.newCnl);
+                this.setState({showContact : false,data:_data});
+            }
+            else if(nextProps.addStatus==false){
+                alert("fail");
+            }
+            break;
+            case types.UPDATE_ACC_CNL_RESPONSE:
+                if(nextProps.updateStatus==true){
+                    alert("success");
+                }
+                else if(nextProps.updateStatus==false){
+                    alert("fail");
+                }
+                break;
+                case types.DELETE_ACC_CNL_RESPONSE:
+                    if(nextProps.deleteStatus==true){
+                        alert("DELETE success");
+
+                        for(var i=0;i<this.state.data.length;i++){
+                          if(this.state.data[i].countryid==this.currentCountryId){
+                            this.state.data.splice(i, 1);
+                          }
+                        }
+                    }
+                    else if(nextProps.deleteStatus==false){
+                        alert("DELETE fail");
+                    }
+                    break;
+          }
     }
 
 }
 
 function mapStateToProps(state) {
     return {
+        infoGenCnl:state.Account.infoGenCnl,
+        addStatus:state.Account.addStatus,
+        updateStatus:state.Account.updateStatus,
+        deleteStatus:state.Account.deleteStatus,
+          target:state.Account.target
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-    getCountryList:getCountryList
+    getCountryList:getCountryList,
+    updateHubAccountCNL:updateHubAccountCNL,
+    deleteHubAccountCNL:deleteHubAccountCNL
    }, dispatch);
 }
 
