@@ -17,13 +17,11 @@ class CloseAccount extends React.Component {
     super( props, context );
     this.state = {
       modalHeading:'Close Account',
-      closeAccInfo:{}
+      closeAccInfo:this.props.closeAccInfo||{}
     };
-
   }
 
   render() {
-
     return (
       <Modal show={this.props.closeAction} onHide={this.handleCancel.bind(this)}>
           <Modal.Header closeButton>
@@ -50,7 +48,7 @@ class CloseAccount extends React.Component {
                   </Col>
                   <Col md={ 6 } >
                     <FormControl.Static>
-                      {this.state.closeAccInfo.account}
+                      {this.state.closeAccInfo.accountname}
                     </FormControl.Static>
                   </Col>
                   <Col mdHidden md={ 3 }/>
@@ -62,7 +60,7 @@ class CloseAccount extends React.Component {
                   </Col>
                   <Col md={ 6 } >
                     <FormControl.Static>
-                      {this.state.closeAccInfo.manager}
+                      {this.state.closeAccInfo.accountmanager}
                     </FormControl.Static>
                   </Col>
                   <Col mdHidden md={ 3 }/>
@@ -86,6 +84,7 @@ class CloseAccount extends React.Component {
   }
 
   handleCloseAccount(){
+    console.log("this.state.closeAccInfo==",this.state.closeAccInfo);
     this.props.setCloseAccountInfo(this.state.closeAccInfo);
     console.log(this.state.closeAccInfo);
     this.props.close();
@@ -96,14 +95,6 @@ class CloseAccount extends React.Component {
     this.props.close();
   }
 
-  componentWillMount() {
-
-  }
-
-  componentWillReceiveProps(nextProps){
-    var _closeAccInfo = nextProps.closeAccInfo||{};
-    this.setState({closeAccInfo:_closeAccInfo});
-  }
 }
 
 function mapStateToProps(state) {
@@ -113,7 +104,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
       setCloseAccountInfo : setCloseAccountInfo,
-        }, dispatch);
+  }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CloseAccount);
