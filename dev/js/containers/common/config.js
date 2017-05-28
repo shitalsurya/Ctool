@@ -33,7 +33,8 @@ export function getUrl(APIName){
 			'getCompanyList':'/companies/min',
 			'getBillingLocationList':'/billing_locations/min',
 			'getCompanyContacts':'/contacts',
-			'getManagerList':'/hub_accounts/managers'
+			'getManagerList':'/hub_accounts/managers',
+			'getNumberLookupOptions':'/numberlookupoptions'
 	};
 	return getServerUrl() +'/ctool'+ APIUrls[APIName];
 }

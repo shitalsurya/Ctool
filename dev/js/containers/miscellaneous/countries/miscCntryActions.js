@@ -98,3 +98,28 @@ export function updateCountryDetailsResponse(response) {
 			 payload: response
 		}
 }
+
+export function getCountryCNLListRequest() {
+    return {
+      type: types.GET_CNTRY_CNL_LIST_REQUEST
+    }
+  }
+export function getCountryCNLListResponse(response) {
+    return {
+      type: types.GET_CNTRY_CNL_LIST_RESPONSE,
+       payload: response
+    }
+}
+export function getCountryCNLList(_selectedCountryid) {
+  console.log("_selectedCountryid==",_selectedCountryid);
+  return function (dispatch,getState) {
+    dispatch(getCountryCNLListRequest());
+    var request = {
+      url:config.getUrl('getNumberLookupOptions'),
+      method:'GET',
+      successCallback:getCountryCNLListResponse,
+      failureCallback:getCountryCNLListResponse
+    };
+    return httpRequest(dispatch,getState,request);
+  }
+}

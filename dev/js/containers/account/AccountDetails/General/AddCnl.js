@@ -7,6 +7,7 @@ import * as types from './../../../common/commonActionTypes';
 import { initializeSelectOptions } from './../../../common/Functions/commonFunctions';
 import {lookupOptions} from './../../../common/commonActionTypes';
 import { addHubAccountCNL } from './../../actions/accountGeneralActions';
+import {getCountryCNLList} from './../../../miscellaneous/countries/miscCntryActions';
 class AddCnl extends React.Component {
   constructor(props, context) {
       super(props, context);
@@ -22,7 +23,9 @@ class AddCnl extends React.Component {
     var AddCnlinfo = this.state.AddCnlInfo;
     AddCnlinfo[e.target.name]=e.target.value;
     if(e.target.name=='countryid'){
+      this.selectedCountryid=e.target.value;
         AddCnlinfo.countryname =  e.target.selectedOptions[0].text;
+        this.props.getCountryCNLList(this.selectedCountryid);
     }
 
     this.setState({ AddCnlInfo: AddCnlinfo});
@@ -34,7 +37,7 @@ class AddCnl extends React.Component {
     this.props.close(this.state.AddCnlInfo);
   }
 
-  
+
 
   close() {
     this.props.close(this.state.AddCnlInfo);
@@ -94,7 +97,7 @@ class AddCnl extends React.Component {
 
           this.countryList = initializeSelectOptions(nextProps.countryList,'countryname','countryid');
         console.log("this.userList==",this.userList);
-          this.lookupOptions = initializeSelectOptions(lookupOptions,'numberlookup','numberlookupid');
+          this.lookupOptions = initializeSelectOptions(nextProps.countryCnlList,'numberlookup','numberlookupid');
         console.log("this.companyList==",this.companyList);
       }
 }
@@ -102,13 +105,15 @@ class AddCnl extends React.Component {
 function mapStateToProps( state ) {
   return {
     countryList: state.MiscCntry.countryList,
+    countryCnlList:state.MiscCntry.countryCnlList,
     target: state.MiscCntry.target
   };
 }
 
 function mapDispatchToProps( dispatch ) {
   return bindActionCreators( {
-    addHubAccountCNL:addHubAccountCNL
+    addHubAccountCNL:addHubAccountCNL,
+    getCountryCNLList:getCountryCNLList
   }, dispatch );
 }
 

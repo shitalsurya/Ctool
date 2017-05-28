@@ -2,7 +2,10 @@ import * as types from './../../common/commonActionTypes';
 export default function (state = {}, action = null) {
 	console.log("in users reducer");
 	switch(action.type) {
+
+
 		case types.MISC_COUNTRYLIST_REQUEST:
+		case types.GET_CNTRY_CNL_LIST_REQUEST:
 			return Object.assign({}, state, {});
 		case types.MISC_COUNTRYLIST_RESPONSE:
 			if(action.payload.status==200){
@@ -11,6 +14,13 @@ export default function (state = {}, action = null) {
 			else{
 					return Object.assign({}, state, {countryList:[],target:action.type});
 			}
+			case types.GET_CNTRY_CNL_LIST_RESPONSE:
+				if(action.payload.status==200){
+					return Object.assign({}, state, {countryCnlList:action.payload.data,target:action.type});
+				}
+				else{
+						return Object.assign({}, state, {countryCnlList:[],target:action.type});
+				}
 		case types.MISC_COUNTRYDETAILS_REQUEST:
 			return Object.assign({}, state, {});
 		case types.MISC_COUNTRYDETAILS_RESPONSE:

@@ -15,6 +15,11 @@ import {lookupOptions} from './../../../common/commonActionTypes';
 import { getCountryList } from './../../../miscellaneous/countries/miscCntryActions';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { updateHubAccountCNL,deleteHubAccountCNL } from './../../actions/accountGeneralActions';
+import {
+    ToastContainer,
+    ToastMessage,
+} from "react-toastr";
+const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 class InfoGeneralAddCNL extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -112,7 +117,10 @@ class InfoGeneralAddCNL extends React.Component {
                </Row>
 
             </Grid>
-
+            <ToastContainer
+              toastMessageFactory={ ToastMessageFactory }
+              ref="container"
+              className="toast-top-right" />
             <ModalAddCnl  showContact={this.state.showContact}   currentAcct={this.props.currentAcct} close={this.close.bind(this)}/>
           </div>
         )
@@ -123,26 +131,36 @@ class InfoGeneralAddCNL extends React.Component {
       switch (nextProps.target) {
         case types.ADD_ACC_CNL_RESPONSE:
             if(nextProps.addStatus==true){
-                alert("success");
+              this.refs.container.success(`CNL added successfully.`, ``, {
+                  closeButton: true,
+              });
                 var _data=this.state.data;
                 _data.push(this.newCnl);
                 this.setState({showContact : false,data:_data});
             }
             else if(nextProps.addStatus==false){
-                alert("fail");
+              this.refs.container.error(`Failed to add CNL.`, ``, {
+                  closeButton: true,
+            });
             }
             break;
             case types.UPDATE_ACC_CNL_RESPONSE:
                 if(nextProps.updateStatus==true){
-                    alert("success");
+                  this.refs.container.success(`CNL updated successfully.`, ``, {
+                      closeButton: true,
+                  });
                 }
                 else if(nextProps.updateStatus==false){
-                    alert("fail");
+                  this.refs.container.error(`Failed to update CNL.`, ``, {
+                      closeButton: true,
+                });
                 }
                 break;
                 case types.DELETE_ACC_CNL_RESPONSE:
                     if(nextProps.deleteStatus==true){
-                        alert("DELETE success");
+                      this.refs.container.success(`CNL deleted successfully.`, ``, {
+                          closeButton: true,
+                      });
 
                         for(var i=0;i<this.state.data.length;i++){
                           if(this.state.data[i].countryid==this.currentCountryId){
@@ -151,7 +169,9 @@ class InfoGeneralAddCNL extends React.Component {
                         }
                     }
                     else if(nextProps.deleteStatus==false){
-                        alert("DELETE fail");
+                      this.refs.container.error(`Failed to delete CNL.`, ``, {
+                          closeButton: true,
+                    });
                     }
                     break;
           }
