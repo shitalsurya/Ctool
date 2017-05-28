@@ -6,28 +6,24 @@ var TPOA_Info =  {
 	defaultTPOA : 'A365',
 	forcedTPOA:  [
 	  {
-	    "smscid" : 1,
+	    "smscid" : 1896,
 	    "TPOA" : "D1234",
-	    "custRouting" : "No",
-	    "delete" : ""
+	    "custRouting" :0
 	  },
 	  {
-	    "smscid" :2,
+			"smscid" : 1897,
 	    "TPOA" : "P324",
-	    "custRouting" : "No",
-	    "delete" : ""
+	    "custRouting" : 1
 	  },
 	  {
-	    "smscid" : 3,
+	    "smscid" : 1898,
 	    "TPOA" : "A4849",
-	    "custRouting" : "No",
-	    "delete" : ""
+	    "custRouting" : 0
 	  },
 	  {
-	    "smscid" : 4,
+	    "smscid" : 1897,
 	    "TPOA" : "Joker",
-	    "custRouting" : "Yes",
-	    "delete" : ""
+	    "custRouting" : 1
 	  }
 	]
 }

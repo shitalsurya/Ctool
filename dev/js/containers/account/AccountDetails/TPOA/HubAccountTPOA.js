@@ -8,11 +8,11 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import * as table from './../../../common/Functions/customTable';
 import InlineEdit from './../../../common/components/InlineEdit';
 import DeleteRowLink from './../../../common/components/DeleteRow';
-import TPOAs from './../../../../../json/TPOAs.json';
+//import {getSMSCList} from './../../../common/commonActions';
 import AddTPOAModal from './HubAccountTPOAAddModal';
 
 require('./../../../../../scss/style.scss');
-
+import TPOAs from './../../../../../json/TPOAs.json';
 class HubAccountGeneral extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -25,12 +25,26 @@ class HubAccountGeneral extends React.Component {
     }
 
     updateValue(name,val,currentRow){
-      console.log("name==",name);
-      currentRow[name]=val;
       console.log("currentRow==",currentRow);
+      this.currentcnl=currentRow;
+      if(currentRow[name]!==val){
+        currentRow[name]=val;
+        currentRow.customerid=this.props.currentAcct;
+      ////  this.props.updateHubAccountCNL(currentRow);
+      }
     }
 
+    handleDelete(currentRow){
+        currentRow.customerid=this.props.currentAcct;
+    //    this.currentCountryId=currentRow.countryid;
+      console.log("onOk==",currentRow);
+    //  this.props.deleteHubAccountCNL(currentRow);
+    }
+componentWillMount(){
+  //this.props.getSMSCList();
+}
     render() {
+        console.log("this.props.smscList==",this.props.smscList);
 
       var fields = [
         {
@@ -55,10 +69,11 @@ class HubAccountGeneral extends React.Component {
             }
         },
         {
-          dataField:'deleteRow',
-          type:'delete',
-          rowId:'SMSCOp',
-          width:'60px'
+            name:'Action',
+            dataField:'',
+            type:'delete',
+          //  width:'80px',
+              dataAlign:'left',
         }
       ];
 
@@ -100,10 +115,13 @@ class HubAccountGeneral extends React.Component {
 
                <Row className="show-grid">
                  <Col md={ 12 }>
-                   <BootstrapTable data={this.state.TPOAinfo.forcedTPOA} >
-                     <TableHeaderColumn isKey={ true } hidden dataField='id'>ID</TableHeaderColumn>
-                     {listCols}
-                   </BootstrapTable>
+                   {
+                     typeof(this.props.smscList)!='undefined' &&
+                     <BootstrapTable data={this.state.TPOAinfo.forcedTPOA} >
+                       <TableHeaderColumn isKey={ true } hidden dataField='id'>ID</TableHeaderColumn>
+                       {listCols}
+                     </BootstrapTable>
+                   }
                  </Col>
                </Row>
 
@@ -139,12 +157,13 @@ class HubAccountGeneral extends React.Component {
 function mapStateToProps(state) {
     return {
       TPOAinfo:state.Account.TPOAinfo,
-      smscList:state.Common.smscList,
+  smscList:state.Common.smscList
      };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
+    //  getSMSCList:getSMSCList
     }, dispatch);
 }
 

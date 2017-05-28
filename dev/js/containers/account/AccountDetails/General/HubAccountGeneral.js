@@ -88,7 +88,7 @@ class HubAccountGeneral extends React.Component {
                   <Collapse in={this.state.openStatus.AccContacts}>
                     <div>
                       <Well>
-
+                      {this.state.openStatus.AccContacts &&  <InfoGeneralAddContacts currentAcct={this.props.currentAcct}/> }
                       </Well>
                     </div>
                   </Collapse>
@@ -120,6 +120,7 @@ class HubAccountGeneral extends React.Component {
                   <Collapse in={this.state.openStatus.TechnicalInfo}>
                     <div>
                       <Well>
+                      {this.state.openStatus.TechnicalInfo &&  <InfoGeneralTechnical currentAcct={this.props.currentAcct}/> }
                       </Well>
                     </div>
                   </Collapse>
@@ -136,6 +137,7 @@ class HubAccountGeneral extends React.Component {
                   <Collapse in={this.state.openStatus.volCntrl}>
                     <div>
                       <Well>
+                      {this.state.openStatus.volCntrl &&  <InfoGeneralVolumeSetting currentAcct={this.props.currentAcct}/> }
                       </Well>
                     </div>
                   </Collapse>
@@ -152,6 +154,7 @@ class HubAccountGeneral extends React.Component {
                   <Collapse in={this.state.openStatus.mtSetting}>
                     <div>
                       <Well>
+                      {this.state.openStatus.mtSetting &&  <InfoGeneralMTSetting currentAcct={this.props.currentAcct}/> }
                       </Well>
                     </div>
                   </Collapse>
@@ -168,6 +171,7 @@ class HubAccountGeneral extends React.Component {
                   <Collapse in={this.state.openStatus.moSetting}>
                     <div>
                       <Well>
+                      {this.state.openStatus.moSetting &&  <InfoGeneralMOSetting currentAcct={this.props.currentAcct}/> }
                       </Well>
                     </div>
                   </Collapse>
@@ -184,6 +188,7 @@ class HubAccountGeneral extends React.Component {
                   <Collapse in={this.state.openStatus.deliveryTime}>
                     <div>
                       <Well>
+                      {this.state.openStatus.deliveryTime &&  <InfoGeneralDeliveryTime currentAcct={this.props.currentAcct}/> }
                       </Well>
                     </div>
                   </Collapse>

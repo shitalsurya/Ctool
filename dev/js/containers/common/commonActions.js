@@ -120,8 +120,9 @@ var MOBILE_NOTIF = [
 						// dispatch(getMOBILENotifList())
 						// dispatch(getStartTimeList())
 						// dispatch(getEndTimeList())
-            // tch(getSMSCList())
-            // tch(getHubAcctForcedTPOAList(currentAcct))
+               dispatch(getSMSCList())
+             dispatch(getHubAcctForcedTPOAList(currentAcct))
+
 	 					break;
 				}
 		  }
@@ -204,15 +205,22 @@ export function getManagerList() {
 					type: types.GET_SMSC_LIST_REQUEST
 				}
 			}
-		export function getSMSCListResponse(data) {
+		export function getSMSCListResponse(response) {
 				return {
 					type: types.GET_SMSC_LIST_RESPONSE,
-					 payload: SMSC
+					 payload: response
 				}
 		}
 		export function getSMSCList() {
-			return function (dispatch,getState) {
-				dispatch(getSMSCListResponse());
+      return function (dispatch,getState) {
+				dispatch(getSMSCListRequest());
+				var request = {
+					url:config.getUrl('GetSMSCList'),
+					method:'GET',
+					successCallback:getSMSCListResponse,
+					failureCallback:getSMSCListResponse
+				};
+				return httpRequest(dispatch,getState,request);
 			}
 		}
 

@@ -35,10 +35,18 @@ export default function (state = {}, action = null) {
 			if(action.payload.status==200){
 					return Object.assign({}, state, {billingLocationList:action.payload.data,target:action.type});
 			}
+			else{
+					return Object.assign({}, state, {billingLocationList:[],target:action.type});
+			}
 		case types.GET_SMSC_LIST_REQUEST:
 			return Object.assign({}, state, {});
 		case types.GET_SMSC_LIST_RESPONSE:
-			return Object.assign({}, state, {smscList:action.payload,target:action.type});
+		if(action.payload.status==200){
+			return Object.assign({}, state, {smscList:action.payload.data,target:action.type});
+		}
+		else{
+				return Object.assign({}, state, {smscList:[],target:action.type});
+		}
 		case types.GET_VOLUMETYPE_LIST_REQUEST:
 			return Object.assign({}, state, {});
 		case types.GET_VOLUMETYPE_LIST_RESPONSE:

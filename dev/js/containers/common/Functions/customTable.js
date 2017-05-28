@@ -5,7 +5,6 @@ import DeleteRow from './../../common/components/DeleteRow';
 import moment from 'moment';
 require('./../components/Inline.scss');
 export function columnFormatter(cell, row, field, index) {
-  console.log("columnFormatter==",this);
     switch (field.type) {
         case "text":
             return <InlineEdit name = {

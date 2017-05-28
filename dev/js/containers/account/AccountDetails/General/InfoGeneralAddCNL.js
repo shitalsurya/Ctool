@@ -11,7 +11,7 @@ import ModalAddCnl from './AddCnl';
 import Contact from './../../../../../json/ExistingContact.json';
 import * as types from './../../../common/commonActionTypes';
 import * as table from './../../../common/Functions/customTable';
-import {lookupOptions} from './../../../common/commonActionTypes';
+import InlineEdit from './../../../common/components/InlineEdit';
 import { getCountryList } from './../../../miscellaneous/countries/miscCntryActions';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { updateHubAccountCNL,deleteHubAccountCNL } from './../../actions/accountGeneralActions';
@@ -62,21 +62,37 @@ class InfoGeneralAddCNL extends React.Component {
         console.log("onOk==",currentRow);
         this.props.deleteHubAccountCNL(currentRow);
       }
+      lookupFormatter(cell, row, index){
+        return <InlineEdit name = 'numberlookupid'
+          row={row}
+          type = 'select'
+          options = {
+            row.lookupOptions
+          }
+          optionsLabel='numberlookup'
+          value = {
+            cell
+          }
+          onSave = {
+            this.updateValue.bind(this)
+          }
+               />
+      }
       render() {
 
         const addButtonData=[{
           'name' : 'addButton'
         }]
         var fields = [
-          {
-              name:'Lookup Mode',
-              dataField:'numberlookupid',
-              optionsLabel:'numberlookup',
-              type:'select',
-            //  width:'80px',
-                dataAlign:'left',
-              options: lookupOptions
-          },
+          // {
+          //     name:'Lookup Mode',
+          //     dataField:'numberlookupid',
+          //     optionsLabel:'numberlookup',
+          //     type:'select',
+          //   //  width:'80px',
+          //       dataAlign:'left',
+          //     options: lookupOptions
+          // },
           {
               name:'Action',
               dataField:'',
@@ -105,6 +121,8 @@ class InfoGeneralAddCNL extends React.Component {
                  <Col md= { 12 }>
                  <BootstrapTable data={ this.state.data } >
                    <TableHeaderColumn dataField='countryname' isKey={ true }>Country Name</TableHeaderColumn>
+                      <TableHeaderColumn dataField='numberlookupid' dataFormat={ this.lookupFormatter.bind(this) }  >
+                      Lookup Mode</TableHeaderColumn>
                    {listCols}
                  </BootstrapTable>
                    <BootstrapTable data={addButtonData}

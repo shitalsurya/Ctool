@@ -323,7 +323,16 @@ var acctCnlList={
 		"countryname": "INDIA",
 	  "customerid": 0,
 	  "numberlookupid": 2,
-		"numberlookup":"NRS"
+		"numberlookup":"NRS",
+		"lookupOptions":[
+							 {
+								 "numberlookupid": 1,
+								 "numberlookup": "Local-Numbering-Plan"
+							 },
+							 {
+								 "numberlookupid": 2,
+								 "numberlookup": "Local-Ported-Number"
+							 }]
 	}]
 }
 export function getHubAccountCNL(currentAcct) {

@@ -96,7 +96,7 @@ class AddCnl extends React.Component {
         console.log("componentWillReceiveProps==",nextProps);
 
           this.countryList = initializeSelectOptions(nextProps.countryList,'countryname','countryid');
-        console.log("this.userList==",this.userList);
+        console.log("this.countryList==",this.countryList);
           this.lookupOptions = initializeSelectOptions(nextProps.countryCnlList,'numberlookup','numberlookupid');
         console.log("this.companyList==",this.companyList);
       }

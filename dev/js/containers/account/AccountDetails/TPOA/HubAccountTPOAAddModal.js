@@ -7,6 +7,7 @@ import Toggle from 'react-toggle';
 require('./../../../../../scss/style.scss');
 require('./../../../../../scss/react-toggle.scss');
 import * as types from './../../../common/commonActionTypes';
+
 import {initializeSelectOptions} from './../../../common/Functions/commonFunctions';
 import {AddHubAccountForcedTPOA} from './../../actions/accountTPOAActions';
 class HubAccountTPOAAddModal extends React.Component {
@@ -44,9 +45,7 @@ class HubAccountTPOAAddModal extends React.Component {
 
   render(){
 
-  console.log("render this.props.smscList==",this.props.smscList);
-  this.smscList = initializeSelectOptions(this.props.smscList,'smscname','smscid');
-    console.log("this.smscList==",this.smscList);
+
     return (
       <Modal show={this.props.showAdd} onHide={this.close.bind(this)}>
         <Modal.Header closeButton>
@@ -94,7 +93,11 @@ class HubAccountTPOAAddModal extends React.Component {
 
     );
   }
-
+  componentWillReceiveProps( nextProps ) {
+    console.log("tppoa model componentWillReceiveProps==",nextProps);
+    this.smscList = initializeSelectOptions(nextProps.smscList,'smscname','smscid');
+      console.log("this.smscList==",this.smscList);
+  }
 }
 function mapStateToProps(state) {
     return {
