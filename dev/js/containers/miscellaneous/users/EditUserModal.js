@@ -36,12 +36,25 @@ class EditUserModal extends React.Component {
         }
   }
 
+  emailValidator(_email){
+    // let regexp = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    let regexp = /^[a-zA-Z][a-zA-Z0-9_]*@[a-zA-Z0-9_]{1,10}\.[a-zA-Z]{2,3}$/;
+    let numberDecimal = regexp.test(_email);
+    if (!numberDecimal) {
+      return false;
+    }
+    return true;
+  }
+
   handleInlineEditChange(name,val){
+    var flag = true;
     this.currentUser = this.state.currentUser;
     console.log( "handleInlineEditChange this.currentUser==", this.currentUser );
     console.log("handleInlineEditChange prev==",this.currentUser[name]);
     console.log("handleInlineEditChange new==",val);
-    if(this.currentUser[name]!==val){
+    if(name === "email")
+      flag = this.emailValidator(val);
+    if(this.currentUser[name]!==val && flag){
       this.currentUser[name]=val;
       console.log( "after this.currentUser==", this.currentUser );
       this.props.updateUserDetails(name,this.currentUser);
