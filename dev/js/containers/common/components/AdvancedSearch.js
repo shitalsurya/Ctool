@@ -59,8 +59,12 @@ class AdvancedSearch extends React.Component {
   }
 
   handleSearch(){
-    console.log("Search with:",this.state);
-    this.props.onSearch(this.state);
+    if(this.state.selectedCompany.length != 0){
+      console.log("Search with:",this.state);
+      this.props.onSearch(this.state);
+    }
+    else
+      this.setState({mandatoryFlag:true});
   }
 
   handleClear(){
@@ -69,7 +73,8 @@ class AdvancedSearch extends React.Component {
       isAdvSearch:false,
       selectedCompany:[],
       selectedStatus:1,
-      selectedAccount:""
+      selectedAccount:"",
+      mandatoryFlag:false
     },function(){
       this.cacheData();
     });
@@ -111,6 +116,8 @@ class AdvancedSearch extends React.Component {
   }
 
   toggleSearchPanel(){
+    if(this.state.open)
+      this.setState({mandatoryFlag:false});
     this.setState({ open: !this.state.open });
     this.props.getCompanyList();
   }
@@ -157,6 +164,7 @@ class AdvancedSearch extends React.Component {
                   </Col>
                   <Col md={ 9 }>
                     <Typeahead
+                      className={this.state.mandatoryFlag ? "empty" : ""}
                       onChange={this.handleCompanyChange.bind(this)}
                       options={this.companyList}
                       placeholder="Select a company..."
