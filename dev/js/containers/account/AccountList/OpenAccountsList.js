@@ -31,7 +31,7 @@ class OpenAccountsList extends React.Component {
   }
 
   componentDidMount(){
-    setTimeout(function() { this.setState({loadFlag: false}); }.bind(this), 3000);
+    // setTimeout(function() { this.setState({loadFlag: false}); }.bind(this), 3000);
   }
 
   componentWillReceiveProps( nextProps ) {

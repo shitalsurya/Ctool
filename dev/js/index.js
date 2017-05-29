@@ -26,6 +26,7 @@ import createHistory from 'history/lib/createBrowserHistory';
 
 /* Configure Store for Redux */
 const logger = createLogger();
+
 const createAppStore = compose(
 	applyMiddleware(thunkMiddleware),
 	applyMiddleware(logger)
@@ -33,11 +34,10 @@ const createAppStore = compose(
 
 export function configureStore(initialState){
 	const store = createAppStore(allReducers, initialState);
-
 	return store;
 };
-const store = configureStore();
 
+const store = configureStore();
 
 /* Configure nedb for browser storage */
 
@@ -65,7 +65,6 @@ ReactDOM.render(
 				<Route path="editCountry" component={EditCountry}/>
 				<Route path="editUser" component={EditUser}/>
 			</Router>
-
     </Provider>,
     document.getElementById('root')
 );
