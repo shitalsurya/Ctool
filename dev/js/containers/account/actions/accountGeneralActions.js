@@ -461,13 +461,24 @@ export function getHubAccountContacts(currentAcct) {
 export function addHubAccountContact(cnlInfo) {
 	return function (dispatch,getState) {
 		dispatch(addHubAccountContactRequest());
-		var request = {
-			url:config.getUrl('hub_accounts')+'/'+cnlInfo.customerid+'/contact/'+cnlInfo.contactid,
-			method:'POST',
-			data:cnlInfo,
-			successCallback:addHubAccountContactResponse,
-			failureCallback:addHubAccountContactResponse
-		};
+		if(cnlInfo.contactid==0){
+			var request = {
+				url:config.getUrl('hub_accounts')+'/'+cnlInfo.customerid+'/contact/',
+				method:'POST',
+				data:cnlInfo,
+				successCallback:addHubAccountContactResponse,
+				failureCallback:addHubAccountContactResponse
+			};
+		}
+		else{
+			var request = {
+				url:config.getUrl('hub_accounts')+'/'+cnlInfo.customerid+'/contact/'+cnlInfo.contactid,
+				method:'POST',
+				data:cnlInfo,
+				successCallback:addHubAccountContactResponse,
+				failureCallback:addHubAccountContactResponse
+			};
+		}
 		return httpRequest(dispatch,getState,request);
 	}
 }
@@ -481,5 +492,56 @@ export function addHubAccountContactResponse(response) {
 	return {
 		type: types.ADD_ACC_CONTACT_RESPONSE,
 		 payload: response
+	}
+}
+
+export function updateHubAccountContactRequest() {
+		return {
+			type: types.UPDATE_ACC_CONTACT_REQUEST
+		}
+	}
+export function updateHubAccountContactResponse(response) {
+		return {
+			type: types.UPDATE_ACC_CONTACT_RESPONSE,
+    	 // payload: response
+			 payload: exCompanyContacts
+		}
+}
+export function updateHubAccountContact(cnlInfo) {
+	return function (dispatch,getState) {
+    dispatch(updateHubAccountContactRequest());
+		var request = {
+			url:config.getUrl('hub_accounts')+'/'+cnlInfo.customerid+'/contact/'+cnlInfo.contactid,
+			method:'PUT',
+			data:cnlInfo,
+			successCallback:updateHubAccountContactResponse,
+			failureCallback:updateHubAccountContactResponse
+		};
+    return httpRequest(dispatch,getState,request);
+	}
+}
+export function deleteHubAccountContactRequest() {
+		return {
+			type: types.DELETE_ACC_CONTACT_REQUEST
+		}
+	}
+export function deleteHubAccountContactResponse(response) {
+		return {
+			type: types.DELETE_ACC_CONTACT_RESPONSE,
+    	 // payload: response
+			 payload: exCompanyContacts
+		}
+}
+export function deleteHubAccountContact(cnlInfo) {
+	return function (dispatch,getState) {
+    dispatch(updateHubAccountContactRequest());
+		var request = {
+			url:config.getUrl('hub_accounts')+'/'+cnlInfo.customerid+'/contact/'+cnlInfo.contactid,
+			method:'PUT',
+			data:cnlInfo,
+			successCallback:deleteHubAccountContactResponse,
+			failureCallback:deleteHubAccountContactResponse
+		};
+    return httpRequest(dispatch,getState,request);
 	}
 }

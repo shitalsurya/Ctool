@@ -15,7 +15,7 @@ import * as table from './../../../common/Functions/customTable';
 import InlineEdit from './../../../common/components/InlineEdit';
 import { getCountryList } from './../../../miscellaneous/countries/miscCntryActions';
 import {getExContactList} from './../../actions/accountActions';
-import { updateHubAccountCNL,deleteHubAccountCNL } from './../../actions/accountGeneralActions';
+import { updateHubAccountContact,deleteHubAccountContact } from './../../actions/accountGeneralActions';
 import {
     ToastContainer,
     ToastMessage,
@@ -41,6 +41,7 @@ class InfoGeneralAddContacts extends React.Component {
     }
 
     componentWillMount(){
+      this.props.getCountryList();
     this.props.getExContactList()
     }
 
@@ -50,19 +51,19 @@ class InfoGeneralAddContacts extends React.Component {
 
      updateValue(name,val,currentRow){
        console.log("currentRow==",currentRow);
-       this.currentcnl=currentRow;
+    //   this.currentcnl=currentRow;
        if(currentRow[name]!==val){
          currentRow[name]=val;
          currentRow.customerid=this.props.currentAcct;
-         this.props.updateHubAccountCNL(currentRow);
+         this.props.updateHubAccountContact(currentRow);
        }
      }
 
      handleDelete(currentRow){
          currentRow.customerid=this.props.currentAcct;
-         this.currentCountryId=currentRow.countryid;
+         this.contactidTobeDeleted=currentRow.contactid;
        console.log("onOk==",currentRow);
-       this.props.deleteHubAccountCNL(currentRow);
+       this.props.deleteHubAccountContact(currentRow);
      }
 
       render() {
@@ -142,6 +143,7 @@ class InfoGeneralAddContacts extends React.Component {
                   closeButton: true,
               });
                 var _data=this.state.data;
+                this.newContact.contactid=nextProps.contactid;
                 _data.push(this.newContact);
                 this.setState({showContact : false,data:_data});
             }
@@ -170,7 +172,7 @@ class InfoGeneralAddContacts extends React.Component {
                       });
 
                         for(var i=0;i<this.state.data.length;i++){
-                          if(this.state.data[i].countryid==this.currentCountryId){
+                          if(this.state.data[i].contactid==this.contactidTobeDeleted){
                             this.state.data.splice(i, 1);
                           }
                         }
@@ -191,16 +193,19 @@ function mapStateToProps(state) {
     return {
           infoGenContacts:state.Account.infoGenContacts,
           addStatus:state.Account.addStatus,
+          contactid:state.Account.contactid,
           updateStatus:state.Account.updateStatus,
           deleteStatus:state.Account.deleteStatus,
-
             target:state.Account.target
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-    getExContactList:getExContactList
+    getExContactList:getExContactList,
+    getCountryList:getCountryList,
+    updateHubAccountContact:updateHubAccountContact,
+    deleteHubAccountContact:deleteHubAccountContact
    }, dispatch);
 }
 

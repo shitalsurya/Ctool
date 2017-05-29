@@ -178,7 +178,7 @@ export default function(state = {
               case types.ADD_ACC_CONTACT_RESPONSE:
                 console.log("ADD_ACC_CONTACT_RESPONSE==",action.payload);
                 if(action.payload.status==201){
-                    return Object.assign({}, state, {addStatus:true,target:action.type});
+                    return Object.assign({}, state, {addStatus:true,contactid:action.payload.data,target:action.type});
                 }
                 else{
                     return Object.assign({}, state, {addStatus:false,target:action.type});

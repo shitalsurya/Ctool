@@ -2,7 +2,7 @@
 
 export const serverIP ='localhost';
 export const protocol ='http';
-export const portNo ='8888';
+export const portNo ='8889';
 function getServerUrl(){
 	return protocol+'://'+serverIP+':'+portNo; //+'/ctool';
 	// /auth/getToken';
@@ -37,5 +37,5 @@ export function getUrl(APIName){
 			'getManagerList':'/hub_accounts/managers',
 			'getNumberLookupOptions':'/numberlookupoptions'
 	};
-	return getServerUrl() +'/ctool'+ APIUrls[APIName];
+	return getServerUrl() +'/ctool-svc/v1/'+ APIUrls[APIName];
 }

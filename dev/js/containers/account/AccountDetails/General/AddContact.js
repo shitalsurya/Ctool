@@ -19,9 +19,10 @@ class AddContact extends React.Component {
       }
   }
   handleModalChange(e){
-    console.log("handleModalChange==",e);
+    console.log("handleModalChange==",e.target.name);
     var addcontactinfo = this.state.AddContactInfo;
     addcontactinfo[e.target.name]=e.target.value;
+      addcontactinfo.contactid = 0;
     this.setState({ AddContactInfo: addcontactinfo});
   }
   handleExContactChange(e){
@@ -33,8 +34,6 @@ class AddContact extends React.Component {
   }
   saveAddContact(){
     console.log("new contactinfo : " , this.state.AddContactInfo);
-    // this.props.handleSaveContact(this.state.AddContactInfo);
-    // this.props.close();
     this.props.addHubAccountContact(this.state.AddContactInfo);
   this.props.close(this.state.AddContactInfo);
   }
@@ -51,7 +50,12 @@ class AddContact extends React.Component {
         if(nextProps.contactDetails!=null){
           var info = this.state.AddContactInfo;
                 info = Object.assign(info,nextProps.contactDetails);
-          this.setState({AddContactInfo:info});
+            //  info = nextProps.contactDetails;
+                console.log("GET_EX_CONTACT_DETAILS_RESPONSE info==",info);
+          this.setState({AddContactInfo:info},
+          function(){
+            console.log("GET_EX_CONTACT_DETAILS_RESPONSE state==",this.state.AddContactInfo);
+          });
         }
       break;
     }
