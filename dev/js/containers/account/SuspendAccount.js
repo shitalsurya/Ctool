@@ -28,7 +28,7 @@ class SuspendAccount extends React.Component {
   dateFormatter(_date){
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     var date = _date.getDate() + " " + months[_date.getMonth()] + " " + _date.getFullYear();
-    var time = _date.toLocaleTimeString().replace(/ +/g, "");
+    var time = _date.toLocaleTimeString();
     if(_date.getHours < 10 || (_date.getHours > 12 && _date.getHours < 22))
       time = "0" + time;
     var fullDate = date + " " + time ;
@@ -40,7 +40,7 @@ class SuspendAccount extends React.Component {
     if(_value == null)
       _value = this.today.toISOString();
     var _date = new Date(_value);
-    info.suspenddate = this.dateFormatter(_date);
+    info.newsuspenddate = this.dateFormatter(_date);
     this.setState({
       susAccInfo:info,
       value: _value, // ISO String, ex: "2016-11-19T12:00:00.000Z"
@@ -183,7 +183,7 @@ class SuspendAccount extends React.Component {
 
   componentWillMount() {
     var info = this.state.susAccInfo;
-    info.suspenddate = this.dateFormatter(this.today);
+    info.newsuspenddate = this.dateFormatter(this.today);
     this.setState({susAccInfo:info});
   }
 
