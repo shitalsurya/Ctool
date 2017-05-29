@@ -21,12 +21,11 @@ import Poc from './containers/common/POC';
 import thunkMiddleware from 'redux-thunk';
 import {compose, createStore, applyMiddleware } from 'redux';
 import { routerStateReducer, reduxReactRouter } from 'redux-react-router';
-import { Router, Route, browserHistory } from 'react-router'
+import { Router, Route, hashHistory } from 'react-router'
 import createHistory from 'history/lib/createBrowserHistory';
 
 /* Configure Store for Redux */
 const logger = createLogger();
-
 const createAppStore = compose(
 	applyMiddleware(thunkMiddleware),
 	applyMiddleware(logger)
@@ -34,10 +33,11 @@ const createAppStore = compose(
 
 export function configureStore(initialState){
 	const store = createAppStore(allReducers, initialState);
+
 	return store;
 };
-
 const store = configureStore();
+
 
 /* Configure nedb for browser storage */
 
@@ -47,7 +47,7 @@ export const Datastore = require('nedb')
 /* Configure application routing */
 ReactDOM.render(
     <Provider store={store}>
-			<Router history={browserHistory}>
+			<Router history={hashHistory}>
 				{ /* Default Route */ }
 				<Route path="/" component={Login}/>
 				{ /* Routes */ }
@@ -65,6 +65,7 @@ ReactDOM.render(
 				<Route path="editCountry" component={EditCountry}/>
 				<Route path="editUser" component={EditUser}/>
 			</Router>
+
     </Provider>,
     document.getElementById('root')
 );

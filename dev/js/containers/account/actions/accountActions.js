@@ -117,7 +117,7 @@ export function setSuspendAccountInfo(_accountInfo){
 	return function(dispatch,getState){
 		dispatch(setSuspendAccountInfoRequest(_accountInfo))
     var request = {
-        url:config.getUrl('hub_accounts')+'/'+_accountInfo.accountid+'/suspend',
+        url:config.getUrl('hub_accounts')+'/'+_accountInfo.accountid+'/suspend/',
         method:'PUT',
         data:_accountInfo,
         successCallback:setSuspendAccountInfoResponse,
@@ -167,7 +167,7 @@ export function setCloseAccountInfo(_accountInfo){
 	return function(dispatch,getState){
 		dispatch(setCloseAccountInfoRequest(_accountInfo));
     var request = {
-        url:config.getUrl('hub_accounts')+'/'+_accountInfo.accountid+'/close',
+        url:config.getUrl('hub_accounts')+'/'+_accountInfo.accountid+'/close/',
         method:'PUT',
         data:_accountInfo,
         successCallback:setCloseAccountInfoResponse,
