@@ -385,7 +385,6 @@ export function updateHubAccountCNLResponse(response) {
 		 payload: response
 	}
 }
-deleteHubAccountCNL
 export function deleteHubAccountCNL(currentAcct) {
 	return function (dispatch,getState) {
 		dispatch(deleteHubAccountCNLRequest());
@@ -408,6 +407,79 @@ export function deleteHubAccountCNLRequest() {
 export function deleteHubAccountCNLResponse(response) {
 	return {
 		type: types.DELETE_ACC_CNL_RESPONSE,
+		 payload: response
+	}
+}
+var exCompanyContacts ={
+  "status":200,
+  "data":
+  [
+    {
+      "contactid": 1,
+      "email": "string",
+      "insertdate": "2017-05-17T05:00:04.535Z",
+      "mobile": "string",
+      "name": "abc",
+      "phone": "string",
+      "updatedate": "2017-05-17T05:00:04.536Z"
+    },
+    {
+      "contactid": 2,
+      "email": "string",
+      "insertdate": "2017-05-17T05:00:04.535Z",
+      "mobile": "string",
+      "name": "xyz",
+      "phone": "string",
+      "updatedate": "2017-05-17T05:00:04.536Z"
+    }
+  ]
+}
+export function getHubAccountContactsRequest() {
+		return {
+			type: types.GET_ACC_CONTACTS_REQUEST
+		}
+	}
+export function getHubAccountContactsResponse(response) {
+		return {
+			type: types.GET_ACC_CONTACTS_RESPONSE,
+    	 // payload: response
+			 payload: exCompanyContacts
+		}
+}
+export function getHubAccountContacts(currentAcct) {
+	return function (dispatch,getState) {
+    dispatch(getHubAccountContactsRequest());
+    var request = {
+        url:config.getUrl('getCompanyContacts')+'/'+currentAcct,
+        method:'GET',
+        successCallback:getHubAccountContactsResponse,
+        failureCallback:getHubAccountContactsResponse
+    };
+    return httpRequest(dispatch,getState,request);
+	}
+}
+export function addHubAccountContact(cnlInfo) {
+	return function (dispatch,getState) {
+		dispatch(addHubAccountContactRequest());
+		var request = {
+			url:config.getUrl('hub_accounts')+'/'+cnlInfo.customerid+'/contact/'+cnlInfo.contactid,
+			method:'POST',
+			data:cnlInfo,
+			successCallback:addHubAccountContactResponse,
+			failureCallback:addHubAccountContactResponse
+		};
+		return httpRequest(dispatch,getState,request);
+	}
+}
+
+export function addHubAccountContactRequest() {
+	return {
+		type: types.ADD_ACC_CONTACT_REQUEST
+	}
+}
+export function addHubAccountContactResponse(response) {
+	return {
+		type: types.ADD_ACC_CONTACT_RESPONSE,
 		 payload: response
 	}
 }

@@ -8,7 +8,7 @@ import {getExContactList} from './../account/actions/accountActions';
 import {getHubAcctList} from '../account/actions/accountListActions';
 import {getHubAcctListe} from '../account/actions/accountListActions';
 import {getHubAccountCommercialInfo, getHubAccountTechnicalInfo, getHubAccountVolumeInfo } from '../account/actions/accountGeneralActions';
-import {getHubAccountDelvTimeInfo, getHubAccountMOInfo, getHubAccountMTInfo,getHubAccountCNL } from '../account/actions/accountGeneralActions';
+import {getHubAccountDelvTimeInfo, getHubAccountMOInfo, getHubAccountMTInfo,getHubAccountCNL,getHubAccountContacts} from '../account/actions/accountGeneralActions';
 import {getHubAcctDefaultTPOA,getHubAcctForcedTPOAList} from '../account/actions/accountTPOAActions';
 var BillingLocation =[
   {
@@ -115,6 +115,7 @@ var MOBILE_NOTIF = [
 
             	dispatch(getManagerList())
 						 dispatch(getHubAccountCNL(currentAcct))
+              dispatch(getHubAccountContacts(currentAcct))
 						// dispatch(getMWNotifList())
 						// dispatch(getSMSCNotifList())
 						// dispatch(getMOBILENotifList())

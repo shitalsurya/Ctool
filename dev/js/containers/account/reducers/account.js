@@ -109,6 +109,7 @@ export default function(state = {
           return Object.assign({}, state, {infoGenComm:action.payload,target:action.type});
 
           case types.GET_ACC_CNL_REQUEST:
+          case types.GET_ACC_CONTACTS_REQUEST:
             case types.ADD_ACC_CNL_REQUEST:
               case types.UPDATE_ACC_CNL_REQUEST:
               case types.DELETE_ACC_CNL_REQUEST:
@@ -148,7 +149,6 @@ export default function(state = {
         case types.GET_ACCT_GENERAL_DELV_INFO_RESPONSE:
           console.log("GET_ACCT_GENERAL_DELV_INFO_RESPONSE==",action.payload);
           return Object.assign({}, state, {infoGenDelivery:action.payload,target:action.type});
-
           case types.GET_ACC_CNL_RESPONSE:
             console.log("GET_ACC_CNL_RESPONSE==",action.payload);
             if(action.payload.status==200){
@@ -157,6 +157,15 @@ export default function(state = {
             else{
                 return Object.assign({}, state, {infoGenCnl:[],target:action.type});
             }
+          case types.GET_ACC_CONTACTS_RESPONSE:
+            console.log("GET_ACC_CONTACTS_RESPONSE==",action.payload);
+            if(action.payload.status==200){
+                return Object.assign({}, state, {infoGenContacts:action.payload.data,target:action.type});
+            }
+            else{
+                return Object.assign({}, state, {infoGenContacts:[],target:action.type});
+            }
+
 
             case types.ADD_ACC_CNL_RESPONSE:
               console.log("ADD_ACC_CNL_RESPONSE==",action.payload);
@@ -166,6 +175,14 @@ export default function(state = {
               else{
                   return Object.assign({}, state, {addStatus:false,target:action.type});
               }
+              case types.ADD_ACC_CONTACT_RESPONSE:
+                console.log("ADD_ACC_CONTACT_RESPONSE==",action.payload);
+                if(action.payload.status==201){
+                    return Object.assign({}, state, {addStatus:true,target:action.type});
+                }
+                else{
+                    return Object.assign({}, state, {addStatus:false,target:action.type});
+                }
               case types.UPDATE_ACC_CNL_RESPONSE:
                 console.log("UPDATE_ACC_CNL_RESPONSE==",action.payload);
                 if(action.payload.status==200){
@@ -174,7 +191,14 @@ export default function(state = {
                 else{
                     return Object.assign({}, state, {updateStatus:false,target:action.type});
                 }
-
+                case types.UPDATE_ACC_CONTACT_RESPONSE:
+                  console.log("UPDATE_ACC_CONTACT_RESPONSE==",action.payload);
+                  if(action.payload.status==200){
+                      return Object.assign({}, state, {updateStatus:true,target:action.type});
+                  }
+                  else{
+                      return Object.assign({}, state, {updateStatus:false,target:action.type});
+                  }
 
                 case types.DELETE_ACC_CNL_RESPONSE:
                   console.log("DELETE_ACC_CNL_RESPONSE==",action.payload);
@@ -184,6 +208,14 @@ export default function(state = {
                   else{
                       return Object.assign({}, state, {deleteStatus:false,target:action.type});
                   }
+                  case types.DELETE_ACC_CONTACT_RESPONSE:
+                    console.log("DELETE_ACC_CNL_RESPONSE==",action.payload);
+                    if(action.payload.status==200){
+                        return Object.assign({}, state, {deleteStatus:true,target:action.type});
+                    }
+                    else{
+                        return Object.assign({}, state, {deleteStatus:false,target:action.type});
+                    }
         case types.CREATE_ACCOUNT_TYPE:
           return Object.assign({}, state, {
             accType: action.payload,
@@ -199,6 +231,9 @@ export default function(state = {
           console.log("GET_EX_CONTACT_DETAILS_RESPONSE==",action.payload);
           if(action.payload.status==200){
             return Object.assign({}, state, {contactDetails:action.payload.data,target:action.type});
+          }
+          else{
+            return Object.assign({}, state, {contactDetails:null,target:action.type});
           }
 
         return state;

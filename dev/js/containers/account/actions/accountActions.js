@@ -4,30 +4,7 @@ import * as config from '../../../containers/common/config';
 import {httpRequest} from '../../../containers/common/commonAjaxActions';
 import {getSpndAccount, getDataList} from './accountAjaxActions';
 
-var exCompanyContacts ={
-  "status":200,
-  "data":
-  [
-    {
-      "contactid": 1,
-      "email": "string",
-      "insertdate": "2017-05-17T05:00:04.535Z",
-      "mobile": "string",
-      "name": "abc",
-      "phone": "string",
-      "updatedate": "2017-05-17T05:00:04.536Z"
-    },
-    {
-      "contactid": 2,
-      "email": "string",
-      "insertdate": "2017-05-17T05:00:04.535Z",
-      "mobile": "string",
-      "name": "xyz",
-      "phone": "string",
-      "updatedate": "2017-05-17T05:00:04.536Z"
-    }
-  ]
-}
+
 
 export function handleTechDetailsBack(_accountCommInfo){
 	return function(dispatch){

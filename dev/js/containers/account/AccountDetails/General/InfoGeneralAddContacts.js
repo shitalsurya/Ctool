@@ -10,21 +10,29 @@ import DeleteRowLink from './../../../common/components/DeleteRow';
 import ModalAddContact from './AddContact';
 import Contact from './../../../../../json/ExistingContact.json';
 import * as types from './../../../common/commonActionTypes';
-import { initializeData } from './../../actions/accountActions';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import * as table from './../../../common/Functions/customTable';
+import InlineEdit from './../../../common/components/InlineEdit';
+import { getCountryList } from './../../../miscellaneous/countries/miscCntryActions';
+import {getExContactList} from './../../actions/accountActions';
+import { updateHubAccountCNL,deleteHubAccountCNL } from './../../actions/accountGeneralActions';
+import {
+    ToastContainer,
+    ToastMessage,
+} from "react-toastr";
+const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 class InfoGeneralAddContacts extends React.Component {
     constructor(props, context) {
         super(props, context);
+        console.log("this.props.infoGenContacts==",this.props.infoGenContacts);
         this.state = {
-           data : [
-
-           ],
-           groupById:'countryId',
-          ContactInfo : this.props.ContactInfo || [],
+           data :this.props.infoGenContacts||[]
         }
     }
 
-    close() {
+    close(_newContact) {
+      this.newContact=_newContact;
+      console.log("_newContact==",_newContact);
       this.setState({showContact : false});
     }
 
@@ -33,71 +41,79 @@ class InfoGeneralAddContacts extends React.Component {
     }
 
     componentWillMount(){
-        this.companyList = initializeData(Contact,'name');
+    this.props.getExContactList()
     }
-
-    // deleteDataFormatter(cell, row,field,index) {
-    //    this.currentRow = row;
-    //    this.currentField = field;
-    //
-    //    return (
-    //        <DeleteRowLink currentRow={this.currentRow.name}/>
-    //    )
-    //  }
 
      buttonFormatter(){
        return <Button bsStyle="primary" onClick={this.addContact.bind(this)}>Add New Contact</Button>
      }
 
-     handleModalChange(target, value){
-        var contactinfo = this.state.ContactInfo;
-        switch(target) {
-          case types.ADDCONTACT_EXISTINGCOMPANY :
-            var _data = Contact.data.filter(function (header, item) {
-            if(header.name === value.value)
-              return header;
-            }.bind(this));
+     updateValue(name,val,currentRow){
+       console.log("currentRow==",currentRow);
+       this.currentcnl=currentRow;
+       if(currentRow[name]!==val){
+         currentRow[name]=val;
+         currentRow.customerid=this.props.currentAcct;
+         this.props.updateHubAccountCNL(currentRow);
+       }
+     }
 
-            contactinfo = _data[0];
-              console.log(contactinfo);
-            break;
-          }
-          this.setState({ ContactInfo: contactinfo,data : [contactinfo]});
-      }
+     handleDelete(currentRow){
+         currentRow.customerid=this.props.currentAcct;
+         this.currentCountryId=currentRow.countryid;
+       console.log("onOk==",currentRow);
+       this.props.deleteHubAccountCNL(currentRow);
+     }
 
       render() {
 
         const addButtonData=[{
           'name' : 'addButton'
-        }]
-
+        }];
+        var fields = [
+          {
+              name:'Name',
+              dataField:'name',
+              type:'text',
+            //  width:'80px',
+                dataAlign:'left'
+          },
+          {
+              name:'Email',
+              dataField:'email',
+              type:'text',
+            //  width:'80px',
+                dataAlign:'left'
+          },
+          {
+              name:'Action',
+              dataField:'',
+              type:'delete',
+            //  width:'80px',
+                dataAlign:'left',
+          }
+        ];
+        var listCols = fields.map(function (field,index) {
+              return (
+                  <TableHeaderColumn dataField={field.dataField}
+                    key={index}
+                    width={field.width}
+                    headerAlign='left'
+                    dataAlign={field.dataAlign || 'center'}
+                    dataFormat={ table.columnFormatter.bind(this) }
+                    formatExtraData={ field} >
+                    {field.name}
+                  </TableHeaderColumn>
+              );
+          }.bind(this));
         return (
           <div >
             <Grid fluid={true} className="inner_grid">
-
-              <Row className="show-grid">
-                <Col componentClass={ ControlLabel } md={ 3 }>
-                   Existing Company Contact:
-                </Col>
-                <Col md={ 8 } >
-                  <Select
-                        name="existingcompany"
-                        placeholder="Select company.."
-                        options={this.companyList}
-                        value={this.state.ContactInfo.name || ''}
-                        onChange={this.handleModalChange.bind(this,types.ADDCONTACT_EXISTINGCOMPANY)}
-                         />
-                </Col>
-                <Col mdHidden md={ 2 }/>
-              </Row>
-
               <Row className="show-grid">
                  <Col md= { 12 }>
-                   <BootstrapTable data={this.state.data} >
-                     <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
-                     <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
-                     <TableHeaderColumn dataField='email'>Email</TableHeaderColumn>
-                     <TableHeaderColumn dataField='delete' dataFormat={ this.deleteDataFormatter.bind(this) } formatExtraData={ 'delete' } ></TableHeaderColumn>
+                   <BootstrapTable data={ this.state.data } >
+                     <TableHeaderColumn dataField='contactid' isKey={ true }>Contact Id</TableHeaderColumn>
+                     {listCols}
                    </BootstrapTable>
                    <BootstrapTable data={addButtonData}
                      tableBodyClass='master-body-class'
@@ -107,35 +123,85 @@ class InfoGeneralAddContacts extends React.Component {
                    </BootstrapTable>
                  </Col>
                </Row>
-
-               {/*
-                 <Row className="show-grid">
-                   <Col componentClass={ ControlLabel } md={ 3 }>
-                   <Button bsStyle="primary" onClick={this.addContact.bind(this)}>Add New Contact</Button>
-                   </Col>
-                   <Col mdHidden md={ 2 }/>
-                 </Row>
-               */}
             </Grid>
-
-            <ModalAddContact  showContact={this.state.showContact} close={this.close.bind(this)}/>
+            <ToastContainer
+              toastMessageFactory={ ToastMessageFactory }
+              ref="container"
+              className="toast-top-right" />
+            <ModalAddContact  showContact={this.state.showContact}   currentAcct={this.props.currentAcct}  close={this.close.bind(this)}/>
           </div>
         )
     }
 
     componentWillReceiveProps(nextProps) {
+      console.log("componentWillReceiveProps==",nextProps);
+      switch (nextProps.target) {
+        case types.ADD_ACC_CONTACT_RESPONSE:
+            if(nextProps.addStatus==true){
+              this.refs.container.success(`Contact added successfully.`, ``, {
+                  closeButton: true,
+              });
+                var _data=this.state.data;
+                _data.push(this.newContact);
+                this.setState({showContact : false,data:_data});
+            }
+            else if(nextProps.addStatus==false){
+              this.refs.container.error(`Failed to add contact.`, ``, {
+                  closeButton: true,
+            });
+            }
+            break;
+            case types.UPDATE_ACC_CONTACT_RESPONSE:
+                if(nextProps.updateStatus==true){
+                  this.refs.container.success(`Contact updated successfully.`, ``, {
+                      closeButton: true,
+                  });
+                }
+                else if(nextProps.updateStatus==false){
+                  this.refs.container.error(`Failed to update contact.`, ``, {
+                      closeButton: true,
+                });
+                }
+                break;
+                case types.DELETE_ACC_CONTACT_RESPONSE:
+                    if(nextProps.deleteStatus==true){
+                      this.refs.container.success(`Contact deleted successfully.`, ``, {
+                          closeButton: true,
+                      });
 
+                        for(var i=0;i<this.state.data.length;i++){
+                          if(this.state.data[i].countryid==this.currentCountryId){
+                            this.state.data.splice(i, 1);
+                          }
+                        }
+                    }
+                    else if(nextProps.deleteStatus==false){
+                      this.refs.container.error(`Failed to delete contact.`, ``, {
+                          closeButton: true,
+                    });
+                    }
+                    break;
+
+          }
     }
 
 }
 
 function mapStateToProps(state) {
     return {
+          infoGenContacts:state.Account.infoGenContacts,
+          addStatus:state.Account.addStatus,
+          updateStatus:state.Account.updateStatus,
+          deleteStatus:state.Account.deleteStatus,
+
+            target:state.Account.target
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ }, dispatch);
+    return bindActionCreators({
+    getExContactList:getExContactList
+   }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoGeneralAddContacts);
