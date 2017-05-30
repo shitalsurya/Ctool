@@ -14,17 +14,20 @@ class AddContact extends React.Component {
       this.state={
         modalHeading : 'Add Contact',
         AddContactInfo : {
-        customerid:this.props.currentAcct
+        customerid:this.props.currentAcct,
+        mandatoryFlag:false
         }
       }
   }
+
   handleModalChange(e){
     console.log("handleModalChange==",e.target.name);
     var addcontactinfo = this.state.AddContactInfo;
     addcontactinfo[e.target.name]=e.target.value;
-      addcontactinfo.contactid = 0;
+    addcontactinfo.contactid = 0;
     this.setState({ AddContactInfo: addcontactinfo});
   }
+
   handleExContactChange(e){
     console.log("handleChange==",e.target.value);
     var addcontactinfo = this.state.AddContactInfo;
@@ -32,16 +35,22 @@ class AddContact extends React.Component {
     this.setState({ AddContactInfo: addcontactinfo});
     this.props.getExContactDetails(e.target.value);
   }
+
   saveAddContact(){
+    var info = this.state.AddContactInfo;
     console.log("new contactinfo : " , this.state.AddContactInfo);
-    this.props.addHubAccountContact(this.state.AddContactInfo);
-  this.props.close(this.state.AddContactInfo);
+    if(info.name && info.email && info.countryid && info.mobile && info.phone){
+      this.props.addHubAccountContact(this.state.AddContactInfo);
+      this.props.close(this.state.AddContactInfo);
+    }
+    else {
+      this.setState({mandatoryFlag : true});
+    }
   }
 
   componentWillReceiveProps( nextProps ) {
     console.log("componentWillReceiveProps==",nextProps);
-
-      this.countryList = initializeSelectOptions(nextProps.countryList,'countryname','countryid');
+    this.countryList = initializeSelectOptions(nextProps.countryList,'countryname','countryid');
     console.log("this.countryList==",this.countryList);
     this.exContactList = initializeSelectOptions(nextProps.exContactList,'name','contactid');
     console.log("this.exContactList==",this.exContactList);
@@ -49,14 +58,15 @@ class AddContact extends React.Component {
       case types.GET_EX_CONTACT_DETAILS_RESPONSE:
         if(nextProps.contactDetails!=null){
           var info = this.state.AddContactInfo;
-                info = Object.assign(info,nextProps.contactDetails);
+          info = Object.assign(info,nextProps.contactDetails);
           this.setState({AddContactInfo:info});
         }
       break;
     }
-
   }
+
   close() {
+    this.setState({mandatoryFlag : false});
     this.props.close();
   }
 
@@ -70,25 +80,25 @@ class AddContact extends React.Component {
             <Modal.Body>
               <div>
                 <Grid fluid={true}>
-                <Row className="show-grid">
-                  <Col componentClass={ ControlLabel } md={ 4 }>
-                      Existing company contacts:
-                  </Col>
-                  <Col md={ 8 }>
-                  <FormControl componentClass="select"
-                    name="contactid"
-                    onChange={this.handleExContactChange.bind(this)}>
-                    <option value="select" disabled selected>Please select...</option>
-                    {this.exContactList}
-                  </FormControl>
-                  </Col>
-                </Row>
-                OR
+                  <Row className="show-grid">
+                    <Col componentClass={ ControlLabel } md={ 4 }>
+                        Existing company contacts:
+                    </Col>
+                    <Col md={ 8 }>
+                    <FormControl componentClass="select"
+                      name="contactid"
+                      onChange={this.handleExContactChange.bind(this)}>
+                      <option value="select" disabled selected>Please select...</option>
+                      {this.exContactList}
+                    </FormControl>
+                    </Col>
+                  </Row>
+                  <div className="center">OR</div>
                   <Row className="show-grid">
                     <Col componentClass={ ControlLabel } md={ 4 }>
                       Contact:
                     </Col>
-                    <Col md={ 8 }>
+                    <Col md={ 8 } className={!this.state.AddContactInfo.name && this.state.mandatoryFlag ? "empty" : false}>
                       <FormControl
                         type="text"
                         name="name"
@@ -101,7 +111,7 @@ class AddContact extends React.Component {
                     <Col componentClass={ ControlLabel } md={ 4 }>
                       Email:
                     </Col>
-                    <Col md={ 8 }>
+                    <Col md={ 8 } className={!this.state.AddContactInfo.email && this.state.mandatoryFlag ? "empty" : false}>
                       <FormControl
                         type="text"
                         name="email"
@@ -114,7 +124,7 @@ class AddContact extends React.Component {
                     <Col componentClass={ ControlLabel } md={ 4 }>
                       Country:
                     </Col>
-                    <Col md={ 8 }>
+                    <Col md={ 8 } className={!this.state.AddContactInfo.countryid && this.state.mandatoryFlag ? "empty" : false}>
                       <FormControl componentClass="select"
                         name="countryid"
                         value={this.state.AddContactInfo.countryid || ''}
@@ -128,7 +138,7 @@ class AddContact extends React.Component {
                     <Col componentClass={ ControlLabel } md={ 4 }>
                       Mobile Phone Number:
                     </Col>
-                    <Col md={ 8 }>
+                    <Col md={ 8 } className={!this.state.AddContactInfo.mobile && this.state.mandatoryFlag ? "empty" : false}>
                       <FormControl
                         type="text"
                         name="mobile"
@@ -141,7 +151,7 @@ class AddContact extends React.Component {
                     <Col componentClass={ ControlLabel } md={ 4 }>
                       Direct Phone Number:
                     </Col>
-                    <Col md={ 8 }>
+                    <Col md={ 8 } className={!this.state.AddContactInfo.phone && this.state.mandatoryFlag ? "empty" : false}>
                       <FormControl
                         type="text"
                         name="phone"
@@ -153,11 +163,11 @@ class AddContact extends React.Component {
                 </Grid>
               </div>
             </Modal.Body>
-                <Modal.Footer>
-                  <Button onClick={this.saveAddContact.bind(this)}>Save Contact</Button>
-                  <Button onClick={this.close.bind(this)}>Close</Button>
-                </Modal.Footer>
-            </Modal>
+            <Modal.Footer>
+              <Button onClick={this.saveAddContact.bind(this)}>Save Contact</Button>
+              <Button onClick={this.close.bind(this)}>Close</Button>
+            </Modal.Footer>
+          </Modal>
         );
       }
 
@@ -166,9 +176,9 @@ class AddContact extends React.Component {
 function mapStateToProps( state ) {
   return {
     countryList: state.MiscCntry.countryList,
-      exContactList:state.Common.exContactList,
-        contactDetails:state.Account.contactDetails,
-          target:state.Account.target
+    exContactList:state.Common.exContactList,
+    contactDetails:state.Account.contactDetails,
+    target:state.Account.target
   };
 }
 
