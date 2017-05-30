@@ -39,7 +39,7 @@ class EditUserModal extends React.Component {
 
   emailValidator(_email){
     // let regexp = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
-    let regexp = /^[a-zA-Z][a-zA-Z0-9_]*@[a-zA-Z0-9_]{1,10}\.[a-zA-Z]{2,3}$/;
+    let regexp = /^[a-zA-Z][a-zA-Z0-9_.]*@[a-zA-Z0-9_]{1,10}\.[a-zA-Z]{2,3}$/;
     let numberDecimal = regexp.test(_email);
     if (!numberDecimal) {
       return false;
@@ -161,15 +161,17 @@ class EditUserModal extends React.Component {
                         Locked:
                       </Col>
                       <Col md={ 6 }>
-                        <Toggle
-                          name="locked"
-                          icons={{
-                             checked: 'Yes',
-                             unchecked: 'No',
-                          }}
-                          defaultChecked={info.locked == 1 ? true : false}
-                          value={info.locked}
-                          onChange={this.handleToggleChange.bind(this)} />
+                        <div className="view-edit-control">
+                          <Toggle
+                            name="locked"
+                            icons={{
+                               checked: 'Yes',
+                               unchecked: 'No',
+                            }}
+                            defaultChecked={info.locked == 1 ? true : false}
+                            value={info.locked}
+                            onChange={this.handleToggleChange.bind(this)} />
+                        </div>
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -177,15 +179,17 @@ class EditUserModal extends React.Component {
                         Live:
                       </Col>
                       <Col md={ 6 }>
-                        <Toggle
-                          name="liveaccount"
-                          icons={{
-                             checked: 'Yes',
-                             unchecked: 'No',
-                          }}
-                          defaultChecked={info.liveaccount == 1 ? true : false}
-                          value={info.liveaccount}
-                          onChange={this.handleToggleChange.bind(this)} />
+                        <div className="view-edit-control">
+                          <Toggle
+                            name="liveaccount"
+                            icons={{
+                               checked: 'Yes',
+                               unchecked: 'No',
+                            }}
+                            defaultChecked={info.liveaccount == 1 ? true : false}
+                            value={info.liveaccount}
+                            onChange={this.handleToggleChange.bind(this)} />
+                        </div>
                       </Col>
                     </Row>
                     <Row className="show-grid">

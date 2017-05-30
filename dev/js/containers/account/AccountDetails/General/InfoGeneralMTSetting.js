@@ -8,6 +8,8 @@ import InlineEdit from './../../../common/components/InlineEdit';
 require('./../../../../../scss/tabs.scss');
 require('./../../../../../scss/style.scss');
 import { updateHubAccountMTInfo } from './../../actions/accountGeneralActions';
+import {Typeahead} from 'react-bootstrap-typeahead';
+import Countries from '../../../../../json/Countries.json';
 
 class InfoGeneralMTSetting extends React.Component {
     constructor(props, context) {
@@ -30,6 +32,15 @@ class InfoGeneralMTSetting extends React.Component {
       }
     }
 
+    handleTypeAheadChange(name,val){
+        // var info = this.state.mtSettingObj;
+        // if(info["name"]!==val){
+        //   info["name"]=val.toString();
+        //   console.log( "handleNLChange==", info );
+        //   this.setState({mtSettingObj:info})
+        // }
+    }
+
     render() {
       console.log(" mtSettingObj : ",this.state.mtSettingObj);
       const options = [
@@ -39,7 +50,6 @@ class InfoGeneralMTSetting extends React.Component {
         return (
           <div >
             <Grid fluid={true} className="inner_grid">
-
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Interface Type :
@@ -53,7 +63,6 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
-
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   URL :
@@ -67,7 +76,6 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
-
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Login :
@@ -81,7 +89,6 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
-
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Password :
@@ -91,7 +98,6 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
-
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Encode_base64 :
@@ -105,7 +111,6 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
-
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Notification Level :
@@ -156,7 +161,6 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
-
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Notification Path :
@@ -166,7 +170,6 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
-
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Disable text body message on the extranet :
@@ -180,21 +183,19 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
-
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Countries excluded from blacklist :
                 </Col>
                 <Col md={ 8 }>
-                      <FormControl
-                          className="info_label"
-                          type="text"
-                          name="country"
-                          value={this.state.mtSettingObj.country} />
+                  <InlineEdit name="countryBlacklisted" type="multiSelect"
+                    options={Countries.data}
+                    optionsLabel="countryname"
+                    value={this.state.mtSettingObj.countryBlacklisted}
+                    onSave={this.handleTypeAheadChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
-
             </Grid>
           </div>
         )
@@ -202,7 +203,7 @@ class InfoGeneralMTSetting extends React.Component {
 
     componentWillReceiveProps(nextProps) {
 
-      }
+    }
 
 }
 
