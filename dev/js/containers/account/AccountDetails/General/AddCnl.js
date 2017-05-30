@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal,Label } from 'react-bootstrap';
+import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal,Label,Alert } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 require('./../../../../../scss/style.scss');
@@ -8,11 +8,17 @@ import { initializeSelectOptions } from './../../../common/Functions/commonFunct
 import {lookupOptions} from './../../../common/commonActionTypes';
 import { addHubAccountCNL } from './../../actions/accountGeneralActions';
 import {getCountryCNLList} from './../../../miscellaneous/countries/miscCntryActions';
+import {
+    ToastContainer,
+    ToastMessage,
+} from "react-toastr";
+const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 class AddCnl extends React.Component {
   constructor(props, context) {
       super(props, context);
       this.state={
         modalHeading : 'Add Contact',
+        modalError:'',
         AddCnlInfo : {
             customerid:this.props.currentAcct,
         }
@@ -47,6 +53,13 @@ class AddCnl extends React.Component {
 
         return(
           <Modal show={this.props.showContact} onHide={this.close.bind(this)}>
+          {
+            this.state.modalError!=''&&
+            <Alert bsStyle="danger">
+              <strong>{this.state.modalError}</strong>
+            </Alert>
+          }
+
             <Modal.Header closeButton>
               <Modal.Title>{this.state.modalHeading}</Modal.Title>
             </Modal.Header>
@@ -84,6 +97,10 @@ class AddCnl extends React.Component {
                   </Row>
                 </Grid>
               </div>
+              <ToastContainer
+                toastMessageFactory={ ToastMessageFactory }
+                ref="container"
+                className="toast-top-right" />
             </Modal.Body>
                 <Modal.Footer>
                   <Button onClick={this.saveAddCnl.bind(this)}>Save Contact</Button>
@@ -94,11 +111,22 @@ class AddCnl extends React.Component {
       }
       componentWillReceiveProps( nextProps ) {
         console.log("componentWillReceiveProps==",nextProps);
-
-          this.countryList = initializeSelectOptions(nextProps.countryList,'countryname','countryid');
-        console.log("this.countryList==",this.countryList);
-          this.lookupOptions = initializeSelectOptions(nextProps.countryCnlList,'numberlookup','numberlookupid');
-        console.log("this.companyList==",this.companyList);
+        switch (nextProps.target) {
+          case types.MISC_COUNTRYLIST_RESPONSE:
+            this.countryList = initializeSelectOptions(nextProps.countryList,'countryname','countryid');
+            console.log("this.countryList==",this.countryList);
+          break;
+          case types.GET_CNTRY_CNL_LIST_RESPONSE:
+            if(nextProps.countryCnlList.length==0){
+              this.setState({modalError:'No lookup options available for this country.'});
+            }
+            else{
+                this.setState({modalError:''});
+              this.lookupOptions = initializeSelectOptions(nextProps.countryCnlList,'numberlookup','numberlookupid');
+              console.log("this.lookupOptions==",this.lookupOptions);
+            }
+          break;
+        }
       }
 }
 

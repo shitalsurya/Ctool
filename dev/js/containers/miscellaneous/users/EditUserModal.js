@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal,Label } from 'react-bootstrap';
+import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal,Label,Alert} from 'react-bootstrap';
 import InlineEdit from './../../common/components/InlineEdit';
 import Toggle from 'react-toggle';
 require('./../../../../scss/style.scss');
@@ -24,6 +24,7 @@ class EditUserModal extends React.Component {
         this.state={
              modalHeading:'CTool User Management Details',
              currentUser: this.props.location.state.currentUser,
+             emailError:'',
              submenus:{
                head: types.MISCELLENEOUS,
                head_icon : "misc_icon",
@@ -48,12 +49,15 @@ class EditUserModal extends React.Component {
 
   handleInlineEditChange(name,val){
     var flag = true;
-    this.currentUser = this.state.currentUser;
+    var temp = JSON.stringify(this.state.currentUser);
+    this.currentUser = JSON.parse(temp);
     console.log( "handleInlineEditChange this.currentUser==", this.currentUser );
-    console.log("handleInlineEditChange prev==",this.currentUser[name]);
-    console.log("handleInlineEditChange new==",val);
-    if(name === "email")
-      flag = this.emailValidator(val);
+    console.log("handleInlineEditChange this.state.currentUser==", this.state.currentUser);
+    if(name === "email"){
+        flag = this.emailValidator(val);
+        var _errMsg = flag==false ?"Enter valid email address.":"";
+          this.setState({emailError:_errMsg});
+    }
     if(this.currentUser[name]!==val && flag){
       this.currentUser[name]=val;
       console.log( "after this.currentUser==", this.currentUser );
@@ -98,6 +102,12 @@ class EditUserModal extends React.Component {
                 </div>
                 <div>
                   <Grid fluid={true}>
+                  {
+                    this.state.emailError!=''&&
+                    <Alert bsStyle="danger">
+                      <strong>{this.state.emailError}</strong>
+                    </Alert>
+                  }
                     <Row className="show-grid">
                       <Col componentClass={ ControlLabel } md={ 4 }>
                         User ID:
@@ -262,6 +272,8 @@ class EditUserModal extends React.Component {
         }
         else{
             // this.state.showEditModal =true;
+            console.log("this.state.currentUser==",this.state.currentUser);
+            this.forceUpdate();
             this.refs.container.error(`Failed to update user.`, ``, {
                 closeButton: true,
           });

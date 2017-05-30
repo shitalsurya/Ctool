@@ -116,12 +116,18 @@ class AdvancedSearch extends React.Component {
   }
 
   toggleSearchPanel(){
-    if(this.state.open)
+    console.log("this.state.open==");
       this.setState({mandatoryFlag:false});
-    this.setState({ open: !this.state.open });
-    this.props.getCompanyList();
-  }
+      this.setState({ open: !this.state.open },function(){
+        if(this.state.open){
 
+        }
+      });
+
+  }
+  componentWillMount(){
+      this.props.getCompanyList();
+  }
   componentWillReceiveProps( nextProps ) {
     console.log("componentWillReceiveProps==",nextProps);
     if(typeof(nextProps.Company)!='undefined'){

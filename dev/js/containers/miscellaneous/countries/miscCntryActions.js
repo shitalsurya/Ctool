@@ -115,7 +115,7 @@ export function getCountryCNLList(_selectedCountryid) {
   return function (dispatch,getState) {
     dispatch(getCountryCNLListRequest());
     var request = {
-      url:config.getUrl('getNumberLookupOptions'),
+      url:config.getUrl('hub_accounts')+'/cnl/country/'+_selectedCountryid,
       method:'GET',
       successCallback:getCountryCNLListResponse,
       failureCallback:getCountryCNLListResponse

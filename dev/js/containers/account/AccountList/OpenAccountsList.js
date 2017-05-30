@@ -323,7 +323,7 @@ class OpenAccountsList extends React.Component {
   }
 
   componentWillMount(){
-    this.props.getHubAcctList();
+  //  this.props.getHubAcctList();
   }
 }
 

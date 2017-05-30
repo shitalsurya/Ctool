@@ -8,6 +8,9 @@ export default function (state = {}, action = null) {
 			if(action.payload.status==200){
 					return Object.assign({}, state, {managerList:action.payload.data,target:action.type});
 			}
+			else{
+					return Object.assign({}, state, {managerList:[],target:action.type});
+			}
 		case  types.GET_COMPANY_LIST_REQUEST :
 			return Object.assign({}, state, {});
 		case  types.GET_COMPANY_LIST_RESPONSE :
@@ -16,7 +19,9 @@ export default function (state = {}, action = null) {
 			if(action.payload.status==200){
 					return Object.assign({}, state, {compList:action.payload.data,target:action.type});
 			}
-
+			else{
+					return Object.assign({}, state, {compList:[],target:action.type});
+			}
 		case types.GET_EX_CONTACT_LIST_REQUEST:
 			return Object.assign({}, state, {});
 		case types.GET_EX_CONTACT_LIST_RESPONSE:
@@ -24,11 +29,20 @@ export default function (state = {}, action = null) {
 			if(action.payload.status==200){
 					return Object.assign({}, state, {exContactList:action.payload.data,target:action.type});
 			}
-
+			else{
+					return Object.assign({}, state, {exContactList:[],target:action.type});
+			}
 		case types.MISC_ACCOUNT_LIST_REQUEST:
 			return Object.assign({}, state, {});
 		case types.MISC_ACCOUNT_LIST_RESPONSE:
-			return Object.assign({}, state, {acctList:action.payload,target:action.type});
+
+			console.log("MISC_ACCOUNT_LIST_RESPONSE==",action.payload);
+			if(action.payload.status==200){
+					return Object.assign({}, state, {acctList:action.payload.data,target:action.type});
+			}
+			else{
+					return Object.assign({}, state, {acctList:[],target:action.type});
+			}
 			case types.GET_BILLINGLOCATION_LIST_REQUEST:
 				return Object.assign({}, state, {});
 			case types.GET_BILLINGLOCATION_LIST_RESPONSE:

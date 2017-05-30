@@ -730,7 +730,7 @@ export function getHubAcctListRequest() {
 export function getHubAcctListResponse(response) {
   return {
     type: types.MISC_ACCOUNT_LIST_RESPONSE,
-		 payload: response.data
+		 payload: response
 		//  payload:accounts
   }
 }

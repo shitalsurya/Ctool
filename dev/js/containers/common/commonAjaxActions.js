@@ -28,6 +28,10 @@ export function httpRequest(dispatch,getState,request){
 		})
 		.catch(function (error) {
 			console.log("httpRequest catch error==", error);
-			dispatch(request.failureCallback(error));
+			var response={
+				status:-1
+			}
+			console.log("httpRequest catch status error==", response);
+			dispatch(request.failureCallback(response));
 		})
 }
