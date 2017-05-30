@@ -209,15 +209,17 @@ handleCNLChange(name,val){
                         Enable CNL:
                       </Col>
                       <Col md={ 6 }>
-                        <Toggle
-                          name="enableCNL"
-                          icons={{
-                             checked: 'Yes',
-                             unchecked: 'No',
-                          }}
-                          defaultChecked={info.enableCNL == "Yes" ? true : false}
-                          value={info.enableCNL}
-                          onChange={this.handleToggleChange.bind(this)} />
+                        <div className="view-edit-control">
+                          <Toggle
+                            name="enableCNL"
+                            icons={{
+                               checked: 'Yes',
+                               unchecked: 'No',
+                            }}
+                            defaultChecked={info.enableCNL == "Yes" ? true : false}
+                            value={info.enableCNL}
+                            onChange={this.handleToggleChange.bind(this)} />
+                        </div>
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -237,16 +239,18 @@ handleCNLChange(name,val){
                         Meassage Body Removal:
                       </Col>
                       <Col md={ 6 }>
-                        <Toggle
-                          name="msgBodyRemoval"
-                          icons={{
-                             checked: 'Yes',
-                             unchecked: 'No',
-                          }}
-                          defaultChecked={info.msgBodyRemoval == "Yes" ? true : false}
-                          value={info.msgBodyRemoval}
-                          onChange={this.handleToggleChange.bind(this)} />
-                        </Col>
+                        <div className="view-edit-control">
+                          <Toggle
+                            name="msgBodyRemoval"
+                            icons={{
+                               checked: 'Yes',
+                               unchecked: 'No',
+                            }}
+                            defaultChecked={info.msgBodyRemoval == "Yes" ? true : false}
+                            value={info.msgBodyRemoval}
+                            onChange={this.handleToggleChange.bind(this)} />
+                        </div>
+                      </Col>
                     </Row>
                     <Row className="show-grid">
                       <Col componentClass={ ControlLabel } md={ 4 }>

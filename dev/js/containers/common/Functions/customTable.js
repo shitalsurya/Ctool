@@ -41,12 +41,13 @@ export function columnFormatter(cell, row, field, index) {
                    />
             break;
         case "toggle":
-            return   <Toggle
+            return <div className="view-edit-control">
+              <Toggle
               icons={field.options}
               defaultChecked={cell}
               value={cell}
-              onChange={this.updateValue.bind(this)}
-                     />
+              onChange={this.updateValue.bind(this)}/>
+            </div>
             break;
         case "time":
         var ms=parseInt(cell);
