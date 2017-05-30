@@ -8,7 +8,6 @@ export default class BrandingHeader extends React.Component {
     }
 
     handleLogout(){
-      debugger;
       sessionStorage.removeItem('token');
       this.context.router.push('/');
     }
