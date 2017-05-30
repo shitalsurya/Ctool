@@ -32,13 +32,12 @@ class InfoGeneralMTSetting extends React.Component {
       }
     }
 
-    handleNLChange(name,val){
-      debugger;
-        // this.currentCntry = this.state.currentCntry;
-        // if(this.currentCntry["countrynumberlookupoptionsids"]!==val){
-        //     this.currentCntry["numberlookupids"]=val.toString();
-        //   console.log( "handleNLChange==", this.currentCntry );
-        //   this.props.updateCountryDetails("nl",this.currentCntry);
+    handleTypeAheadChange(name,val){
+        // var info = this.state.mtSettingObj;
+        // if(info["name"]!==val){
+        //   info["name"]=val.toString();
+        //   console.log( "handleNLChange==", info );
+        //   this.setState({mtSettingObj:info})
         // }
     }
 
@@ -193,7 +192,7 @@ class InfoGeneralMTSetting extends React.Component {
                     options={Countries.data}
                     optionsLabel="countryname"
                     value={this.state.mtSettingObj.countryBlacklisted}
-                    onSave={this.handleNLChange.bind(this)}  />
+                    onSave={this.handleTypeAheadChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
