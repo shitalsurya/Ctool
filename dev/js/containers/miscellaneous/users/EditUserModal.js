@@ -39,7 +39,7 @@ class EditUserModal extends React.Component {
 
   emailValidator(_email){
     // let regexp = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
-    let regexp = /^[a-zA-Z][a-zA-Z0-9_]*@[a-zA-Z0-9_]{1,10}\.[a-zA-Z]{2,3}$/;
+    let regexp = /^[a-zA-Z][a-zA-Z0-9_.]*@[a-zA-Z0-9_]{1,10}\.[a-zA-Z]{2,3}$/;
     let numberDecimal = regexp.test(_email);
     if (!numberDecimal) {
       return false;
