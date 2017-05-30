@@ -20,7 +20,7 @@ export default class Launchpad extends React.Component {
           <Row className="dashboard-menu first">
             <Col xs={6} md={3}>
               <Thumbnail>
-                <a onClick={ this.navigateRoutes.bind( this, types.ACCOUNT_LIST )}>
+                <a onClick={ this.navigateRoutes.bind( this, types.ACCOUNT_LIST )} style={{cursor:'pointer'}}>
                   <span className={style.accounts_icon}></span>
                   <h3>Accounts</h3>
                 </a>
@@ -29,7 +29,7 @@ export default class Launchpad extends React.Component {
             </Col>
             <Col xs={6} md={3}>
               <Thumbnail>
-                <a onClick={ this.navigateRoutes.bind( this, types.CONNECTIONS )}>
+                <a onClick={ this.navigateRoutes.bind( this, types.CONNECTIONS )} style={{cursor:'pointer'}}>
                   <span className={style.connections_icon}></span>
                   <h3>Connections</h3>
                 </a>
@@ -47,7 +47,7 @@ export default class Launchpad extends React.Component {
             </Col>
             <Col xs={6} md={3}>
               <Thumbnail>
-                <a onClick={ this.navigateRoutes.bind( this, types.MISCELLENEOUS )}>
+                <a onClick={ this.navigateRoutes.bind( this, types.MISCELLENEOUS )} style={{cursor:'pointer'}}>
                   <span className={style.misc_icon}></span>
                   <h3>Miscelleneous</h3>
                 </a>
@@ -60,7 +60,7 @@ export default class Launchpad extends React.Component {
           <Row className="dashboard-menu">
             <Col xs={6} md={3}>
               <Thumbnail>
-                <a onClick={ this.navigateRoutes.bind( this, types.MISC_USERS )}>
+                <a onClick={ this.navigateRoutes.bind( this, types.MISC_USERS )} style={{cursor:'pointer'}}>
                   <span className={style.user_icon}></span>
                   <h3>CTool Users</h3>
                 </a>
