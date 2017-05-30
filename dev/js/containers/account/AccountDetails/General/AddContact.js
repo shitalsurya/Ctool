@@ -50,12 +50,7 @@ class AddContact extends React.Component {
         if(nextProps.contactDetails!=null){
           var info = this.state.AddContactInfo;
                 info = Object.assign(info,nextProps.contactDetails);
-            //  info = nextProps.contactDetails;
-                console.log("GET_EX_CONTACT_DETAILS_RESPONSE info==",info);
-          this.setState({AddContactInfo:info},
-          function(){
-            console.log("GET_EX_CONTACT_DETAILS_RESPONSE state==",this.state.AddContactInfo);
-          });
+          this.setState({AddContactInfo:info});
         }
       break;
     }

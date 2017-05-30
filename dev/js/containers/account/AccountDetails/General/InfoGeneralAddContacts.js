@@ -142,8 +142,13 @@ class InfoGeneralAddContacts extends React.Component {
               this.refs.container.success(`Contact added successfully.`, ``, {
                   closeButton: true,
               });
+                console.log("this.state.data==",this.state.data);
                 var _data=this.state.data;
-                this.newContact.contactid=nextProps.contactid;
+                console.log("this.newContact.contactid==",this.newContact.contactid);
+
+              if(this.newContact.contactid==0){
+                  this.newContact.contactid=nextProps.contactid;
+              }
                 _data.push(this.newContact);
                 this.setState({showContact : false,data:_data});
             }

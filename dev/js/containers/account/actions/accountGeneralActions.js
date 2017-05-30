@@ -511,7 +511,7 @@ export function updateHubAccountContact(cnlInfo) {
 	return function (dispatch,getState) {
     dispatch(updateHubAccountContactRequest());
 		var request = {
-			url:config.getUrl('hub_accounts')+'/'+cnlInfo.customerid+'/contact/'+cnlInfo.contactid,
+			url:config.getUrl('getCompanyContacts')+cnlInfo.contactid,
 			method:'PUT',
 			data:cnlInfo,
 			successCallback:updateHubAccountContactResponse,
