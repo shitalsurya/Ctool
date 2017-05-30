@@ -32,10 +32,10 @@ import {getHubAcctDefaultTPOA,getHubAcctForcedTPOAList} from '../account/actions
 //     "billinglocationshortname": "MWES",
 //     "billinglocationid": 12
 //   }];
-//   var managerList={
-//     status:200,
-//     data:[{"name":"Man Kim Toong","contactid":35309},{"name":"Amanda Midlane","contactid":35319},{"name":"Shawn Ng","contactid":35335}]
-//   }
+// var managerList={
+//   status:200,
+//   data:[{"name":"Man Kim Toong","contactid":35309},{"name":"Amanda Midlane","contactid":35319},{"name":"Shawn Ng","contactid":35335}]
+// }
 // var Company = [
 //   {
 //   	"companyid": 1,
@@ -112,6 +112,7 @@ export function getList(category,currentAcct) {
 				dispatch(getHubAccountMTInfo(currentAcct))
 				// dispatch(getHubAccountMOInfo(currentAcct))
 				// dispatch(getHubAccountDelvTimeInfo(currentAcct))
+
         	dispatch(getManagerList())
 				 dispatch(getHubAccountCNL(currentAcct))
           dispatch(getHubAccountContacts(currentAcct))
