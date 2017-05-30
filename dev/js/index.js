@@ -52,15 +52,15 @@ ReactDOM.render(
 				<Route onEnter={authenticateFunc} path="launchpad" component={Launchpad}/>
 				<Route path="poc" component={Poc}/>
 				<Route onEnter={authenticateFunc} path="Accounts" component={AccountList}/>
-				<Route path="AccountDetails" component={AccountDetails}/>
+				<Route onEnter={authenticateFunc} path="AccountDetails" component={AccountDetails}/>
 				<Route onEnter={authenticateFunc} path="CreateAccount" component={CreateAccount}/>
 				<Route onEnter={authenticateFunc} path="AccountType" component={AccountType}/>
 				<Route onEnter={authenticateFunc} path="UserManagement" component={MiscUsers}/>
 				<Route onEnter={authenticateFunc} path="CountryManagement" component={MiscCountry}/>
 				<Route onEnter={authenticateFunc} path="ResetPassword" component={ResetPassword}/>
 				<Route onEnter={authenticateFunc} path="connections" component={Connections}/>
-				<Route path="editCountry" component={EditCountry}/>
-				<Route path="editUser" component={EditUser}/>
+				<Route onEnter={authenticateFunc} path="editCountry" component={EditCountry}/>
+				<Route onEnter={authenticateFunc} path="editUser" component={EditUser}/>
 			</Router>
     </Provider>,
     document.getElementById('root')

@@ -461,7 +461,7 @@ font-size: 14px;
 	}
 }
 .dashboard-navbar span:nth-child(2) {
-	margin-top: 8px;
+	margin-top: 10px;
 	margin-left: 10px;
   color: #337ab7;
 }
@@ -780,4 +780,11 @@ padding:6px !important;
 }
 .checkboxCentered{
   margin-top: 0px;
+}
+.logout_style{
+  color: #337ab7;
+  background: inherit;
+  border:none;
+  padding: 15px 20px;
+  font-size: 15px;
 }
