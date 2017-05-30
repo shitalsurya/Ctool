@@ -33,14 +33,11 @@ const createAppStore = compose(
 
 export function configureStore(initialState){
 	const store = createAppStore(allReducers, initialState);
-
 	return store;
 };
 const store = configureStore();
 
-
 /* Configure nedb for browser storage */
-
 export const Datastore = require('nedb')
   , db = new Datastore();
 
@@ -52,20 +49,25 @@ ReactDOM.render(
 				<Route path="/" component={Login}/>
 				{ /* Routes */ }
 				<Route path="ForgotPassword" component={ForgotPassword}/>
-				<Route path="launchpad" component={Launchpad}/>
+				<Route onEnter={authenticateFunc} path="launchpad" component={Launchpad}/>
 				<Route path="poc" component={Poc}/>
-				<Route path="Accounts" component={AccountList}/>
+				<Route onEnter={authenticateFunc} path="Accounts" component={AccountList}/>
 				<Route path="AccountDetails" component={AccountDetails}/>
-				<Route path="CreateAccount" component={CreateAccount}/>
-				<Route path="AccountType" component={AccountType}/>
-				<Route path="UserManagement" component={MiscUsers}/>
-				<Route path="CountryManagement" component={MiscCountry}/>
-				<Route path="ResetPassword" component={ResetPassword}/>
-				<Route path="connections" component={Connections}/>
+				<Route onEnter={authenticateFunc} path="CreateAccount" component={CreateAccount}/>
+				<Route onEnter={authenticateFunc} path="AccountType" component={AccountType}/>
+				<Route onEnter={authenticateFunc} path="UserManagement" component={MiscUsers}/>
+				<Route onEnter={authenticateFunc} path="CountryManagement" component={MiscCountry}/>
+				<Route onEnter={authenticateFunc} path="ResetPassword" component={ResetPassword}/>
+				<Route onEnter={authenticateFunc} path="connections" component={Connections}/>
 				<Route path="editCountry" component={EditCountry}/>
 				<Route path="editUser" component={EditUser}/>
 			</Router>
-
     </Provider>,
     document.getElementById('root')
 );
+
+function authenticateFunc(transition, replace){
+	if(sessionStorage.token == null){
+		replace("/");
+	}
+}
