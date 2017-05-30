@@ -24,6 +24,8 @@ export function getUrl(APIName){
 				'updateCustCNL':'/countries/cnloptions',//customer,
 					'updateNL':'/countries/numberlookupoptions',//updateNL
 			'hub_accounts':'/hub_accounts',
+			'hub_accounts_cnl':'/hub_accounts_cnl',
+			'hub_accounts_tpoa':'/hub_accounts_tpoa',
 			'updateUserName':'/users/username',
 			'updateUserEmail':'/users/email',
 			'lockUser':'/users/lock',

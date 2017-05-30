@@ -295,7 +295,7 @@ export function addHubAccountCNL(cnlInfo) {
 	return function (dispatch,getState) {
 		dispatch(addHubAccountCNLRequest());
 		var request = {
-			url:config.getUrl('hub_accounts')+'/'+cnlInfo.customerid+'/cnl',
+			url:config.getUrl('hub_accounts_cnl')+'/'+cnlInfo.customerid,
 			method:'POST',
 			data:cnlInfo,
 			successCallback:addHubAccountCNLResponse,
@@ -316,30 +316,30 @@ export function addHubAccountCNLResponse(response) {
 		 payload: response
 	}
 }
-var acctCnlList={
-	status:200,
-	data:[{
-	  "countryid": 8,
-		"countryname": "INDIA",
-	  "customerid": 0,
-	  "numberlookupid": 2,
-		"numberlookup":"NRS",
-		"lookupOptions":[
-							 {
-								 "numberlookupid": 1,
-								 "numberlookup": "Local-Numbering-Plan"
-							 },
-							 {
-								 "numberlookupid": 2,
-								 "numberlookup": "Local-Ported-Number"
-							 }]
-	}]
-}
+// var acctCnlList={
+// 	status:200,
+// 	data:[{
+// 	  "countryid": 8,
+// 		"countryname": "INDIA",
+// 	  "customerid": 0,
+// 	  "numberlookupid": 2,
+// 		"numberlookup":"NRS",
+// 		"lookupOptions":[
+// 							 {
+// 								 "numberlookupid": 1,
+// 								 "numberlookup": "Local-Numbering-Plan"
+// 							 },
+// 							 {
+// 								 "numberlookupid": 2,
+// 								 "numberlookup": "Local-Ported-Number"
+// 							 }]
+// 	}]
+// }
 export function getHubAccountCNL(currentAcct) {
 	return function (dispatch,getState) {
 		dispatch(getHubAccountCNLRequest());
 		var request = {
-			url:config.getUrl('hub_accounts')+'/'+currentAcct+'/cnl',
+			url:config.getUrl('hub_accounts_cnl')+'/'+currentAcct,
 			method:'GET',
 			successCallback:getHubAccountCNLResponse,
 			failureCallback:getHubAccountCNLResponse
@@ -356,7 +356,7 @@ export function getHubAccountCNLRequest() {
 export function getHubAccountCNLResponse(response) {
 	return {
 		type: types.GET_ACC_CNL_RESPONSE,
-		 payload: acctCnlList
+		 payload: response
 	}
 }
 
@@ -364,7 +364,7 @@ export function updateHubAccountCNL(currentAcct) {
 	return function (dispatch,getState) {
 		dispatch(updateHubAccountCNLRequest());
 		var request = {
-			url:config.getUrl('hub_accounts')+'/'+currentAcct.customerid+'/cnl',
+			url:config.getUrl('hub_accounts_cnl')+'/'+currentAcct.customerid,
 			method:'PUT',
 			data:currentAcct,
 			successCallback:updateHubAccountCNLResponse,
@@ -389,7 +389,7 @@ export function deleteHubAccountCNL(currentAcct) {
 	return function (dispatch,getState) {
 		dispatch(deleteHubAccountCNLRequest());
 		var request = {
-			url:config.getUrl('hub_accounts')+'/'+currentAcct.customerid+'/cnl/'+currentAcct.countryid,
+			url:config.getUrl('hub_accounts_cnl')+'/'+currentAcct.customerid+'/country/'+currentAcct.countryid,
 			method:'DELETE',
 			data:currentAcct,
 			successCallback:deleteHubAccountCNLResponse,
@@ -503,8 +503,8 @@ export function updateHubAccountContactRequest() {
 export function updateHubAccountContactResponse(response) {
 		return {
 			type: types.UPDATE_ACC_CONTACT_RESPONSE,
-    	 // payload: response
-			 payload: exCompanyContacts
+    	  payload: response
+			// payload: exCompanyContacts
 		}
 }
 export function updateHubAccountContact(cnlInfo) {
@@ -528,8 +528,8 @@ export function deleteHubAccountContactRequest() {
 export function deleteHubAccountContactResponse(response) {
 		return {
 			type: types.DELETE_ACC_CONTACT_RESPONSE,
-    	 // payload: response
-			 payload: exCompanyContacts
+    	  payload: response
+			// payload: exCompanyContacts
 		}
 }
 export function deleteHubAccountContact(cnlInfo) {

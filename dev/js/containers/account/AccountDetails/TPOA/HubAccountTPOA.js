@@ -19,7 +19,7 @@ class HubAccountGeneral extends React.Component {
           console.log("this.props.currentAcct==",this.props.currentAcct);
           this.currentAcct=this.props.currentAcct;
         this.state = {
-          TPOAinfo : this.props.TPOAinfo||{},
+          TPOAinfo : this.props.TPOAinfo||[],
           showAddTPOA : false,
         }
     }
@@ -44,7 +44,7 @@ componentWillMount(){
   //this.props.getSMSCList();
 }
     render() {
-        console.log("this.props.smscList==",this.props.smscList);
+        console.log("this.state.TPOAinfo==",this.state.TPOAinfo);
 
       var fields = [
         {
@@ -117,7 +117,7 @@ componentWillMount(){
                  <Col md={ 12 }>
                    {
                      typeof(this.props.smscList)!='undefined' &&
-                     <BootstrapTable data={this.state.TPOAinfo.forcedTPOA} >
+                     <BootstrapTable data={this.state.TPOAinfo} >
                        <TableHeaderColumn isKey={ true } hidden dataField='id'>ID</TableHeaderColumn>
                        {listCols}
                      </BootstrapTable>

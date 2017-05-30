@@ -2,8 +2,6 @@ import axios from 'axios';
 import * as config from './../../common/config';
 import * as types from '../../common/commonActionTypes';
 import {httpRequest} from './../../common/commonAjaxActions';
-import Countries from '../../../../json/Countries.json';
-// import CountryDetails from '../../../../json/CountryDetails';
 import updatedCntryDetails from '../../../../json/CountryDetailsUpdated';
 
 export function getCountryListRequest() {
@@ -115,7 +113,7 @@ export function getCountryCNLList(_selectedCountryid) {
   return function (dispatch,getState) {
     dispatch(getCountryCNLListRequest());
     var request = {
-      url:config.getUrl('hub_accounts')+'/cnl/country/'+_selectedCountryid,
+      url:config.getUrl('hub_accounts_cnl')+'/country/'+_selectedCountryid,
       method:'GET',
       successCallback:getCountryCNLListResponse,
       failureCallback:getCountryCNLListResponse

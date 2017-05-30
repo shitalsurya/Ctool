@@ -10,8 +10,8 @@ import HubAccountMORouting from './MORouting/HubAccountMORouting';
 import HubAccountMTRouting from './MTRouting/HubAccountMTRouting';
 import HubAccountAddKeyword from './AddKeyword/HubAccountAddKeyword';
 import * as types from './../../common/commonActionTypes';
-import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
-import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid, Button, Image,Glyphicon,Thumbnail} from 'react-bootstrap';
+//import { Tabs, TabLink, TabContent } from 'react-tabs-redux';
+import {  Tabs,Tab,Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid, Button, Image,Glyphicon,Thumbnail} from 'react-bootstrap';
 import {handleSelectFieldsChange,navigateMenus} from './../actions/accountActions';
 import {getList} from './../../common/commonActions';
 require('./../../../../scss/tabs.scss');
@@ -24,6 +24,7 @@ class AccountDetails extends React.Component {
         this.currentAcct = this.props.location.state.currentAcct;
         console.log("this.currentAcct==",this.currentAcct);
           this.state={
+            key:1,
             accountCaptions:{
                 General:"General",
                 TPOA:"TPOA",
@@ -45,7 +46,10 @@ class AccountDetails extends React.Component {
       console.log("TPOA componentWillMount this.currentAcct ==",this.currentAcct );
        this.props.getList("AccountDetails",this.currentAcct);
     }
-
+    handleSelect(key) {
+      //  alert('selected ' + key);
+        this.setState({key});
+      }
     render() {
 
         return (
@@ -58,32 +62,17 @@ class AccountDetails extends React.Component {
                   <Navigation submenus={this.state.submenus}></Navigation>
                 </Col>
                 <Col md={10}>
-                  <Tabs className="tabs" >
-                    <div className="links">
-                      <TabLink to="General" default className="tab-link">{this.state.accountCaptions.General}</TabLink>
-                      <TabLink to="TPOA"  className="tab-link">{this.state.accountCaptions.TPOA }</TabLink>
-                      <TabLink to="MTRouting"  className="tab-link">{this.state.accountCaptions.MTRouting }</TabLink>
-                      <TabLink to="MORouting" className="tab-link">{this.state.accountCaptions.MORouting}</TabLink>
-                      <TabLink to="AddKeyword" className="tab-link">{this.state.accountCaptions.AddKeyword}</TabLink>
-                    </div>
-                    <div className="content" >
-                      <TabContent for="General">
-                        <HubAccountGeneral currentAcct={this.currentAcct}/>
-                      </TabContent>
-                      <TabContent for="TPOA">
-                        <HubAccountTPOA currentAcct={this.currentAcct}/>
-                      </TabContent>
-                      <TabContent for="MORouting">
-                        <HubAccountMORouting/>
-                      </TabContent>
-                      <TabContent for="MTRouting">
-                        <HubAccountMTRouting/>
-                      </TabContent>
-                      <TabContent for="AddKeyword">
-                        <HubAccountAddKeyword/>
-                      </TabContent>
-                    </div>
-                  </Tabs>
+                <Tabs className="tabs" activeKey={this.state.key} onSelect={this.handleSelect.bind(this)} id="controlled-tab-example">
+                <Tab eventKey={1} title={this.state.accountCaptions.General }>
+                 {this.state.key==1 && <HubAccountGeneral currentAcct={this.currentAcct}/>}
+                 </Tab>
+       <Tab eventKey={2} title={this.state.accountCaptions.TPOA }>
+        {this.state.key==2 && <HubAccountTPOA currentAcct={this.currentAcct}/>}
+        </Tab>
+
+     </Tabs>
+
+
                 </Col>
               </Row>
             </Grid>

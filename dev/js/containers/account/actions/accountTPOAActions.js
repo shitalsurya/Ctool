@@ -3,8 +3,8 @@ import axios from 'axios';
 import * as config from '../../../containers/common/config';
 import {httpRequest} from '../../../containers/common/commonAjaxActions';
 var TPOA_Info =  {
-	defaultTPOA : 'A365',
-	forcedTPOA:  [
+	status:200,
+	data: [
 	  {
 	    "smscid" : 1896,
 	    "TPOA" : "D1234",
@@ -28,9 +28,16 @@ var TPOA_Info =  {
 	]
 }
 
-			export function getHubAcctForcedTPOAList(commInfo) {
+			export function getHubAcctForcedTPOAList(currentAcct) {
 				return function (dispatch,getState) {
-					dispatch(getHubAcctForcedTPOAListResponse());
+			    dispatch(getHubAcctForcedTPOAListRequest());
+					var request = {
+						url:config.getUrl('hub_accounts_tpoa')+'/'+currentAcct,
+						method:'GET',
+						successCallback:getHubAcctForcedTPOAListResponse,
+						failureCallback:getHubAcctForcedTPOAListResponse
+					};
+			    return httpRequest(dispatch,getState,request);
 				}
 			}
 			export function getHubAcctForcedTPOAListRequest() {
@@ -38,30 +45,33 @@ var TPOA_Info =  {
 						type: types.GET_ACCT_FORCED_TPOA_LIST_REQUEST
 					}
 				}
-				export function getHubAcctForcedTPOAListResponse(data) {
+				export function getHubAcctForcedTPOAListResponse(response) {
 						return {
 							type: types.GET_ACCT_FORCED_TPOA_LIST_RESPONSE,
 							 payload: TPOA_Info
 						}
 					}
-
-
-
-
-
-					export function AddHubAccountForcedTPOA(_currentAcct,_newTPOAinfo) {
-						return function (dispatch,getState) {
-							dispatch(AddHubAccountForcedTPOAResponse(_currentAcct,_newTPOAinfo));
-						}
-					}
-					export function AddHubAccountForcedTPOARequest() {
-							return {
-								type: types.GET_ACCT_FORCED_TPOA_LIST_REQUEST
+					export function AddHubAccountForcedTPOA(_newTPOAinfo) {
+							return function (dispatch,getState) {
+								dispatch(AddHubAccountForcedTPOARequest());
+								var request = {
+									url:config.getUrl('hub_accounts_tpoa')+'/'+_newTPOAinfo.customerid,
+									method:'POST',
+									data:cnlInfo,
+									successCallback:AddHubAccountForcedTPOAResponse,
+									failureCallback:AddHubAccountForcedTPOAResponse
+								};
+								return httpRequest(dispatch,getState,request);
 							}
 						}
-						export function AddHubAccountForcedTPOAResponse(_currentAcct,_newTPOAinfo) {
+					export function AddHubAccountForcedTPOARequest() {
+							return {
+								type: types.ADD_ACCT_FORCED_TPOA_LIST_REQUEST
+							}
+						}
+						export function AddHubAccountForcedTPOAResponse(response) {
 								return {
-									type: types.GET_ACCT_FORCED_TPOA_LIST_RESPONSE,
-									 payload: _newTPOAinfo
+									type: types.ADD_ACCT_FORCED_TPOA_LIST_RESPONSE,
+									 payload: response
 								}
 							}
