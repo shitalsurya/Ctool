@@ -57,7 +57,7 @@ var mtSettingInfo = {
 	mobileNotifid : 1,
 	ntfPath : '/usr/mobileway/notifs/outputspool/http',
 	disTxtBody : 'No',
-	country : ''
+	countryBlacklisted : "AF,IN"
 }
 
 export function getHubAccountCommercialInfo(currentAcct) {
