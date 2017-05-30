@@ -1,7 +1,5 @@
-
-
-
 {
+  "status":200,
   "continent": {
     "continentid": 0,
     "continentname": "string"

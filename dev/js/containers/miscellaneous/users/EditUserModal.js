@@ -151,15 +151,17 @@ class EditUserModal extends React.Component {
                         Locked:
                       </Col>
                       <Col md={ 6 }>
-                        <Toggle
-                          name="locked"
-                          icons={{
-                             checked: 'Yes',
-                             unchecked: 'No',
-                          }}
-                          defaultChecked={info.locked == 1 ? true : false}
-                          value={info.locked}
-                          onChange={this.handleToggleChange.bind(this)} />
+                        <div className="view-edit-control">
+                          <Toggle
+                            name="locked"
+                            icons={{
+                               checked: 'Yes',
+                               unchecked: 'No',
+                            }}
+                            defaultChecked={info.locked == 1 ? true : false}
+                            value={info.locked}
+                            onChange={this.handleToggleChange.bind(this)} />
+                        </div>
                       </Col>
                     </Row>
                     <Row className="show-grid">
@@ -167,15 +169,17 @@ class EditUserModal extends React.Component {
                         Live:
                       </Col>
                       <Col md={ 6 }>
-                        <Toggle
-                          name="liveaccount"
-                          icons={{
-                             checked: 'Yes',
-                             unchecked: 'No',
-                          }}
-                          defaultChecked={info.liveaccount == 1 ? true : false}
-                          value={info.liveaccount}
-                          onChange={this.handleToggleChange.bind(this)} />
+                        <div className="view-edit-control">
+                          <Toggle
+                            name="liveaccount"
+                            icons={{
+                               checked: 'Yes',
+                               unchecked: 'No',
+                            }}
+                            defaultChecked={info.liveaccount == 1 ? true : false}
+                            value={info.liveaccount}
+                            onChange={this.handleToggleChange.bind(this)} />
+                        </div>
                       </Col>
                     </Row>
                     <Row className="show-grid">
