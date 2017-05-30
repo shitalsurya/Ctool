@@ -217,40 +217,39 @@ export const GET_ACCT_FORCED_TPOA_LIST_REQUEST = 'GET_ACCT_FORCED_TPOA_LIST_REQU
 export const GET_ACCT_FORCED_TPOA_LIST_RESPONSE = 'GET_ACCT_FORCED_TPOA_LIST_RESPONSE';
 
 export const SERVICE_LEVEL = [
-    {"servicelevelname": "Standard", "servicelevelid": "1"},
-      {"servicelevelname": "Premium", "servicelevelid": "2"}
+  {"servicelevelname": "Standard", "servicelevelid": "1"},
+  {"servicelevelname": "Premium", "servicelevelid": "2"}
 ];
 export const LEGAL_STATUS = [
   { "legalstatusid" :1 , "legalstatusname" : "UNSIGNED"},
-     { "legalstatusid" :2 , "legalstatusname" : "SIGNED"}
+  { "legalstatusid" :2 , "legalstatusname" : "SIGNED"}
 ];
 export const TRAFFIC_TYPE = [
-     {"traffictypeid": 1, "traffictypename": "General"},
-       {"traffictypeid": 2, "traffictypename": "Campaign"},
-         {"traffictypeid": 3, "traffictypename": "Low Latency"},
-           {"traffictypeid": 4, "traffictypename": "Time Sensitive"}
+  {"traffictypeid": 1, "traffictypename": "General"},
+  {"traffictypeid": 2, "traffictypename": "Campaign"},
+  {"traffictypeid": 3, "traffictypename": "Low Latency"},
+  {"traffictypeid": 4, "traffictypename": "Time Sensitive"}
 ];
 export const homepageOptions= [
-    { homepage: '/hubaccounts', homepagename: '/hubaccounts' },
-    { homepage: '/hubconnections', homepagename: '/hubconnections' }
+  { homepage: '/hubaccounts', homepagename: '/hubaccounts' },
+  { homepage: '/hubconnections', homepagename: '/hubconnections' }
 ];
-
 export const roleOptions= [
-    { ctoolrole: 'ADMINISTRATOR', ctoolrolename: 'ADMINISTRATOR' },
-    { ctoolrole: 'ServiceDesk', ctoolrolename: 'ServiceDesk' },
-    { ctoolrole: 'ACCOUNTMANAGER', ctoolrolename: 'ACCOUNTMANAGER'}
+  { ctoolrole: 'ADMINISTRATOR', ctoolrolename: 'ADMINISTRATOR' },
+  { ctoolrole: 'ServiceDesk', ctoolrolename: 'ServiceDesk' },
+  { ctoolrole: 'ACCOUNTMANAGER', ctoolrolename: 'ACCOUNTMANAGER'}
 ];
 export const lookupOptions =[
-            {
-              "numberlookupid": 1,
-              "numberlookup": "Local-Numbering-Plan"
-            },
-            {
-              "numberlookupid": 2,
-              "numberlookup": "Local-Ported-Number"
-            },
-            {
-              "numberlookupid": 3,
-              "numberlookup": "NRS"
-            }
-        ];
+  {
+    "numberlookupid": 1,
+    "numberlookup": "Local-Numbering-Plan"
+  },
+  {
+    "numberlookupid": 2,
+    "numberlookup": "Local-Ported-Number"
+  },
+  {
+    "numberlookupid": 3,
+    "numberlookup": "NRS"
+  }
+];
