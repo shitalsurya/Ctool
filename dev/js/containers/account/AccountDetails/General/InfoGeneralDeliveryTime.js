@@ -13,7 +13,7 @@ class InfoGeneralDeliveryTime extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-          deliveryTimeObj : this.props.infoGenDelivery
+          deliveryTimeObj : this.props.infoGenDelivery || {}
         }
     }
 
