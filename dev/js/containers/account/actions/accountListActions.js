@@ -732,6 +732,5 @@ export function getHubAcctListResponse(response) {
     type: types.MISC_ACCOUNT_LIST_RESPONSE,
 		// payload: response.data
 		  payload:accounts
-
   }
 }

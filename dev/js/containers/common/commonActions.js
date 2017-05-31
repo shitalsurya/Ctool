@@ -423,3 +423,28 @@ export function getEndTimeList() {
 				return httpRequest(dispatch,getState,request);
 			}
 		}
+
+    export function getOperatorListRequest() {
+				return {
+					type: types.GET_OPERATOR_LIST_REQUEST
+				}
+			}
+		export function getOperatorListResponse(response) {
+				return {
+					type: types.GET_OPERATOR_LIST_RESPONSE,
+					// payload: response
+          payload : OPERATOR
+				}
+		}
+		export function getOperatorList() {
+      return function (dispatch,getState) {
+				dispatch(getOperatorListRequest());
+				var request = {
+					url:config.getUrl('GetOperatorList'),
+					method:'GET',
+					successCallback:getOperatorListResponse,
+					failureCallback:getOperatorListResponse
+				};
+				return httpRequest(dispatch,getState,request);
+			}
+		}

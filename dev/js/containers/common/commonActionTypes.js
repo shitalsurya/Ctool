@@ -263,7 +263,6 @@ export const lookupOptions =[
               "numberlookup": "NRS"
             }
         ];
-        
 export const TPDACRITERIA =[
     { "tpdacriteriaid" : "1", "tpdacriterianame" : "BEGIN_BY" },
     { "tpdacriteriaid" : "2", "tpdacriterianame" : "EXACT" }

@@ -30,8 +30,7 @@ export default class Launchpad extends React.Component {
             <Col xs={6} md={3}>
              <Thumbnail className={style.myThumbnail} href={"#/" + types.CONNECTIONS}>
                 <a>
-                cursor pointer change
-                  <span className={style.connections_icon}></span>
+                <span className={style.connections_icon}></span>
                   <h3>Connections</h3>
                 </a>
                 <p>SMSC Configuration</p>
@@ -49,7 +48,6 @@ export default class Launchpad extends React.Component {
             <Col xs={6} md={3}>
               <Thumbnail className={style.myThumbnail} href={"#/" + types.MISCELLENEOUS}>
                 <a>
-                cursor pointer change
                   <span className={style.misc_icon}></span>
                   <h3>Miscelleneous</h3>
                 </a>
