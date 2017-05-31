@@ -5,6 +5,8 @@ import Toggle from 'react-toggle';
 require('./../../../../../scss/style.scss');
 require('./../../../../../scss/react-toggle.scss');
 import * as types from './../../../common/commonActionTypes';
+import { connect } from 'react-redux';
+import {initializeSelectOptions} from './../../../common/Functions/commonFunctions';
 
 class HubAccountAddMTRouting extends React.Component {
   constructor(props, context) {
@@ -17,17 +19,18 @@ class HubAccountAddMTRouting extends React.Component {
              checked : false,
         }
   }
+  handleChange(e) {
+      console.log("name==",e.target.name);
+      console.log("value==",e.target.value);
+    var info = this.state.MTInfo;
+    info[e.target.name] = e.target.value;
+    this.setState({MTInfo : info});
+  }
 
   handleModalChange(target, value){
     var info = this.state.MTInfo;
     switch(target) {
-      case types.ACCOUNT_MT_ROUTING_OPERATOR:
-        info.operator = value.value;
-        break;
-      case types.ACCOUNT_MT_ROUTING_SMSC:
-        info.smsc = value.value;
-        break;
-      case types.ACCOUNT_MT_ROUTING_TPOA:
+        case types.ACCOUNT_MT_ROUTING_TPOA:
         info.tpoa = value.target.value;
         break;
     }
@@ -86,13 +89,13 @@ class HubAccountAddMTRouting extends React.Component {
                               Operator:
                             </Col>
                             <Col md={ 6 }>
-                              <Select
-                                name="operator"
-                                placeholder="Select Operator.."
-                                options={modalOptions}
-                                value={this.state.MTInfo.operator || ''}
-                                onChange={this.handleModalChange.bind(this,types.ACCOUNT_MT_ROUTING_OPERATOR)}
-                              />
+                              <FormControl componentClass="select"
+                                  name="operatorid"
+                                value={this.state.MTInfo.operatorid}
+                                onChange={this.handleChange.bind(this)}>
+                                <option value="select" disabled selected>Please select...</option>
+                                {this.operatorList}
+                              </FormControl>
                             </Col>
                             <Col mdHidden md={ 3 } />
                           </Row>
@@ -101,14 +104,13 @@ class HubAccountAddMTRouting extends React.Component {
                               SMSC:
                             </Col>
                             <Col md={ 6 }>
-                            <Select
-                                  name="smsc"
-                                  placeholder="Select SMSC.."
-                                  options={modalOptions}
-                                  value={this.state.MTInfo.smsc || ''}
-                                onChange={this.handleModalChange.bind(this,types.ACCOUNT_MT_ROUTING_SMSC)}
-                                   />
-
+                              <FormControl componentClass="select"
+                                  name="smscid"
+                                  value={this.state.MTInfo.smscid}
+                                  onChange={this.handleChange.bind(this)}>
+                                  <option value="select" disabled selected>Please select...</option>
+                                  {this.smscList}
+                              </FormControl>
                             </Col>
                             <Col mdHidden md={ 3 } />
                           </Row>
@@ -172,6 +174,19 @@ class HubAccountAddMTRouting extends React.Component {
     );
   }
 
+  componentWillMount( ) {
+    debugger;
+    // console.log("tppoa model componentWillReceiveProps==",nextProps);
+    this.smscList = initializeSelectOptions(this.props.smscList,'smscname','smscid');
+      console.log("this.smscList==",this.smscList);
+    this.operatorList = initializeSelectOptions(this.props.operatorList,'operatorname','operatorid');
+      console.log("this.operatorList==",this.operatorList);
+    }
 }
-
-export default HubAccountAddMTRouting;
+function mapStateToProps(state) {
+    return {
+      smscList:state.Common.smscList,
+      operatorList:state.Common.operatorList
+     };
+}
+export default connect(mapStateToProps)(HubAccountAddMTRouting);

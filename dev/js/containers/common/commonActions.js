@@ -63,6 +63,24 @@ var Company = [
        {"smscname": "Mobileway China", "smscid": 4}
      ]
   };
+  var OPERATOR = {
+    status:200,
+    data:[
+          {
+            "operatorname": "Libya","operatorid": 1005
+          },
+          {
+            "operatorname": "Albania","operatorid": 1018
+
+          },
+          {
+            "operatorname": "Bosnia And Herzegovina","operatorid": 1037
+          },
+          {
+            "operatorname": "Uzbekistan","operatorid": 1059
+          }
+      ]
+    };
 var VOL_TYPE = [
 	{ "volTypeid": 1, "volTypename":"None"},
 	{ "volTypeid": 2, "volTypename":"Daily"},
@@ -125,6 +143,7 @@ var MOBILE_NOTIF = [
 						// dispatch(getStartTimeList())
 						// dispatch(getEndTimeList())
                dispatch(getSMSCList())
+               dispatch(getOperatorList())
              dispatch(getHubAcctForcedTPOAList(currentAcct))
 
 	 					break;
@@ -328,5 +347,30 @@ export function getManagerList() {
 		export function getEndTimeList() {
 			return function (dispatch,getState) {
 				dispatch(getEndTimeListResponse());
+			}
+		}
+
+    export function getOperatorListRequest() {
+				return {
+					type: types.GET_OPERATOR_LIST_REQUEST
+				}
+			}
+		export function getOperatorListResponse(response) {
+				return {
+					type: types.GET_OPERATOR_LIST_RESPONSE,
+					// payload: response
+          payload : OPERATOR
+				}
+		}
+		export function getOperatorList() {
+      return function (dispatch,getState) {
+				dispatch(getOperatorListRequest());
+				var request = {
+					url:config.getUrl('GetOperatorList'),
+					method:'GET',
+					successCallback:getOperatorListResponse,
+					failureCallback:getOperatorListResponse
+				};
+				return httpRequest(dispatch,getState,request);
 			}
 		}
