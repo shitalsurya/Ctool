@@ -7,7 +7,6 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal,Label, OverlayTrigger, Popover, ButtonToolbar } from 'react-bootstrap';
 import AddDedicatedMORouting from './HubAccountMODedicated';
 import AddParsedMORouting from './HubAccountMOParsed';
-import AddMORouting from './HubAccountMORoutingAdd';
 import * as table from './../../../common/Functions/customTable';
 import InlineEdit from './../../../common/components/InlineEdit';
 import DeleteRowLink from './../../../common/components/DeleteRow';
@@ -138,11 +137,11 @@ class HubAccountMORouting extends React.Component {
                <Row className="show-grid">
                  <Col mdHidden md={ 6 } >
                    <ButtonGroup justified>
-                     <Button href="#" className="grp-btn" onClick={() => this.setState({showAddDedicated : true, showAddParsed : false}) }>
+                     <Button href="#" className="grp-btn" onClick={() => this.setState({showAddDedicated : true}) }>
                        <span className="add-icon"></span>
                        <span>Add Dedicated Routings</span>
                      </Button>
-                     <Button href="#" className="grp-btn" onClick={() => this.setState({showAddDedicated : true, showAddParsed : true}) }>
+                     <Button href="#" className="grp-btn" onClick={() => this.setState({showAddParsed : true}) }>
                        <span className="add-icon"></span>
                        <span>Add Parsed Routings</span>
                      </Button>
@@ -168,11 +167,16 @@ class HubAccountMORouting extends React.Component {
                </Row>
 
              </Grid>
+             {
+               this.state.showAddDedicated &&
+               <AddDedicatedMORouting showAdd={this.state.showAddDedicated} close={this.close.bind(this)}/>
+             }
+             {
+               this.state.showAddParsed &&
+               <AddParsedMORouting showAdd={this.state.showAddParsed} close={this.close.bind(this)}/>
+             }
 
-             {/*<AddDedicatedMORouting showAdd={this.state.showAddDedicated} close={this.close.bind(this)}/>
-           <AddParsedMORouting showAdd={this.state.showAddParsed} close={this.close.bind(this)}/>*/}
 
-              <AddMORouting showAdd={this.state.showAddDedicated} showParsed={this.state.showAddParsed} close={this.close.bind(this)}/>
 
            </div>
         )

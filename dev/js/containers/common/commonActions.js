@@ -54,12 +54,15 @@ var Company = [
 	"companyname": "MYWAP"
 }
 	];
-var SMSC = [
-		{"smscname": "Mobile 365 Inc.", "smscid": 1},
-		{"smscname": "Mobile 365 South Africa.", "smscid": 2},
-		{"smscname": "Mobileway Australia", "smscid": 3},
-		{"smscname": "Mobileway China", "smscid": 4}
-];
+  var SMSC = {
+     status:200,
+     data:[
+       {"smscname": "Mobile 365 Inc.", "smscid": 1},
+       {"smscname": "Mobile 365 South Africa.", "smscid": 2},
+       {"smscname": "Mobileway Australia", "smscid": 3},
+       {"smscname": "Mobileway China", "smscid": 4}
+     ]
+  };
 var VOL_TYPE = [
 	{ "volTypeid": 1, "volTypename":"None"},
 	{ "volTypeid": 2, "volTypename":"Daily"},
@@ -209,7 +212,8 @@ export function getManagerList() {
 		export function getSMSCListResponse(response) {
 				return {
 					type: types.GET_SMSC_LIST_RESPONSE,
-					 payload: response
+					// payload: response
+          payload : SMSC
 				}
 		}
 		export function getSMSCList() {

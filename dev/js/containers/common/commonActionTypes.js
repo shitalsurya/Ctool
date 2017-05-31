@@ -254,3 +254,15 @@ export const lookupOptions =[
               "numberlookup": "NRS"
             }
         ];
+export const TPDACRITERIA =[
+    { "tpdacriteriaid" : "1", "tpdacriterianame" : "BEGIN_BY" },
+    { "tpdacriteriaid" : "2", "tpdacriterianame" : "EXACT" }
+
+];
+
+export const PARSEFIELDS = [
+    { "parsefieldid" : "1", "parsefieldname" : "TEXT7B" },
+    { "parsefieldid" : "2", "parsefieldname" : "TEXT8B" },
+    { "parsefieldid" : "3", "parsefieldname" : "UCS2" },
+    { "parsefieldid" : "4", "parsefieldname" : "MSISDN" }
+];
