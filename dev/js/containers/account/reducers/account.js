@@ -105,9 +105,7 @@ export default function(state = {
 
         case types.GET_ACCT_GENERAL_COMM_INFO_REQUEST:
           return Object.assign({}, state, {});
-        case types.GET_ACCT_GENERAL_COMM_INFO_RESPONSE:
-          console.log("GET_ACCT_GENERAL_COMM_INFO_RESPONSE==",action.payload);
-          return Object.assign({}, state, {infoGenComm:action.payload,target:action.type});
+
 
           case types.GET_ACC_CNL_REQUEST:
           case types.GET_ACC_CONTACTS_REQUEST:
@@ -177,7 +175,7 @@ export default function(state = {
 
 case types.ADD_ACCT_FORCED_TPOA_LIST_RESPONSE:
   console.log("ADD_ACCT_FORCED_TPOA_LIST_RESPONSE==",action.payload);
-  if(action.payload.status==200){
+  if(action.payload.status==201){
       return Object.assign({}, state, {addStatus:true,target:action.type});
   }
   else{
@@ -267,7 +265,29 @@ case types.ADD_ACCT_FORCED_TPOA_LIST_RESPONSE:
           else{
             return Object.assign({}, state, {contactDetails:null,target:action.type});
           }
+          case types.GET_ACCT_GENERAL_COMM_INFO_RESPONSE:
+            console.log("GET_ACCT_GENERAL_COMM_INFO_RESPONSE==",action.payload);
+            var _infoGenComm={},_infoGenSybase={};
 
+            if(action.payload.status==200){
+              var _data = action.payload.data;
+              _infoGenComm.commercialname = _data.commercialname;
+              _infoGenComm.billinglocationid = _data.billinglocation.billinglocationid;
+                _infoGenComm.opened = _data.startdate;
+                  _infoGenComm.suspended = _data.suspenddate;
+                    _infoGenComm.closed = _data.closuredate;
+                      _infoGenComm.servicelevelid = _data.servicelevel;
+                        _infoGenComm.legalstatusid = "";
+                          _infoGenComm.comment = _data.comments;
+
+                          _infoGenSybase.cntryMgr = _data.accountmanager.countrymanagerid;
+                          _infoGenSybase.contactid = _data.accountmanager.contactid;
+              return Object.assign({}, state, {infoGenComm:_infoGenComm,infoGenSybase:_infoGenSybase,target:action.type});
+            }
+            else{
+              return Object.assign({}, state, {infoGenComm:null,target:action.type});
+            }
+            return Object.assign({}, state, {infoGenComm:action.payload,target:action.type});
         return state;
     }
 };

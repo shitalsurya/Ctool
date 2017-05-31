@@ -1,8 +1,7 @@
 //Auth
-
-export const serverIP ='localhost';
+export const serverIP ='172.24.229.51';
 export const protocol ='http';
-export const portNo ='8889';
+export const portNo ='8823';
 function getServerUrl(){
 	return protocol+'://'+serverIP+':'+portNo; //+'/ctool';
 	// /auth/getToken';

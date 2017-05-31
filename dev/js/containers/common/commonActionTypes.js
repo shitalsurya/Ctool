@@ -223,8 +223,8 @@ export const DELETE_ACCT_FORCED_TPOA_LIST_REQUEST = 'DELETE_ACCT_FORCED_TPOA_LIS
 export const DELETE_ACCT_FORCED_TPOA_LIST_RESPONSE = 'DELETE_ACCT_FORCED_TPOA_LIST_RESPONSE';
 
 export const SERVICE_LEVEL = [
-  {"servicelevelname": "Standard", "servicelevelid": "1"},
-  {"servicelevelname": "Premium", "servicelevelid": "2"}
+  {"servicelevelname": "STANDARD", "servicelevelid": "STANDARD"},
+  {"servicelevelname": "PREMIUM", "servicelevelid": "PREMIUM"}
 ];
 export const LEGAL_STATUS = [
   { "legalstatusid" :1 , "legalstatusname" : "UNSIGNED"},

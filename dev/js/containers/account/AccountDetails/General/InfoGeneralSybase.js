@@ -13,11 +13,7 @@ class InfoGeneralSybase extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-          sybaseInfoObj : {
-            accountId:this.props.currentAcct,
-            cntryMgr : 'Wei Leng',
-            contactid : '35319'
-          }
+          sybaseInfoObj : this.props.infoGenSybase,
         }
     }
 
@@ -27,6 +23,7 @@ class InfoGeneralSybase extends React.Component {
 
       if(info[name]!==val){
         info[name]=val;
+        info.customerid = this.props.currentAcct;
         this.setState({sybaseInfoObj : info},function(){
           console.log("updateAccountManager==",this.state.sybaseInfoObj);
           this.props.updateAccountManager(this.state.sybaseInfoObj);
@@ -85,7 +82,7 @@ class InfoGeneralSybase extends React.Component {
 
 function mapStateToProps(state) {
     return {
-    //  infoGenComm:state.Account.infoGenComm,
+      infoGenSybase:state.Account.infoGenSybase,
       managerList:state.Common.managerList
     };
 }

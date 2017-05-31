@@ -2,16 +2,7 @@ import * as types from './../../common/commonActionTypes';
 import axios from 'axios';
 import * as config from '../../../containers/common/config';
 import {httpRequest} from '../../../containers/common/commonAjaxActions';
-var commInfo =  {
-	commercialname : '(Live)',
-	billinglocationid:2,
-	opened : '12 Jan 2017',
-	suspended : '',
-	closed : '',
-	servicelevelid:2,
-	legalstatusid:1,
-	comment : 'N/A'
-}
+
 
 var techInfo = {
 	accID : '31353',
@@ -60,20 +51,28 @@ var mtSettingInfo = {
 	countryBlacklisted : "AF,IN"
 }
 
-export function getHubAccountCommercialInfo(currentAcct) {
+export function getHubAccountBasicInfo(currentAcct) {
 	return function (dispatch,getState) {
-		dispatch(getHubAccountCommercialInfoResponse());
+    dispatch(getHubAccountBasicInfoRequest());
+    var request = {
+        url:config.getUrl('hub_accounts')+'/'+currentAcct,
+        method:'GET',
+        successCallback:getHubAccountBasicInfoResponse,
+        failureCallback:getHubAccountBasicInfoResponse
+    };
+    return httpRequest(dispatch,getState,request);
 	}
 }
-export function getHubAccountCommercialInfoRequest() {
+export function getHubAccountBasicInfoRequest() {
   return {
     type: types.GET_ACCT_GENERAL_COMM_INFO_REQUEST
   }
 }
-export function getHubAccountCommercialInfoResponse(data) {
+export function getHubAccountBasicInfoResponse(response) {
+
   return {
     type: types.GET_ACCT_GENERAL_COMM_INFO_RESPONSE,
-		 payload: commInfo
+		 payload: response
   }
 }
 
@@ -94,11 +93,11 @@ export function updateHubAccountCommercialInfoResponse(data) {
 	}
 }
 
-export function updateAccountManager(commInfo) {
+export function updateAccountManager(sybaseInfoObj) {
 	return function (dispatch,getState) {
 		dispatch(updateAccountManagerRequest());
 		var request = {
-			url:config.getUrl('hub_accounts')+'/'+commInfo.accountId+'/manager/'+commInfo.contactid,
+			url:config.getUrl('hub_accounts')+'/'+sybaseInfoObj.customerid+'/manager/'+sybaseInfoObj.contactid,
 			method:'PUT',
 			successCallback:updateAccountManagerResponse,
 			failureCallback:updateAccountManagerResponse

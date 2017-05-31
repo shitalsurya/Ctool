@@ -69,7 +69,15 @@ class AccountDetails extends React.Component {
        <Tab eventKey={2} title={this.state.accountCaptions.TPOA }>
         {this.state.key==2 && <HubAccountTPOA currentAcct={this.currentAcct}/>}
         </Tab>
-
+        <Tab eventKey={3} title={this.state.accountCaptions.MTRouting }>
+         {this.state.key==3 && <HubAccountMTRouting currentAcct={this.currentAcct}/>}
+         </Tab>
+         <Tab eventKey={4} title={this.state.accountCaptions.MORouting }>
+          {this.state.key==4 && <HubAccountMORouting currentAcct={this.currentAcct}/>}
+          </Tab>
+          <Tab eventKey={5} title={this.state.accountCaptions.AddKeyword }>
+           {this.state.key==5 && <HubAccountAddKeyword currentAcct={this.currentAcct}/>}
+           </Tab>
      </Tabs>
 
 

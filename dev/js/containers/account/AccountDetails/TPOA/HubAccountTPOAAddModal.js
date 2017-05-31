@@ -16,7 +16,7 @@ class HubAccountTPOAAddModal extends React.Component {
       console.log("this.props.currentAcct==",this.props.currentAcct);
       this.currentAcct=this.props.currentAcct;
         this.state={
-             newTPOAinfo : [],
+             newTPOAinfo : {customerid:this.props.currentAcct},
              modalHeading:'Add TPOA Setting',
         }
   }
@@ -26,14 +26,18 @@ class HubAccountTPOAAddModal extends React.Component {
       console.log("value==",e.target.value);
     var info = this.state.newTPOAinfo;
     info[e.target.name] = e.target.value;
+    if(e.target.name=="smscid"){
+       info.smscname = e.target.selectedOptions[0].text;
+    }
+info.customerid=this.props.currentAcct;
     this.setState({newTPOAinfo : info});
   }
 
 
   addNewTPOA(){
-    console.log(this.state.newTPOAinfo);
-    this.props.AddHubAccountForcedTPOA(this.currentAcct,this.state.newTPOAinfo);
-      this.setState({newTPOAinfo : []});
+    console.log("addNewTPOA==",this.state.newTPOAinfo);
+    this.props.AddHubAccountForcedTPOA(this.state.newTPOAinfo);
+      this.setState({newTPOAinfo : {}});
     this.props.close();
   }
 

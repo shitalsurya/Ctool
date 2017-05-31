@@ -7,7 +7,7 @@ import {getCountryList} from './../miscellaneous/countries/miscCntryActions';
 import {getExContactList} from './../account/actions/accountActions';
 import {getHubAcctList} from '../account/actions/accountListActions';
 import {getHubAcctListe} from '../account/actions/accountListActions';
-import {getHubAccountCommercialInfo, getHubAccountTechnicalInfo, getHubAccountVolumeInfo } from '../account/actions/accountGeneralActions';
+import {getHubAccountBasicInfo, getHubAccountTechnicalInfo, getHubAccountVolumeInfo } from '../account/actions/accountGeneralActions';
 import {getHubAccountDelvTimeInfo, getHubAccountMOInfo, getHubAccountMTInfo,getHubAccountCNL,getHubAccountContacts} from '../account/actions/accountGeneralActions';
 import {getHubAcctDefaultTPOA,getHubAcctForcedTPOAList} from '../account/actions/accountTPOAActions';
 
@@ -105,7 +105,7 @@ export function getList(category,currentAcct) {
 				dispatch(getHubAcctList())
 				break;
 			case "AccountDetails":
-				 dispatch(getHubAccountCommercialInfo(currentAcct))
+				 dispatch(getHubAccountBasicInfo(currentAcct))
          	dispatch(getBillingLocationList())
 				// dispatch(getHubAccountTechnicalInfo(currentAcct))
 				// dispatch(getHubAccountVolumeInfo(currentAcct))
