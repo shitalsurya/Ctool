@@ -246,16 +246,29 @@ export const roleOptions= [
   { ctoolrole: 'ACCOUNTMANAGER', ctoolrolename: 'ACCOUNTMANAGER'}
 ];
 export const lookupOptions =[
-  {
-    "numberlookupid": 1,
-    "numberlookup": "Local-Numbering-Plan"
-  },
-  {
-    "numberlookupid": 2,
-    "numberlookup": "Local-Ported-Number"
-  },
-  {
-    "numberlookupid": 3,
-    "numberlookup": "NRS"
-  }
+            {
+              "numberlookupid": 1,
+              "numberlookup": "Local-Numbering-Plan"
+            },
+            {
+              "numberlookupid": 2,
+              "numberlookup": "Local-Ported-Number"
+            },
+            {
+              "numberlookupid": 3,
+              "numberlookup": "NRS"
+            }
+        ];
+        
+export const TPDACRITERIA =[
+    { "tpdacriteriaid" : "1", "tpdacriterianame" : "BEGIN_BY" },
+    { "tpdacriteriaid" : "2", "tpdacriterianame" : "EXACT" }
+
+];
+
+export const PARSEFIELDS = [
+    { "parsefieldid" : "1", "parsefieldname" : "TEXT7B" },
+    { "parsefieldid" : "2", "parsefieldname" : "TEXT8B" },
+    { "parsefieldid" : "3", "parsefieldname" : "UCS2" },
+    { "parsefieldid" : "4", "parsefieldname" : "MSISDN" }
 ];

@@ -89,6 +89,61 @@ import {getHubAcctDefaultTPOA,getHubAcctForcedTPOAList} from '../account/actions
 // 	{ "mobileNotifid": 2, "mobileNotifname":"DEFAULT_NOTIF"},
 // ];
 
+var Company = [
+{
+	"companyid": 1,
+	"companyname": "MOBILEWAY"
+},
+{
+	"companyid": 41,
+	"companyname": "NEWEB"
+},
+{
+	"companyid": 42,
+	"companyname": "I4UUU"
+},
+{
+	"companyid": 43,
+	"companyname": "MYWAP"
+}
+	];
+  var SMSC = {
+     status:200,
+     data:[
+       {"smscname": "Mobile 365 Inc.", "smscid": 1},
+       {"smscname": "Mobile 365 South Africa.", "smscid": 2},
+       {"smscname": "Mobileway Australia", "smscid": 3},
+       {"smscname": "Mobileway China", "smscid": 4}
+     ]
+  };
+var VOL_TYPE = [
+	{ "volTypeid": 1, "volTypename":"None"},
+	{ "volTypeid": 2, "volTypename":"Daily"},
+	{ "volTypeid": 3, "volTypename":"Monthly"},
+	{ "volTypeid": 4, "volTypename":"Counter"}
+];
+var START_TIME = [
+	{ "starttimeid": 1, "starttimename":"Time1"},
+	{ "starttimeid": 2, "starttimename":"Time2"},
+	{ "starttimeid": 3, "starttimename":"Time3"}
+];
+var END_TIME = [
+	{ "endtimeid": 1, "endtimename":"Time1"},
+	{ "endtimeid": 2, "endtimename":"Time2"},
+	{ "endtimeid": 3, "endtimename":"Time3"}
+];
+var MW_NOTIF = [
+	{ "mwNotifid": 1, "mwNotifname":"DEFAULT_ACK"},
+	{ "mwNotifid": 2, "mwNotifname":"DEFAULT_NOTIF"},
+];
+var SMSC_NOTIF = [
+	{ "smscNotifid": 1, "smscNotifname":"DEFAULT_ACK"},
+	{ "smscNotifid": 2, "smscNotifname":"DEFAULT_NOTIF"},
+];
+var MOBILE_NOTIF = [
+	{ "mobileNotifid": 1, "mobileNotifname":"DEFAULT_ACK"},
+	{ "mobileNotifid": 2, "mobileNotifname":"DEFAULT_NOTIF"},
+];
 export function getList(category,currentAcct) {
   return function(dispatch) {
 		switch (category) {
@@ -201,18 +256,17 @@ export function getBillingLocationList() {
 		return httpRequest(dispatch,getState,request);
 	}
 }
-
-export function getSMSCListRequest() {
-		return {
-			type: types.GET_SMSC_LIST_REQUEST
-		}
-	}
-export function getSMSCListResponse(response) {
-		return {
-			type: types.GET_SMSC_LIST_RESPONSE,
-			 payload: response
-		}
-}
+		export function getSMSCListRequest() {
+				return {
+					type: types.GET_SMSC_LIST_REQUEST
+				}
+			}
+		export function getSMSCListResponse(response) {
+				return {
+					type: types.GET_SMSC_LIST_RESPONSE,
+					// payload: response
+          payload : SMSC
+				}
 export function getSMSCList() {
   return function (dispatch,getState) {
 		dispatch(getSMSCListRequest());
