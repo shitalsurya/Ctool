@@ -1,9 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal,Label } from 'react-bootstrap';
 import Select from 'react-select';
 require('./../../../../../scss/style.scss');
 import * as types from './../../../common/commonActionTypes';
-
+import {initializeSelectOptions} from './../../../common/Functions/commonFunctions';
+import {TPDACRITERIA} from './../../../common/commonActionTypes';
 class HubAccountMODedicated extends React.Component {
   constructor(props, context) {
       super(props, context);
@@ -12,23 +14,24 @@ class HubAccountMODedicated extends React.Component {
              modalHeading:'Add Dedicated TPOA Routing',
         }
   }
+  handleChange(e) {
+      console.log("name==",e.target.name);
+      console.log("value==",e.target.value);
+    var info = this.state.dedicatedMO;
+    info[e.target.name] = e.target.value;
+    this.setState({dedicatedMO : info});
+  }
 
   handleModalChange(target, value){
     var info = this.state.dedicatedMO;
     switch(target) {
-      case types.TPOA_DEDICATED_SMSC:
-        info.smsc = value.value;
-        break;
       case types.TPOA_DEDICATED_SERVICE:
         info.serviceNo = value.target.value;
         break;
       case types.TPOA_DEDICATED_RETURNED_TPDA:
         info.returnTPDA = value.target.value;
         break;
-      case types.TPOA_DEDICATED_CRITERIA:
-        info.criteria = value.value;
-        break;
-    }
+        }
     this.setState({TPOAinfo : info});
   }
 
@@ -44,23 +47,6 @@ class HubAccountMODedicated extends React.Component {
   }
 
   render(){
-
-    const options = [
-      { value: 'SMSC1', label: 'SMSC1' },
-      { value: 'SMSC2', label: 'SMSC2' },
-      { value: 'SMSC3', label: 'SMSC3' },
-      { value: 'SMSC4', label: 'SMSC4' },
-      { value: 'SMSC5', label: 'SMSC5' },
-      { value: 'SMSC6', label: 'SMSC6' }
-    ];
-
-    const criteriaOp = [
-      { value: 'criteria1', label: 'criteria1' },
-      { value: 'criteria2', label: 'criteria2' },
-      { value: 'criteria3', label: 'criteria3' },
-      { value: 'criteria4', label: 'criteria4' }
-    ];
-
     return (
       <Modal show={this.props.showAdd} onHide={this.close.bind(this)}>
           <Modal.Header closeButton>
@@ -74,13 +60,13 @@ class HubAccountMODedicated extends React.Component {
                     SMSC:
                   </Col>
                   <Col md={ 6 }>
-                    <Select
-                      name="smsc"
-                      placeholder="Select SMSC.."
-                      options={options}
-                      value={this.state.dedicatedMO.smsc || ''}
-                      onChange={this.handleModalChange.bind(this,types.TPOA_DEDICATED_SMSC)}
-                    />
+                    <FormControl componentClass="select"
+                      name="smscid"
+                      value={this.state.dedicatedMO.smscid}
+                      onChange={this.handleChange.bind(this)}>
+                      <option value="select" disabled selected>Please select...</option>
+                      {this.smscList}
+                    </FormControl>
                   </Col>
                   <Col mdHidden md={ 2 } />
                 </Row>
@@ -117,13 +103,13 @@ class HubAccountMODedicated extends React.Component {
                     TPDA Criteria:
                   </Col>
                   <Col md={ 6 }>
-                    <Select
+                    <FormControl componentClass="select"
                       name="criteria"
-                      placeholder="Select Criteria.."
-                      options={criteriaOp}
-                      value={this.state.dedicatedMO.criteria || ''}
-                      onChange={this.handleModalChange.bind(this,types.TPOA_DEDICATED_CRITERIA)}
-                    />
+                      value={this.state.dedicatedMO.criteria}
+                      onChange={this.handleChange.bind(this)}>
+                      <option value="select" disabled selected>Please select...</option>
+                      {this.TpdaCriteria}
+                    </FormControl>
                   </Col>
                   <Col mdHidden md={ 2 } />
                 </Row>
@@ -138,7 +124,20 @@ class HubAccountMODedicated extends React.Component {
 
     );
   }
-
+  componentWillMount( ) {
+    debugger;
+    // console.log("tppoa model componentWillReceiveProps==",nextProps);
+    this.smscList = initializeSelectOptions(this.props.smscList,'smscname','smscid');
+      console.log("this.smscList==",this.smscList);
+    this.TpdaCriteria = initializeSelectOptions(TPDACRITERIA,'tpdacriterianame','tpdacriteriaid');
+    console.log("this.TpdaCriteria==",this.TpdaCriteria);
+  }
+}
+function mapStateToProps(state) {
+    return {
+      smscList:state.Common.smscList,
+      TpdaCriteria:state.Common.TpdaCriteria
+     };
 }
 
-export default HubAccountMODedicated;
+export default connect(mapStateToProps)(HubAccountMODedicated);

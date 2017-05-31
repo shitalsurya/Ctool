@@ -61,6 +61,17 @@ export default function (state = {}, action = null) {
 		else{
 				return Object.assign({}, state, {smscList:[],target:action.type});
 		}
+
+		case types.GET_OPERATOR_LIST_REQUEST:
+			 	return Object.assign({}, state, {});
+		case types.GET_OPERATOR_LIST_RESPONSE:
+		if(action.payload.status==200) {
+				return Object.assign({}, state, {operatorList:action.payload.data,target:action.type});
+		}
+		else {
+			return Object.assign({}, state, {operatorList:[],target:action.type});
+		}
+
 		case types.GET_VOLUMETYPE_LIST_REQUEST:
 			return Object.assign({}, state, {});
 		case types.GET_VOLUMETYPE_LIST_RESPONSE:

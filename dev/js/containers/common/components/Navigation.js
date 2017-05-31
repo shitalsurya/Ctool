@@ -20,7 +20,7 @@ class Navigation extends React.Component {
 
        const menuMapping = function(list, index) {
          return(
-           <a key={index} onClick={ this.navigateMenus.bind( this, list )}
+           <a key={index} onClick={ this.navigateMenus.bind( this, list )} style={{cursor:'pointer'}}
                className={this.props.navTab === list ? "list-group-item activeStyle" : "list-group-item"}>
              <i className="fa fa-comment-o"></i>
                { list }
@@ -38,13 +38,13 @@ class Navigation extends React.Component {
               </div>
               <div className="list-group">
                 <span className="list-group-item">
-                  <a onClick={ this.goToLaunchpad.bind( this )}>
+                  <a onClick={ this.goToLaunchpad.bind( this )} style={{cursor:'pointer'}}>
                     <span className="launchpad-icon"></span>
                     <span> Launchpad </span>
                   </a>
                 </span>
                 <span className="list-group-item">
-                  <a onClick={ this.navigateMenus.bind( this, this.menuHeading )} >
+                  <a onClick={ this.navigateMenus.bind( this, this.menuHeading )} style={{cursor:'pointer'}}>
                     <span className={style[this.icon]}></span>
                     <span> { this.menuHeading } </span>
                   </a>
