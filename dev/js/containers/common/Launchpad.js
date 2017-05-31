@@ -19,8 +19,8 @@ export default class Launchpad extends React.Component {
         <Grid>
           <Row className="dashboard-menu first">
             <Col xs={6} md={3}>
-              <Thumbnail>
-                <a onClick={ this.navigateRoutes.bind( this, types.ACCOUNT_LIST )}>
+              <Thumbnail className={style.myThumbnail} href={"#/" + types.ACCOUNT_LIST}>
+                <a>
                   <span className={style.accounts_icon}></span>
                   <h3>Accounts</h3>
                 </a>
@@ -28,8 +28,9 @@ export default class Launchpad extends React.Component {
               </Thumbnail>
             </Col>
             <Col xs={6} md={3}>
-              <Thumbnail>
-                <a onClick={ this.navigateRoutes.bind( this, types.CONNECTIONS )}>
+            <Thumbnail className={style.myThumbnail} href={"#/" + types.CONNECTIONS}>
+                <a>
+                cursor pointer change
                   <span className={style.connections_icon}></span>
                   <h3>Connections</h3>
                 </a>
@@ -37,8 +38,8 @@ export default class Launchpad extends React.Component {
               </Thumbnail>
             </Col>
             <Col xs={6} md={3}>
-              <Thumbnail>
-                <a href="">
+              <Thumbnail className={style.myThumbnail} href={"#/"}>
+                <a>
                   <span className={style.operators_icon}></span>
                   <h3>Operators</h3>
                 </a>
@@ -46,8 +47,9 @@ export default class Launchpad extends React.Component {
               </Thumbnail>
             </Col>
             <Col xs={6} md={3}>
-              <Thumbnail>
-                <a onClick={ this.navigateRoutes.bind( this, types.MISCELLENEOUS )}>
+              <Thumbnail className={style.myThumbnail} href={"#/" + types.MISCELLENEOUS}>
+                <a>
+                cursor pointer change
                   <span className={style.misc_icon}></span>
                   <h3>Miscelleneous</h3>
                 </a>
@@ -59,8 +61,11 @@ export default class Launchpad extends React.Component {
         <Grid>
           <Row className="dashboard-menu">
             <Col xs={6} md={3}>
+
               <Thumbnail>
                 <a onClick={ this.navigateRoutes.bind( this, types.MISC_USERS )}>
+               <Thumbnail className={style.myThumbnail} href={"#/" + types.MISC_USERS}>
+                <a>
                   <span className={style.user_icon}></span>
                   <h3>CTool Users</h3>
                 </a>
@@ -68,8 +73,8 @@ export default class Launchpad extends React.Component {
               </Thumbnail>
             </Col>
             <Col xs={6} md={3}>
-              <Thumbnail>
-                <a href="">
+              <Thumbnail className={style.myThumbnail} href={"#/"}>
+                <a>
                   <span className={style.toolbox_icon}></span>
                   <h3>Toolbox</h3>
                 </a>
