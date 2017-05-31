@@ -12,6 +12,7 @@ import InfoGeneralMTSetting from './InfoGeneralMTSetting';
 import InfoGeneralMOSetting from './InfoGeneralMOSetting';
 import InfoGeneralDeliveryTime from './InfoGeneralDeliveryTime';
 import InfoGeneralAddCNL from './InfoGeneralAddCNL';
+import InfoGeneralAddIP from './InfoGeneralAddIP';
 // import {getList} from './../../../common/commonActions';
 require('./../../../../../scss/style.scss');
 require('./../../../../../scss/tabs.scss');
@@ -30,6 +31,7 @@ class HubAccountGeneral extends React.Component {
             TechnicalInfo : false,
             volCntrl : false,
             mtSetting : false,
+            IPAddress : false,
             moSetting : false,
             deliveryTime : false
           }
@@ -94,6 +96,7 @@ class HubAccountGeneral extends React.Component {
                   </Collapse>
                 </Col>
               </Row>
+
               <Row className="show-grid">
                 <Col md={ 12 }>
                   <div className="rec_tab" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_ACC_CNL)}>
@@ -110,6 +113,7 @@ class HubAccountGeneral extends React.Component {
                   </Collapse>
                 </Col>
               </Row>
+
               <Row className="show-grid">
                 <Col md={ 12 }>
                   <div className="rec_tab" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_TECHNICAL)}>
@@ -155,6 +159,23 @@ class HubAccountGeneral extends React.Component {
                     <div>
                       <Well>
                       {this.state.openStatus.mtSetting &&  <InfoGeneralMTSetting currentAcct={this.props.currentAcct}/> }
+                      </Well>
+                    </div>
+                  </Collapse>
+                </Col>
+              </Row>
+
+              <Row className="show-grid">
+                <Col md={ 12 }>
+                  <div className="rec_tab" onClick={this.handleButtonClick.bind(this,types.INFO_GENERAL_IP_ADDRESS)}>
+                    <span className={this.state.openStatus.IPAddress ? "nav-up-icon" : "nav-down-icon"} >
+                      IP Address
+                    </span>
+                  </div>
+                  <Collapse in={this.state.openStatus.IPAddress}>
+                    <div>
+                      <Well>
+                      {this.state.openStatus.IPAddress &&  <InfoGeneralAddIP currentAcct={this.props.currentAcct}/> }
                       </Well>
                     </div>
                   </Collapse>
@@ -213,9 +234,9 @@ class HubAccountGeneral extends React.Component {
         case types.INFO_GENERAL_ACC_CONTACTS:
           updatedOpenStatus.AccContacts = !this.state.openStatus.AccContacts;
           break;
-          case types.INFO_GENERAL_ACC_CNL:
-            updatedOpenStatus.AccCNL = !this.state.openStatus.AccCNL;
-            break;
+        case types.INFO_GENERAL_ACC_CNL:
+          updatedOpenStatus.AccCNL = !this.state.openStatus.AccCNL;
+          break;
         case types.INFO_GENERAL_TECHNICAL:
           updatedOpenStatus.TechnicalInfo = !this.state.openStatus.TechnicalInfo;
           break;
@@ -224,6 +245,9 @@ class HubAccountGeneral extends React.Component {
           break;
         case types.INFO_GENERAL_MTSETTING:
           updatedOpenStatus.mtSetting = !this.state.openStatus.mtSetting;
+          break;
+        case types.INFO_GENERAL_IP_ADDRESS:
+          updatedOpenStatus.IPAddress = !this.state.openStatus.IPAddress;
           break;
         case types.INFO_GENERAL_MOSETTING:
           updatedOpenStatus.moSetting = !this.state.openStatus.moSetting;
