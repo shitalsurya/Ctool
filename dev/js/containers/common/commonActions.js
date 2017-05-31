@@ -116,6 +116,24 @@ var Company = [
        {"smscname": "Mobileway China", "smscid": 4}
      ]
   };
+  var OPERATOR = {
+    status:200,
+    data:[
+          {
+            "operatorname": "Libya","operatorid": 1005
+          },
+          {
+            "operatorname": "Albania","operatorid": 1018
+
+          },
+          {
+            "operatorname": "Bosnia And Herzegovina","operatorid": 1037
+          },
+          {
+            "operatorname": "Uzbekistan","operatorid": 1059
+          }
+      ]
+    };
 var VOL_TYPE = [
 	{ "volTypeid": 1, "volTypename":"None"},
 	{ "volTypeid": 2, "volTypename":"Daily"},
@@ -145,40 +163,40 @@ var MOBILE_NOTIF = [
 	{ "mobileNotifid": 2, "mobileNotifname":"DEFAULT_NOTIF"},
 ];
 export function getList(category,currentAcct) {
-  return function(dispatch) {
-		switch (category) {
-			case "accounts":
-				dispatch(getUserList())
-				dispatch(getCompanyList())
-				dispatch(getBillingLocationList())
-				break;
-			case "contacts":
-				dispatch(getCountryList())
-				dispatch(getExContactList())
-				break;
-			case "interface":
-				dispatch(getHubAcctList())
-				break;
-			case "AccountDetails":
-				 dispatch(getHubAccountBasicInfo(currentAcct))
-         	dispatch(getBillingLocationList())
-				// dispatch(getHubAccountTechnicalInfo(currentAcct))
-				// dispatch(getHubAccountVolumeInfo(currentAcct))
-				dispatch(getHubAccountMTInfo(currentAcct))
-				// dispatch(getHubAccountMOInfo(currentAcct))
-				// dispatch(getHubAccountDelvTimeInfo(currentAcct))
+		  return function(dispatch) {
+				switch (category) {
+					case "accounts":
+						dispatch(getUserList())
+						dispatch(getCompanyList())
+						dispatch(getBillingLocationList())
+						break;
+					case "contacts":
+						dispatch(getCountryList())
+						dispatch(getExContactList())
+						break;
+					case "interface":
+						dispatch(getHubAcctList())
+						break;
+					case "AccountDetails":
+						 dispatch(getHubAccountCommercialInfo(currentAcct))
+             	dispatch(getBillingLocationList())
+						// dispatch(getHubAccountTechnicalInfo(currentAcct))
+						// dispatch(getHubAccountVolumeInfo(currentAcct))
+						// dispatch(getHubAccountMTInfo(currentAcct))
+						// dispatch(getHubAccountMOInfo(currentAcct))
+						// dispatch(getHubAccountDelvTimeInfo(currentAcct))
 
-        	dispatch(getManagerList())
-				 dispatch(getHubAccountCNL(currentAcct))
-          dispatch(getHubAccountContacts(currentAcct))
-				// dispatch(getMWNotifList())
-				// dispatch(getSMSCNotifList())
-				// dispatch(getMOBILENotifList())
-				// dispatch(getStartTimeList())
-				// dispatch(getEndTimeList())
-           dispatch(getSMSCList())
-         dispatch(getHubAcctForcedTPOAList(currentAcct))
-
+            	dispatch(getManagerList())
+						 dispatch(getHubAccountCNL(currentAcct))
+              dispatch(getHubAccountContacts(currentAcct))
+						// dispatch(getMWNotifList())
+						// dispatch(getSMSCNotifList())
+						// dispatch(getMOBILENotifList())
+						// dispatch(getStartTimeList())
+						// dispatch(getEndTimeList())
+               dispatch(getSMSCList())
+               dispatch(getOperatorList())
+             dispatch(getHubAcctForcedTPOAList(currentAcct))
 					break;
 		}
   }
@@ -381,3 +399,27 @@ export function getEndTimeList() {
 		dispatch(getEndTimeListResponse());
 	}
 }
+    export function getOperatorListRequest() {
+				return {
+					type: types.GET_OPERATOR_LIST_REQUEST
+				}
+			}
+		export function getOperatorListResponse(response) {
+				return {
+					type: types.GET_OPERATOR_LIST_RESPONSE,
+					// payload: response
+          payload : OPERATOR
+				}
+		}
+		export function getOperatorList() {
+      return function (dispatch,getState) {
+				dispatch(getOperatorListRequest());
+				var request = {
+					url:config.getUrl('GetOperatorList'),
+					method:'GET',
+					successCallback:getOperatorListResponse,
+					failureCallback:getOperatorListResponse
+				};
+				return httpRequest(dispatch,getState,request);
+			}
+		}

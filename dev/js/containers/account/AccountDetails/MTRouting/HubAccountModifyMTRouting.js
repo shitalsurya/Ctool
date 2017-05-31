@@ -8,6 +8,8 @@ require('./../../../../../scss/react-toggle.scss');
 import * as types from './../../../common/commonActionTypes';
 import HubAccountAddMTRouting from './HubAccountAddMTRouting';
 import DateTimeField from 'react-bootstrap-datetimepicker';
+import { connect } from 'react-redux';
+import {initializeSelectOptions} from './../../../common/Functions/commonFunctions';
 class HubAccountModifyMTRouting extends React.Component {
   constructor(props, context) {
       super(props, context);
@@ -24,16 +26,17 @@ class HubAccountModifyMTRouting extends React.Component {
 
         }
   }
-
+  handleChange(e) {
+      console.log("name==",e.target.name);
+      console.log("value==",e.target.value);
+    var info = this.state.MTModifyInfo;
+    info[e.target.name] = e.target.value;
+    this.setState({MTModifyInfo : info});
+  }
   handleModalChange(target, value){
 
     var modify = this.state.MTModifyInfo;
     switch(target) {
-      case types.ACCOUNT_MODIFY_MT_ROUTING_SMSC:
-        modify.smsc=value.value;
-        //  modify.prevsmsc=this.props.MTInfo.smsc;
-        //  modify.operator=this.props.MTInfo.operator;
-        break;
       case types.ACCOUNT_MODFIY_MT_ROUTING_ONOFF:
         modify.onoff=value;
         break;
@@ -90,11 +93,6 @@ class HubAccountModifyMTRouting extends React.Component {
     const starttime = [
       { value : '1' , label : '1'},
       { value : '2' , label : '2'}
-    ];
-
-    const modalOptions = [
-      { value: 'one', label: 'One' },
-      { value: 'two', label: 'Two' }
     ];
 
     const changed = function (e) {
@@ -163,13 +161,13 @@ class HubAccountModifyMTRouting extends React.Component {
                         SMSC:
                       </Col>
                       <Col md={ 6 }>
-                        <Select
-                              name="smsc"
-                              placeholder="Select SMSC.."
-                              options={modalOptions}
-                              value={this.state.MTModifyInfo.smsc || ''}
-                              onChange={this.handleModalChange.bind(this,types.ACCOUNT_MODIFY_MT_ROUTING_SMSC)}
-                               />
+                        <FormControl componentClass="select"
+                              name="smscid"
+                              value={this.state.MTModifyInfo.smscid}
+                              onChange={this.handleChange.bind(this)}>
+                              <option value="select" disabled selected>Please select...</option>
+                              {this.smscList}
+                        </FormControl>
                                <label><input type="checkbox"
                                   name="smscCheck"
                                   checked={this.state.checked}
@@ -277,6 +275,16 @@ class HubAccountModifyMTRouting extends React.Component {
     );
   }
 
+  componentWillMount( ) {
+    debugger;
+    // console.log("tppoa model componentWillReceiveProps==",nextProps);
+    this.smscList = initializeSelectOptions(this.props.smscList,'smscname','smscid');
+      console.log("this.smscList==",this.smscList);
+    }
 }
-
-export default HubAccountModifyMTRouting;
+function mapStateToProps(state) {
+    return {
+      smscList:state.Common.smscList
+     };
+}
+export default connect(mapStateToProps)(HubAccountModifyMTRouting);

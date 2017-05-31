@@ -64,6 +64,7 @@ class HubAccountMODedicated extends React.Component {
                       name="smscid"
                       value={this.state.dedicatedMO.smscid}
                       onChange={this.handleChange.bind(this)}>
+                      <option value="select" disabled selected>Please select...</option>
                       {this.smscList}
                     </FormControl>
                   </Col>
@@ -106,6 +107,7 @@ class HubAccountMODedicated extends React.Component {
                       name="criteria"
                       value={this.state.dedicatedMO.criteria}
                       onChange={this.handleChange.bind(this)}>
+                      <option value="select" disabled selected>Please select...</option>
                       {this.TpdaCriteria}
                     </FormControl>
                   </Col>

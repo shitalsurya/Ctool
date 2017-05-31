@@ -17,6 +17,7 @@ export function getUrl(APIName){
 		//	'CreateAccount':'/account',
 			'GetCountryList':'/countries/min',
 			'GetSMSCList':'/smscs/min',
+			'GetOperatorList':'/operator',
 			'getCountryById':'/countries/',
 			'updateCountryName':'/countries/countryname',
 			'enableCNL':'/countries/cnl',//enableCNL
