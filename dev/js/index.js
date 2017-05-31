@@ -66,6 +66,10 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
+ReactDOM.render(
+	<div></div>,document.getElementById('load')
+);
+
 function authenticateFunc(transition, replace){
 	if(sessionStorage.token == null){
 		replace("/");
