@@ -46,7 +46,7 @@ export default class Launchpad extends React.Component {
               </Thumbnail>
             </Col>
             <Col xs={6} md={3}>
-              <Thumbnail className={style.myThumbnail} href={"#/" + types.MISCELLENEOUS}>
+              <Thumbnail className={style.myThumbnail} href={"#/" + types.USER_MANAGEMENT}>
                 <a>
                   <span className={style.misc_icon}></span>
                   <h3>Miscelleneous</h3>
@@ -99,21 +99,21 @@ export default class Launchpad extends React.Component {
     }
   }
 
-  navigateRoutes( _route ) {
-    console.log("_route==",_route);
-    switch (_route) {
-        case types.ACCOUNT_LIST:
-          this.context.router.push( 'Accounts' );
-        break;
-        case types.CONNECTIONS:
-          this.context.router.push( 'connections' );
-        break;
-        case types.MISCELLENEOUS:
-          this.context.router.push( 'UserManagement' );
-        break;
-      default:
-    }
-  }
+  // navigateRoutes( _route ) {
+  //   console.log("_route==",_route);
+  //   switch (_route) {
+  //       case types.ACCOUNT_LIST:
+  //         this.context.router.push( 'Accounts' );
+  //       break;
+  //       case types.CONNECTIONS:
+  //         this.context.router.push( 'connections' );
+  //       break;
+  //       case types.MISCELLENEOUS:
+  //         this.context.router.push( 'UserManagement' );
+  //       break;
+  //     default:
+  //   }
+  // }
 }
 
 Launchpad.contextTypes = {

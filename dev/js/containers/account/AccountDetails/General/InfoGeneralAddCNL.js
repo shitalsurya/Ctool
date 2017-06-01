@@ -129,7 +129,7 @@ class InfoGeneralAddCNL extends React.Component {
                      tableBodyClass='master-body-class'
                      tableHeaderClass='hide-header'>
                      <TableHeaderColumn isKey={ true } hidden dataField='id'></TableHeaderColumn>
-                     <TableHeaderColumn columnClassName="center" dataFormat={ this.buttonFormatter.bind(this) }></TableHeaderColumn>
+                     <TableHeaderColumn dataFormat={ this.buttonFormatter.bind(this) }></TableHeaderColumn>
                    </BootstrapTable>
                  </Col>
                </Row>

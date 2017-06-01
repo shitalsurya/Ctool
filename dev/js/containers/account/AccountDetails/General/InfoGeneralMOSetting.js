@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Tabs,  TabLink, TabContent } from 'react-tabs-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
-import Select from 'react-select';
+import Toggle from 'react-toggle';
 import InlineEdit from './../../../common/components/InlineEdit';
 require('./../../../../../scss/tabs.scss');
 require('./../../../../../scss/style.scss');
@@ -28,6 +28,16 @@ class InfoGeneralMOSetting extends React.Component {
           this.props.updateHubAccountMOInfo(this.state.moSettingObj);
         });
       }
+    }
+
+    handleToggleChange(e){
+      console.log("name : ",e.target.name, "  val : ",e.target.checked);
+      var info = this.state.moSettingObj;
+      info[e.target.name]=e.target.checked?1:0;
+      this.setState({moSettingObj:info},function(){
+        this.props.updateHubAccountMOInfo(this.state.moSettingObj);
+      });
+      console.log("this.state.moSettingObj==",info);
     }
 
     render() {
@@ -103,15 +113,19 @@ class InfoGeneralMOSetting extends React.Component {
                   Disable text bode message on the extranet :
                 </Col>
                 <Col md={ 8 }>
-                  <FormControl
-                      className="info_label"
-                      type="text"
+                  <div className="view-edit-control">
+                    <Toggle
                       name="disTxtBdy"
-                      value={this.state.moSettingObj.disTxtBdy===0?"No":"Yes"} />
+                      checked={ this.state.moSettingObj.disTxtBdy === 1 ? true : false }
+                      icons={{
+                             checked:'Yes',
+                             unchecked: 'No',
+                      }}
+                      onChange={this.handleToggleChange.bind(this)}  />
+                  </div>
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
-
 
             </Grid>
           </div>
