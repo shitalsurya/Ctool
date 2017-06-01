@@ -4,7 +4,6 @@ import { pushState } from 'redux-react-router';
 import * as types from '../../containers/login/loginActionTypes';
 import * as config from '../../containers/common/config';
 import {httpRequest} from '../../containers/common/commonAjaxActions'
-import {db} from '../../index';
 //axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
 function storeToken(_token){

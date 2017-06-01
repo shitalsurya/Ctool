@@ -3,19 +3,6 @@ import axios from 'axios';
 import * as config from '../../../containers/common/config';
 import {httpRequest} from '../../../containers/common/commonAjaxActions';
 
-
-var techInfo = {
-	accID : '31353',
-	techName : 'ACCNAME12345_HTTP',
-	revStatus : 'No',
-	exAdd : 'http://172.24.229.51:8883/',
-	disExtranet : 'No',
-	extLogin : 'ACCNAME12345_HTTP',
-	extPassword : 'PWD',
-	msgEncrp : 'No',
-	msgBodyRem : 'No'
-}
-
 var volSettingInfo = {
 	volTypeid : 1,
 	volLimit : '',
@@ -28,34 +15,15 @@ var deliveryTimeInfo = {
 	endtimeid : 1
 }
 
-var moSettingInfo = {
-	intrfType : 'HTTP',
-	replyAdd : 'http://192.168.60.99:888/cgi-bin/trash.pl',
-	login : 'N/A',
-	password : 'N/A',
-	pathOut : '/opt/HUB/routermo/outputspool/defaulttrash/',
-	disTxtBdy : 'No'
-}
 
-var mtSettingInfo = {
-	interfaceType : 'HTTP',
-	url : 'http://sms-pp.sapmobileservices.com/cmc/accname12348581/accname12348581.sms',
-	login : 'accname12348581',
-	password : 'JuF6HJi',
-	encode : 'YWNjbmFtZTEyMzQ4NTgxOkp1Rmo2SEpp',
-	mwNotifid : 1,
-	smscNotifid : 1,
-	mobileNotifid : 1,
-	ntfPath : '/usr/mobileway/notifs/outputspool/http',
-	disTxtBody : 'No',
-	countryBlacklisted : "AF,IN"
-}
+
+
 
 export function getHubAccountBasicInfo(currentAcct) {
 	return function (dispatch,getState) {
     dispatch(getHubAccountBasicInfoRequest());
     var request = {
-        url:config.getUrl('hub_accounts')+'/'+currentAcct,
+        url:config.getUrl('hub_accounts')+'/'+currentAcct+'/general_info',
         method:'GET',
         successCallback:getHubAccountBasicInfoResponse,
         failureCallback:getHubAccountBasicInfoResponse

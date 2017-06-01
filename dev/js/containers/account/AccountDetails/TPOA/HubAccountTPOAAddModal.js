@@ -25,11 +25,14 @@ class HubAccountTPOAAddModal extends React.Component {
       console.log("name==",e.target.name);
       console.log("value==",e.target.value);
     var info = this.state.newTPOAinfo;
-    info[e.target.name] = e.target.value;
-    if(e.target.name=="smscid"){
-       info.smscname = e.target.selectedOptions[0].text;
+
+    if(e.target.type=="select-one"){
+      info[e.target.name]= e.target.selectedOptions[0].text;
     }
-info.customerid=this.props.currentAcct;
+    else{
+      info[e.target.name] = e.target.value;
+    }
+    info.customerid=this.props.currentAcct;
     this.setState({newTPOAinfo : info});
   }
 
@@ -64,7 +67,7 @@ info.customerid=this.props.currentAcct;
                 </Col>
                 <Col md={ 6 }>
                   <FormControl componentClass="select"
-                    name="smscid"
+                    name="smscname"
                     value={this.state.newTPOAinfo.smscid}
                     onChange={this.handleChange.bind(this)}>
                     {this.smscList}

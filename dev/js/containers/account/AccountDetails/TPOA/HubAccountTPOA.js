@@ -26,7 +26,7 @@ class HubAccountGeneral extends React.Component {
           this.currentAcct=this.props.currentAcct;
         this.state = {
           TPOAinfo : this.props.TPOAinfo||[],
-          defaulttpoa:this.props.defaulttpoa||"test",
+          defaulttpoa:this.props.defaultTPOA||"",
           showAddTPOA : false,
         }
     }
@@ -44,7 +44,7 @@ class HubAccountGeneral extends React.Component {
       if(currentRow[name]!==val){
         currentRow[name]=val;
         currentRow.customerid=this.props.currentAcct;
-      ////  this.props.updateHubAccountCNL(currentRow);
+      this.props.UpdateHubAccountTPOA("updateForcedTPOA",currentRow);
       }
     }
 
@@ -62,14 +62,14 @@ componentWillMount(){
       var fields = [
         {
             name:'SMSC Operator',
-            dataField:'smscid',
+            dataField:'smscname',
             optionsLabel:'smscname',
             type:'select',
             options: this.props.smscList
         },
         {
             name:'TPOA',
-            dataField:'TPOA',
+            dataField:'tpoa',
             type:'text',
         },
         {
@@ -220,6 +220,7 @@ componentWillMount(){
 function mapStateToProps(state) {
     return {
       TPOAinfo:state.Account.TPOAinfo,
+      defaultTPOA:state.Account.defaultTPOA,
   smscList:state.Common.smscList,
   addStatus:state.Account.addStatus,
   updateStatus:state.Account.updateStatus,

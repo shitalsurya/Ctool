@@ -25,8 +25,8 @@ class AccountDetails extends React.Component {
         console.log("this.currentAcct==",this.currentAcct);
           this.state={
             key:1,
-            accountCaptions:{
-                General:"General",
+                accountCaptions:{
+                    General:"General",
                 TPOA:"TPOA",
                 MORouting:"MORouting",
                 MTRouting:"MTRouting",

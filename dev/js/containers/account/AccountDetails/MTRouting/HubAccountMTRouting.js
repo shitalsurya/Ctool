@@ -9,10 +9,16 @@ import Toggle from 'react-toggle';
 import ModalModify from './HubAccountModifyMTRouting';
 import ModalAdd from './HubAccountAddMTRouting';
 import InlineEdit from './../../../common/components/InlineEdit';
+import * as types from './../../../common/commonActionTypes';
+import { UpdateHubAccountMTRouting,DeleteHubAccountMTRouting } from './../../actions/accountTPOAActions';
 require('./../../../../../scss/time.scss');
 require('./../../../../../scss/style.scss');
 require('./../../../../../scss/react-toggle.scss');
-
+import {
+    ToastContainer,
+    ToastMessage,
+} from "react-toastr";
+const ToastMessageFactory = React.createFactory(ToastMessage.animation);
 import Routings from './../../../../../json/MT_routing.json';
 import grpBySMSCData from './../../../../../json/MT_routing_grp_by_smsc.json';
 import Users from './../../../../../json/Users.json';
@@ -35,11 +41,13 @@ updateValue(name,val,currentRow){
   console.log("name==",name);
   currentRow[name]=val;
   console.log("currentRow==",currentRow);
+  this.props.UpdateHubAccountMTRouting(currentRow);
 }
-handleDelete(name,val,currentRow){
-  console.log("onOk==",this.currentcnl);
-}
-  render() {
+handleDelete(currentRow){
+    currentRow.customerid=this.currentAcct;
+  console.log("onOk==",currentRow);
+ this.props.DeleteHubAccountMTRouting(currentRow);
+}  render() {
     var fields=[
       {
       name:'Preferred Start Time',
@@ -187,6 +195,7 @@ var fields = [
 class HubAccountMTRouting extends React.Component {
     constructor(props, context) {
         super(props, context);
+          this.currentAcct=this.props.currentAcct;
           this.state={
                showAdd: false,
               ModifyModalFlag:false,
@@ -212,7 +221,9 @@ class HubAccountMTRouting extends React.Component {
                         {"label": "SMSC", "value":"SMSC"}
                   ]
     }
-        close() {
+        close(_MTInfo) {
+          this.MTInfo=_MTInfo;
+          console.log("_MTInfo==",_MTInfo);
           this.setState({ showAdd: false , ModifyModalFlag :false});
         }
 
@@ -364,8 +375,11 @@ toggleOnChange(name,value){
                        </Col>
                      </Row>
                    </Grid>
-
-                   <ModalAdd showAdd={this.state.showAdd} close={this.close.bind(this)}/>
+                   <ToastContainer
+                     toastMessageFactory={ ToastMessageFactory }
+                     ref="container"
+                     className="toast-top-right" />
+                   <ModalAdd currentAcct={this.props.currentAcct} showAdd={this.state.showAdd} close={this.close.bind(this)}/>
                    <ModalModify  ModifyModalFlag={this.state.ModifyModalFlag} close={this.close.bind(this)}/>
 
 
@@ -373,17 +387,73 @@ toggleOnChange(name,value){
         )
     }
 
-componentWillReceiveProps(nextProps) {
-}
+    componentWillReceiveProps(nextProps) {
+      console.log("componentWillReceiveProps==",nextProps);
+      switch (nextProps.target) {
+        case types.ADD_ACCT_MT_ROUTING_LIST_RESPONSE:
+            if(nextProps.addStatus==true){
+              this.refs.container.success(`MT Routing added successfully.`, ``, {
+                  closeButton: true,
+              });
+                var _data=this.state.data;
+                _data.push(this.MTInfo);
+                this.setState({showContact : false,data:_data});
+            }
+            else if(nextProps.addStatus==false){
+              this.refs.container.error(`Failed to add MT routing.`, ``, {
+                  closeButton: true,
+            });
+            }
+            break;
+            case types.UPDATE_ACCT_MT_ROUTING_LIST_RESPONSE:
+                if(nextProps.updateStatus==true){
+                  this.refs.container.success(`TPOA updated successfully.`, ``, {
+                      closeButton: true,
+                  });
+                }
+                else if(nextProps.updateStatus==false){
+                  this.refs.container.error(`Failed to update TPOA.`, ``, {
+                      closeButton: true,
+                });
+                }
+                break;
+                case types.DELETE_ACCT_MT_ROUTING_LIST_RESPONSE:
+                    if(nextProps.deleteStatus==true){
+                      this.refs.container.success(`TPOA deleted successfully.`, ``, {
+                          closeButton: true,
+                      });
+
+                        // for(var i=0;i<this.state.data.length;i++){
+                        //   if(this.state.data[i].countryid==this.currentCountryId){
+                        //     this.state.data.splice(i, 1);
+                        //   }
+                        // }
+                    }
+                    else if(nextProps.deleteStatus==false){
+                      this.refs.container.error(`Failed to delete TPOA.`, ``, {
+                          closeButton: true,
+                    });
+                    }
+                    break;
+          }
+        }
 
 }
 
 function mapStateToProps(state) {
-return {};
+return {
+  addStatus:state.Account.addStatus,
+  updateStatus:state.Account.updateStatus,
+  deleteStatus:state.Account.deleteStatus,
+    target:state.Account.target
+};
 }
 
 function mapDispatchToProps(dispatch) {
-return bindActionCreators({  }, dispatch);
+return bindActionCreators({
+UpdateHubAccountMTRouting:UpdateHubAccountMTRouting,
+DeleteHubAccountMTRouting:DeleteHubAccountMTRouting
+  }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HubAccountMTRouting);

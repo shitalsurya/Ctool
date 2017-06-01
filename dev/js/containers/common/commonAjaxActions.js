@@ -1,7 +1,6 @@
 import * as types from './commonActionTypes';
 import axios from 'axios';
 import * as config from './config';
-import {db} from '../../index';
 
 function getToken(_state){
 	var token=_state.Auth.token||"";

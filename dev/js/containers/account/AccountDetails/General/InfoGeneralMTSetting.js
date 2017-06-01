@@ -8,6 +8,7 @@ import InlineEdit from './../../../common/components/InlineEdit';
 require('./../../../../../scss/tabs.scss');
 require('./../../../../../scss/style.scss');
 import { updateHubAccountMTInfo } from './../../actions/accountGeneralActions';
+import {NOTIFICATIONS} from './../../../common/commonActionTypes';
 import {Typeahead} from 'react-bootstrap-typeahead';
 import Countries from '../../../../../json/Countries.json';
 
@@ -15,7 +16,7 @@ class InfoGeneralMTSetting extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-          mtSettingObj : this.props.infoGenMT||{}
+          mtSettingObj : this.props.infoGenMTSettings||{}
         }
     }
 
@@ -121,13 +122,13 @@ class InfoGeneralMTSetting extends React.Component {
                       MW NOTIF :
                     </Col>
                     <Col md={ 7 }>
-                      <InlineEdit
-                        name="mwNotifid"
-                        type="select"
-                        options={this.props.mwNotiflist}
-                        optionsLabel="mwNotifname"
+                    <InlineEdit
+                      name="notificationid"
+                      type="select"
+                      options={NOTIFICATIONS}
+                      optionsLabel="notificationname"
                         value={this.state.mtSettingObj.mwNotifid}
-                        onSave={this.handleInlineEditChange.bind(this)}  />
+                      onSave={this.handleInlineEditChange.bind(this)}  />
                     </Col>
                   </Row>
                   <Row className="show-grid">
@@ -135,13 +136,13 @@ class InfoGeneralMTSetting extends React.Component {
                       SMSC NOTIF :
                     </Col>
                     <Col md={ 7 }>
-                      <InlineEdit
-                        name="smscNotifid"
-                        type="select"
-                        options={this.props.smscNotiflist}
-                        optionsLabel="smscNotifname"
+                    <InlineEdit
+                      name="notificationid"
+                      type="select"
+                      options={NOTIFICATIONS}
+                      optionsLabel="notificationname"
                         value={this.state.mtSettingObj.smscNotifid}
-                        onSave={this.handleInlineEditChange.bind(this)}  />
+                      onSave={this.handleInlineEditChange.bind(this)}  />
                     </Col>
                   </Row>
                   <Row className="show-grid">
@@ -149,13 +150,13 @@ class InfoGeneralMTSetting extends React.Component {
                       MOBILE NOTIF :
                     </Col>
                     <Col md={ 7 }>
-                      <InlineEdit
-                        name="mobileNotifid"
-                        type="select"
-                        options={this.props.mobileNotiflist}
-                        optionsLabel="mobileNotifname"
+                    <InlineEdit
+                      name="notificationid"
+                      type="select"
+                      options={NOTIFICATIONS}
+                      optionsLabel="notificationname"
                         value={this.state.mtSettingObj.mobileNotifid}
-                        onSave={this.handleInlineEditChange.bind(this)}  />
+                      onSave={this.handleInlineEditChange.bind(this)}  />
                     </Col>
                   </Row>
                 </Col>
@@ -209,7 +210,7 @@ class InfoGeneralMTSetting extends React.Component {
 
 function mapStateToProps(state) {
     return {
-      infoGenMT:state.Account.infoGenMT,
+      infoGenMTSettings:state.Account.infoGenMTSettings,
       mwNotiflist:state.Common.mwNotiflist,
       smscNotiflist:state.Common.smscNotiflist,
       mobileNotiflist:state.Common.mobileNotiflist,

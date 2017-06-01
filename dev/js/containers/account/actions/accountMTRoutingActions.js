@@ -6,27 +6,23 @@ var TPOA_Info =  {
 	status:200,
 	data: [
 	  {
-			  "smscid": 1897,
-	   "smscname": "RemoveD_Digi_Rs_32424_5.0_Mt",
-	    "tpoa" : "D1234",
+	    "smscid" : 1896,
+	    "TPOA" : "D1234",
 	    "custRouting" :0
 	  },
 	  {
-			  "smscid": 1898,
-			 "smscname": "Removed_Digi_Rs_32424_6.0_Mt",
-	    "tpoa" : "P324",
+			"smscid" : 1897,
+	    "TPOA" : "P324",
 	    "custRouting" : 1
 	  },
 	  {
-			  "smscid": 1899,
-	     "smscname": "Removed_Digi_Rs_32424_10.0_Mt",
-	    "tpoa" : "A4849",
+	    "smscid" : 1898,
+	    "TPOA" : "A4849",
 	    "custRouting" : 0
 	  },
 	  {
-			  "smscid": 1900,
-	   "smscname": "Removed_Digi_Rs_36999_5.0_Rm_Mt",
-	    "tpoa" : "Joker",
+	    "smscid" : 1897,
+	    "TPOA" : "Joker",
 	    "custRouting" : 1
 	  }
 	]
@@ -55,88 +51,83 @@ var TPOA_Info =  {
 							 payload: TPOA_Info
 						}
 					}
-					export function AddHubAccountForcedTPOA(_newTPOAinfo) {
+					export function AddHubAccountMTRouting(_newMTinfo) {
 							return function (dispatch,getState) {
-								dispatch(AddHubAccountForcedTPOARequest());
+								dispatch(AddHubAccountMTRoutingRequest());
 								var request = {
-									url:config.getUrl('hub_accounts')+'/'+_newTPOAinfo.customerid+'/forcedtpoa',
+									url:config.getUrl('hub_accounts')+'/mt/routing/'+_newMTinfo.customerid,
 									method:'POST',
-									data:_newTPOAinfo,
-									successCallback:AddHubAccountForcedTPOAResponse,
-									failureCallback:AddHubAccountForcedTPOAResponse
+									data:_newMTinfo,
+									successCallback:AddHubAccountMTRoutingResponse,
+									failureCallback:AddHubAccountMTRoutingResponse
 								};
 								return httpRequest(dispatch,getState,request);
 							}
 						}
-					export function AddHubAccountForcedTPOARequest() {
+					export function AddHubAccountMTRoutingRequest() {
 							return {
-								type: types.ADD_ACCT_FORCED_TPOA_LIST_REQUEST
+								type: types.ADD_ACCT_MT_ROUTING_LIST_REQUEST
 							}
 						}
-						export function AddHubAccountForcedTPOAResponse(response) {
+						export function AddHubAccountMTRoutingResponse(response) {
 								return {
-									type: types.ADD_ACCT_FORCED_TPOA_LIST_RESPONSE,
+									type: types.ADD_ACCT_MT_ROUTING_LIST_RESPONSE,
 									 payload:response
 								}
 							}
-							export function UpdateHubAccountTPOA(_updateParam,_TPOAinfo) {
-								var _url,_method;
+							export function UpdateHubAccountMTRouting(_updateParam,_TPOAinfo) {
+								var _url;
 								switch(_updateParam){
 									case "updateDefaultTPOA":
 										_url = config.getUrl('hub_accounts')+'/'+_TPOAinfo.customerid+'/defaulttpoa';
-										_method = "PUT";
-									break;
-									case "updateForcedTPOA":
-										_url = config.getUrl('hub_accounts')+'/'+_TPOAinfo.customerid+'/forcedtpoa';
-										_method = "POST";
 									break;
 								}
 
 									return function (dispatch,getState) {
-										dispatch(UpdateHubAccountTPOARequest());
+										dispatch(UpdateHubAccountMTRoutingRequest());
 										var request = {
 											url:_url,
-											method:_method,
+											method:'PUT',
 											data:_TPOAinfo,
-											successCallback:UpdateHubAccountTPOAResponse,
-											failureCallback:UpdateHubAccountTPOAResponse
+											successCallback:UpdateHubAccountMTRoutingResponse,
+											failureCallback:UpdateHubAccountMTRoutingResponse
 										};
 										return httpRequest(dispatch,getState,request);
 									}
 								}
-							export function UpdateHubAccountTPOARequest() {
+							export function UpdateHubAccountMTRoutingRequest() {
 									return {
-										type: types.UPDATE_ACCT_FORCED_TPOA_LIST_REQUEST
+										type: types.UPDATE_ACCT_MT_ROUTING_LIST_REQUEST
 									}
 								}
-								export function UpdateHubAccountTPOAResponse(response) {
+								export function UpdateHubAccountMTRoutingResponse(response) {
 										return {
-											type: types.UPDATE_ACCT_FORCED_TPOA_LIST_RESPONSE,
+											type: types.UPDATE_ACCT_MT_ROUTING_LIST_RESPONSE,
 											 payload: response
 										}
 									}
-									export function DeleteHubAccountForcedTPOA(currentAcct) {
+									export function DeleteHubAccountMTRouting(currentAcct) {
 										return function (dispatch,getState) {
-											dispatch(DeleteHubAccountForcedTPOARequest());
+											dispatch(DeleteHubAccountMTRoutingRequest());
 											var request = {
 												url:config.getUrl('hub_accounts')+'/'+currentAcct.customerid+'/'+currentAcct.smscid+'/forcedtpoa',
 												method:'DELETE',
 												data:currentAcct,
-												successCallback:DeleteHubAccountForcedTPOAResponse,
-												failureCallback:DeleteHubAccountForcedTPOAResponse
+												successCallback:DeleteHubAccountMTRoutingResponse,
+												failureCallback:DeleteHubAccountMTRoutingResponse
 											};
 											return httpRequest(dispatch,getState,request);
 										}
 									}
 
-									export function DeleteHubAccountForcedTPOARequest() {
+									export function DeleteHubAccountMTRoutingRequest() {
 										return {
-											type: types.DELETE_ACCT_FORCED_TPOA_LIST_REQUEST
+											type: types.DELETE_ACCT_MT_ROUTING_LIST_REQUEST
 										}
 									}
-									export function DeleteHubAccountForcedTPOAResponse(response) {
+									export function DeleteHubAccountMTRoutingResponse(response) {
 										return {
-											type: types.DELETE_ACCT_FORCED_TPOA_LIST_RESPONSE,
+											type: types.DELETE_ACCT_MT_ROUTING_LIST_RESPONSE,
 											 payload: response
 										}
 									}

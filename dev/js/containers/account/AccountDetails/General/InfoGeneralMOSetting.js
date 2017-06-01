@@ -13,7 +13,7 @@ class InfoGeneralMOSetting extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state =  {
-           moSettingObj : this.props.infoGenMO || {}
+           moSettingObj : this.props.infoGenMOSettings || {}
         }
     }
 
@@ -126,7 +126,7 @@ class InfoGeneralMOSetting extends React.Component {
 
 function mapStateToProps(state) {
     return {
-      infoGenMO : state.Account.infoGenMO
+      infoGenMOSettings : state.Account.infoGenMOSettings
     };
 }
 

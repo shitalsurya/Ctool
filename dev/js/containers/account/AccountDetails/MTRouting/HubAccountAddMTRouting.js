@@ -2,19 +2,22 @@ import React from 'react';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal,Label } from 'react-bootstrap';
 import Select from 'react-select';
 import Toggle from 'react-toggle';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 require('./../../../../../scss/style.scss');
 require('./../../../../../scss/react-toggle.scss');
 import * as types from './../../../common/commonActionTypes';
-import { connect } from 'react-redux';
 import {initializeSelectOptions} from './../../../common/Functions/commonFunctions';
-
+import {AddHubAccountMTRouting} from './../../actions/accountMTRoutingActions';
 class HubAccountAddMTRouting extends React.Component {
   constructor(props, context) {
       super(props, context);
 
         this.state={
              ModifyFlag : '',
-             MTInfo : this.props.MTInfo || [],
+             MTInfo : {
+               customerid:this.props.currentAcct
+             },
              modalHeading:'Add standard MT routing',
              checked : false,
         }
@@ -23,7 +26,16 @@ class HubAccountAddMTRouting extends React.Component {
       console.log("name==",e.target.name);
       console.log("value==",e.target.value);
     var info = this.state.MTInfo;
-    info[e.target.name] = e.target.value;
+    if(e.target.type=="select-one"){
+      info[e.target.name]= e.target.selectedOptions[0].text;
+    }
+    else if(e.target.type=="checkbox"){
+      info[e.target.name] = e.target.checked==true?1:0;
+    }
+    else{
+      info[e.target.name] = e.target.value;
+    }
+    info.customerid=this.props.currentAcct;
     this.setState({MTInfo : info});
   }
 
@@ -39,9 +51,9 @@ class HubAccountAddMTRouting extends React.Component {
 
 
   addRouting(){
-
     console.log("Added Routing : " , this.state.MTInfo);
-      this.props.close();
+    this.props.AddHubAccountMTRouting(this.state.MTInfo)
+      this.props.close(this.state.MTInfo);
   }
 
   toggleOnChange(event){
@@ -90,7 +102,7 @@ class HubAccountAddMTRouting extends React.Component {
                             </Col>
                             <Col md={ 6 }>
                               <FormControl componentClass="select"
-                                  name="operatorid"
+                                  name="destoperatorname"
                                 value={this.state.MTInfo.operatorid}
                                 onChange={this.handleChange.bind(this)}>
                                 <option value="select" disabled selected>Please select...</option>
@@ -105,7 +117,7 @@ class HubAccountAddMTRouting extends React.Component {
                             </Col>
                             <Col md={ 6 }>
                               <FormControl componentClass="select"
-                                  name="smscid"
+                                  name="smscname"
                                   value={this.state.MTInfo.smscid}
                                   onChange={this.handleChange.bind(this)}>
                                   <option value="select" disabled selected>Please select...</option>
@@ -120,14 +132,14 @@ class HubAccountAddMTRouting extends React.Component {
                             </Col>
                             <Col md={ 6 }>
                             <Toggle
-                            name="onOffToggle"
+                            name="routingonoffflag"
                             icons={{
                                  checked: 'On',
                                  unchecked: 'Off',
                                }}
                                 defaultChecked={true}
                                 value={this.state.MTInfo.onOffValue}
-                              onChange={this.toggleOnChange.bind(this)} />
+                              onChange={this.handleChange.bind(this)} />
                             </Col>
                             <Col mdHidden md={ 3 } />
                         </Row>
@@ -137,14 +149,14 @@ class HubAccountAddMTRouting extends React.Component {
                             </Col>
                             <Col md={ 6 }>
                             <Toggle
-                            name="permanentToggle"
+                            name="permanentflag"
                             icons={{
                                  checked: 'Yes',
                                  unchecked: 'No',
                                }}
                                   defaultChecked={false}
                                value={this.state.MTInfo.permanentValue}
-                              onChange={this.toggleOnChange.bind(this)} />
+                              onChange={this.handleChange.bind(this)} />
                             </Col>
                             <Col mdHidden md={ 3 } />
                         </Row>
@@ -157,7 +169,7 @@ class HubAccountAddMTRouting extends React.Component {
                                  type="text"
                                  name="tpoa"
                                  value={this.state.MTInfo.tpoa || ' '}
-                                 onChange={this.handleModalChange.bind(this,types.ACCOUNT_MT_ROUTING_TPOA)}
+                                 onChange={this.handleChange.bind(this)}
                                  placeholder="Enter TPOA" />
                             </Col>
                             <Col mdHidden md={ 3 } />
@@ -174,13 +186,11 @@ class HubAccountAddMTRouting extends React.Component {
     );
   }
 
-  componentWillMount( ) {
-    debugger;
-    // console.log("tppoa model componentWillReceiveProps==",nextProps);
-    this.smscList = initializeSelectOptions(this.props.smscList,'smscname','smscid');
-      console.log("this.smscList==",this.smscList);
-    this.operatorList = initializeSelectOptions(this.props.operatorList,'operatorname','operatorid');
-      console.log("this.operatorList==",this.operatorList);
+    componentWillReceiveProps( nextProps ) {
+      this.smscList = initializeSelectOptions(nextProps.smscList,'smscname','smscid');
+        console.log("this.smscList==",this.smscList);
+      this.operatorList = initializeSelectOptions(nextProps.operatorList,'operatorname','operatorid');
+        console.log("this.operatorList==",this.operatorList);
     }
 }
 function mapStateToProps(state) {
@@ -189,4 +199,9 @@ function mapStateToProps(state) {
       operatorList:state.Common.operatorList
      };
 }
-export default connect(mapStateToProps)(HubAccountAddMTRouting);
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+      AddHubAccountMTRouting:AddHubAccountMTRouting
+    }, dispatch);
+}
+export default connect(mapStateToProps,mapDispatchToProps)(HubAccountAddMTRouting);
