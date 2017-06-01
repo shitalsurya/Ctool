@@ -125,7 +125,6 @@ class HubAccountMODedicated extends React.Component {
     );
   }
   componentWillMount( ) {
-    debugger;
     // console.log("tppoa model componentWillReceiveProps==",nextProps);
     this.smscList = initializeSelectOptions(this.props.smscList,'smscname','smscid');
       console.log("this.smscList==",this.smscList);

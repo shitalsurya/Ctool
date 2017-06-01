@@ -15,7 +15,6 @@ function getToken(_state){
 }
 
 export function httpRequest(dispatch,getState,request){
-	debugger;
 	// var element = document.getElementById("load");
 	// element.className = "loader loader-default is-active";
 	document.getElementById("root").style.opacity = "0.4";
@@ -42,7 +41,7 @@ export function httpRequest(dispatch,getState,request){
 		// element.className = "loader loader-default";
 		document.getElementById("root").style.opacity = "1";
 		document.getElementById("load").style.display = "none";
-		
+
 		console.log("httpRequest catch error==", error);
 		var response={
 			status:-1
