@@ -2,53 +2,75 @@ import * as types from './../../common/commonActionTypes';
 import axios from 'axios';
 import * as config from '../../../containers/common/config';
 import {httpRequest} from '../../../containers/common/commonAjaxActions';
-var TPOA_Info =  {
+var MT_List =  {
 	status:200,
-	data: [
-	  {
-	    "smscid" : 1896,
-	    "TPOA" : "D1234",
-	    "custRouting" :0
-	  },
-	  {
-			"smscid" : 1897,
-	    "TPOA" : "P324",
-	    "custRouting" : 1
-	  },
-	  {
-	    "smscid" : 1898,
-	    "TPOA" : "A4849",
-	    "custRouting" : 0
-	  },
-	  {
-	    "smscid" : 1897,
-	    "TPOA" : "Joker",
-	    "custRouting" : 1
-	  }
-	]
+	data:[
+  {
+    "operatorid": 78,
+    "smscid": 8380,
+    "rc": 0,
+    "onoff": 1,
+    "tpda": "10936",
+    "operatorname": "AT&T",
+    "livesmsc": 1,
+    "countryid": 60,
+    "countryname": "Usa",
+    "prefernce": 3,
+    "comments": null,
+    "smscname": "US_ATT_BULK_TX_GEN_REAL"
+  },
+  {
+    "operatorid": 78,
+    "smscid": 6064,
+    "smscname": "ACTIVCARD.0_Mt",
+    "rc": 0,
+    "onoff": 1,
+    "tpda": "10936",
+    "operatorname": "AT&T",
+    "livesmsc": 1,
+    "countryid": 60,
+    "countryname": "Usa",
+    "prefernce": 3,
+    "comments": null
+  },
+  {
+    "operatorid": 310020,
+    "smscid": 9178,
+    "rc": 0,
+    "onoff": 1,
+    "tpda": "10936",
+    "operatorname": "Sprint",
+    "livesmsc": 1,
+    "countryid": 60,
+    "countryname": "Usa",
+    "prefernce": 2,
+    "comments": null,
+    "smscname": "US_ERICSSON_SPRINT_BULK_TX_REAL"
+  }
+]
 }
 
-			export function getHubAcctForcedTPOAList(currentAcct) {
+			export function getHubAcctMTRoutingList(currentAcct) {
 				return function (dispatch,getState) {
-			    dispatch(getHubAcctForcedTPOAListRequest());
+			    dispatch(getHubAcctMTRoutingListRequest());
 					var request = {
 						url:config.getUrl('hub_accounts_tpoa')+'/'+currentAcct,
 						method:'GET',
-						successCallback:getHubAcctForcedTPOAListResponse,
-						failureCallback:getHubAcctForcedTPOAListResponse
+						successCallback:getHubAcctMTRoutingListResponse,
+						failureCallback:getHubAcctMTRoutingListResponse
 					};
 			    return httpRequest(dispatch,getState,request);
 				}
 			}
-			export function getHubAcctForcedTPOAListRequest() {
+			export function getHubAcctMTRoutingListRequest() {
 					return {
-						type: types.GET_ACCT_FORCED_TPOA_LIST_REQUEST
+						type: types.GET_ACCT_MT_ROUTING_LIST_REQUEST
 					}
 				}
-				export function getHubAcctForcedTPOAListResponse(response) {
+				export function getHubAcctMTRoutingListResponse(response) {
 						return {
-							type: types.GET_ACCT_FORCED_TPOA_LIST_RESPONSE,
-							 payload: TPOA_Info
+							type: types.GET_ACCT_MT_ROUTING_LIST_RESPONSE,
+							 payload: MT_List
 						}
 					}
 					export function AddHubAccountMTRouting(_newMTinfo) {
@@ -110,7 +132,7 @@ var TPOA_Info =  {
 										return function (dispatch,getState) {
 											dispatch(DeleteHubAccountMTRoutingRequest());
 											var request = {
-												url:config.getUrl('hub_accounts')+'/'+currentAcct.customerid+'/'+currentAcct.smscid+'/forcedtpoa',
+												url:config.getUrl('hub_accounts')+'/'+currentAcct.customerid+'/'+currentAcct.smscid+'/MTRouting',
 												method:'DELETE',
 												data:currentAcct,
 												successCallback:DeleteHubAccountMTRoutingResponse,

@@ -70,12 +70,12 @@ componentWillMount(){
         },
         {
             name:'TPOA',
-            dataField:'tpoa',
+            dataField:'tpda',
             type:'text',
         },
         {
             name:'Customer Routing',
-            dataField:'custRouting',
+            dataField:'customerrestrictedrouting',
             type:'toggle',
             options: {
                checked: 'Yes',

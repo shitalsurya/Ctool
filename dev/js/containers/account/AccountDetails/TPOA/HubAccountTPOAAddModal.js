@@ -40,8 +40,8 @@ class HubAccountTPOAAddModal extends React.Component {
   addNewTPOA(){
     console.log("addNewTPOA==",this.state.newTPOAinfo);
     this.props.AddHubAccountForcedTPOA(this.state.newTPOAinfo);
-      this.setState({newTPOAinfo : {}});
     this.props.close(this.state.newTPOAinfo);
+      this.setState({newTPOAinfo : {}});
   }
 
   close() {

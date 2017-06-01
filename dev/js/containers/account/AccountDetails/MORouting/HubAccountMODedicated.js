@@ -3,42 +3,40 @@ import { connect } from 'react-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button,Modal,Label } from 'react-bootstrap';
 import Select from 'react-select';
 require('./../../../../../scss/style.scss');
+import { bindActionCreators } from 'redux';
 import * as types from './../../../common/commonActionTypes';
 import {initializeSelectOptions} from './../../../common/Functions/commonFunctions';
 import {TPDACRITERIA} from './../../../common/commonActionTypes';
+import {AddHubAccountMORouting} from './../../actions/accountTPOAActions';
 class HubAccountMODedicated extends React.Component {
   constructor(props, context) {
       super(props, context);
         this.state={
-             dedicatedMO : {},
+            dedicatedMO : {customerid:this.props.currentAcct},
              modalHeading:'Add Dedicated TPOA Routing',
         }
   }
+
+
   handleChange(e) {
       console.log("name==",e.target.name);
       console.log("value==",e.target.value);
     var info = this.state.dedicatedMO;
-    info[e.target.name] = e.target.value;
-    this.setState({dedicatedMO : info});
-  }
 
-  handleModalChange(target, value){
-    var info = this.state.dedicatedMO;
-    switch(target) {
-      case types.TPOA_DEDICATED_SERVICE:
-        info.serviceNo = value.target.value;
-        break;
-      case types.TPOA_DEDICATED_RETURNED_TPDA:
-        info.returnTPDA = value.target.value;
-        break;
-        }
-    this.setState({TPOAinfo : info});
+    if(e.target.type=="select-one"){
+      info[e.target.name]= e.target.selectedOptions[0].text;
+    }
+    else{
+      info[e.target.name] = e.target.value;
+    }
+    info.customerid=this.props.currentAcct;
+    this.setState({dedicatedMO : info});
   }
 
   addRouting(){
     console.log(this.state.dedicatedMO);
+    this.props.close(this.state.dedicatedMO);
     this.setState({dedicatedMO : []});
-    this.props.close();
   }
 
   close() {
@@ -61,8 +59,8 @@ class HubAccountMODedicated extends React.Component {
                   </Col>
                   <Col md={ 6 }>
                     <FormControl componentClass="select"
-                      name="smscid"
-                      value={this.state.dedicatedMO.smscid}
+                      name="smscname"
+                      value={this.state.dedicatedMO.smscname}
                       onChange={this.handleChange.bind(this)}>
                       <option value="select" disabled selected>Please select...</option>
                       {this.smscList}
@@ -79,7 +77,7 @@ class HubAccountMODedicated extends React.Component {
                          type="text"
                          name="serviceNo"
                          value={this.state.dedicatedMO.serviceNo || ''}
-                         onChange={this.handleModalChange.bind(this,types.TPOA_DEDICATED_SERVICE)}
+                         onChange={this.handleChange.bind(this)}
                          placeholder="Enter Service Number.." />
                     </Col>
                     <Col mdHidden md={ 2 } />
@@ -93,7 +91,7 @@ class HubAccountMODedicated extends React.Component {
                          type="text"
                          name="returnTPDA"
                          value={this.state.dedicatedMO.returnTPDA || ''}
-                         onChange={this.handleModalChange.bind(this,types.TPOA_DEDICATED_RETURNED_TPDA)}
+                         onChange={this.handleChange.bind(this)}
                          placeholder="Enter Returned TPDA.." />
                     </Col>
                     <Col mdHidden md={ 2 } />
@@ -139,5 +137,9 @@ function mapStateToProps(state) {
       TpdaCriteria:state.Common.TpdaCriteria
      };
 }
-
-export default connect(mapStateToProps)(HubAccountMODedicated);
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+      AddHubAccountMORouting:AddHubAccountMORouting
+    }, dispatch);
+}
+export default connect(mapStateToProps,mapDispatchToProps)(HubAccountMODedicated);

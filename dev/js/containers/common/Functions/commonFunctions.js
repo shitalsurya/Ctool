@@ -52,3 +52,40 @@ import React from 'react';
             }.bind(this));
             return list;
         }
+  export function formatNestedTableData(_list){
+      console.log("formatNestedTableData _list==",JSON.stringify(_list));
+    var group_to_values = _list.reduce(function(obj,item){
+        obj[item.countryid] = obj[item.countryid] || [];
+        obj[item.countryid].push(item);
+        return obj;
+    }, {});
+
+  console.log("formatNestedTableData group_to_values=="+JSON.stringify(group_to_values));
+    var groups = Object.keys(group_to_values).map(function(key){
+        return {group: key, expand: group_to_values[key].reduce(function(obj,item){
+              obj[item.operatorid] = obj[item.operatorid] || [];
+              obj[item.operatorid].push(item);
+              return obj;
+          }, {})
+
+        };
+    });
+  // console.log("formatNestedTableData group_to_values=="+JSON.stringify(group_to_values));
+  // var tempgroups = Object.keys(group_to_values).map(function(key){
+  //     return {test : group_to_values[key].reduce(function(obj,item){
+  //           obj[item.operatorid] = obj[item.operatorid] || [];
+  //           obj[item.operatorid].push(item);
+  //           return obj;
+  //       }, {})
+  //
+  //     };
+  // });
+  //   console.log("formatNestedTableData tempgroups=="+JSON.stringify(tempgroups));
+  //   var groups = Object.keys(tempgroups.test).map(function(key){
+  //       return {group: key, expand: tempgroups.test[keys]
+  //
+  //       };
+  //   });
+
+    console.log("formatNestedTableData=="+JSON.stringify(groups));
+  }

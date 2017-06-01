@@ -19,29 +19,21 @@ class HubAccountMOParsed extends React.Component {
       console.log("name==",e.target.name);
       console.log("value==",e.target.value);
     var info = this.state.parsedMO;
-    info[e.target.name] = e.target.value;
-    this.setState({parsedMO : info});
-  }
-  handleModalChange(target, value){
-    var info = this.state.parsedMO;
-    switch(target) {
-      case types.TPOA_PARSED_SERVICE:
-        info.serviceNo = value.target.value;
-        break;
-      case types.TPOA_PARSED_RETURNED_TPDA:
-        info.returnTPDA = value.target.value;
-        break;
-      case types.TPOA_PARSED_KEYWORD:
-        info.keyword = value.target.value;
-        break;
+
+    if(e.target.type=="select-one"){
+      info[e.target.name]= e.target.selectedOptions[0].text;
     }
-    this.setState({TPOAinfo : info});
+    else{
+      info[e.target.name] = e.target.value;
+    }
+    info.customerid=this.props.currentAcct;
+    this.setState({parsedMO : info});
   }
 
   addRouting(){
     console.log(this.state.parsedMO);
+    this.props.close(this.state.parsedMO);
     this.setState({parsedMO : []});
-    this.props.close();
   }
 
   close() {
@@ -64,8 +56,8 @@ class HubAccountMOParsed extends React.Component {
                   </Col>
                   <Col md={ 6 }>
                     <FormControl componentClass="select"
-                      name="smscid"
-                      value={this.state.parsedMO.smscid}
+                      name="smscname"
+                      value={this.state.parsedMO.smscname}
                       onChange={this.handleChange.bind(this)}>
                       <option value="select" disabled selected>Please select...</option>
                       {this.smscList}
@@ -82,7 +74,7 @@ class HubAccountMOParsed extends React.Component {
                          type="text"
                          name="serviceNo"
                          value={this.state.parsedMO.serviceNo || ''}
-                         onChange={this.handleModalChange.bind(this,types.TPOA_PARSED_SERVICE)}
+                         onChange={this.handleChange.bind(this)}
                          placeholder="Enter Service Number.." />
                     </Col>
                     <Col mdHidden md={ 2 } />
@@ -96,7 +88,7 @@ class HubAccountMOParsed extends React.Component {
                          type="text"
                          name="returnTPDA"
                          value={this.state.parsedMO.returnTPDA || ''}
-                         onChange={this.handleModalChange.bind(this,types.TPOA_PARSED_RETURNED_TPDA)}
+                         onChange={this.handleChange.bind(this)}
                          placeholder="Enter Returned TPDA.." />
                     </Col>
                     <Col mdHidden md={ 2 } />
@@ -155,7 +147,7 @@ class HubAccountMOParsed extends React.Component {
                          type="text"
                          name="keyword"
                          value={this.state.parsedMO.keyword || ''}
-                         onChange={this.handleModalChange.bind(this,types.TPOA_PARSED_KEYWORD)}
+                         onChange={this.handleChange.bind(this)}
                          placeholder="Enter Keyword.." />
                     </Col>
                     <Col mdHidden md={ 2 } />

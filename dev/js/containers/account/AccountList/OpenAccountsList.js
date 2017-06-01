@@ -332,6 +332,8 @@ function mapStateToProps( state ) {
       acctList: state.Common.acctList,
       target: state.Account.target,
       suspendStatus:state.Account.suspendStatus,
+      reactivateStatus:state.Account.reactivateStatus,
+      closeStatus:state.Account.closeStatus
   };
 }
 

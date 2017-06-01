@@ -8,8 +8,9 @@ import {getExContactList} from './../account/actions/accountActions';
 import {getHubAcctList} from '../account/actions/accountListActions';
 import {getHubAcctListe} from '../account/actions/accountListActions';
 import {getHubAccountBasicInfo, getHubAccountTechnicalInfo, getHubAccountVolumeInfo } from '../account/actions/accountGeneralActions';
-import {getHubAccountDelvTimeInfo, getHubAccountMOInfo, getHubAccountMTInfo,getHubAccountCNL,getHubAccountContacts} from '../account/actions/accountGeneralActions';
+import {getHubAccountDelvTimeInfo, getHubAccountCNL,getHubAccountContacts} from '../account/actions/accountGeneralActions';
 import {getHubAcctDefaultTPOA,getHubAcctForcedTPOAList} from '../account/actions/accountTPOAActions';
+import {getHubAcctMTRoutingList} from '../account/actions/accountMTRoutingActions';
 
 // var VOL_TYPE = [
 // 	{ "volTypeid": 1, "volTypename":"None"},
@@ -57,6 +58,7 @@ export function getList(category,currentAcct) {
            dispatch(getOperatorList())
 
          dispatch(getHubAcctForcedTPOAList(currentAcct))
+         dispatch(getHubAcctMTRoutingList(currentAcct))
 
 					break;
 		}

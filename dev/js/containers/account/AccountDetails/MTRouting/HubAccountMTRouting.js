@@ -10,7 +10,7 @@ import ModalModify from './HubAccountModifyMTRouting';
 import ModalAdd from './HubAccountAddMTRouting';
 import InlineEdit from './../../../common/components/InlineEdit';
 import * as types from './../../../common/commonActionTypes';
-import { UpdateHubAccountMTRouting,DeleteHubAccountMTRouting } from './../../actions/accountTPOAActions';
+import { UpdateHubAccountMTRouting,DeleteHubAccountMTRouting } from './../../actions/accountMTRoutingActions';
 require('./../../../../../scss/time.scss');
 require('./../../../../../scss/style.scss');
 require('./../../../../../scss/react-toggle.scss');
@@ -28,13 +28,12 @@ class NestedTable extends React.Component {
       super(props, context);
 }
 isExpandableRow(row) {
-  if (typeof (row.expand)!='undefined') return true;
-  else return false;
+  return true;
 }
 
 expandComponent(row) {
   return (
-    <SubNestedTable data={ row.expand } />
+    <SubNestedTable data={ row.expand } smscList={this.props.smscList} />
   );
 }
 updateValue(name,val,currentRow){
@@ -68,7 +67,7 @@ var listCols = fields.map(function (field,index) {
             key={index}
             width={field.width}
             headerAlign='left'
-            dataAlign={field.dataAlign || 'center'}
+            dataAlign={field.dataAlign || 'left'}
             dataFormat={ table.columnFormatter.bind(this) }
             formatExtraData={ field} >
             {field.name}
@@ -107,16 +106,16 @@ updateValue(name,val,currentRow){
      mode: 'checkbox',
        bgColor: '#427cac'
    };
-var prefList=[  {"preferencename": "1", "preferenceid": 1},
-      {"preferencename": "2", "preferenceid": 2},
-        {"preferencename": "3", "preferenceid": 3},
-          {"preferencename": "4", "preferenceid": 4}];
+var prefList=[  {"prefernce": 1},
+      {"prefernce":2},
+        {"prefernce": 3},
+          {"prefernce": 4}];
 
 var fields = [
   {
       name:'Pref.',
-      dataField:'preferenceid',
-      optionsLabel:'preferencename',
+      dataField:'prefernce',
+      optionsLabel:'prefernce',
       type:'select',
       width:'80px',
         dataAlign:'left',
@@ -124,20 +123,21 @@ var fields = [
   },
   {
       name:'SMSC',
-    dataField:'SMSC',
-    type:'text',
-    dataAlign:'left'
+      dataField:'smscname',
+      optionsLabel:'smscname',
+      type:'select',
+      options: this.props.smscList
   },
   {
       name:'TPOA',
-    dataField:'TPOA',
+    dataField:'tpda',
       width:'150px',
     type:'text',
     dataAlign:'left'
   },
 {
       name:'On/Off',
-    dataField:'onOff',
+    dataField:'onoff',
     type:'toggle',
       width:'85px',
         options: {
@@ -147,7 +147,7 @@ var fields = [
   },
   {
         name:'Permanent',
-    dataField:'permanent',
+    dataField:'rc',
     type:'toggle',
       width:'85px',
       options: {
@@ -157,13 +157,13 @@ var fields = [
   },
   {
         name:'Status',
-    dataField:'status',
+    dataField:'livesmsc',
     type:'image',
       width:'80px'
   },
   {
         name:'',
-    dataField:'comment',
+    dataField:'comments',
     type:'comment',
     width:'50px'
   }];
@@ -175,7 +175,7 @@ var fields = [
                   key={index}
                   width={field.width}
                   headerAlign='left'
-                  dataAlign={field.dataAlign || 'center'}
+                  dataAlign={field.dataAlign || 'left'}
                   dataFormat={ table.columnFormatter.bind(this) }
                   formatExtraData={ field} >
                   {field.name}
@@ -203,23 +203,14 @@ class HubAccountMTRouting extends React.Component {
                checked : false,
               // Default expanding row
                 expanding: [ 0 ],
-                groupBy:  {"label": "country", "value":"country"},
-                groupById:'countryId',
-                subGroupBy:{"label": "operator", "value":"operator"},
-                subGroupById:'countryId',
-                data:Routings.data,
+                groupBy:  {"label": "countryid", "value":"countryname"},
+                groupById:'countryid',
+                subGroupBy:{"label": "operatorid", "value":"operatorname"},
+                subGroupById:'operatorid',
+                data:this.props.MT_List||[],
                 resRouting: "Yes" ,
           }
-          this.grpByMaster =
-             [
-                  {"label": "country", "value":"country"},
-                    {"label": "SMSC", "value":"SMSC"}
-              ];
-              this.subGrpByMaster =
-                 [
-                      {"label": "operator", "value":"operator"},
-                        {"label": "SMSC", "value":"SMSC"}
-                  ]
+          console.log("shital==",this.state.data);
     }
         close(_MTInfo) {
           this.MTInfo=_MTInfo;
@@ -237,52 +228,13 @@ class HubAccountMTRouting extends React.Component {
             this.setState({ showAdd : true,modalHeading:'Add standard MT routing' });
         }
         isExpandableRow(row) {
-  if (typeof (row.expand)!='undefined') return true;
-  else return false;
+  return true;
 }
 expandComponent(row) {
 
   return (
-    <NestedTable data={ row.expand } groupBy={this.state.subGroupBy} groupById={this.state.subGroupById}  />
+    <NestedTable data={ row.expand } smscList={this.props.smscList} groupBy={this.state.subGroupBy} groupById={this.state.subGroupById}  />
   );
-}
-handleGroupByChange(val){
-  console.log("handleGroupByChange==",val);
-//var _groupBy = {"label": "SMSC", "value":"smsc"}
-
-  this.setState({groupBy:val},function(){
-    console.log("groupBy==",this.state.groupBy);
-    if(this.state.groupBy.value=='country'){
-      this.setState({data:Routings.data,groupById:'countryId'},function(){
-        console.log("data==",this.state.data);
-      });
-
-    }
-    else if(this.state.groupBy.value=='SMSC'){
-      this.setState({data:grpBySMSCData.data,groupById:'SMSC_id'},function(){
-        console.log("data==",this.state.data);
-      });
-    }
-  });
-}
-handleSubGroupByChange(val){
-  console.log("handleSubGroupByChange==",val);
-//var _groupBy = {"label": "SMSC", "value":"smsc"}
-
-  this.setState({subGroupBy:val},function(){
-    console.log("subGroupBy==",this.state.subGroupBy);
-    if(this.state.subGroupBy.value=='operator'){
-      this.setState({data:Routings.data,subGroupById:'id'},function(){
-        console.log("data==",this.state.data);
-      });
-
-    }
-    else if(this.state.subGroupBy.value=='SMSC'){
-      this.setState({data:grpBySMSCData.data,subGroupById:'SMSC_id'},function(){
-        console.log("data==",this.state.data);
-      });
-    }
-  });
 }
 toggleOnChange(name,value){
   console.log("value==",value);
@@ -361,7 +313,8 @@ toggleOnChange(name,value){
 
                      <Row className="show-grid">
                        <Col md={ 12 }>
-
+                       {
+                         typeof(this.props.smscList)!='undefined' &&
                          <BootstrapTable data={this.state.data}
                            tableBodyClass='master-body-class'
                            tableHeaderClass='hide-header'
@@ -370,8 +323,8 @@ toggleOnChange(name,value){
                            expandComponent={ this.expandComponent.bind(this) }>
                            <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
                            <TableHeaderColumn dataField={this.state.groupBy.value} ></TableHeaderColumn>
-
                          </BootstrapTable>
+                       }
                        </Col>
                      </Row>
                    </Grid>
@@ -442,6 +395,8 @@ toggleOnChange(name,value){
 
 function mapStateToProps(state) {
 return {
+  MT_List:state.Account.MT_List,
+  smscList:state.Common.smscList,
   addStatus:state.Account.addStatus,
   updateStatus:state.Account.updateStatus,
   deleteStatus:state.Account.deleteStatus,

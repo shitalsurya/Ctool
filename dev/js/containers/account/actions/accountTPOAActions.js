@@ -6,28 +6,28 @@ var TPOA_Info =  {
 	status:200,
 	data: [
 	  {
-			  "smscid": 1897,
-	   "smscname": "RemoveD_Digi_Rs_32424_5.0_Mt",
-	    "tpoa" : "D1234",
-	    "custRouting" :0
+			  "smscid": 6064,
+	   "smscname": "ACTIVCARD.0_Mt",
+	    "tpda" : "D1234",
+	    "customerrestrictedrouting" :0
 	  },
 	  {
 			  "smscid": 1898,
 			 "smscname": "Removed_Digi_Rs_32424_6.0_Mt",
-	    "tpoa" : "P324",
-	    "custRouting" : 1
+	    "tpda" : "P324",
+	    "customerrestrictedrouting" : 1
 	  },
 	  {
 			  "smscid": 1899,
 	     "smscname": "Removed_Digi_Rs_32424_10.0_Mt",
-	    "tpoa" : "A4849",
-	    "custRouting" : 0
+	    "tpda" : "A4849",
+	    "customerrestrictedrouting" : 0
 	  },
 	  {
 			  "smscid": 1900,
 	   "smscname": "Removed_Digi_Rs_36999_5.0_Rm_Mt",
-	    "tpoa" : "Joker",
-	    "custRouting" : 1
+	    "tpda" : "Joker",
+	    "customerrestrictedrouting" : 1
 	  }
 	]
 }

@@ -10,6 +10,8 @@ import AddParsedMORouting from './HubAccountMOParsed';
 import * as table from './../../../common/Functions/customTable';
 import InlineEdit from './../../../common/components/InlineEdit';
 import DeleteRowLink from './../../../common/components/DeleteRow';
+import {TPDACRITERIA} from './../../../common/commonActionTypes';
+import { UpdateHubAccountMORouting,DeleteHubAccountMORouting } from './../../actions/accountMORoutingActions';
 require('./../../../../../scss/style.scss');
 
 class NestedTable extends React.Component {
@@ -29,8 +31,10 @@ class NestedTable extends React.Component {
       var fields = [
         {
             name:'SMSC',
-            dataField:'smsc',
-            type:'text'
+            dataField:'smscname',
+            optionsLabel:'smscname',
+            type:'select',
+            options: this.props.smscList
         },
         {
             name:'Service Number',
@@ -40,8 +44,10 @@ class NestedTable extends React.Component {
         },
         {
             name:'Criteria',
-            dataField:'criteria',
-            type:'text'
+            dataField:'tpdacriterianame',
+            optionsLabel:'tpdacriterianame',
+            type:'select',
+            options: TPDACRITERIA
         },
         {
             name:'Return TPDA',
@@ -64,7 +70,7 @@ class NestedTable extends React.Component {
                     key={index}
                     width={field.width}
                     headerAlign='left'
-                    dataAlign='center'
+                    dataAlign='left'
                     dataFormat={ table.columnFormatter.bind(this) }
                     formatExtraData={ field} >
                     {field.name}
@@ -73,6 +79,7 @@ class NestedTable extends React.Component {
           }.bind(this));
 
         return (
+
           <BootstrapTable data={this.props.data} >
             <TableHeaderColumn isKey={ true } hidden dataField='id'>ID</TableHeaderColumn>
              {listCols}
@@ -94,14 +101,26 @@ class HubAccountMORouting extends React.Component {
             {
               "countryId":"1",
               "country":"Australia",
-              "expand": [
-                {
-                  "smsc" : 'A1-MOBILKOM 436644967491',
+                 "smscname": "RemoveD_Digi_Rs_32424_5.0_Mt",
                   "serviceNo" : '1515',
-                  "criteria" : 'BEGIN_BY',
+                  "tpdacriterianame" : 'BEGIN_BY',
                   "returnTPDA" : '1515'
-                }
-              ]
+            },
+            {
+              "countryId":"1",
+              "country":"Australia",
+                 "smscname": "RemoveD_Digi_Rs_32424_5.0_Mt",
+                  "serviceNo" : '1515',
+                  "tpdacriterianame" : 'BEGIN_BY',
+                  "returnTPDA" : '1515'
+            },
+            {
+              "countryId":"6",
+              "country":"egypyt",
+                 "smscname": "ACTIVCARD",
+                  "serviceNo" : '1515',
+                  "tpdacriterianame" : 'BEGIN_BY',
+                  "returnTPDA" : '1515'
             }
           ],
           groupBy:  {"label": "country", "value":"country"},
@@ -110,15 +129,16 @@ class HubAccountMORouting extends React.Component {
           showAddParsed : false,
         }
     }
-
     isExpandableRow(row) {
-        if (typeof (row.expand)!='undefined') return true;
-        else return false;
+      //  if (typeof (row.expand)!='undefined') return true;
+        //else return false;
+        return true;
     }
 
     expandComponent(row) {
+      console.log("expandComponent==",this.props.smscList);
       return (
-          <NestedTable data={ row.expand }  />
+          <NestedTable data={ this.state.data } smscList={this.props.smscList}  />
       );
     }
 
@@ -155,6 +175,8 @@ class HubAccountMORouting extends React.Component {
 
                <Row className="show-grid">
                  <Col md={ 12 }>
+                 {
+                   typeof(this.props.smscList)!='undefined' &&
                    <BootstrapTable data={this.state.data}
                      tableBodyClass='master-body-class'
                      tableHeaderClass='hide-header'
@@ -163,17 +185,18 @@ class HubAccountMORouting extends React.Component {
                      <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
                      <TableHeaderColumn dataField={this.state.groupBy.value} ></TableHeaderColumn>
                    </BootstrapTable>
+                 }
                  </Col>
                </Row>
 
              </Grid>
              {
                this.state.showAddDedicated &&
-               <AddDedicatedMORouting showAdd={this.state.showAddDedicated} close={this.close.bind(this)}/>
+               <AddDedicatedMORouting currentAcct={this.currentAcct} showAdd={this.state.showAddDedicated} close={this.close.bind(this)}/>
              }
              {
                this.state.showAddParsed &&
-               <AddParsedMORouting showAdd={this.state.showAddParsed} close={this.close.bind(this)}/>
+               <AddParsedMORouting currentAcct={this.currentAcct} showAdd={this.state.showAddParsed} close={this.close.bind(this)}/>
              }
 
 
@@ -193,11 +216,20 @@ class HubAccountMORouting extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return { };
+    return {
+      smscList:state.Common.smscList,
+      addStatus:state.Account.addStatus,
+      updateStatus:state.Account.updateStatus,
+      deleteStatus:state.Account.deleteStatus,
+        target:state.Account.target
+      };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({  }, dispatch);
+    return bindActionCreators({
+      UpdateHubAccountMORouting:UpdateHubAccountMORouting,
+      DeleteHubAccountMORouting:DeleteHubAccountMORouting
+     }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HubAccountMORouting);

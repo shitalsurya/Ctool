@@ -68,7 +68,8 @@ export function columnFormatter(cell, row, field, index) {
             //        />
             break;
         case "image":
-            const imgSrc = require("./../../../../images/circle-" + cell + ".png");
+        var mapStatus=["red","green","orange"];
+            const imgSrc = require("./../../../../images/circle-" + mapStatus[cell] + ".png");
             return <img src = {
                 imgSrc
             }
