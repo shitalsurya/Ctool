@@ -70,7 +70,7 @@ class InfoGeneralTechnical extends React.Component {
                       className="info_label"
                       type="text"
                       name="revStatus"
-                      value={this.state.techInfoObj.revStatus} />
+                      value={this.state.techInfoObj.revStatus===0?"No":"Yes"} />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -150,7 +150,7 @@ class InfoGeneralTechnical extends React.Component {
                       className="info_label"
                       type="text"
                       name="msgBodyRem"
-                      value={this.state.techInfoObj.msgBodyRem} />
+                      value={this.state.techInfoObj.msgBodyRem===0?"No":"Yes"} />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>

@@ -107,7 +107,7 @@ class InfoGeneralMOSetting extends React.Component {
                       className="info_label"
                       type="text"
                       name="disTxtBdy"
-                      value={this.state.moSettingObj.disTxtBdy} />
+                      value={this.state.moSettingObj.disTxtBdy===0?"No":"Yes"} />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
