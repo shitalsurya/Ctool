@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Tabs,  TabLink, TabContent } from 'react-tabs-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
-import Select from 'react-select';
+import Toggle from 'react-toggle';
 import InlineEdit from './../../../common/components/InlineEdit';
 require('./../../../../../scss/tabs.scss');
 require('./../../../../../scss/style.scss');
@@ -20,15 +20,23 @@ class InfoGeneralTechnical extends React.Component {
     handleInlineEditChange(name,val){
       console.log("name : ",name, "  val : ",val);
       var info = this.state.techInfoObj;
-
       if(info[name]!==val){
         info[name]=val;
       this.setState({techInfoObj:info},function(){
         console.log("update tech details==",this.state.techInfoObj);
         this.props.updateHubAccountTechnicalInfo(this.state.techInfoObj);
       });
-
       }
+    }
+
+    handleToggleChange(e){
+      console.log("name : ",e.target.name, "  val : ",e.target.checked);
+      var info = this.state.techInfoObj;
+      info[e.target.name]=e.target.checked?1:0;
+      this.setState({techInfoObj:info},function(){
+        this.props.updateHubAccountTechnicalInfo(this.state.techInfoObj);
+      });
+      console.log("this.state.techInfoObj==",info);
     }
 
     render() {
@@ -46,7 +54,7 @@ class InfoGeneralTechnical extends React.Component {
                       className="info_label"
                       type="text"
                       name="accID"
-                      value={this.state.techInfoObj.accID} />
+                      value={this.state.techInfoObj.accID||''} />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -56,7 +64,7 @@ class InfoGeneralTechnical extends React.Component {
                   Technical Name :
                 </Col>
                 <Col md={ 8 } >
-                    <InlineEdit name="techName" type="text" value={this.state.techInfoObj.techName} onSave={this.handleInlineEditChange.bind(this)}  />
+                    <InlineEdit name="techName" type="text" value={this.state.techInfoObj.techName||''} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -66,11 +74,16 @@ class InfoGeneralTechnical extends React.Component {
                   Revenue Sharing Status :
                 </Col>
                 <Col md={ 8 }>
-                  <FormControl
-                      className="info_label"
-                      type="text"
+                  <div className="view-edit-control">
+                    <Toggle
                       name="revStatus"
-                      value={this.state.techInfoObj.revStatus===0?"No":"Yes"} />
+                      checked={ this.state.techInfoObj.revStatus === 1 ? true : false }
+                      icons={{
+                             checked:'Yes',
+                             unchecked: 'No',
+                      }}
+                      onChange={this.handleToggleChange.bind(this)}  />
+                  </div>
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -84,7 +97,7 @@ class InfoGeneralTechnical extends React.Component {
                       className="info_label"
                       type="text"
                       name="exAdd"
-                      value={this.state.techInfoObj.exAdd} />
+                      value={this.state.techInfoObj.exAdd||''} />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -94,11 +107,16 @@ class InfoGeneralTechnical extends React.Component {
                   Disable Extranet Login :
                 </Col>
                 <Col md={ 8 }>
-                  <FormControl
-                      className="info_label"
-                      type="text"
+                  <div className="view-edit-control">
+                    <Toggle
                       name="disExtranet"
-                      value={this.state.techInfoObj.disExtranet} />
+                      checked={ this.state.techInfoObj.disExtranet === 1 ? true : false }
+                      icons={{
+                             checked:'Yes',
+                             unchecked: 'No',
+                      }}
+                      onChange={this.handleToggleChange.bind(this)}  />
+                  </div>
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -112,7 +130,7 @@ class InfoGeneralTechnical extends React.Component {
                       className="info_label"
                       type="text"
                       name="extLogin"
-                      value={this.state.techInfoObj.extLogin} />
+                      value={this.state.techInfoObj.extLogin||""} />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -122,7 +140,7 @@ class InfoGeneralTechnical extends React.Component {
                   Extranet Password :
                 </Col>
                 <Col md={ 8 }>
-                  <InlineEdit name="extPassword" type="text" value={this.state.techInfoObj.extPassword} onSave={this.handleInlineEditChange.bind(this)}  />
+                  <InlineEdit name="extPassword" type="text" value={this.state.techInfoObj.extPassword||""} onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -132,11 +150,16 @@ class InfoGeneralTechnical extends React.Component {
                   Message Encryption :
                 </Col>
                 <Col md={ 8 }>
-                  <FormControl
-                      className="info_label"
-                      type="text"
+                  <div className="view-edit-control">
+                    <Toggle
                       name="msgEncrp"
-                      value={this.state.techInfoObj.msgEncrp} />
+                      checked={ this.state.techInfoObj.msgEncrp === 1 ? true : false }
+                      icons={{
+                             checked:'Yes',
+                             unchecked: 'No',
+                      }}
+                      onChange={this.handleToggleChange.bind(this)}  />
+                  </div>
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -146,11 +169,16 @@ class InfoGeneralTechnical extends React.Component {
                   Message Body Removal :
                 </Col>
                 <Col md={ 8 }>
-                  <FormControl
-                      className="info_label"
-                      type="text"
+                  <div className="view-edit-control">
+                    <Toggle
                       name="msgBodyRem"
-                      value={this.state.techInfoObj.msgBodyRem===0?"No":"Yes"} />
+                      checked={ this.state.techInfoObj.msgBodyRem === 1 ? true : false }
+                      icons={{
+                             checked:'Yes',
+                             unchecked: 'No',
+                      }}
+                      onChange={this.handleToggleChange.bind(this)}  />
+                  </div>
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
