@@ -23,6 +23,7 @@ import {compose, createStore, applyMiddleware } from 'redux';
 import { routerStateReducer, reduxReactRouter } from 'redux-react-router';
 import { Router, Route, hashHistory } from 'react-router'
 import createHistory from 'history/lib/createBrowserHistory';
+import Loading from './containers/common/Loading';
 
 /* Configure Store for Redux */
 const logger = createLogger();
@@ -67,7 +68,7 @@ ReactDOM.render(
 );
 
 ReactDOM.render(
-	<div></div>,document.getElementById('load')
+	<Loading/>,document.getElementById('load')
 );
 
 function authenticateFunc(transition, replace){
