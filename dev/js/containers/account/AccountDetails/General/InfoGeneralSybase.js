@@ -13,7 +13,7 @@ class InfoGeneralSybase extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-          sybaseInfoObj : this.props.infoGenSybase,
+          sybaseInfoObj : this.props.infoGenSybase||{}
         }
     }
 
