@@ -383,6 +383,48 @@ export default function(state = {
   _infoGenMOSettings = {},
   _defaultTPOA="";
             if (action.payload.status == 200) {
+              var _data = {
+  "pushTraficFlag": 0,
+  "suspended": 0,
+  "closed": 0,
+  "serviceLevel": "STANDARD",
+  "trafficTypeId": 3,
+  "routingCriteria": "DEFAULT",
+  "signedAccount": 0,
+  "comments": "N/A",
+  "accountName": "SI3SI_TEST_FR_SSL_HTTP",
+  "commercialName": "3 SUISSES",
+  "billingLocationId": 11,
+  "billingLocationName": "Mobileway France",
+  "startDate": "21 Jun 2007 10:07:42 AM",
+  "revenueSharingStatus": 0,
+  "extranetLogin": "SI3SI_TEST_FR_SSL_HTTP",
+  "extranetPassword": "pwd",
+  "encryptionFlag": null,
+  "bodyRemovalFlag": 0,
+  "customerType": "HTTP/HTTP",
+  "mtUrl": "http://messaging.sybase365.com/si3si_test13261/si3si_test13261.sms",
+  "mtLogin": "si3si_test13261",
+  "mtPassword": "ouMpFzYk",
+  "mtMoCustomerType": null,
+  "mtCustomerType": "HTTP",
+  "moCustomerType": "HTTP",
+  "encodeBase64": "c2kzc2lfdGVzdDEzMjYxOm91TXBGellr",
+  "mwNotif": "DEFAULT_ACK",
+  "smscNotif": "DEFAULT_ACK",
+  "mobileNotif": "DEFAULT_ACK",
+  "notificationPath": "/usr/mobileway/notifs/outputspool/http",
+  "disableMtExtranet": 0,
+  "disableMoExtranet": 0,
+  "moReplyAddress": null,
+  "moLogin": "trash.pl",
+  "moPassword": "82/cgi-bin/trash.pl",
+  "moSpoolpathOut": "/usr/mobileway/routermo/outputspool/httpmo",
+  "accountManagerId": 999999999999999,
+  "accountManagerName": "Cyril Maillard",
+  "extranetAddress": null,
+  "connectionPort": null
+};
                 var _data = action.payload.data;
                 //Commercial Information
                 _infoGenComm.commercialname = _data.commercialName;

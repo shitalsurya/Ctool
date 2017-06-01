@@ -50,6 +50,7 @@ class HubAccountGeneral extends React.Component {
 
     handleDelete(currentRow){
         currentRow.customerid=this.props.currentAcct;
+          this.smscid=currentRow.smscid;
       console.log("onOk==",currentRow);
      this.props.DeleteHubAccountForcedTPOA(currentRow);
     }
@@ -164,7 +165,7 @@ componentWillMount(){
                   closeButton: true,
               });
                 var _data=this.state.data;
-                _data.push(this.newCnl);
+                _data.push(this.newTPOAinfo);
                 this.setState({showContact : false,data:_data});
             }
             else if(nextProps.addStatus==false){
@@ -192,7 +193,7 @@ componentWillMount(){
                       });
 
                         for(var i=0;i<this.state.data.length;i++){
-                          if(this.state.data[i].countryid==this.currentCountryId){
+                          if(this.state.data[i].smscid==this.smscid){
                             this.state.data.splice(i, 1);
                           }
                         }
@@ -205,7 +206,9 @@ componentWillMount(){
                     break;
           }
     }
-    close() {
+    close(_newTPOAinfo) {
+      this.newTPOAinfo=_newTPOAinfo;
+      console.log("_newTPOAinfo==",_newTPOAinfo);
       this.setState({ showAddTPOA: false});
     }
 
