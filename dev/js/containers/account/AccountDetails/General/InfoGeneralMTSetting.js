@@ -180,7 +180,7 @@ class InfoGeneralMTSetting extends React.Component {
                       className="info_label"
                       type="text"
                       name="disTxtBody"
-                      value={this.state.mtSettingObj.disTxtBody} />
+                      value={this.state.mtSettingObj.disTxtBody===0?"No":"Yes"} />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
