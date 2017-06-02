@@ -50,10 +50,10 @@ export function columnFormatter(cell, row, field, index) {
             </div>
             break;
         case "time":
-        var ms=parseInt(cell);
-        var _time = moment(ms).format("HH:mm A");
-        return <span title={field.name}>{_time}</span>
-        //  this.setState({time : true,value:_time});
+          var ms=parseInt(cell);
+          var _time = moment(ms).format("HH:mm A");
+          return <span title={field.name}>{_time}</span>
+            //  this.setState({time : true,value:_time});
             // return <InlineEdit name = {
             //     field.dataField
             // }
@@ -68,7 +68,7 @@ export function columnFormatter(cell, row, field, index) {
             //        />
             break;
         case "image":
-        var mapStatus=["red","green","orange"];
+            var mapStatus=["red","green","orange"];
             const imgSrc = require("./../../../../images/circle-" + mapStatus[cell] + ".png");
             return <img src = {
                 imgSrc
@@ -78,9 +78,12 @@ export function columnFormatter(cell, row, field, index) {
         case "delete":
             return <DeleteRow currentRow={row} onOk={this.handleDelete.bind(this)}/>
             break;
-            case "comment":
-               return   <div id="box" title={cell}></div>
-              //  return    <span className="comments-icon" title={cell} ></span>
-              break;
+        case "comment":
+           return   <div id="box" title={cell}></div>
+          //  return    <span className="comments-icon" title={cell} ></span>
+          break;
+        case "toggleText":
+          return <div className="view-edit-control">{cell == 1 ? "Yes" : "No"}</div>
+          break;
     }
 }

@@ -6,7 +6,8 @@ class ForgotPassword extends React.Component {
   constructor(props, context){
     super(props, context);
     this.state = {
-      password : {}
+      password : {},
+      empty:false
     }
   }
 
@@ -19,7 +20,11 @@ class ForgotPassword extends React.Component {
 
   handleSubmit(){
     console.log("password : ",this.state.password);
-    this.setState({password:{}});
+    var info = this.state.password;
+    if(info.userid && info.email)
+      this.setState({password:{},empty:false});
+    else
+      this.setState({empty:true})
   }
 
   render(){
@@ -36,8 +41,27 @@ class ForgotPassword extends React.Component {
               </FormControl.Static>
               <Grid fluid={ true }>
                 <Row className="show-grid">
+                  <Col mdHidden md={ 1 } />
+                  <Col md={ 10 } className={(this.state.empty && !this.state.password.userid) ? "empty" : false }>
+                    <FormGroup>
+                      <InputGroup>
+                        <InputGroup.Addon>
+                          <Glyphicon glyph="user" />
+                        </InputGroup.Addon>
+                        <FormControl
+                          type="text"
+                          name="userid"
+                          value={this.state.password.userid||''}
+                          onChange={this.handleChange.bind(this)}
+                          placeholder="Enter your User Id" />
+                      </InputGroup>
+                    </FormGroup>
+                  </Col>
+                  <Col mdHidden md={ 1 } />
+                </Row>
+                <Row className="show-grid">
   						    <Col mdHidden md={ 1 } />
-  						    <Col md={ 10 }>
+  						    <Col md={ 10 } className={(this.state.empty && !this.state.password.email) ? "empty" : false }>
                     <FormGroup>
                       <InputGroup>
                         <InputGroup.Addon>
