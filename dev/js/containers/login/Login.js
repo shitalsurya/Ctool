@@ -57,55 +57,57 @@ class Login extends Component {
             <div className="login-container">
               <span className="logo">Login to CTOOL</span>
   						<Grid fluid={ true }>
-  						  <Row className="show-grid">
-  						    <Col mdHidden md={ 1 } />
-  						    <Col md={ 10 }>
-                    <FormGroup>
-                      <InputGroup>
-                        <InputGroup.Addon>
-                          <Glyphicon glyph="user" />
-                        </InputGroup.Addon>
-                        <FormControl
-                          type="text"
-                          ref="userEmail"
-  						            placeholder="Enter your Username" />
-  						        </InputGroup>
-  						      </FormGroup>
-  						    </Col>
-  						    <Col mdHidden md={ 1 } />
-  						  </Row>
-  						  <Row className="show-grid">
-  						    <Col mdHidden md={ 1 } />
-  						    <Col md={ 10 }>
-    						    <FormGroup>
-    						      <InputGroup>
-    						        <InputGroup.Addon>
-    						          <Glyphicon glyph="lock" />
-    						        </InputGroup.Addon>
-    						        <FormControl
-			                     type="password"
-			                     ref="userPassword"
-			                     placeholder="Enter your Password" />
-    						      </InputGroup>
-    						    </FormGroup>
-  						    </Col>
-  						    <Col mdHidden md={ 1 } />
-  						  </Row>
-  						  <Row className="show-grid">
-  						    <Col mdHidden md={ 1 } />
-  						    <Col md={ 10 }>
-    						    <Button
-  					            className="sap-btn"
-  					            type="submit"
-  					            onClick={this.handleLogin.bind(this)} >
-    						      Login
-    						    </Button>
-                    <Button bsStyle="link" onClick={this.handleForgotPassword.bind(this)}>
-                      Forgot Password
-                    </Button>
-  						    </Col>
-  						    <Col mdHidden md={ 1 } />
-  						  </Row>
+                <form onSubmit={this.handleLogin.bind(this)}>
+                  <Row className="show-grid">
+                    <Col mdHidden md={ 1 } />
+                    <Col md={ 10 }>
+                      <FormGroup>
+                        <InputGroup>
+                          <InputGroup.Addon>
+                            <Glyphicon glyph="user" />
+                          </InputGroup.Addon>
+                          <FormControl
+                            type="text"
+                            ref="userEmail"
+                            placeholder="Enter your Username" />
+                        </InputGroup>
+                      </FormGroup>
+                    </Col>
+                    <Col mdHidden md={ 1 } />
+                  </Row>
+                  <Row className="show-grid">
+                    <Col mdHidden md={ 1 } />
+                    <Col md={ 10 }>
+                      <FormGroup>
+                        <InputGroup>
+                          <InputGroup.Addon>
+                            <Glyphicon glyph="lock" />
+                          </InputGroup.Addon>
+                          <FormControl
+                             type="password"
+                             ref="userPassword"
+                             placeholder="Enter your Password" />
+                        </InputGroup>
+                      </FormGroup>
+                    </Col>
+                    <Col mdHidden md={ 1 } />
+                  </Row>
+                  <Row className="show-grid">
+                    <Col mdHidden md={ 1 } />
+                    <Col md={ 10 }>
+                      <Button
+                          className="sap-btn"
+                          type="submit"
+                          onClick={this.handleLogin.bind(this)} >
+                        Login
+                      </Button>
+                      <Button bsStyle="link" onClick={this.handleForgotPassword.bind(this)}>
+                        Forgot Password
+                      </Button>
+                    </Col>
+                    <Col mdHidden md={ 1 } />
+                  </Row>
+                </form>
   						</Grid>
 					  </div>
           </div>
