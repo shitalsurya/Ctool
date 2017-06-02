@@ -76,11 +76,7 @@ componentWillMount(){
         {
             name:'Customer Routing',
             dataField:'customerrestrictedrouting',
-            type:'toggle',
-            options: {
-               checked: 'Yes',
-               unchecked: 'No',
-            }
+            type:'toggleText',
         },
         {
             name:'Action',
