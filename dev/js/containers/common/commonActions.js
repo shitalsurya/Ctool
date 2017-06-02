@@ -11,6 +11,7 @@ import {getHubAccountBasicInfo, getHubAccountTechnicalInfo, getHubAccountVolumeI
 import {getHubAccountDelvTimeInfo, getHubAccountCNL,getHubAccountContacts} from '../account/actions/accountGeneralActions';
 import {getHubAcctDefaultTPOA,getHubAcctForcedTPOAList} from '../account/actions/accountTPOAActions';
 import {getHubAcctMTRoutingList} from '../account/actions/accountMTRoutingActions';
+import {getHubAcctMORoutingList} from '../account/actions/accountMORoutingActions';
 
 // var VOL_TYPE = [
 // 	{ "volTypeid": 1, "volTypename":"None"},
@@ -58,6 +59,7 @@ export function getList(category,currentAcct) {
            dispatch(getOperatorList())
 
          dispatch(getHubAcctForcedTPOAList(currentAcct))
+         dispatch(getHubAcctMORoutingList(currentAcct))
          dispatch(getHubAcctMTRoutingList(currentAcct))
 
 					break;

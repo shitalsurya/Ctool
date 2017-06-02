@@ -1,5 +1,5 @@
 import * as types from './../../common/commonActionTypes';
-import {formatNestedTableData} from './../../common/Functions/commonFunctions';
+import {formatMTData,formatMOData} from './../../common/Functions/commonFunctions';
 export default function(state = {
     data: ""
 }, action = null) {
@@ -124,6 +124,10 @@ export default function(state = {
         case types.ADD_ACCT_MT_ROUTING_LIST_REQUEST:
         case types.UPDATE_ACCT_MT_ROUTING_LIST_REQUEST:
         case types.DELETE_ACCT_MT_ROUTING_LIST_REQUEST:
+        case types.GET_ACCT_MO_ROUTING_LIST_REQUEST:
+        case types.ADD_ACCT_MO_ROUTING_LIST_REQUEST:
+        case types.UPDATE_ACCT_MO_ROUTING_LIST_REQUEST:
+        case types.DELETE_ACCT_MO_ROUTING_LIST_REQUEST:
             return Object.assign({}, state, {});
 
         case types.GET_ACCT_GENERAL_COMM_INFO_REQUEST:
@@ -231,12 +235,25 @@ export default function(state = {
                         target: action.type
                     });
                 }
+                    case types.GET_ACCT_MO_ROUTING_LIST_RESPONSE:
+                    console.log("GET_ACCT_MO_ROUTING_LIST_RESPONSE==", action.payload);
+                    if (action.payload.status == 200) {
+                        return Object.assign({}, state, {
+                            MO_List: formatMOData(action.payload.data),
+                            target: action.type
+                        });
+                    } else {
+                        return Object.assign({}, state, {
+                            MO_List: [],
+                            target: action.type
+                        });
+                    }
                 case types.GET_ACCT_MT_ROUTING_LIST_RESPONSE:
                     console.log("GET_ACCT_MT_ROUTING_LIST_RESPONSE==", action.payload);
                     if (action.payload.status == 200) {
-                      formatNestedTableData(action.payload.data);
+
                         return Object.assign({}, state, {
-                            MT_List: action.payload.data,
+                            MT_List:formatMTData(action.payload.data),
                             target: action.type
                         });
                     } else {

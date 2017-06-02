@@ -82,7 +82,7 @@ var listCols = fields.map(function (field,index) {
           expandableRow={ this.isExpandableRow }
           expandComponent={ this.expandComponent.bind(this) }>
           <TableHeaderColumn isKey={ true } hidden dataField={this.props.groupById}>ID</TableHeaderColumn>
-          <TableHeaderColumn dataField={this.props.groupBy.value}> </TableHeaderColumn>
+          <TableHeaderColumn dataField={this.props.groupByVal}> </TableHeaderColumn>
           {listCols}
         </BootstrapTable>
       );
@@ -106,16 +106,14 @@ updateValue(name,val,currentRow){
      mode: 'checkbox',
        bgColor: '#427cac'
    };
-var prefList=[  {"prefernce": 1},
-      {"prefernce":2},
-        {"prefernce": 3},
-          {"prefernce": 4}];
+var prefList=[  {"preference": 0},
+      {"preference":1}];
 
 var fields = [
   {
       name:'Pref.',
-      dataField:'prefernce',
-      optionsLabel:'prefernce',
+      dataField:'preference',
+      optionsLabel:'preference',
       type:'select',
       width:'80px',
         dataAlign:'left',
@@ -203,9 +201,9 @@ class HubAccountMTRouting extends React.Component {
                checked : false,
               // Default expanding row
                 expanding: [ 0 ],
-                groupBy:  {"label": "countryid", "value":"countryname"},
+                groupByVal:'countryname',
                 groupById:'countryid',
-                subGroupBy:{"label": "operatorid", "value":"operatorname"},
+                subGroupByVal:'operatorname',
                 subGroupById:'operatorid',
                 data:this.props.MT_List||[],
                 resRouting: "Yes" ,
@@ -233,7 +231,7 @@ class HubAccountMTRouting extends React.Component {
 expandComponent(row) {
 
   return (
-    <NestedTable data={ row.expand } smscList={this.props.smscList} groupBy={this.state.subGroupBy} groupById={this.state.subGroupById}  />
+    <NestedTable data={ row.expand } smscList={this.props.smscList} groupByVal={this.state.subGroupByVal} groupById={this.state.subGroupById}  />
   );
 }
 toggleOnChange(name,value){
@@ -315,6 +313,7 @@ toggleOnChange(name,value){
                        <Col md={ 12 }>
                        {
                          typeof(this.props.smscList)!='undefined' &&
+                         typeof(this.state.data)!='undefined' &&
                          <BootstrapTable data={this.state.data}
                            tableBodyClass='master-body-class'
                            tableHeaderClass='hide-header'
@@ -322,7 +321,7 @@ toggleOnChange(name,value){
                            expandableRow={ this.isExpandableRow }
                            expandComponent={ this.expandComponent.bind(this) }>
                            <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
-                           <TableHeaderColumn dataField={this.state.groupBy.value} ></TableHeaderColumn>
+                           <TableHeaderColumn dataField={this.state.groupByVal} ></TableHeaderColumn>
                          </BootstrapTable>
                        }
                        </Col>

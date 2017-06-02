@@ -52,40 +52,47 @@ import React from 'react';
             }.bind(this));
             return list;
         }
-  export function formatNestedTableData(_list){
-      console.log("formatNestedTableData _list==",JSON.stringify(_list));
+        export function formatMOData(_list){
+            console.log("formatMOData _list==",JSON.stringify(_list));
+          var group_to_values = _list.reduce(function(obj,item){
+              obj[item.countryid] = obj[item.countryid] || [];
+              obj[item.countryid].push(item);
+              return obj;
+          }, {});
+
+        console.log("formatMOData group_to_values=="+JSON.stringify(group_to_values));
+          var groups = Object.keys(group_to_values).map(function(key){
+            console.log("group_to_values[key].countryname=",group_to_values[key][0].countryname);
+              return {countryid: key,countryname: group_to_values[key][0].countryname, expand: group_to_values[key]
+              };
+          });
+            console.log("formatMOData=="+JSON.stringify(groups));
+            return groups;
+          }
+  export function formatMTData(_list){
+      console.log("formatMTData _list==",JSON.stringify(_list));
     var group_to_values = _list.reduce(function(obj,item){
         obj[item.countryid] = obj[item.countryid] || [];
         obj[item.countryid].push(item);
         return obj;
     }, {});
 
-  console.log("formatNestedTableData group_to_values=="+JSON.stringify(group_to_values));
+  console.log("formatMTData group_to_values=="+JSON.stringify(group_to_values));
     var groups = Object.keys(group_to_values).map(function(key){
-        return {group: key, expand: group_to_values[key].reduce(function(obj,item){
-              obj[item.operatorid] = obj[item.operatorid] || [];
-              obj[item.operatorid].push(item);
-              return obj;
-          }, {})
-
+      var test = group_to_values[key].reduce(function(obj,item){
+            obj[item.operatorid] = obj[item.operatorid] || [];
+            obj[item.operatorid].push(item);
+            return obj;
+        }, {})
+        var testgroups = Object.keys(test).map(function(key){
+          console.log("test[key]==",test[key]);
+               return {operatorid: key,operatorname: test[key][0].operatorname, expand: test[key]
+              };
+           });
+           console.log("formatMTData testgroups=="+JSON.stringify(testgroups));
+        return {countryid: key,countryname: testgroups[0].expand[0].countryname, expand: testgroups
         };
     });
-  // console.log("formatNestedTableData group_to_values=="+JSON.stringify(group_to_values));
-  // var tempgroups = Object.keys(group_to_values).map(function(key){
-  //     return {test : group_to_values[key].reduce(function(obj,item){
-  //           obj[item.operatorid] = obj[item.operatorid] || [];
-  //           obj[item.operatorid].push(item);
-  //           return obj;
-  //       }, {})
-  //
-  //     };
-  // });
-  //   console.log("formatNestedTableData tempgroups=="+JSON.stringify(tempgroups));
-  //   var groups = Object.keys(tempgroups.test).map(function(key){
-  //       return {group: key, expand: tempgroups.test[keys]
-  //
-  //       };
-  //   });
-
-    console.log("formatNestedTableData=="+JSON.stringify(groups));
+      console.log("formatMTData=="+JSON.stringify(groups));
+      return groups;
   }

@@ -291,8 +291,8 @@ export const lookupOptions =[
             }
         ];
 export const TPDACRITERIA =[
-    { "tpdacriteriaid" : "1", "tpdacriterianame" : "BEGIN_BY" },
-    { "tpdacriteriaid" : "2", "tpdacriterianame" : "EXACT" }
+    { "comparisoncriteria" : 1, "comparisoncriterianame" : "BEGIN_BY" },
+    { "comparisoncriteria" : 2, "comparisoncriterianame" : "EXACT" }
 
 ];
 

@@ -38,20 +38,20 @@ class NestedTable extends React.Component {
         },
         {
             name:'Service Number',
-            dataField:'serviceNo',
+            dataField:'servicenumber',
             type:'text',
             width: '150px'
         },
         {
             name:'Criteria',
-            dataField:'tpdacriterianame',
-            optionsLabel:'tpdacriterianame',
+            dataField:'comparisoncriteria',
+            optionsLabel:'comparisoncriterianame',
             type:'select',
             options: TPDACRITERIA
         },
         {
             name:'Return TPDA',
-            dataField:'returnTPDA',
+            dataField:'returnedtpda',
             type:'text',
             width: '150px'
         },
@@ -97,34 +97,9 @@ class HubAccountMORouting extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-          data : [
-            {
-              "countryId":"1",
-              "country":"Australia",
-                 "smscname": "RemoveD_Digi_Rs_32424_5.0_Mt",
-                  "serviceNo" : '1515',
-                  "tpdacriterianame" : 'BEGIN_BY',
-                  "returnTPDA" : '1515'
-            },
-            {
-              "countryId":"1",
-              "country":"Australia",
-                 "smscname": "RemoveD_Digi_Rs_32424_5.0_Mt",
-                  "serviceNo" : '1515',
-                  "tpdacriterianame" : 'BEGIN_BY',
-                  "returnTPDA" : '1515'
-            },
-            {
-              "countryId":"6",
-              "country":"egypyt",
-                 "smscname": "ACTIVCARD",
-                  "serviceNo" : '1515',
-                  "tpdacriterianame" : 'BEGIN_BY',
-                  "returnTPDA" : '1515'
-            }
-          ],
-          groupBy:  {"label": "country", "value":"country"},
-          groupById:'countryId',
+          data : this.props.MO_List||[],
+          groupByVal: 'countryname',
+          groupById:'countryid',
           showAddDedicated : false,
           showAddParsed : false,
         }
@@ -138,12 +113,12 @@ class HubAccountMORouting extends React.Component {
     expandComponent(row) {
       console.log("expandComponent==",this.props.smscList);
       return (
-          <NestedTable data={ this.state.data } smscList={this.props.smscList}  />
+          <NestedTable data={ row.expand } smscList={this.props.smscList}  />
       );
     }
 
     render() {
-
+console.log("MO this.state.data==",this.state.data);
         return (
            <div className="tabs-container">
              <Grid fluid={true}>
@@ -176,14 +151,14 @@ class HubAccountMORouting extends React.Component {
                <Row className="show-grid">
                  <Col md={ 12 }>
                  {
-                   typeof(this.props.smscList)!='undefined' &&
+                   typeof(this.props.smscList)!='undefined' &&  typeof(this.state.data)!='undefined' &&
                    <BootstrapTable data={this.state.data}
                      tableBodyClass='master-body-class'
                      tableHeaderClass='hide-header'
                      expandableRow={ this.isExpandableRow }
                      expandComponent={ this.expandComponent.bind(this) }>
                      <TableHeaderColumn isKey={ true } hidden dataField={this.state.groupById}>ID</TableHeaderColumn>
-                     <TableHeaderColumn dataField={this.state.groupBy.value} ></TableHeaderColumn>
+                     <TableHeaderColumn dataField={this.state.groupByVal} ></TableHeaderColumn>
                    </BootstrapTable>
                  }
                  </Col>
@@ -217,6 +192,7 @@ class HubAccountMORouting extends React.Component {
 
 function mapStateToProps(state) {
     return {
+      MO_List:state.Account.MO_List,
       smscList:state.Common.smscList,
       addStatus:state.Account.addStatus,
       updateStatus:state.Account.updateStatus,
