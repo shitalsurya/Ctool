@@ -20,6 +20,8 @@ export function columnFormatter(cell, row, field, index) {
               }
                    />
             break;
+        case "fixedtext" : return <span>{cell}</span>
+              break;
         case "select":
             return <InlineEdit name = {
                 field.dataField
