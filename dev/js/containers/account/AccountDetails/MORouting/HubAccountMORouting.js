@@ -13,6 +13,7 @@ import DeleteRowLink from './../../../common/components/DeleteRow';
 import {TPDACRITERIA} from './../../../common/commonActionTypes';
 import * as types from './../../../common/commonActionTypes';
 import { UpdateHubAccountMORouting,DeleteHubAccountMORouting } from './../../actions/accountMORoutingActions';
+import HubaccountMORoutingtable from './HubaccountMORoutingtable';
 require('./../../../../../scss/style.scss');
 
 class NestedTable extends React.Component {
@@ -183,7 +184,8 @@ class HubAccountMORouting extends React.Component {
                <AddParsedMORouting currentAcct={this.currentAcct} showAdd={this.state.showAddParsed} close={this.close.bind(this)}/>
              }
 
-
+             <HubaccountMORoutingtable>
+             </HubaccountMORoutingtable>
 
            </div>
         )
