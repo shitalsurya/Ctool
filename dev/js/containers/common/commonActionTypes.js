@@ -291,14 +291,17 @@ export const lookupOptions =[
             }
         ];
 export const TPDACRITERIA =[
-    { "comparisoncriteria" : 1, "comparisoncriterianame" : "BEGIN_BY" },
-    { "comparisoncriteria" : 2, "comparisoncriterianame" : "EXACT" }
+    { "comparisoncriteria" : "BEGIN_BY" },
+    { "comparisoncriteria" : "EXACT" }
 
 ];
-
+export const KEYWORDCRITERIA=[
+  { "keywordcomparisoncriteria" : "BEGIN_BY", "keywordcomparisoncriterianame" :1  },
+  { "keywordcomparisoncriteria" : "EXACT", "keywordcomparisoncriterianame" : 2 }
+];
 export const PARSEFIELDS = [
-    { "parsefieldid" : "1", "parsefieldname" : "TEXT7B" },
-    { "parsefieldid" : "2", "parsefieldname" : "TEXT8B" },
-    { "parsefieldid" : "3", "parsefieldname" : "UCS2" },
-    { "parsefieldid" : "4", "parsefieldname" : "MSISDN" }
+    { "targetfield" : "TEXT7B" },
+    { "targetfield" : "TEXT8B" },
+    { "targetfield" : "UCS2" },
+    { "targetfield" : "MSISDN" }
 ];

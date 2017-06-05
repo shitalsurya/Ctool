@@ -33,20 +33,18 @@ isExpandableRow(row) {
 
 expandComponent(row) {
   return (
-    <SubNestedTable data={ row.expand } smscList={this.props.smscList} />
+    <SubNestedTable data={ row.expand } currentAcct={this.props.currentAcct} onRowSelect={this.props.onRowSelect.bind(this)}
+    UpdateHubAccountMTRouting={this.props.UpdateHubAccountMTRouting.bind(this)} smscList={this.props.smscList} />
   );
 }
 updateValue(name,val,currentRow){
-  console.log("name==",name);
-  currentRow[name]=val;
-  console.log("currentRow==",currentRow);
+  if(currentRow[name]!==val){
+    currentRow[name]=val;
+    currentRow.customerid=this.props.currentAcct;
   this.props.UpdateHubAccountMTRouting(currentRow);
+  }
 }
-handleDelete(currentRow){
-    currentRow.customerid=this.currentAcct;
-  console.log("onOk==",currentRow);
- this.props.DeleteHubAccountMTRouting(currentRow);
-}  render() {
+  render() {
     var fields=[
       {
       name:'Preferred Start Time',
@@ -97,15 +95,26 @@ class SubNestedTable extends React.Component {
 }
 
 updateValue(name,val,currentRow){
-  console.log("name==",name);
-  currentRow[name]=val;
-  console.log("currentRow==",currentRow);
+  if(currentRow[name]!==val){
+    currentRow[name]=val;
+    currentRow.customerid=this.props.currentAcct;
+  this.props.UpdateHubAccountMTRouting(currentRow);
+  }
+}
+ onRowSelect(row, isSelected, e) {
+  console.log("onRowSelect row==",row);
+ this.props.onRowSelect(row);
 }
     render() {
     const selectRow = {
-     mode: 'checkbox',
-       bgColor: '#427cac'
+  //   mode: 'checkbox',
+       bgColor: '#427cac',
+      mode: 'radio',
+ onSelect: this.onRowSelect.bind(this),
    };
+
+
+
 var prefList=[  {"preference": 0},
       {"preference":1}];
 
@@ -182,7 +191,7 @@ var fields = [
         }.bind(this));
       return (
         <BootstrapTable data={ this.props.data } selectRow={ selectRow } >
-          <TableHeaderColumn dataField='id' hidden isKey={ true }></TableHeaderColumn>
+          <TableHeaderColumn dataField='smscid' hidden isKey={ true }></TableHeaderColumn>
           {listCols}
         </BootstrapTable>);
     } else {
@@ -194,6 +203,7 @@ class HubAccountMTRouting extends React.Component {
     constructor(props, context) {
         super(props, context);
           this.currentAcct=this.props.currentAcct;
+          this.currentRow = {};
           this.state={
                showAdd: false,
               ModifyModalFlag:false,
@@ -202,9 +212,9 @@ class HubAccountMTRouting extends React.Component {
               // Default expanding row
                 expanding: [ 0 ],
                 groupByVal:'countryname',
-                groupById:'countryid',
+                groupById:'smscid',
                 subGroupByVal:'operatorname',
-                subGroupById:'operatorid',
+                subGroupById:'smscid',
                 data:this.props.MT_List||[],
                 resRouting: "Yes" ,
           }
@@ -215,9 +225,13 @@ class HubAccountMTRouting extends React.Component {
           console.log("_MTInfo==",_MTInfo);
           this.setState({ showAdd: false , ModifyModalFlag :false});
         }
-
+        onRowSelect(_row){
+          this.currentRow = _row;
+            this.currentRow.customerid = this.currentAcct;
+        }
         deleteSelectedMTRouting() {
-        //  this.setState({ showModal: true });
+          console.log("deleteSelectedMTRouting this.currentRow==",this.currentRow);
+           this.props.DeleteHubAccountMTRouting(this.currentRow);
         }
         modifySelectedMTRouting() {
            this.setState({ ModifyModalFlag: true,modalHeading:'Modify standard MT routing' });
@@ -231,7 +245,10 @@ class HubAccountMTRouting extends React.Component {
 expandComponent(row) {
 
   return (
-    <NestedTable data={ row.expand } smscList={this.props.smscList} groupByVal={this.state.subGroupByVal} groupById={this.state.subGroupById}  />
+    <NestedTable data={ row.expand } currentAcct={this.currentAcct}
+    onRowSelect={this.onRowSelect.bind(this)}
+    UpdateHubAccountMTRouting={this.props.UpdateHubAccountMTRouting.bind(this)}
+    smscList={this.props.smscList} groupByVal={this.state.subGroupByVal} groupById={this.state.subGroupById}  />
   );
 }
 toggleOnChange(name,value){
@@ -332,8 +349,9 @@ toggleOnChange(name,value){
                      ref="container"
                      className="toast-top-right" />
                    <ModalAdd currentAcct={this.props.currentAcct} showAdd={this.state.showAdd} close={this.close.bind(this)}/>
-                   <ModalModify  ModifyModalFlag={this.state.ModifyModalFlag} close={this.close.bind(this)}/>
-
+                  {this.state.ModifyModalFlag &&
+                  <ModalModify MTInfo={this.currentRow}  ModifyModalFlag={this.state.ModifyModalFlag} close={this.close.bind(this)}/>
+                  }
 
                  </div>
         )
@@ -359,19 +377,19 @@ toggleOnChange(name,value){
             break;
             case types.UPDATE_ACCT_MT_ROUTING_LIST_RESPONSE:
                 if(nextProps.updateStatus==true){
-                  this.refs.container.success(`TPOA updated successfully.`, ``, {
+                  this.refs.container.success(`MT routing updated successfully.`, ``, {
                       closeButton: true,
                   });
                 }
                 else if(nextProps.updateStatus==false){
-                  this.refs.container.error(`Failed to update TPOA.`, ``, {
+                  this.refs.container.error(`Failed to update MT routing.`, ``, {
                       closeButton: true,
                 });
                 }
                 break;
                 case types.DELETE_ACCT_MT_ROUTING_LIST_RESPONSE:
                     if(nextProps.deleteStatus==true){
-                      this.refs.container.success(`TPOA deleted successfully.`, ``, {
+                      this.refs.container.success(`MT routing deleted successfully.`, ``, {
                           closeButton: true,
                       });
 
@@ -382,7 +400,7 @@ toggleOnChange(name,value){
                         // }
                     }
                     else if(nextProps.deleteStatus==false){
-                      this.refs.container.error(`Failed to delete TPOA.`, ``, {
+                      this.refs.container.error(`Failed to delete MT routing.`, ``, {
                           closeButton: true,
                     });
                     }

@@ -70,6 +70,7 @@ class HubAccountTPOAAddModal extends React.Component {
                     name="smscname"
                     value={this.state.newTPOAinfo.smscid}
                     onChange={this.handleChange.bind(this)}>
+                      <option value="select" disabled selected>Please select...</option>
                     {this.smscList}
                   </FormControl>
                 </Col>

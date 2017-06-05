@@ -4,8 +4,10 @@ import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,
 import Select from 'react-select';
 require('./../../../../../scss/style.scss');
 import * as types from './../../../common/commonActionTypes';
+import { bindActionCreators } from 'redux';
 import {initializeSelectOptions} from './../../../common/Functions/commonFunctions';
-import {TPDACRITERIA,PARSEFIELDS} from './../../../common/commonActionTypes';
+import {TPDACRITERIA,KEYWORDCRITERIA,PARSEFIELDS} from './../../../common/commonActionTypes';
+import {AddHubAccountMORouting} from './../../actions/accountMORoutingActions';
 class HubAccountMOParsed extends React.Component {
   constructor(props, context) {
       super(props, context);
@@ -19,19 +21,15 @@ class HubAccountMOParsed extends React.Component {
       console.log("name==",e.target.name);
       console.log("value==",e.target.value);
     var info = this.state.parsedMO;
-
-    if(e.target.type=="select-one"){
-      info[e.target.name]= e.target.selectedOptions[0].text;
-    }
-    else{
       info[e.target.name] = e.target.value;
-    }
     info.customerid=this.props.currentAcct;
+    info.sharedshortcodeflag=0;
     this.setState({parsedMO : info});
   }
 
   addRouting(){
-    console.log(this.state.parsedMO);
+    console.log("addRouting==",this.state.parsedMO);
+    this.props.AddHubAccountMORouting(this.state.parsedMO);
     this.props.close(this.state.parsedMO);
     this.setState({parsedMO : []});
   }
@@ -72,8 +70,8 @@ class HubAccountMOParsed extends React.Component {
                     <Col md={ 6 }>
                       <FormControl
                          type="text"
-                         name="serviceNo"
-                         value={this.state.parsedMO.serviceNo || ''}
+                         name="servicenumber"
+                         value={this.state.parsedMO.servicenumber || ''}
                          onChange={this.handleChange.bind(this)}
                          placeholder="Enter Service Number.." />
                     </Col>
@@ -86,8 +84,8 @@ class HubAccountMOParsed extends React.Component {
                     <Col md={ 6 }>
                       <FormControl
                          type="text"
-                         name="returnTPDA"
-                         value={this.state.parsedMO.returnTPDA || ''}
+                         name="returnedtpda"
+                         value={this.state.parsedMO.returnedtpda || ''}
                          onChange={this.handleChange.bind(this)}
                          placeholder="Enter Returned TPDA.." />
                     </Col>
@@ -99,8 +97,8 @@ class HubAccountMOParsed extends React.Component {
                   </Col>
                   <Col md={ 6 }>
                   <FormControl componentClass="select"
-                    name="criteria"
-                    value={this.state.parsedMO.criteria}
+                    name="comparisoncriteria"
+                    value={this.state.parsedMO.comparisoncriterianame}
                     onChange={this.handleChange.bind(this)}>
                     <option value="select" disabled selected>Please select...</option>
                     {this.TpdaCriteria}
@@ -114,8 +112,8 @@ class HubAccountMOParsed extends React.Component {
                   </Col>
                   <Col md={ 6 }>
                     <FormControl componentClass="select"
-                      name="parsedField"
-                      value={this.state.parsedMO.parsedField}
+                      name="targetfield"
+                      value={this.state.parsedMO.targetfield}
                       onChange={this.handleChange.bind(this)}>
                       <option value="select" disabled selected>Please select...</option>
                       {this.ParseField}
@@ -129,8 +127,8 @@ class HubAccountMOParsed extends React.Component {
                   </Col>
                   <Col md={ 6 }>
                     <FormControl componentClass="select"
-                      name="kwCriteria"
-                      value={this.state.parsedMO.kwCriteria}
+                      name="keywordcomparisoncriteria"
+                      value={this.state.parsedMO.keywordcomparisoncriterianame}
                       onChange={this.handleChange.bind(this)}>
                       <option value="select" disabled selected>Please select...</option>
                       {this.KeywordCriteria}
@@ -165,13 +163,13 @@ class HubAccountMOParsed extends React.Component {
   }
   componentWillMount( ) {
     // console.log("tppoa model componentWillReceiveProps==",nextProps);
-    this.smscList = initializeSelectOptions(this.props.smscList,'smscname','smscid');
+    this.smscList = initializeSelectOptions(this.props.smscList,'smscname','smscname');
       console.log("this.smscList==",this.smscList);
-    this.TpdaCriteria = initializeSelectOptions(TPDACRITERIA,'tpdacriterianame','tpdacriteriaid');
+    this.TpdaCriteria = initializeSelectOptions(TPDACRITERIA,'comparisoncriteria','comparisoncriteria');
       console.log("this.TpdaCriteria==",this.TpdaCriteria);
-      this.ParseField = initializeSelectOptions(PARSEFIELDS,'parsefieldname','parsefieldid');
+      this.ParseField = initializeSelectOptions(PARSEFIELDS,'targetfield','targetfield');
         console.log("this.ParseField==",this.ParseField);
-      this.KeywordCriteria = initializeSelectOptions(TPDACRITERIA,'tpdacriterianame','tpdacriteriaid');
+      this.KeywordCriteria = initializeSelectOptions(KEYWORDCRITERIA,'keywordcomparisoncriteria','keywordcomparisoncriterianame');
         console.log("this.KeywordCriteria==",this.KeywordCriteria);
   }
   }
@@ -183,6 +181,11 @@ class HubAccountMOParsed extends React.Component {
       KeywordCriteria: state.Common.KeywordCriteria
      };
   }
+  function mapDispatchToProps(dispatch) {
+      return bindActionCreators({
+        AddHubAccountMORouting:AddHubAccountMORouting
+      }, dispatch);
+  }
 
 
-export default connect(mapStateToProps)(HubAccountMOParsed);
+export default connect(mapStateToProps,mapDispatchToProps)(HubAccountMOParsed);

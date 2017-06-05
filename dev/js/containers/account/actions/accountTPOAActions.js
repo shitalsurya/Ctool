@@ -36,7 +36,7 @@ var TPOA_Info =  {
 				return function (dispatch,getState) {
 			    dispatch(getHubAcctForcedTPOAListRequest());
 					var request = {
-						url:config.getUrl('hub_accounts_tpoa')+'/'+currentAcct,
+						url:config.getUrl('hub_accounts')+'/tpoa/'+currentAcct,
 						method:'GET',
 						successCallback:getHubAcctForcedTPOAListResponse,
 						failureCallback:getHubAcctForcedTPOAListResponse
@@ -52,14 +52,14 @@ var TPOA_Info =  {
 				export function getHubAcctForcedTPOAListResponse(response) {
 						return {
 							type: types.GET_ACCT_FORCED_TPOA_LIST_RESPONSE,
-							 payload: TPOA_Info
+							 payload: response
 						}
 					}
 					export function AddHubAccountForcedTPOA(_newTPOAinfo) {
 							return function (dispatch,getState) {
 								dispatch(AddHubAccountForcedTPOARequest());
 								var request = {
-									url:config.getUrl('hub_accounts')+'/'+_newTPOAinfo.customerid+'/forcedtpoa',
+									url: config.getUrl('hub_accounts')+'/tpoa/'+_newTPOAinfo.customerid+'/forcedtpoa',
 									method:'POST',
 									data:_newTPOAinfo,
 									successCallback:AddHubAccountForcedTPOAResponse,
@@ -83,11 +83,11 @@ var TPOA_Info =  {
 								var _url,_method;
 								switch(_updateParam){
 									case "updateDefaultTPOA":
-										_url = config.getUrl('hub_accounts')+'/'+_TPOAinfo.customerid+'/defaulttpoa';
+										_url = config.getUrl('hub_accounts')+'/tpoa/'+_TPOAinfo.customerid+'/defaulttpoa';
 										_method = "PUT";
 									break;
 									case "updateForcedTPOA":
-										_url = config.getUrl('hub_accounts')+'/'+_TPOAinfo.customerid+'/forcedtpoa';
+										_url = config.getUrl('hub_accounts')+'/tpoa/'+_TPOAinfo.customerid+'/forcedtpoa';
 										_method = "POST";
 									break;
 								}
@@ -119,7 +119,7 @@ var TPOA_Info =  {
 										return function (dispatch,getState) {
 											dispatch(DeleteHubAccountForcedTPOARequest());
 											var request = {
-												url:config.getUrl('hub_accounts')+'/'+currentAcct.customerid+'/'+currentAcct.smscid+'/forcedtpoa',
+												url:config.getUrl('hub_accounts')+'/tpoa/'+currentAcct.customerid+'/'+currentAcct.smscid+'/forcedtpoa',
 												method:'DELETE',
 												data:currentAcct,
 												successCallback:DeleteHubAccountForcedTPOAResponse,

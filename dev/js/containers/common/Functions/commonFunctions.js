@@ -90,7 +90,7 @@ import React from 'react';
               };
            });
            console.log("formatMTData testgroups=="+JSON.stringify(testgroups));
-        return {countryid: key,countryname: testgroups[0].expand[0].countryname, expand: testgroups
+        return {smscid: key,countryname: testgroups[0].expand[0].countryname, expand: testgroups
         };
     });
       console.log("formatMTData=="+JSON.stringify(groups));

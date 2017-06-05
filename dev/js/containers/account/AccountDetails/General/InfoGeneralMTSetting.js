@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Tabs,  TabLink, TabContent } from 'react-tabs-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
-import Toggle from 'react-toggle';
+import Select from 'react-select';
 import InlineEdit from './../../../common/components/InlineEdit';
 require('./../../../../../scss/tabs.scss');
 require('./../../../../../scss/style.scss');
@@ -33,16 +33,6 @@ class InfoGeneralMTSetting extends React.Component {
       }
     }
 
-    handleToggleChange(e){
-      console.log("name : ",e.target.name, "  val : ",e.target.checked);
-      var info = this.state.mtSettingObj;
-      info[e.target.name]=e.target.checked?1:0;
-      this.setState({mtSettingObj:info},function(){
-        this.props.updateHubAccountMTInfo(this.state.mtSettingObj);
-      });
-      console.log("this.state.mtSettingObj==",info);
-    }
-
     handleTypeAheadChange(name,val){
         // var info = this.state.mtSettingObj;
         // if(info["name"]!==val){
@@ -61,7 +51,6 @@ class InfoGeneralMTSetting extends React.Component {
         return (
           <div >
             <Grid fluid={true} className="inner_grid">
-
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Interface Type :
@@ -75,7 +64,6 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
-
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   URL :
@@ -89,7 +77,6 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
-
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Login :
@@ -103,7 +90,6 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
-
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Password :
@@ -113,7 +99,6 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
-
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Encode_base64 :
@@ -127,7 +112,6 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
-
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Notification Level :
@@ -178,7 +162,6 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
-
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Notification Path :
@@ -188,26 +171,19 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
-
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Disable text body message on the extranet :
                 </Col>
                 <Col md={ 8 }>
-                  <div className="view-edit-control">
-                    <Toggle
+                  <FormControl
+                      className="info_label"
+                      type="text"
                       name="disTxtBody"
-                      checked={ this.state.mtSettingObj.disTxtBody === 1 ? true : false }
-                      icons={{
-                             checked:'Yes',
-                             unchecked: 'No',
-                      }}
-                      onChange={this.handleToggleChange.bind(this)}  />
-                  </div>
+                      value={this.state.mtSettingObj.disTxtBody} />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
-
               <Row className="show-grid">
                 <Col componentClass={ ControlLabel } md={ 3 }>
                   Countries excluded from blacklist :
@@ -221,7 +197,6 @@ class InfoGeneralMTSetting extends React.Component {
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
-              
             </Grid>
           </div>
         )

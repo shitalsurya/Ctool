@@ -16,7 +16,7 @@ class HubAccountModifyMTRouting extends React.Component {
 
         this.state={
               ModifyFlag : '',
-              MTModifyInfo : this.props.MTModifyInfo || [],
+              MTModifyInfo : this.props.MTInfo || {},
              modalHeading:'Modify standard MT routing',
 
              checked : false,
@@ -33,50 +33,30 @@ class HubAccountModifyMTRouting extends React.Component {
     info[e.target.name] = e.target.value;
     this.setState({MTModifyInfo : info});
   }
-  handleModalChange(target, value){
-
-    var modify = this.state.MTModifyInfo;
-    switch(target) {
-      case types.ACCOUNT_MODFIY_MT_ROUTING_ONOFF:
-        modify.onoff=value;
-        break;
-      case types.ACCOUNT_MODIFY_MT_ROUTING_PERMANENT:
-        modify.permanent=value;
-        break;
-      case types.ACCOUNT_MODIFY_MT_ROUTING_TPOA :
-        modify.tpoa=value.target.value;
-        break;
-      case types.ACCOUNT_MODIFY_MT_ROUTING_STARTTIME :
-        modify.starttime=value.value;
-        break;
-      case types.ACCOUNT_MODIFY_MT_ROUTING_COMMENT :
-        modify.comment=value.target.value;
-    }
-    this.setState({MTModifyInfo : modify});
-  }
-
+handleTimeChange(val,name){
+  var info = this.state.MTModifyInfo;
+  info[name] = val;
+  console.log("handleTimeChange==",info);
+  this.setState({MTModifyInfo : info});
+}
   saveMTRouting(){
-
-
       console.log("Modified Routing : " , this.state.MTModifyInfo);
         this.props.close();
   }
 
   toggleOnChange(event){
     console.log( event.target.checked );
-    var _resRouting=event.target.checked==true?"Yes":"No";
     var modify = this.state.MTModifyInfo;
      switch(event.target.name) {
 
-       case "onOffToggle":
-        modify.onOffValue = event.target.checked==true?"On":"Off";
+       case "onoff":
+        modify.onoff = event.target.checked==true?"On":"Off";
          break;
-        case "permanentToggle":
+        case "rc":
         modify.permanentValue = event.target.checked==true?"Yes":"No";
           break;
      }
      this.setState({
-        resRouting: _resRouting,
         MTModifyInfo: modify
       });
 
@@ -121,11 +101,10 @@ class HubAccountModifyMTRouting extends React.Component {
                         Operator:
                       </Col>
                       <Col md={ 6 }>
-                      <FormControl
+                      <FormControl disabled
                          type="label"
-                         name="operator"
-                  //       value={this.props.MTInfo.operator || ''}
-
+                         name="operatorname"
+                         value={this.props.MTInfo.operatorname || ''}
                         />
                       </Col>
                       <Col mdHidden md={ 3 } />
@@ -135,11 +114,10 @@ class HubAccountModifyMTRouting extends React.Component {
                         SMSC:
                       </Col>
                       <Col md={ 6 }>
-                      <FormControl
+                      <FormControl disabled
                          type="label"
                          name="prevsmsc"
-                //        value={this.props.MTInfo.smsc || ''}
-
+                       value={this.props.MTInfo.smscname || ''}
                         />
                       </Col>
                       <Col mdHidden md={ 3 } />
@@ -149,9 +127,9 @@ class HubAccountModifyMTRouting extends React.Component {
                         Preferences:
                       </Col>
                       <Col md={ 2 }>
-                      <FormControl
+                      <FormControl disabled
                          type="text"
-
+                          value={this.props.MTInfo.preference || ''}
                         />
                       </Col>
                       <Col mdHidden md={ 3 } />
@@ -162,8 +140,8 @@ class HubAccountModifyMTRouting extends React.Component {
                       </Col>
                       <Col md={ 6 }>
                         <FormControl componentClass="select"
-                              name="smscid"
-                              value={this.state.MTModifyInfo.smscid}
+                              name="smscname"
+                              value={this.state.MTModifyInfo.smscname}
                               onChange={this.handleChange.bind(this)}>
                               <option value="select" disabled selected>Please select...</option>
                               {this.smscList}
@@ -189,7 +167,7 @@ class HubAccountModifyMTRouting extends React.Component {
                            unchecked: 'Off',
                          }}
                          defaultChecked={true}
-                         value={this.state.MTModifyInfo.onOffValue}
+                         value={this.state.MTModifyInfo.onoff}
                         onChange={this.toggleOnChange.bind(this)} />
                       </Col>
                       <Col mdHidden md={ 3 } />
@@ -206,7 +184,7 @@ class HubAccountModifyMTRouting extends React.Component {
                            unchecked: 'No',
                          }}
                          defaultChecked={false}
-                       value={this.state.MTModifyInfo.permanentValue}
+                       value={this.state.MTModifyInfo.rc}
                         onChange={this.toggleOnChange.bind(this)} />
                       </Col>
                       <Col mdHidden md={ 3 } />
@@ -219,8 +197,8 @@ class HubAccountModifyMTRouting extends React.Component {
                         <FormControl
                            type="text"
                            name="tpoa"
-                           value={this.state.MTModifyInfo.tpoa || ' '}
-                           onChange={this.handleModalChange.bind(this,types.ACCOUNT_MODIFY_MT_ROUTING_TPOA)}
+                           value={this.state.MTModifyInfo.tpoa}
+                           onChange={this.handleChange.bind(this)}
                            placeholder="Enter TPOA" />
                       </Col>
                       <Col mdHidden md={ 3 } />
@@ -232,9 +210,9 @@ class HubAccountModifyMTRouting extends React.Component {
                       <Col md={ 6 }>
                         <FormControl
                            type="text"
-                           name="comment"
-                           value={this.state.MTModifyInfo.comment || ' '}
-                          onChange={this.handleModalChange.bind(this,types.ACCOUNT_MODIFY_MT_ROUTING_COMMENT)}
+                           name="comments"
+                           value={this.state.MTModifyInfo.comments}
+                          onChange={this.handleChange.bind(this)}
                            placeholder="Enter Comment" />
                            <label><input type="checkbox"
                               name="commentCheck"
@@ -250,7 +228,11 @@ class HubAccountModifyMTRouting extends React.Component {
                       Start Time(UTC) :
                       </Col>
                       <Col md={ 4 }>
-                           <DateTimeField mode="time" />
+                      <DateTimeField name="starttime" mode="time" inputFormat="HH:mm A"
+                        dateTime={this.state.MTModifyInfo.starttime||"12:00 PM"}
+                        format="HH:mm A"
+                        use24hours={true}
+                        onChange={this.handleTimeChange.bind(this,"starttime")} />
                       </Col>
 
                       <Col mdHidden md={ 3 } />
@@ -260,7 +242,11 @@ class HubAccountModifyMTRouting extends React.Component {
                         End Time(UTC) :
                       </Col>
                       <Col md={ 4 }>
-                         <DateTimeField mode="time" />
+                      <DateTimeField name="endtime" mode="time" inputFormat="HH:mm A"
+                        dateTime={this.state.MTModifyInfo.endtime||"12:00 PM"}
+                        format="HH:mm A"
+                        use24hours={true}
+                        onChange={this.handleTimeChange.bind(this,"starttime")} />
                       </Col>
                       <Col mdHidden md={ 3 } />
                   </Row>
@@ -276,8 +262,8 @@ class HubAccountModifyMTRouting extends React.Component {
   }
 
   componentWillMount( ) {
-    // console.log("tppoa model componentWillReceiveProps==",nextProps);
-    this.smscList = initializeSelectOptions(this.props.smscList,'smscname','smscid');
+    console.log("componentWillMount==",this.props.MTInfo);
+    this.smscList = initializeSelectOptions(this.props.smscList,'smscname','smscname');
       console.log("this.smscList==",this.smscList);
     }
 }
