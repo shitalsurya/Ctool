@@ -21,8 +21,7 @@ class SuspendAccount extends React.Component {
     this.state = {
         value:this.today.toISOString(),
         modalHeading:'Suspend Account',
-        susAccInfo : this.props.susAccInfo || {},
-        dateView:false
+        susAccInfo : this.props.susAccInfo || {}
     };
   }
 
@@ -44,16 +43,19 @@ class SuspendAccount extends React.Component {
     info.newsuspenddate = this.dateFormatter(_date);
     this.setState({
       susAccInfo:info,
-      value: _value,
-      dateView:false // ISO String, ex: "2016-11-19T12:00:00.000Z"
+      value: _value, // ISO String, ex: "2016-11-19T12:00:00.000Z"
     });
   }
 
-  handleNowClick(){
-    this.setState({dateView:!this.state.dateView});
-  }
-
   render() {
+
+    // const onChange = (dateString, { dateMoment, timestamp }) => {
+    //   var _susAccInfo = this.state.susAccInfo;
+    //   if(_susAccInfo.date <= dateMoment._d){
+    //     _susAccInfo.date = dateMoment._d;
+    //   }
+    //   this.setState({susAccInfo:_susAccInfo});
+    // }
 
     return (
       <Modal show={this.props.suspendAction} onHide={this.handleCancel.bind(this)}>
@@ -104,18 +106,8 @@ class SuspendAccount extends React.Component {
                     Suspend Date :
                   </Col>
                   <Col md={ 6 }>
-                    {
-                      !this.state.dateView &&
-                      <FormControl
-                        type="text"
-                        value="Now"
-                        onClick={this.handleNowClick.bind(this)}/>
-                    }
-                    {
-                      this.state.dateView &&
-                      <DatePicker
+                    <DatePicker
                       id="example-datepicker"
-                      autoFocus ={true}
                       dateFormat="DD-MM-YYYY"
                       clearButtonElement={<div>Now</div>}
                       minDate={this.today.toISOString()}
@@ -123,7 +115,17 @@ class SuspendAccount extends React.Component {
                       todayButtonLabel={"Now"}
                       value={this.state.value}
                       onChange={this.handleChange.bind(this)} />
-                    }
+                    {/*
+                      <DateField
+                        forceValidDate
+                        dateFormat="DD-MM-YYYY"
+                        value={this.state.susAccInfo.date}
+                        onChange={onChange.bind(this)}
+                        updateOnDateClick={true}
+                        collapseOnDateClick={true}
+                        placeholder="Select Date.."
+                      />
+                    */}
                   </Col>
                   <Col mdHidden md={ 3 }/>
                 </Row>

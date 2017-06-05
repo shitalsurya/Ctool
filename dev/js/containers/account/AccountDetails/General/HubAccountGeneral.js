@@ -24,16 +24,16 @@ class HubAccountGeneral extends React.Component {
 
         this.state = {
           openStatus : {
-            CommercialInfo : true,
-            SyBase : true,
-            AccContacts : true,
-            AccCNL:true,
-            TechnicalInfo : true,
-            volCntrl : true,
-            mtSetting : true,
-            IPAddress : true,
-            moSetting : true,
-            deliveryTime : true
+            CommercialInfo : false,
+            SyBase : false,
+            AccContacts : false,
+            AccCNL:false,
+            TechnicalInfo : false,
+            volCntrl : false,
+            mtSetting : false,
+            IPAddress : false,
+            moSetting : false,
+            deliveryTime : false
           }
         };
 

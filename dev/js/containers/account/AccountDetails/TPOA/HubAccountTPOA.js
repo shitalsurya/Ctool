@@ -40,7 +40,6 @@ class HubAccountGeneral extends React.Component {
     }
     updateValue(name,val,currentRow){
       console.log("currentRow==",currentRow);
-      this.currentcnl=currentRow;
       if(currentRow[name]!==val){
         currentRow[name]=val;
         currentRow.customerid=this.props.currentAcct;
@@ -76,7 +75,11 @@ componentWillMount(){
         {
             name:'Customer Routing',
             dataField:'customerrestrictedrouting',
-            type:'toggleText',
+            type:'toggle',
+            options: {
+               checked: 'Yes',
+               unchecked: 'No',
+            }
         },
         {
             name:'Action',
@@ -160,7 +163,7 @@ componentWillMount(){
               this.refs.container.success(`TPOA added successfully.`, ``, {
                   closeButton: true,
               });
-                var _data=this.state.data;
+                var _data=this.state.TPOAinfo;
                 _data.push(this.newTPOAinfo);
                 this.setState({showContact : false,data:_data});
             }
@@ -188,9 +191,9 @@ componentWillMount(){
                           closeButton: true,
                       });
 
-                        for(var i=0;i<this.state.data.length;i++){
-                          if(this.state.data[i].smscid==this.smscid){
-                            this.state.data.splice(i, 1);
+                        for(var i=0;i<this.state.TPOAinfo.length;i++){
+                          if(this.state.TPOAinfo[i].smscid==this.smscid){
+                            this.state.TPOAinfo.splice(i, 1);
                           }
                         }
                     }

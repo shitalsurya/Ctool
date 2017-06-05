@@ -11,6 +11,7 @@ import * as table from './../../../common/Functions/customTable';
 import InlineEdit from './../../../common/components/InlineEdit';
 import DeleteRowLink from './../../../common/components/DeleteRow';
 import {TPDACRITERIA} from './../../../common/commonActionTypes';
+import * as types from './../../../common/commonActionTypes';
 import { UpdateHubAccountMORouting,DeleteHubAccountMORouting } from './../../actions/accountMORoutingActions';
 require('./../../../../../scss/style.scss');
 
@@ -20,12 +21,17 @@ class NestedTable extends React.Component {
     }
 
     updateValue(name,val,currentRow){
-      console.log("name==",name);
-      currentRow[name]=val;
       console.log("currentRow==",currentRow);
+      if(currentRow[name]!==val){
+        currentRow[name]=val;
+        currentRow.customerid=this.props.currentAcct;
+      this.props.UpdateHubAccountMORouting(currentRow);
+      }
     }
-    handleDelete(name,val,currentRow){
-      console.log("onOk==",this.currentcnl);
+    handleDelete(currentRow){
+        currentRow.customerid=this.currentAcct;
+      console.log("onOk==",currentRow);
+     this.props.DeleteHubAccountMORouting(currentRow);
     }
     render() {
       var fields = [
@@ -96,6 +102,7 @@ class NestedTable extends React.Component {
 class HubAccountMORouting extends React.Component {
     constructor(props, context) {
         super(props, context);
+        this.currentAcct = this.props.currentAcct;
         this.state = {
           data : this.props.MO_List||[],
           groupByVal: 'countryname',
@@ -113,12 +120,14 @@ class HubAccountMORouting extends React.Component {
     expandComponent(row) {
       console.log("expandComponent==",this.props.smscList);
       return (
-          <NestedTable data={ row.expand } smscList={this.props.smscList}  />
+          <NestedTable data={ row.expand }
+          UpdateHubAccountMORouting={this.props.UpdateHubAccountMORouting.bind(this)}
+          DeleteHubAccountMORouting={this.props.DeleteHubAccountMORouting.bind(this)}
+          smscList={this.props.smscList}  />
       );
     }
 
     render() {
-console.log("MO this.state.data==",this.state.data);
         return (
            <div className="tabs-container">
              <Grid fluid={true}>
@@ -181,8 +190,55 @@ console.log("MO this.state.data==",this.state.data);
     }
 
     componentWillReceiveProps(nextProps) {
+      console.log("componentWillReceiveProps==",nextProps);
+      switch (nextProps.target) {
+        case types.ADD_ACCT_MO_ROUTING_LIST_RESPONSE:
+            if(nextProps.addStatus==true){
+              this.refs.container.success(`MO Routing added successfully.`, ``, {
+                  closeButton: true,
+              });
+                var _data=this.state.data;
+                _data.push(this.MTInfo);
+                this.setState({showContact : false,data:_data});
+            }
+            else if(nextProps.addStatus==false){
+              this.refs.container.error(`Failed to add MO routing.`, ``, {
+                  closeButton: true,
+            });
+            }
+            break;
+            case types.UPDATE_ACCT_MO_ROUTING_LIST_RESPONSE:
+                if(nextProps.updateStatus==true){
+                  this.refs.container.success(`MO routing updated successfully.`, ``, {
+                      closeButton: true,
+                  });
+                }
+                else if(nextProps.updateStatus==false){
+                  this.refs.container.error(`Failed to update MO routing.`, ``, {
+                      closeButton: true,
+                });
+                }
+                break;
+                case types.DELETE_ACCT_MO_ROUTING_LIST_RESPONSE:
+                    if(nextProps.deleteStatus==true){
+                      this.refs.container.success(`MO routing deleted successfully.`, ``, {
+                          closeButton: true,
+                      });
 
-    }
+                        // for(var i=0;i<this.state.data.length;i++){
+                        //   if(this.state.data[i].countryid==this.currentCountryId){
+                        //     this.state.data.splice(i, 1);
+                        //   }
+                        // }
+                    }
+                    else if(nextProps.deleteStatus==false){
+                      this.refs.container.error(`Failed to delete MO routing.`, ``, {
+                          closeButton: true,
+                    });
+                    }
+                    break;
+          }
+        }
 
     close() {
       this.setState({ showAddDedicated: false, showAddParsed: false});

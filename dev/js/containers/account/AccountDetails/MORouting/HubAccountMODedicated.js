@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import * as types from './../../../common/commonActionTypes';
 import {initializeSelectOptions} from './../../../common/Functions/commonFunctions';
 import {TPDACRITERIA} from './../../../common/commonActionTypes';
-import {AddHubAccountMORouting} from './../../actions/accountTPOAActions';
+import {AddHubAccountMORouting} from './../../actions/accountMORoutingActions';
 class HubAccountMODedicated extends React.Component {
   constructor(props, context) {
       super(props, context);
@@ -22,19 +22,15 @@ class HubAccountMODedicated extends React.Component {
       console.log("name==",e.target.name);
       console.log("value==",e.target.value);
     var info = this.state.dedicatedMO;
-
-    if(e.target.type=="select-one"){
-      info[e.target.name]= e.target.selectedOptions[0].text;
-    }
-    else{
       info[e.target.name] = e.target.value;
-    }
     info.customerid=this.props.currentAcct;
+    info.sharedshortcodeflag=0;
     this.setState({dedicatedMO : info});
   }
 
   addRouting(){
-    console.log(this.state.dedicatedMO);
+    console.log("addRouting==",this.state.dedicatedMO);
+    this.props.AddHubAccountMORouting(this.state.dedicatedMO);
     this.props.close(this.state.dedicatedMO);
     this.setState({dedicatedMO : []});
   }
@@ -75,8 +71,8 @@ class HubAccountMODedicated extends React.Component {
                     <Col md={ 6 }>
                       <FormControl
                          type="text"
-                         name="serviceNo"
-                         value={this.state.dedicatedMO.serviceNo || ''}
+                         name="servicenumber"
+                         value={this.state.dedicatedMO.servicenumber || ''}
                          onChange={this.handleChange.bind(this)}
                          placeholder="Enter Service Number.." />
                     </Col>
@@ -89,8 +85,8 @@ class HubAccountMODedicated extends React.Component {
                     <Col md={ 6 }>
                       <FormControl
                          type="text"
-                         name="returnTPDA"
-                         value={this.state.dedicatedMO.returnTPDA || ''}
+                         name="returnedtpda"
+                         value={this.state.dedicatedMO.returnedtpda || ''}
                          onChange={this.handleChange.bind(this)}
                          placeholder="Enter Returned TPDA.." />
                     </Col>
@@ -102,8 +98,8 @@ class HubAccountMODedicated extends React.Component {
                   </Col>
                   <Col md={ 6 }>
                     <FormControl componentClass="select"
-                      name="criteria"
-                      value={this.state.dedicatedMO.criteria}
+                      name="comparisoncriteria"
+                      value={this.state.dedicatedMO.comparisoncriteria}
                       onChange={this.handleChange.bind(this)}>
                       <option value="select" disabled selected>Please select...</option>
                       {this.TpdaCriteria}
@@ -124,9 +120,9 @@ class HubAccountMODedicated extends React.Component {
   }
   componentWillMount( ) {
     // console.log("tppoa model componentWillReceiveProps==",nextProps);
-    this.smscList = initializeSelectOptions(this.props.smscList,'smscname','smscid');
+    this.smscList = initializeSelectOptions(this.props.smscList,'smscname','smscname');
       console.log("this.smscList==",this.smscList);
-    this.TpdaCriteria = initializeSelectOptions(TPDACRITERIA,'tpdacriterianame','tpdacriteriaid');
+    this.TpdaCriteria = initializeSelectOptions(TPDACRITERIA,'comparisoncriteria','comparisoncriteria');
     console.log("this.TpdaCriteria==",this.TpdaCriteria);
   }
 }
