@@ -13,6 +13,7 @@ import InfoGeneralMOSetting from './InfoGeneralMOSetting';
 import InfoGeneralDeliveryTime from './InfoGeneralDeliveryTime';
 import InfoGeneralAddCNL from './InfoGeneralAddCNL';
 import InfoGeneralAddIP from './InfoGeneralAddIP';
+import InfoGeneralEmail from './InfoGeneralEmail';
 // import {getList} from './../../../common/commonActions';
 require('./../../../../../scss/style.scss');
 require('./../../../../../scss/tabs.scss');
@@ -33,7 +34,8 @@ class HubAccountGeneral extends React.Component {
             mtSetting : false,
             IPAddress : false,
             moSetting : false,
-            deliveryTime : false
+            deliveryTime : false,
+            email : false
           }
         };
 
@@ -216,6 +218,22 @@ class HubAccountGeneral extends React.Component {
                 </Col>
               </Row>
 
+              <Row className="show-grid">
+                <Col md={ 12 }>
+                  <div className="rec_tab" onClick={this.handleButtonClick.bind(this, types.INFO_EMAIL)} >
+                    <span className={this.state.openStatus.email ? "nav-up-icon" : "nav-down-icon"}>
+                      Email
+                    </span>
+                  </div>
+                  <Collapse in={this.state.openStatus.email}>
+                    <div>
+                      <Well>
+                          {this.state.openStatus.email &&  <InfoGeneralEmail currentAcct={this.props.currentAcct}/> }
+                      </Well>
+                    </div>
+                  </Collapse>
+                </Col>
+              </Row>
             </Grid>
 
           </div>
@@ -254,6 +272,9 @@ class HubAccountGeneral extends React.Component {
           break;
         case types.INFO_GENERAL_DELIVERY:
           updatedOpenStatus.deliveryTime = !this.state.openStatus.deliveryTime;
+          break;
+        case types.INFO_EMAIL:
+          updatedOpenStatus.email = !this.state.openStatus.email;
           break;
       }
       this.setState({openStatus : updatedOpenStatus});
