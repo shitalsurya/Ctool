@@ -15,10 +15,6 @@ var deliveryTimeInfo = {
 	endtimeid : 1
 }
 
-
-
-
-
 export function getHubAccountBasicInfo(currentAcct) {
 	return function (dispatch,getState) {
     dispatch(getHubAccountBasicInfoRequest());
@@ -101,6 +97,22 @@ export function getHubAccountTechnicalInfoResponse(data) {
 		 payload: techInfo
   }
 }
+export function getHubAccountEmailInfo(currentAcct) {
+	return function (dispatch,getState) {
+		dispatch(getHubAccountEmailInfoResponse());
+	}
+}
+export function getHubAccountEmailInfoRequest() {
+  return {
+    type: types.GET_ACCT_GENERAL_EMAIL_INFO_REQUEST
+  }
+}
+export function getHubAccountEmailInfoResponse(data) {
+  return {
+    type: types.GET_ACCT_GENERAL_EMAIL_INFO_RESPONSE,
+		 payload: emailInfo
+  }
+}
 
 export function updateHubAccountTechnicalInfo(techInfo) {
 	return function (dispatch,getState) {
@@ -116,6 +128,23 @@ export function updateHubAccountTechnicalInfoResponse(data) {
 	return {
 		type: types.UPDATE_ACCT_GENERAL_TECH_INFO_RESPONSE,
 		 payload: techInfo
+	}
+}
+
+export function updateHubAccountEmailInfo(emailInfo) {
+	return function (dispatch,getState) {
+		dispatch(updateHubAccountEmailInfoResponse());
+	}
+}
+export function updateHubAccountEmailInfoRequest() {
+	return {
+		type: types.UPDATE_ACCT_GENERAL_EMAIL_INFO_REQUEST
+	}
+}
+export function updateHubAccountEmailInfoResponse(data) {
+	return {
+		type: types.UPDATE_ACCT_GENERAL_EMAIL_INFO_RESPONSE,
+		 payload: emailInfo
 	}
 }
 

@@ -2,6 +2,32 @@ import * as types from './../../common/commonActionTypes';
 import axios from 'axios';
 import * as config from '../../../containers/common/config';
 import {httpRequest} from '../../../containers/common/commonAjaxActions';
+// var list =  {
+// 	status:200,
+// 	data: [
+//    {
+//
+//       "comparisoncriteria":"string",
+//       "customerid":0,
+//       "keyword":"string",
+//       "keywordcomparisoncriteria":0,
+//       "returnedtpda":"string",
+//       "servicenumber":"string",
+//       "smscname":"smsc1",
+//       "targetfield":"string"
+//    },
+//    {
+//       "comparisoncriteria":"string",
+//       "customerid":0,
+//       "keyword":"string",
+//       "keywordcomparisoncriteria":0,
+//       "returnedtpda":"string",
+//       "servicenumber":"string",
+//       "smscname":"smsc2k",
+//       "targetfield":"string"
+//    }
+// ]
+// }
 			export function getHubAcctMORoutingList(currentAcct) {
 				return function (dispatch,getState) {
 			    dispatch(getHubAcctMORoutingListRequest());
@@ -25,7 +51,32 @@ import {httpRequest} from '../../../containers/common/commonAjaxActions';
 							 payload: response
 						}
 					}
-					export function AddHubAccountMORouting(_newMOinfo) {
+
+					export function getHubAcctMORoutingTableList(currentAcct) {
+						return function (dispatch,getState) {
+					    dispatch(getHubAcctMORoutingTableListRequest());
+							var request = {
+								url:config.getUrl('hub_accounts')+'/mo/routing/'+currentAcct,
+								method:'GET',
+								successCallback:getHubAcctMORoutingTableListResponse,
+								failureCallback:getHubAcctMORoutingTableListResponse
+							};
+					    return httpRequest(dispatch,getState,request);
+						}
+					}
+					export function getHubAcctMORoutingTableListRequest() {
+							return {
+								type: types.GET_ACCT_MO_ROUTING_TABLE_LIST_REQUEST
+							}
+						}
+						export function getHubAcctMORoutingTableListResponse(response) {
+								return {
+									type: types.GET_ACCT_MO_ROUTING_TABLE_LIST_RESPONSE,
+									 payload: response//list
+								}
+							}
+
+				export function AddHubAccountMORouting(_newMOinfo) {
 							return function (dispatch,getState) {
 								dispatch(AddHubAccountMORoutingRequest());
 								var request = {

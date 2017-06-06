@@ -126,6 +126,7 @@ export default function(state = {
         case types.DELETE_ACCT_MT_ROUTING_LIST_REQUEST:
         case types.GET_ACCT_MO_ROUTING_LIST_REQUEST:
         case types.ADD_ACCT_MO_ROUTING_LIST_REQUEST:
+        case types.GET_ACCT_MO_ROUTING_TABLE_LIST_REQUEST:
         case types.UPDATE_ACCT_MO_ROUTING_LIST_REQUEST:
         case types.DELETE_ACCT_MO_ROUTING_LIST_REQUEST:
             return Object.assign({}, state, {});
@@ -142,6 +143,8 @@ export default function(state = {
         case types.UPDATE_ACCT_MGR_REQUEST:
         case types.GET_ACCT_GENERAL_TECH_INFO_REQUEST:
             return Object.assign({}, state, {});
+        case types.GET_ACCT_GENERAL_EMAIL_INFO_REQUEST:
+              return Object.assign({}, state, {});
         case types.UPDATE_ACCT_MGR_RESPONSE:
             console.log("UPDATE_ACCT_MGR_RESPONSE==", action.payload);
             if (action.payload.status == 200) {
@@ -162,6 +165,12 @@ export default function(state = {
             return Object.assign({}, state, {
                 infoGenTech: action.payload,
                 target: action.type
+            });
+        case types.GET_ACCT_GENERAL_EMAIL_INFO_RESPONSE:
+            console.log("GET_ACCT_GENERAL_EMAIL_INFO_RESPONSE==", action.payload);
+            return Object.assign({}, state, {
+              infoGenEmail: action.payload,
+              target : action.type
             });
         case types.GET_ACCT_GENERAL_VOL_INFO_REQUEST:
             return Object.assign({}, state, {});
@@ -245,6 +254,19 @@ export default function(state = {
                     } else {
                         return Object.assign({}, state, {
                             MO_List: [],
+                            target: action.type
+                        });
+                    }
+                    case types.GET_ACCT_MO_ROUTING_TABLE_LIST_RESPONSE:
+                    console.log("GET_ACCT_MO_ROUTING_LIST_RESPONSE==", action.payload);
+                    if (action.payload.status == 200) {
+                        return Object.assign({}, state, {
+                            MO_TABLE_List: formatMOData(action.payload.data),
+                            target: action.type
+                        });
+                    } else {
+                        return Object.assign({}, state, {
+                            MO_TABLE_List: [],
                             target: action.type
                         });
                     }
@@ -413,6 +435,7 @@ export default function(state = {
                 _infoGenTech = {},
   _infoGenMTSettings = {},
   _infoGenMOSettings = {},
+  _infoGenEmail = {},
   _defaultTPOA="";
             if (action.payload.status == 200) {
               var _data = {
@@ -455,7 +478,21 @@ export default function(state = {
   "accountManagerId": 999999999999999,
   "accountManagerName": "Cyril Maillard",
   "extranetAddress": null,
-  "connectionPort": null
+  "connectionPort": null,
+  "customerid": 32051,
+  "customerlogin": "kira1215851",
+  "customerpassword": "DfDUC59x",
+  "emailprovider": "EASYLINK",
+  "senderemaildomain": null,
+  "replytoemaildomain": null,
+  "sendercheckoption": "emaildomain",
+  "replytocheckoption": "emailaddress",
+  "defaultuser": "kira1215851",
+  "defaultpassword": "dfwer3rrwdewr3fsda",
+  "emailproviderurl": "https://eunotify.cloud.opentext.eu/hve",
+  "senderaccountmapping": " ",
+  "scheduleenableflag": 1,
+  "updatedate": "09 May 2017 07:48:54 AM"
 };
                 var _data = action.payload.data;
                 //Commercial Information
@@ -502,6 +539,22 @@ export default function(state = {
                     	_infoGenMOSettings.pathOut = _data.moSpoolpathOut;
                     	_infoGenMOSettings.disTxtBdy = _data.disableMoExtranet;
                       _defaultTPOA=_data.defaulttpoa;
+
+                      //gmail Settings
+                      _infoGenEmail.interfacetype = _data.interfacetype;
+                      _infoGenEmail.url = _data.url;
+                      _infoGenEmail.customerlogin = _data.customerlogin;
+                      _infoGenEmail.customerpassword = _data.customerpassword;
+                      _infoGenEmail.encode_base = _data.encode_base;
+                      _infoGenEmail.emailprovider = _data.emailprovider;
+                      _infoGenEmail.senderemaildomain = _data.senderemaildomain;
+                      _infoGenEmail.replytoemaildomain = _data.replytoemaildomain;
+                      _infoGenEmail.sendercheckoption = _data.sendercheckoption;
+                      _infoGenEmail.replytocheckoption = _data.replytocheckoption;
+                      _infoGenEmail.defaultuser = _data.defaultuser;
+                      _infoGenEmail.defaultpassword = _data.defaultpassword;
+                      _infoGenEmail.emailproviderurl = _data.emailproviderurl;
+                      _infoGenEmail.senderaccountmapping = _data.senderaccountmapping;
                 return Object.assign({}, state, {
                     infoGenComm: _infoGenComm,
                     infoGenSybase: _infoGenSybase,
@@ -509,6 +562,7 @@ export default function(state = {
                     infoGenMTSettings:_infoGenMTSettings,
                     infoGenMOSettings:_infoGenMOSettings,
                     defaultTPOA:_defaultTPOA,
+                    infoGenEmail: _infoGenEmail,
                     target: action.type
                 });
             } else {
