@@ -21,7 +21,7 @@ require('./../../../../scss/style.scss');
 class AccountDetails extends React.Component {
     constructor(props, context) {
         super(props, context);
-        this.currentAcct = this.props.location.state.currentAcct;
+        this.currentAcct = {};//this.props.location.state.currentAcct;
         console.log("this.currentAcct==",this.currentAcct);
           this.state={
             key:1,

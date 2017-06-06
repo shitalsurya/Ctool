@@ -5,24 +5,30 @@ import { Tabs,  TabLink, TabContent } from 'react-tabs-redux';
 import { Form, FormGroup, Col, Row, FormControl, ControlLabel, Grid,ButtonGroup,Button } from 'react-bootstrap';
 import Select from 'react-select';
 import InlineEdit from './../../../common/components/InlineEdit';
-
 require('./../../../../../scss/tabs.scss');
 require('./../../../../../scss/style.scss');
-import {SERVICE_LEVEL,LEGAL_STATUS} from './../../../common/commonActionTypes';
+import Toggle from 'react-toggle';
 import { initializeSelectOptions } from './../../../common/Functions/commonFunctions';
-import { updateHubAccountCommercialInfo } from './../../actions/accountGeneralActions';
+import { updateHubAccountEmailInfo } from './../../actions/accountGeneralActions';
 
 class InfoGeneralEmail extends React.Component {
     constructor(props, context) {
+
         super(props, context);
 
         this.state={
-          emailInfoObj : [
-
-          ]
+          emailInfoObj : this.props.infoGenEmail||{},
+            scheduleenableflag: "Yes"
                 }
     }
 
+    toggleOnChange(name,value){
+      console.log("value==",value);
+        var _scheduleenableflag = value=="Yes"?"Yes":"No";
+       this.setState({scheduleenableflag : __scheduleenableflag  });
+       this.name=value;
+       console.log("this.name==",this.name);
+    }
     handleInlineEditChange(name,val){
       console.log("name : ",name, "  val : ",val);
       var info = this.state.emailInfoObj;
@@ -30,13 +36,14 @@ class InfoGeneralEmail extends React.Component {
       if(info[name]!==val){
         info[name]=val;
         this.setState({emailInfoObj : info},function(){
-          console.log("update comm details==",this.state.emailInfoObj);
-          this.props.updateHubAccountCommercialInfo(this.state.emailInfoObj);
+          console.log("update email details==",this.state.emailInfoObj);
+          this.props.updateHubAccountEmailInfo(this.state.emailInfoObj);
         });
       }
     }
 
     render() {
+      debugger;
         return (
           <div >
             <Grid fluid={true} className="inner_grid">
@@ -77,8 +84,8 @@ class InfoGeneralEmail extends React.Component {
                   <FormControl
                     className="info_label"
                     type="text"
-                    name="suspended"
-                    value={this.state.emailInfoObj.login} />
+                    name="customerlogin"
+                    value={this.state.emailInfoObj.customerlogin} />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -89,9 +96,9 @@ class InfoGeneralEmail extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                 <InlineEdit
-                  name="password"
+                  name="customerpassword"
                   type="text"
-                  value={this.state.emailInfoObj.password}
+                  value={this.state.emailInfoObj.customerpassword}
                   onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
@@ -120,7 +127,7 @@ class InfoGeneralEmail extends React.Component {
                   name="emailprovider"
                   type="select"
                 //  options={EMAILPROVIDER}
-                  optionsLabel="password"
+                  optionsLabel="emailprovider"
                   value={this.state.emailInfoObj.emailprovider}
                   onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
@@ -133,9 +140,9 @@ class InfoGeneralEmail extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                 <InlineEdit
-                  name="senderdomain"
+                  name="senderemaildomain"
                   type="text"
-                  value={this.state.emailInfoObj.senderdomain}
+                  value={this.state.emailInfoObj.senderemaildomain}
                   onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
@@ -147,9 +154,9 @@ class InfoGeneralEmail extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                 <InlineEdit
-                  name="replydomain"
+                  name="replytoemaildomain"
                   type="text"
-                  value={this.state.emailInfoObj.replydomain}
+                  value={this.state.emailInfoObj.replytoemaildomain}
                   onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
@@ -161,11 +168,11 @@ class InfoGeneralEmail extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                 <InlineEdit
-                  name="senderoptions"
+                  name="sendercheckoption"
                   type="select"
                 //  options={SENDEROPTIONS}
-                  optionsLabel="senderoptions"
-                  value={this.state.emailInfoObj.senderoptions}
+                  optionsLabel="sendercheckoption"
+                  value={this.state.emailInfoObj.sendercheckoption}
                   onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
@@ -177,11 +184,11 @@ class InfoGeneralEmail extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                 <InlineEdit
-                  name="replyoptions"
+                  name="replytocheckoption"
                   type="select"
                 //  options={REPLYOPTION}
-                  optionsLabel="replyoptions"
-                  value={this.state.emailInfoObj.replyoptions}
+                  optionsLabel="replytocheckoption"
+                  value={this.state.emailInfoObj.replytocheckoption}
                   onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
@@ -239,9 +246,9 @@ class InfoGeneralEmail extends React.Component {
                 </Col>
                 <Col md={ 8 }>
                 <InlineEdit
-                  name="account_mapping"
+                  name="senderaccountmapping"
                   type="text"
-                  value={this.state.emailInfoObj.account_mapping}
+                  value={this.state.emailInfoObj.senderaccountmapping}
                   onSave={this.handleInlineEditChange.bind(this)}  />
                 </Col>
                 <Col mdHidden md={ 2 }/>
@@ -252,7 +259,15 @@ class InfoGeneralEmail extends React.Component {
                   Schedule Enabled :
                 </Col>
                 <Col md={ 8 }>
-                  //toggle
+                <Toggle
+                  name="scheduleenableflag"
+                  icons={{
+                     checked: 'Yes',
+                     unchecked: 'No',
+                  }}
+                  defaultChecked={this.state.scheduleenableflag == "Yes" ? true : false}
+                  value={this.state.scheduleenableflag}
+                  onChange={this.toggleOnChange.bind(this)} />
                 </Col>
                 <Col mdHidden md={ 2 }/>
               </Row>
@@ -264,19 +279,19 @@ class InfoGeneralEmail extends React.Component {
           </div>
         )
     }
-
 }
 
 function mapStateToProps(state) {
+  debugger;
     return {
-    //  infoGenComm:state.Account.infoGenComm
+      infoGenEmail : state.Account.infoGenEmail
 
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-  //    updateHubAccountCommercialInfo:updateHubAccountCommercialInfo
+      updateHubAccountEmailInfo:updateHubAccountEmailInfo
    }, dispatch);
 }
 

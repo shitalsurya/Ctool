@@ -184,8 +184,7 @@ class HubAccountMORouting extends React.Component {
                <AddParsedMORouting currentAcct={this.currentAcct} showAdd={this.state.showAddParsed} close={this.close.bind(this)}/>
              }
 
-             <HubaccountMORoutingtable>
-             </HubaccountMORoutingtable>
+            <HubaccountMORoutingtable/>
 
            </div>
         )

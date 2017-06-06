@@ -12,7 +12,7 @@ import {getHubAccountDelvTimeInfo, getHubAccountCNL,getHubAccountContacts} from 
 import {getHubAcctDefaultTPOA,getHubAcctForcedTPOAList} from '../account/actions/accountTPOAActions';
 import {getHubAcctMTRoutingList} from '../account/actions/accountMTRoutingActions';
 import {getHubAcctMORoutingList} from '../account/actions/accountMORoutingActions';
-
+import {getHubAcctMORoutingTableList} from '../account/actions/accountMORoutingActions';
 // var VOL_TYPE = [
 // 	{ "volTypeid": 1, "volTypename":"None"},
 // 	{ "volTypeid": 2, "volTypename":"Daily"},
@@ -61,6 +61,7 @@ export function getList(category,currentAcct) {
          dispatch(getHubAcctForcedTPOAList(currentAcct))
          dispatch(getHubAcctMORoutingList(currentAcct))
          dispatch(getHubAcctMTRoutingList(currentAcct))
+         dispatch(getHubAcctMORoutingTableList(currentAcct))
 
 					break;
 		}

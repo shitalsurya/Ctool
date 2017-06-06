@@ -29,31 +29,31 @@ class NestedTable extends React.Component {
       var fields = [
         {
             name:'SMSC',
-            dataField:'smsc',
+            dataField:'smscname',
             type:'text',
             width:'300px'
         },
         {
             name:'Return TPDA',
-            dataField:'returnTPDA',
+            dataField:'returnedtpda',
             type:'text',
             width: '150px'
         },
         {
             name:'Service Number',
-            dataField:'serviceNo',
+            dataField:'servicenumber',
             type:'text',
             width: '150px'
         },
         {
             name:'Criteria',
-            dataField:'criteria',
+            dataField:'comparisoncriteria',
             type:'text',
             width:'150px'
         },
         {
             name:'Default Account',
-            dataField:'defaultAcc',
+            dataField:'customerid',
             type:'fixedtext',
             width: '150px'
         },
@@ -65,13 +65,13 @@ class NestedTable extends React.Component {
         },
         {
           name:'Parsed Criteria',
-          dataField:'parsedCriteria',
+          dataField:'keywordcomparisoncriteria',
           type:'fixedtext',
           width: '150px'
         },
         {
           name:'Parsed Field',
-          dataField:'parsedField',
+          dataField:'targetfield',
           type:'fixedtext',
           width: '150px'
         },
@@ -115,27 +115,11 @@ class NestedTable extends React.Component {
 
 class HubaccountMORoutingtable extends React.Component {
     constructor(props, context) {
+      debugger;
         super(props, context);
+        this.currentAcct = this.props.currentAcct;
         this.state = {
-          data : [
-            {
-              "countryId":"1",
-              "country":"Australia",
-              "expand": [
-                {
-                  "smsc" : 'A1-MOBILKOM 436644967491',
-                  "serviceNo" : '1515',
-                  "criteria" : 'BEGIN_BY',
-                  "returnTPDA" : '1515',
-                  "defaultAcc" : 'UNKNOWN_RS',
-                  "keyword" : '789',
-                  "parsedCriteria" : 'BEGIN_BY',
-                  "parsedField" : 'TEXT7B'
-
-                }
-              ]
-            }
-          ],
+          data : this.props.MO_TABLE_List||[],
           groupBy:  {"label": "country", "value":"country"},
           groupById:'countryId',
           showAddDedicated : false,
@@ -155,7 +139,7 @@ class HubaccountMORoutingtable extends React.Component {
     }
 
     render() {
-
+      debugger;
         return (
            <div>
              <Grid fluid={true}>
@@ -179,13 +163,19 @@ class HubaccountMORoutingtable extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+      console.log("componentWillReceiveProps==",nextProps);
 
     }
 
 }
 
 function mapStateToProps(state) {
-    return { };
+debugger;
+    return {
+
+      MO_TABLE_List:state.Account.MO_TABLE_List,
+      smscList:state.Common.smscList
+    };
 }
 
 function mapDispatchToProps(dispatch) {
